@@ -13,6 +13,10 @@ import { CompanyNewsComponent } from './company-news/company-news.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports:[
+    TeamChatComponent,
+    CompanyNewsComponent
   ]
 })
 export class CommunicationsModule { }

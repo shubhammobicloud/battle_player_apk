@@ -14,6 +14,7 @@ import { PagesComponent } from './pages.component';
 import { MenuComponent } from './menu/menu.component';
 import { PageMaterialModule } from './modules/material/page-material.module';
 import { RankingModule } from './component/ranking/ranking.module';
+import { CommunicationsModule } from './component/communications/communications.module';
 @NgModule({
   declarations: [
     GetStartedComponent,PagesComponent,
@@ -26,7 +27,7 @@ import { RankingModule } from './component/ranking/ranking.module';
     TeamDetailsComponent
   ],
   imports: [
-    CommonModule,RouterModule,PageMaterialModule,RankingModule,
+    CommonModule,RouterModule,PageMaterialModule,RankingModule,CommunicationsModule,
     PageRoutingModule
   ]
 })

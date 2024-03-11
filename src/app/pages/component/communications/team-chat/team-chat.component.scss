@@ -1,0 +1,18 @@
+.inputContainer {
+  position: fixed;
+  bottom: 65px;
+  left: 0;
+  width: 100%;
+  margin: 10px;
+  input {
+    width: 75%;
+    padding: 8px;
+    border: 1px solid #3f3434;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  button{
+    padding: 6px;
+    margin: 10px;
+  }
+}

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./communications.component.scss']
 })
 export class CommunicationsComponent {
-
+  showTeamChat=true
 }

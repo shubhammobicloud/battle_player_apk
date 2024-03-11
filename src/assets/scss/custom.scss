@@ -1,0 +1,17 @@
+// Import Angular Material as 'mat'
+@use '@angular/material' as mat;
+
+// Define base red palette (using built-in mat.$red-palette)
+$my-red-palette: mat.define-palette(mat.$red-palette, 500);
+
+// Define custom red shades:
+$my-primary: mat.define-palette($my-red-palette, 700); // Darker
+$my-accent:  mat.define-palette($my-red-palette, 400); // Lighter
+$my-warn:    mat.define-palette($my-red-palette, 900); // Darkest
+
+// Create a light theme using defined colors
+$theme: mat.define-light-theme($my-primary, $my-accent, $my-warn);
+
+// Apply the theme to Angular Material components
+@include angular-material-theme($theme);
+

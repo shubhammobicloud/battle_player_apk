@@ -1,0 +1,35 @@
+<div class="main-container">
+  <div class="score-board-container" #selectImage id="myDiv">
+    <div class="main-content">
+      <div class="team">
+        <p>{{ teamAName }}</p>
+        <img [src]="teamBImage" alt="Center Logo">
+      </div>
+      <div class="center-logo">
+        <img [src]="centerLogo" alt="Center Logo">
+      </div>
+      <div class="team">
+        <p>{{ teamBName }}</p>
+        <img [src]="teamBImage" alt="Center Logo">
+      </div>
+    </div>
+
+    <div class="dynamic-image">
+      <img src="../../assets/ground.jpg" alt="Dynamic Image">
+    </div>
+
+    <div class="score-bar">
+      <div class="progress-bar-container">
+        <mat-progress-bar mode="determinate" [value]="teamAScore" ></mat-progress-bar>
+        <p>{{ teamAScore }}%</p>
+      </div>
+
+      <div class="progress-bar-container">
+        <mat-progress-bar mode="determinate" [value]="teamBScore" ></mat-progress-bar>
+        <p>{{ teamBScore }}%</p>
+      </div>
+    </div>
+  </div>
+  <button mat-raised-button (click)="share()"> <mat-icon>share</mat-icon> Share</button>
+
+</div>

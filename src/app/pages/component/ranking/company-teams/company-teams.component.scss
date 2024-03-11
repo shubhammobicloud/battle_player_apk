@@ -1,0 +1,37 @@
+.container-table{
+  max-height: 22rem;
+  overflow-y: scroll;
+.player-list {
+  width: 100%; /* Ensures list fits screen width */
+  list-style: none; /* Removes default bullet points */
+  padding: 0; /* Removes default padding */
+  margin: 0; /* Removes default margin */
+}
+
+.player-list li {
+  display: flex; /* Arranges player name and score horizontally */
+  justify-content: space-between; /* Distributes content evenly */
+  align-items: center; /* Vertically aligns name and score */
+  padding: 10px 30px; /* Adds some padding for readability */
+  border-bottom: 1px solid #ff2929; /* Adds a separator line */
+  // border: 2px solid red;
+  span{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    mat-icon{
+      width: 1rem;
+      height: 1rem;
+      font-size: 1rem;
+    }
+  }
+  &:first-child{
+    border: 3px solid red;
+  }
+}
+
+.score {
+  font-weight: bold; /* Emphasizes score */
+}
+
+}

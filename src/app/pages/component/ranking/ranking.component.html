@@ -1,0 +1,29 @@
+<!-- tabs.component.html -->
+<div class="container">
+  <div class="tabs-container">
+    <button mat-raised-button class="tab-button" (click)="setActiveTab('My Team')" [ngClass]="activeTab=='My Team'?'active':''">My Team</button>
+    <button mat-raised-button class="tab-button" (click)="setActiveTab('Battle Team')" [ngClass]="activeTab=='Battle Team'?'active':''">Battle Team</button>
+    <button mat-raised-button class="tab-button" (click)="setActiveTab('Company Team')" [ngClass]="activeTab=='Company Team'?'active':''">Company Team</button>
+    <button mat-raised-button class="tab-button" (click)="setActiveTab('Company Unit')" [ngClass]="activeTab=='Company Unit'?'active':''">Company Unit</button>
+    <button mat-raised-button class="tab-button" (click)="setActiveTab('Global Company')" [ngClass]="activeTab=='Global Company'?'active':''">Global Company</button>
+  </div>
+  <hr>
+  <div class="tab-content">
+   <div *ngIf="activeTab=='My Team'">
+    <app-team-score></app-team-score>
+   </div>
+   <div *ngIf="activeTab=='Global Company'">
+  <app-global-countries></app-global-countries>
+   </div>
+   <div *ngIf="activeTab=='Company Unit'">
+    <app-company-unit></app-company-unit>
+   </div>
+   <div *ngIf="activeTab=='Company Team'">
+    <app-company-teams></app-company-teams>
+   </div>
+   <div *ngIf="activeTab=='Battle Team'">
+    <app-battle-patner-team></app-battle-patner-team>
+   </div>
+  </div>
+</div>
+

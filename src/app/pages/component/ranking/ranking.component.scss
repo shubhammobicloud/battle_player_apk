@@ -1,0 +1,32 @@
+.container{
+  max-height: 14rem;
+.tabs-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  .tab-button {
+    flex: 1 1 auto;
+    max-width: 30%;
+    margin: 4px;
+    height: 4rem;
+    background-color: #838383b2;
+    color: #200b0b78;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    // &:hover {
+    //   background-color: #ee4340;
+    //   color: white;
+    // }
+  }
+  .active {
+    background-color: #ee4340; /* Active button color */
+    color: white;
+  }
+}
+}
+

@@ -6,7 +6,7 @@
 
   <div class="image-container">
     <label class="hoverable" for="fileInput">
-      <img [src]="url ? url : 'https://www.w3schools.com/howto/img_avatar.png'" />
+      <img [src]="displayedImage" alt="Selected Image" />
       <div class="hover-text">Choose File</div>
       <div class="background"></div>
     </label>
@@ -14,12 +14,11 @@
     <input
       id="fileInput"
       type="file"
-      [(ngModel)]="url"
       class="select-profile-picture"
-      (change)="onSelectFile($event)"
+      (change)="onFileSelected($event)"
     />
     <span class="message">Tap here to select your picture</span>
   </div>
 
-  <button mat-raised-button color="primary"  [routerLink]="'/home'">Continue</button>
+  <button mat-raised-button color="primary" (click)="submit()">Continue</button>
 </div>

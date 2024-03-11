@@ -1,1 +1,24 @@
-<p>team-image works!</p>
+<div class="container-playerImage">
+  <span>
+    <img src="../../assets/sports logo.png" alt="Sports Logo">
+    <img src="../../assets/logo wurth.png" alt="Wurth Logo">
+  </span>
+
+  <div class="image-container">
+    <label class="hoverable" for="fileInput">
+      <img [src]="displayedImage" alt="Selected Image" />
+      <div class="hover-text">Choose File</div>
+      <div class="background"></div>
+    </label>
+    <br />
+    <input
+      id="fileInput"
+      type="file"
+      class="select-profile-picture"
+      (change)="onFileSelected($event)"
+    />
+    <span class="message">Tap here to select team picture</span>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="submit()">Continue</button>
+</div>

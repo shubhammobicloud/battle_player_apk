@@ -14,12 +14,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
+import { SetPasswordComponent } from './set-password/set-password.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PlayerImageComponent,
-    PlayerNameComponent
+    PlayerNameComponent,
+    SetPasswordComponent
   ],
   imports: [
     BrowserModule,RouterModule,PagesModule,HttpClientModule,

@@ -1,6 +1,33 @@
-<div>
-  <div class="inputContainer">
-    <input type="text"/>
-    <button>Send</button>
+<div #chatwrapper class="chatwrapper">
+  <div #chatContainer class="chatContainer" *ngFor="let chat of chats">
+    <div
+      [class.sender]="currentUser(chat.senderId)"
+      [class.textContainer]="!currentUser(chat.senderId)"
+    >
+      <div class="messageContainer">
+        <!-- <mat-icon class="profile">person</mat-icon> -->
+        <img [src]="url + '/images/' + chat.senderId.avatar" class="profile" />
+        <div style="display: flex; flex-direction: column">
+          <span style="font-size: 10px; text-align: left">{{
+            chat.senderId.email
+          }}</span>
+          <textarea
+            [class.message]="!currentUser(chat.senderId)"
+            [class.senderMessage]="currentUser(chat.senderId)"
+            >{{ chat.message }}</textarea
+          >
+          <span style="font-size: 10px; text-align: right">{{
+            chat.time
+          }}</span>
+        </div>
+      </div>
+    </div>
   </div>
+  <h1 style="height: 40px"></h1>
+</div>
+
+<div class="inputContainer">
+  <textarea [(ngModel)]="message" rows="1" placeholder="Enter Message">
+  </textarea>
+  <mat-icon class="sendIcon" (click)="sendMessage()">send</mat-icon>
 </div>

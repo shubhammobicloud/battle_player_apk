@@ -8,9 +8,9 @@
     <h2>Tell Us Your Player Name</h2>
    <mat-form-field appearance="fill">
       <mat-label>Name Your Player</mat-label>
-      <input matInput type="text" placeholder="Player Name">
+      <input matInput [(ngModel)]="userName" type="text" placeholder="Player Name">
     </mat-form-field>
   </div>
 
-  <button mat-raised-button color="primary"  [routerLink]="'/playerimage'">Continue</button>
+  <button mat-raised-button color="primary" (click)="submit()">Continue</button>
 </div>

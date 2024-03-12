@@ -7,7 +7,7 @@ import { ScoreBoardComponent } from './component/score-board/score-board.compone
 import { CommunicationsComponent } from './component/communications/communications.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { TeamDetailsComponent } from './component/team-details/team-details.component';
-import { PageRoutingModule } from './pages-routing.module';
+import { PageRoutingModule } from './modules/routing/pages-routing.module';
 import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { PagesComponent } from './pages.component';

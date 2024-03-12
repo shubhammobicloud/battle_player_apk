@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environment/enviroment';
 
 @Component({
   selector: 'app-player-image',
@@ -6,22 +9,45 @@ import { Component } from '@angular/core';
   styleUrls: ['./player-image.component.scss']
 })
 export class PlayerImageComponent {
+  constructor(private http: HttpClient, private active: ActivatedRoute, private route: Router) {}
 
-  url: any = '';
-  onSelectFile(event:any) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
+  displayedImage: string | ArrayBuffer | null = 'https://www.w3schools.com/howto/img_avatar.png';
+  selectedFile: File | null = null;
 
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-
-      reader.onload = (event:any) => {
-        // called once readAsDataURL is completed
-        this.url = event.target.result;
-        console.log(this.url);
+  onFileSelected(event: any): void {
+    console.log(event);
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.displayedImage = reader.result;
       };
+      this.selectedFile = fileInput.files[0];
+      reader.readAsDataURL(this.selectedFile);
     }
   }
-  public delete() {
-    this.url = null;
+
+  submit() {
+    let _id = this.active.snapshot.params['_id'];
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('avatar', this.selectedFile, this.selectedFile.name);
+
+      this.http.patch(`${environment.baseUrl}playerImageUpdate/${_id}`, formData).subscribe(
+        (res:any) => {
+          console.log('File upload response:', res);
+          if(res.message=='update successfully'){
+            if(res.gameLeader){
+              this.route.navigate(['/','teamImage',res.teamId]);
+            }
+          }
+        },
+        (error) => {
+          console.error('Error uploading file:', error);
+        }
+      );
+    } else {
+      console.error('No file selected.');
+    }
   }
 }

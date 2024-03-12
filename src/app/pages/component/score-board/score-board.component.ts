@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Share } from '@capacitor/share';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import html2canvas from 'html2canvas';
-import { Capacitor } from '@capacitor/core';
-
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss']
 })
-export class ScoreBoardComponent {
+export class ScoreBoardComponent implements OnInit {
   teamAName: string = 'Team A';
   teamBName: string = 'Team B';
   centerLogo: string = '../../assets/sports logo.png';
@@ -18,6 +17,13 @@ export class ScoreBoardComponent {
   dynamicImageUrl: string = 'path_to_dynamic_image.png';
   teamAScore: number = 30;
   teamBScore: number = 60;
+
+constructor(private authService:AuthService){}
+ngOnInit(): void {
+    let id=this.authService.getUserIdFromToken()
+}
+
+
   async share() {
     const divElement = document.getElementById('myDiv');
 

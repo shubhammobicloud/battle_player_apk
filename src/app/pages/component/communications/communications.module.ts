@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TeamChatComponent } from './team-chat/team-chat.component';
 import { CompanyNewsComponent } from './company-news/company-news.component';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -9,10 +11,10 @@ import { CompanyNewsComponent } from './company-news/company-news.component';
   declarations: [
 
     TeamChatComponent,
-     CompanyNewsComponent
+     CompanyNewsComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,MatIconModule,FormsModule
   ],
   exports:[
     TeamChatComponent,

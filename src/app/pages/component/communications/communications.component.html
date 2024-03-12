@@ -1,6 +1,6 @@
 <div class="tabsContainer">
-  <div class="tabs" (click)="showTeamChat = true">Team Chat</div>
-  <div class="tabs" (click)="showTeamChat = false">Company News</div>
+  <div class="tabs" [class.activeTab]="showTeamChat" (click)="showTeamChat = true">Team Chat</div>
+  <div class="tabs" [class.activeTab]="!showTeamChat" (click)="showTeamChat = false">Company News</div>
 </div>
 
 <div class="contentContainer">

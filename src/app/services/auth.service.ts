@@ -7,7 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
   constructor() {}
 
-  getUserIdFromToken(): string | null {
+  getUserIdFromToken(): string | null {              //Get the id from the token saved in localStorage
     const token = localStorage.getItem('token');
     if (token) {
       try {

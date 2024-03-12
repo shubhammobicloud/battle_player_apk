@@ -15,7 +15,7 @@ export class TeamImageComponent {
   displayedImage: string | ArrayBuffer | null = 'https://i.pinimg.com/originals/35/3d/7a/353d7a34da6baa266f4557b8181cb33c.jpg';
   selectedFile: File | null = null;
 
-  onFileSelected(event: any): void {
+  onFileSelected(event: any): void {              // Reads the file that is being uploaded
     console.log(event);
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files) {
@@ -28,7 +28,7 @@ export class TeamImageComponent {
     }
   }
 
-  submit() {
+  submit() {                                                  // upload the selected image..
     let teamId = this.active.snapshot.params['teamId'];
     if (this.selectedFile) {
       const formData = new FormData();
@@ -38,9 +38,7 @@ export class TeamImageComponent {
         (res:any) => {
           console.log('File upload response:', res);
           if(res.message=='Update successful'){
-
               this.route.navigate(['/','home']);
-
           }
         },
         (error) => {

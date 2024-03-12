@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { PagesComponent } from './pages.component';
-import { ScoreBoardComponent } from './component/score-board/score-board.component';
-import { ProfileComponent } from './component/profile/profile.component';
-import { RankingComponent } from './component/ranking/ranking.component';
-import { CommunicationsComponent } from './component/communications/communications.component';
+import { PagesComponent } from '../../pages.component';
+import { ScoreBoardComponent } from '../../component/score-board/score-board.component';
+import { ProfileComponent } from '../../component/profile/profile.component';
+import { RankingComponent } from '../../component/ranking/ranking.component';
+import { CommunicationsComponent } from '../../component/communications/communications.component';
 
 const routes: Routes = [
   {

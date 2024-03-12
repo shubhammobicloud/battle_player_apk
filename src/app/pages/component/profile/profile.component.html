@@ -1,1 +1,34 @@
-<p>profile works!</p>
+<div class="container">
+  <div class="user-profile">
+    <h3 *ngIf="userProfile?.gameLeader">Hello Leader!!</h3>
+    <h2>{{ userProfile?.userName }}</h2>
+    <img
+      [src]="link + '/images/' + userProfile?.avatar"
+      alt="User Avatar"
+      width="100px"
+    />
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [disabled]="!isEditMode" [value]="userProfile?.email" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Company Unit</mat-label>
+      <input
+        matInput
+        [disabled]="!isEditMode"
+        [value]="userProfile?.companyUnit"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Team Name</mat-label>
+      <input
+        matInput
+        [disabled]="true"
+        [value]="teamName"
+      />
+    </mat-form-field>
+    <button mat-raised-button (click)="toggleEditMode()">
+      {{ isEditMode ? "Save" : "Edit Profile" }}
+    </button>
+  </div>
+</div>

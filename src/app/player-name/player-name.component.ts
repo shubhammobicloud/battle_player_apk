@@ -17,7 +17,7 @@ export class PlayerNameComponent {
     if(this.userName){
       console.log(this.userName)
       let data = {
-        avatarName:this.userName
+        userName:this.userName
       }
       this.http.patch(environment.baseUrl+'updatePlayerDetails/'+_id,data).subscribe((res:any)=>{
         console.log(res)

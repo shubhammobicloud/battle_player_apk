@@ -3,7 +3,7 @@
   <div class="tabs" [class.activeTab]="!showTeamChat" (click)="showTeamChat = false">Company News</div>
 </div>
 
-<div class="contentContainer">
+<div >
   <div *ngIf="showTeamChat">
     <app-team-chat></app-team-chat>
   </div>

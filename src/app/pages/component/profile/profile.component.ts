@@ -2,22 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environment/enviroment';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
-import { FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
-// "data": {
-//   "_id": "65eedf006c6e03bb7e4945cd",
-//   "email": "vikrant@mobicloud.co.in",
-//   "password": "$2b$10$66WJ4yGnrq.4Aj6uAbCY6.Shp6/7li89pvK7RcZuJOGpN8Hq0N2VK",
-//   "gameLeader": true,
-//   "teamId": "65eedf006c6e03bb7e4945ca",
-//   "companyUnit": "Region North",
-//   "targetOrSalesRepLC": 12000,
-//   "salesRepNo": 4566,
-//   "firstLogin": true,
-//   "createdAt": "2024-03-11T10:37:52.448Z",
-//   "updatedAt": "2024-03-11T12:30:45.631Z",
-//   "__v": 0,
-//   "avatar": "1710160245627-logo wurth (1).png"
-// },
+import { FormGroup,FormBuilder,Validators } from '@angular/forms';
+
 interface UserProfile {
   email: string;
   userName:string;

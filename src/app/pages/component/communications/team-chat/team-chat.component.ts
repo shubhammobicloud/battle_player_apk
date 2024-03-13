@@ -18,7 +18,7 @@ export class TeamChatComponent implements OnInit, AfterViewInit {
   url: string = `${environment.baseUrl}`;
   id = localStorage.getItem('userID');
   // teamId = '65eedf006c6e03bb7e4945ca';
-  teamId = localStorage.getItem('teamID');
+  teamId = localStorage.getItem('teamId');
   socket: any;
   chats: any;
   message: string = '';

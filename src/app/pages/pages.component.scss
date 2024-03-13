@@ -34,4 +34,5 @@
 .content {
   flex: 1; /* Takes up remaining space */
   overflow-y: auto; /* Enables vertical scrolling */
+  position: relative;
 }

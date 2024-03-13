@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environment/enviroment';
-
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-player-image',
   templateUrl: './player-image.component.html',
   styleUrls: ['./player-image.component.scss']
 })
 export class PlayerImageComponent {
-  constructor(private http: HttpClient, private active: ActivatedRoute, private route: Router) {}
+  constructor(private http: HttpClient, private active: ActivatedRoute, private route: Router, private authService:AuthService) {}
 
   displayedImage: string | ArrayBuffer | null = 'https://www.w3schools.com/howto/img_avatar.png';
   selectedFile: File | null = null;
@@ -38,7 +38,11 @@ export class PlayerImageComponent {
           console.log('File upload response:', res);
           if(res.message=='update successfully'){
             if(res.gameLeader){
+              this.authService.gameLeader=true
               this.route.navigate(['/','teamImage',res.teamId]);
+            }else{
+              this.authService.gameLeader=false
+              this.route.navigate(['/','home']);
             }
           }
         },

@@ -6,18 +6,18 @@
     >
       <div class="messageContainer">
         <!-- <mat-icon class="profile">person</mat-icon> -->
-        <img [src]="url + '/images/' + chat.senderId.avatar" class="profile" />
+        <img [src]="url + '/images/' + chat.senderId?.avatar" class="profile" />
         <div style="display: flex; flex-direction: column">
           <span style="font-size: 10px; text-align: left">{{
-            chat.senderId.email
+            chat.senderId?.userName
           }}</span>
-          <textarea
+          <div
             [class.message]="!currentUser(chat.senderId)"
             [class.senderMessage]="currentUser(chat.senderId)"
-            >{{ chat.message }}</textarea
+            >{{ chat.message }}</div
           >
           <span style="font-size: 10px; text-align: right">{{
-            chat.time
+            chat.time | date:'short'
           }}</span>
         </div>
       </div>
@@ -27,7 +27,7 @@
 </div>
 
 <div class="inputContainer">
-  <textarea [(ngModel)]="message" rows="1" placeholder="Enter Message">
+  <textarea #teamChatTextarea (input)="onInput()" [(ngModel)]="message" rows="1" placeholder="Enter Message">
   </textarea>
   <mat-icon class="sendIcon" (click)="sendMessage()">send</mat-icon>
 </div>

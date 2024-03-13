@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environment/enviroment';
 import { Router } from '@angular/router';
 @Component({
@@ -19,7 +19,8 @@ export class LoginComponent {
 
   login() {
    if(this.loginForm.valid){
-    this.http.post(`${environment.baseUrl}playerLogin`,this.loginForm.value).subscribe((res:any)=>{
+    this.http.post(`${environment.baseUrl}playerLogin`,this.loginForm.value).subscribe(
+      (res:any)=>{
       console.log(res)
       if(res.message=="Login successful"){
         localStorage.setItem("token", res.token)
@@ -29,7 +30,12 @@ export class LoginComponent {
           this.route.navigate(['/home',])
         }
       }
-    })
+    },
+    (error: HttpErrorResponse) => {
+      console.log('error', error.error.error);
+      alert(error.error.error);
+    }
+    )
    }
 
 

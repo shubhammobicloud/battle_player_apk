@@ -58,18 +58,25 @@
   background: #67f367;
   padding: 5px;
   border-radius: 8px;
-  border: 1px solid green;
+  // border: 1px solid green;
+  overflow-wrap: break-word;
+  width: 150px;
+  border: 0.1px solid rgba(219, 112, 147, 0.2);
 }
 
 .profile {
   width: 35px;
   height: 35px;
-  border: 1px solid blue;
+  // border: 1px solid blue;
   border-radius: 50px;
 }
 .message {
   background: #fff4de;
   padding: 5px;
   border-radius: 8px;
-  border: 1px solid green;
+  // border: 1px solid green;
+  overflow-wrap: break-word;
+  width: 150px;
+  border: 0.1px solid rgba(219, 112, 147, 0.2);
+
 }

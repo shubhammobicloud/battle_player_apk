@@ -27,7 +27,7 @@
 </div>
 
 <div class="inputContainer">
-  <textarea [(ngModel)]="message" rows="1" placeholder="Enter Message">
+  <textarea #teamChatTextarea (input)="onInput()" [(ngModel)]="message" rows="1" placeholder="Enter Message">
   </textarea>
   <mat-icon class="sendIcon" (click)="sendMessage()">send</mat-icon>
 </div>

@@ -22,6 +22,8 @@ export class TeamChatComponent implements OnInit, AfterViewInit {
   socket: any;
   chats: any;
   message: string = '';
+  @ViewChild('teamChatTextarea') teamChatTextarea!: ElementRef;
+
   constructor(private http: HttpClient) {}
 
   @ViewChild('chatContainer', { static: true }) container:
@@ -178,6 +180,11 @@ export class TeamChatComponent implements OnInit, AfterViewInit {
       this.socket.emit('newTeamChat', data);
       this.chats.push(selfMessage);
       this.message = '';
+
+    } else {
+      if (this.teamChatTextarea) {
+        this.teamChatTextarea.nativeElement.style.border = '2px solid red';
+      }
     }
   }
 
@@ -193,5 +200,9 @@ export class TeamChatComponent implements OnInit, AfterViewInit {
       this.container.nativeElement.scrollTop =
         this.container.nativeElement.scrollHeight;
     }
+  }
+
+  onInput() {
+    this.teamChatTextarea.nativeElement.style.border = '';
   }
 }

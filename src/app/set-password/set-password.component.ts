@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environment/enviroment';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-set-password',
   templateUrl: './set-password.component.html',
@@ -12,7 +12,7 @@ export class SetPasswordComponent {
   password: string = '';
   confirmPassword: string = '';
   passwordMismatchError: string = ''; // New variable to hold password mismatch error message
-  constructor(private http:HttpClient,private router:ActivatedRoute,private route:Router){
+  constructor(private http:HttpClient,private router:ActivatedRoute,private route:Router,private toastr:ToastrService){
 
   }
   setPassword(): void {
@@ -24,7 +24,7 @@ export class SetPasswordComponent {
 
       if (this.password !== this.confirmPassword) {
        this.passwordMismatchError = 'Passwords do not match. Please try again.';
-       alert(this.passwordMismatchError)
+        this.toastr.error(this.passwordMismatchError)
        return;
      } else {
        this.passwordMismatchError = '';
@@ -34,12 +34,11 @@ export class SetPasswordComponent {
        _id:_id,
        firstLogin:true
    }
-     console.log('Password set successfully');
      this.http.patch(environment.baseUrl+'playerUpdatePassword/',data).subscribe(
        (response:any) => {
          console.log('API Response:', response);
          if(response.message=="password updated successfully..."){
-          alert("Password set successful");
+          this.toastr.success('Password set successful')
            this.route.navigate(['/','playername',_id])
          }
 

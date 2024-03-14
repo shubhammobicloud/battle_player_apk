@@ -27,7 +27,7 @@ $custom-theme: mat.define-light-theme((
 // Import Angular Material theming
 @import '@angular/material/theming';
 
-
+@import 'ngx-toastr/toastr';
 // Import custom font
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
 

@@ -3,15 +3,23 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environment/enviroment';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-player-image',
   templateUrl: './player-image.component.html',
-  styleUrls: ['./player-image.component.scss']
+  styleUrls: ['./player-image.component.scss'],
 })
 export class PlayerImageComponent {
-  constructor(private http: HttpClient, private active: ActivatedRoute, private route: Router, private authService:AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private active: ActivatedRoute,
+    private route: Router,
+    private authService: AuthService,
+    private toastr:ToastrService
+  ) {}
 
-  displayedImage: string | ArrayBuffer | null = 'https://www.w3schools.com/howto/img_avatar.png';
+  displayedImage: string | ArrayBuffer | null =
+    'https://www.w3schools.com/howto/img_avatar.png';
   selectedFile: File | null = null;
 
   onFileSelected(event: any): void {
@@ -33,23 +41,32 @@ export class PlayerImageComponent {
       const formData = new FormData();
       formData.append('avatar', this.selectedFile, this.selectedFile.name);
 
-      this.http.patch(`${environment.baseUrl}playerImageUpdate/${_id}`, formData).subscribe(
-        (res:any) => {
-          console.log('File upload response:', res);
-          if(res.message=='update successfully'){
-            if(res.gameLeader){
-              this.authService.gameLeader=true
-              this.route.navigate(['/','teamImage',res.teamId]);
-            }else{
-              this.authService.gameLeader=false
-              this.route.navigate(['/','home']);
+      this.http
+        .patch(`${environment.baseUrl}playerImageUpdate/${_id}`, formData)
+        .subscribe(
+          (res: any) => {
+            console.log('File upload response:', res);
+            if (res.message == 'update successfully') {
+              this.toastr.success('Profile Image Updated Successfully!');
+              if (res.gameLeader) {
+                this.authService.gameLeader = true;
+                this.route.navigate(['/', 'teamImage', res.teamId]);
+                let teamId = localStorage.getItem('teamId');
+                this.http
+                  .get(environment.baseUrl + 'sendMailToPlayer/' + teamId)
+                  .subscribe((res) => {
+                    console.log(res);
+                  });
+              } else {
+                this.authService.gameLeader = false;
+                this.route.navigate(['/', 'home']);
+              }
             }
+          },
+          (error) => {
+            console.error('Error uploading file:', error);
           }
-        },
-        (error) => {
-          console.error('Error uploading file:', error);
-        }
-      );
+        );
     } else {
       console.error('No file selected.');
     }

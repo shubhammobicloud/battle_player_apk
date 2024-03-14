@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.translation.app',
-  appName: 'translationCheckApp',
+  appId: 'com.wurthbattleapp.app',
+  appName: 'Wurth Battle App',
   webDir: 'dist/translation-check-app',
   server: {
     androidScheme: 'https'

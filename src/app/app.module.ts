@@ -15,20 +15,31 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { SetPasswordComponent } from './set-password/set-password.component';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PlayerImageComponent,
     PlayerNameComponent,
-    SetPasswordComponent
+    SetPasswordComponent,
   ],
   imports: [
-    BrowserModule,RouterModule,PagesModule,HttpClientModule,
+    BrowserModule,
+    RouterModule,
+    PagesModule,
+    HttpClientModule,
     AppRoutingModule,
-    BrowserAnimationsModule,MatInputModule,MatFormFieldModule,FormsModule,ReactiveFormsModule,MatButtonModule
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

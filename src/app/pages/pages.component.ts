@@ -14,10 +14,10 @@ export class PagesComponent implements OnInit {
 ngOnInit(): void {
       let id = this.authService.getUserIdFromToken()
       let teamId=localStorage.getItem('teamId')
-      if(this.authService.gameLeader){
-        this.http.get(environment.baseUrl+'sendMailToPlayer/'+teamId).subscribe((res)=>{
-          console.log(res)
-          })
-      }
+      // if(this.authService.gameLeader){
+        // this.http.get(environment.baseUrl+'sendMailToPlayer/'+teamId).subscribe((res)=>{
+        //   console.log(res)
+        //   })
+      // }
 }
 }

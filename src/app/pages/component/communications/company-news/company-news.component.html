@@ -18,7 +18,7 @@
               <span *ngIf="news.reactions.length > 0">{{ news.reactions.length }} Likes</span>
             </div>
           </mat-card-actions>
-          <mat-card-footer align="right" class="card-footer">{{ getFormattedDate(news.updatedAt) }}</mat-card-footer>
+          <mat-card-footer align="right" class="card-footer">{{ getFormattedDate(news.createdAt) }}</mat-card-footer>
         </mat-card>
       </ng-container>
     </div>

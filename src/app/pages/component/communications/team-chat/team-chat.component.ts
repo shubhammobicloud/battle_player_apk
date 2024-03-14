@@ -16,8 +16,9 @@ import { environment } from 'src/environment/enviroment';
 })
 export class TeamChatComponent implements OnInit, AfterViewInit {
   url: string = `${environment.baseUrl}`;
-  id = localStorage.getItem('userID');
-  // teamId = '65eedf006c6e03bb7e4945ca';
+  id = localStorage.getItem('userId');
+  avatar = localStorage.getItem('avatar');
+  username = localStorage.getItem('userName');
   teamId = localStorage.getItem('teamId');
   socket: any;
   chats: any;
@@ -31,7 +32,6 @@ export class TeamChatComponent implements OnInit, AfterViewInit {
     | undefined;
 
   ngAfterViewInit(): void {
-    // Scroll to the bottom after the view is initialized
     this.scrollToBottom();
   }
 
@@ -58,47 +58,17 @@ export class TeamChatComponent implements OnInit, AfterViewInit {
       console.error('Socket.IO connection timeout:', timeout);
     });
 
-    // this.loadChat();
-
     this.socket.emit('joinRoom', { teamId: this.teamId });
 
     this.socket.on('joinedRoom', (data: any) => {
-      console.log(data, 'joinedRoom');
-
       this.socket.emit('loadChat', { teamId: this.teamId });
     });
 
-    // this.socket.on('chat message',(data:any)=>{
-    //   console.log(data,"data")
-    // })
-
     this.socket.on('existingChat', (data: any) => {
-      console.log('existingChat', data);
       this.chats = data;
     });
 
     this.socket.on('loadNewTeamChat', (data: any) => {
-      console.log(data, 'loadNewTeamChat');
-      if (data.teamId == this.teamId) {
-        // let html = `<div style='text-align: start;color: black;margin: 10px;'>
-        //     <h6>${data.message}</h6>
-        //   </div>`;
-        //   document.getElementById('chat-container')?.insertAdjacentHTML('beforebegin',html);
-
-        const element = document.createElement('p');
-        element.textContent = data.message;
-        element.style.textAlign = 'start';
-        element.style.color = 'black';
-        // document.getElementById('group-chat-container')?.appendChild(element);
-
-        //  adding username
-        const userName = document.createElement('p');
-        userName.textContent = data.userName;
-        userName.style.textAlign = 'start';
-        userName.style.color = 'yellow';
-        // document.getElementById('group-chat-container')?.appendChild(userName);
-      }
-
       // sending
       const newChat = {
         message: data.message,
@@ -111,57 +81,17 @@ export class TeamChatComponent implements OnInit, AfterViewInit {
       };
       this.chats.push(newChat);
       this.socket.auth.serverOffset = data.id;
-
-      // this.chatsArray.push(this.globalData);
     });
   }
 
-  // loadChat = () => {
-  //   console.log('Load chats');
-  //   const data = { senderId: this.id, teamId: this.teamId };
-
-  //   this.http.post(`${this.url}load-chat`, data).subscribe(
-  //     (res: any) => {
-  //       console.log('res', res);
-  //       this.chats = res.data;
-  //     },
-  //     (error) => {
-  //       console.error('Error:', error);
-  //     }
-  //   );
-  // };
-
   currentUser = (senderId: any): boolean => {
-    const userId = localStorage.getItem('userID');
+    const userId = localStorage.getItem('userId');
     // console.log('userId', userId, 'senderId', senderId);
 
     return userId !== null && userId !== undefined && senderId?._id === userId;
   };
 
-  // sendMessage() {
-  //   console.log('message', this.message);
-  //   let userId = localStorage.getItem('userID');
-  //   let data = {
-  //     senderId: userId,
-  //     teamId: this.teamId,
-  //     message: this.message,
-  //     time: new Date(),
-  //   };
-  //   this.http.post(`${this.url}save-team-chat`, data).subscribe(
-  //     (res: any) => {
-  //       console.log('res', res);
-  //       this.message = '';
-  //       // this.loadChat();
-  //     },
-  //     (error) => {
-  //       console.error('Error:', error);
-  //     }
-  //   );
-  // }
-
   sendMessage() {
-    // const message = this.teamChat.nativeElement.value;
-    // console.log("sd",this.chatTop.nativeElement)
     if (this.message !== '') {
       const selfMessage = {
         time: new Date(),
@@ -169,6 +99,8 @@ export class TeamChatComponent implements OnInit, AfterViewInit {
         teamId: this.teamId,
         senderId: {
           _id: this.id,
+          avatar: this.avatar,
+          userName: this.username,
         },
       };
       const data = {
@@ -180,20 +112,12 @@ export class TeamChatComponent implements OnInit, AfterViewInit {
       this.socket.emit('newTeamChat', data);
       this.chats.push(selfMessage);
       this.message = '';
-
     } else {
       if (this.teamChatTextarea) {
         this.teamChatTextarea.nativeElement.style.border = '2px solid red';
       }
     }
   }
-
-  // imgURL(senderId: any) {
-
-  //   console.log("img url ",this.url + senderId.avatar)
-  //   console.log("img url ",senderId)
-  //   return this.url + senderId.avatar;
-  // }
 
   scrollToBottom() {
     if (this.container) {

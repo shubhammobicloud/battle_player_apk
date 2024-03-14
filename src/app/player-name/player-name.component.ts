@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environment/enviroment';
 import { ActivatedRoute,Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-player-name',
   templateUrl: './player-name.component.html',
@@ -9,7 +10,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 })
 export class PlayerNameComponent {
   userName!:string
-  constructor(private http:HttpClient,private active:ActivatedRoute,private route:Router){
+  constructor(private http:HttpClient,private active:ActivatedRoute,private route:Router,private toastr:ToastrService){
 
   }
   submit(){
@@ -20,8 +21,8 @@ export class PlayerNameComponent {
         userName:this.userName
       }
       this.http.patch(environment.baseUrl+'updatePlayerDetails/'+_id,data).subscribe((res:any)=>{
-        console.log(res)
         if(res.status){
+          this.toastr.success('Username Set Successful!!')
           this.route.navigate(['/','playerimage',_id])
         }
       })

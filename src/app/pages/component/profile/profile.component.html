@@ -1,34 +1,27 @@
-<div class="container">
-  <div class="user-profile">
-    <h3 *ngIf="userProfile?.gameLeader">Hello Leader!!</h3>
-    <h2>{{ userProfile?.userName }}</h2>
-    <img
-      [src]="link + '/images/' + userProfile?.avatar"
-      alt="User Avatar"
-      width="100px"
-    />
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput [disabled]="!isEditMode" [value]="userProfile?.email" />
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Company Unit</mat-label>
-      <input
-        matInput
-        [disabled]="!isEditMode"
-        [value]="userProfile?.companyUnit"
-      />
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Team Name</mat-label>
-      <input
-        matInput
-        [disabled]="true"
-        [value]="teamName"
-      />
-    </mat-form-field>
-    <button mat-raised-button (click)="toggleEditMode()">
-      {{ isEditMode ? "Save" : "Edit Profile" }}
-    </button>
+<form [formGroup]="userProfileForm">
+  <div class="container">
+    <div class="user-profile">
+      <h3 *ngIf="userProfile?.gameLeader">Hello Leader!!</h3>
+      <h2>{{ userProfile?.userName }}</h2>
+      <label for="avatarInput">
+        <img [src]="selectedFile ? displayedImage : (link + '/images/' + userProfile?.avatar)" alt="User Avatar" width="100px" style="cursor: pointer" />
+      </label>
+      <input type="file" id="avatarInput" [disabled]="!isEditMode" style="display: none" (change)="onFileSelected($event)" accept="image/*">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" [disabled]="!isEditMode" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Company Unit</mat-label>
+        <input matInput formControlName="companyUnit" [disabled]="!isEditMode" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Team Name</mat-label>
+        <input matInput [value]="teamName" disabled />
+      </mat-form-field>
+      <button mat-raised-button type="button" (click)="toggleEditMode()">
+        {{ isEditMode ? "Save" : "Edit Profile" }}
+      </button>
+    </div>
   </div>
-</div>
+</form>

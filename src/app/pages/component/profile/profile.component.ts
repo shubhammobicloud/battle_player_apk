@@ -1,30 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environment/enviroment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
-import { FormGroup,FormBuilder,Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 interface UserProfile {
   email: string;
-  userName:string;
-  companyUnit:number;
+  userName: string;
+  companyUnit: number;
   avatar: string;
-  teamId:string;
-  gameLeader:boolean;
-  teamName:string;
+  teamId: string;
+  gameLeader: boolean;
+  teamName: string;
 }
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
   userProfile: UserProfile | null = null;
   userProfileForm!: FormGroup;
-  allowEdit: any;
   link = environment.baseUrl;
   isEditMode = false;
-  constructor(private http:HttpClient, private  authService:AuthService,private fb: FormBuilder) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private fb: FormBuilder
+  ) {}
   ngOnInit() {
     this.getUserDetails();
     this.initForm();
@@ -32,24 +35,38 @@ export class ProfileComponent implements OnInit {
 
   initForm(): void {
     this.userProfileForm = this.fb.group({
-      userName: [{ value: '', disabled: true }],
       email: [{ value: '', disabled: true }, Validators.email],
-      gameLeader: [{ value: '', disabled: true }],
       companyUnit: [{ value: '', disabled: true }],
     });
   }
-teamName:any;
+  teamName: any;
   getUserDetails() {
     const userId = this.authService.getUserIdFromToken(); // Assuming authentication
-    this.http.get<UserProfile>(environment.baseUrl + 'user-details/' + userId)
-      .subscribe((response:any) => {
+    this.http
+      .get<UserProfile>(environment.baseUrl + 'user-details/' + userId)
+      .subscribe((response: any) => {
         this.userProfile = response.data;
-        this.http.get<UserProfile>(environment.baseUrl + 'getTeam/' +  response.data.teamId).subscribe(res=>{
-          this.teamName=res.teamName
-        })
+        this.http
+          .get<UserProfile>(
+            environment.baseUrl + 'getTeam/' + response.data.teamId
+          )
+          .subscribe((res) => {
+            this.teamName = res.teamName;
+          });
+        this.populateForm(); // Populate form controls with user profile data
         console.log('User profile:', response); // For debugging
       });
   }
+
+  populateForm(): void {
+    if (this.userProfile) {
+      this.userProfileForm.patchValue({
+        email: this.userProfile.email,
+        companyUnit: this.userProfile.companyUnit,
+      });
+    }
+  }
+
   toggleEditMode(): void {
     this.isEditMode = !this.isEditMode;
 
@@ -57,24 +74,60 @@ teamName:any;
       this.userProfileForm.enable();
     } else {
       this.userProfileForm.disable();
+      if (
+        this.userProfileForm.value.email !== this.userProfile?.email ||
+        this.userProfileForm.value.companyUnit !==
+          this.userProfile?.companyUnit ||
+        this.selectedFile
+      ) {
+        const userId = this.authService.getUserIdFromToken();
+
+        this.http
+          .patch<UserProfile>(
+            environment.baseUrl + `updatePlayerDetails/` + userId,
+            this.userProfileForm.value
+          )
+          .subscribe(
+            (res) => {
+              alert('profile saved successfully');
+              const formData = new FormData();
+              if (this.selectedFile) {
+                console.log('selected file', this.selectedFile);
+                formData.append('avatar', this.selectedFile);
+
+                this.http
+                  .patch(
+                    environment.baseUrl + `playerImageUpdate/` + userId,
+                    formData
+                  )
+                  .subscribe((res) => {
+                    console.log('image saved successfully');
+                    this.selectedFile = null;
+                  });
+              }
+            },
+            (error: HttpErrorResponse) => {
+              console.error('error while updating');
+            }
+          );
+      }
     }
   }
 
   selectedFile: File | null = null;
-  displayedImage: string | ArrayBuffer | null = 'https://www.w3schools.com/howto/img_avatar.png';
+  displayedImage: string | ArrayBuffer | null =
+    'https://www.w3schools.com/howto/img_avatar.png';
 
   onFileSelected(event: any): void {
-    console.log(event);
     const fileInput = event.target as HTMLInputElement;
-    if (fileInput.files) {
+    if (fileInput.files && fileInput.files.length > 0) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.displayedImage = reader.result;
+        this.displayedImage = reader.result as string;
       };
       this.selectedFile = fileInput.files[0];
+      console.log(this.selectedFile);
       reader.readAsDataURL(this.selectedFile);
     }
   }
-
 }
-

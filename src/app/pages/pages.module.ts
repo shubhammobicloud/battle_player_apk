@@ -15,6 +15,7 @@ import { MenuComponent } from './menu/menu.component';
 import { PageMaterialModule } from './modules/material/page-material.module';
 import { RankingModule } from './component/ranking/ranking.module';
 import { CommunicationsModule } from './component/communications/communications.module';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     GetStartedComponent,PagesComponent,
@@ -27,7 +28,7 @@ import { CommunicationsModule } from './component/communications/communications.
     TeamDetailsComponent
   ],
   imports: [
-    CommonModule,RouterModule,PageMaterialModule,RankingModule,CommunicationsModule,
+    CommonModule,RouterModule,PageMaterialModule,RankingModule,CommunicationsModule,ReactiveFormsModule,
     PageRoutingModule
   ]
 })

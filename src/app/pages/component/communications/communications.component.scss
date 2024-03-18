@@ -1,51 +1,35 @@
-// .tabsContainer {
-//   display: flex;
-//   position: fixed;
-//   justify-content: space-around;
-//   // margin: 5px 0 5px 0;
-//   padding: 5px;
-//   width: 100%;
-//   background-color: #fff;
-//   border-bottom: 1px solid rgb(223, 202, 202);
-// }
-
-// .tabs {
-//   padding: 10px;
-//   margin-right: 10px;
-//   cursor: pointer;
-//   transition: background-color 0.3s, color 0.3s;
-//   border-radius: 10px;
-
-
-// }
-
-// .contentContainer{
-// margin: 10px;
-// }
+.container-communications{
+overflow: hidden;
 .tabsContainer {
   display: flex;
   justify-content: space-around;
   padding: 5px;
   background-color: #fff;
   border-bottom: 1px solid rgb(223, 202, 202);
+  .tabs {
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 10px;
+    &:hover {
+      background-color: rgb(255, 0, 0);
+    }
+
+    &.activeTab {
+      background-color: rgb(255, 0, 0);
+      color: #fff;
+    }
+  }
 }
 
-.tabs {
-  padding: 10px;
-  margin-right: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  border-radius: 10px;
-  &:hover {
-    background-color: #e48c8c;
-  }
 
-  &.activeTab {
-    background-color: rgb(240, 100, 98);
-    color: #fff;
-  }
+.content-chat-news{
+  height: 70vh;
+  overflow-y: scroll;
 }
-
 .contentContainer {
   padding: 10px; /* Add padding for visual separation from tabs */
+}
+
 }

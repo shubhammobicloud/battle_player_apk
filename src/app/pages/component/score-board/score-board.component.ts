@@ -3,6 +3,8 @@ import { Share } from '@capacitor/share';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import html2canvas from 'html2canvas';
 import { AuthService } from 'src/app/services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environment/enviroment';
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
@@ -18,9 +20,18 @@ export class ScoreBoardComponent implements OnInit {
   teamAScore: number = 30;
   teamBScore: number = 60;
 
-constructor(private authService:AuthService){}
+constructor(private authService:AuthService,private http:HttpClient){}
 ngOnInit(): void {
-    let id=this.authService.getUserIdFromToken()
+   let id= localStorage.getItem( "userId");
+    // console.log(id,"USER ID")/
+  this.http.get(environment.baseUrl+'playerDetails/'+id).subscribe((res:any)=>{
+
+        localStorage.setItem( "userId" , res.data._id);
+        localStorage.setItem( "teamId" , res.data.teamId);
+        localStorage.setItem('avatar',res.data.avatar);
+        localStorage.setItem('userName',res.data.userName);
+    // console.log(res)
+  })
 }
 
 

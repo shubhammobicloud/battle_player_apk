@@ -1,33 +1,36 @@
-<div #chatwrapper class="chatwrapper">
-  <div #chatContainer class="chatContainer" *ngFor="let chat of chats">
-    <div
-      [class.sender]="currentUser(chat.senderId)"
-      [class.textContainer]="!currentUser(chat.senderId)"
-    >
-      <div class="messageContainer">
-        <!-- <mat-icon class="profile">person</mat-icon> -->
-        <img [src]="url + '/images/' + chat.senderId?.avatar" class="profile" />
-        <div style="display: flex; flex-direction: column">
-          <span style="font-size: 10px; text-align: left">{{
-            chat.senderId?.userName
-          }}</span>
-          <div
-            [class.message]="!currentUser(chat.senderId)"
-            [class.senderMessage]="currentUser(chat.senderId)"
-            >{{ chat.message }}</div
-          >
-          <span style="font-size: 10px; text-align: right">{{
-            chat.time | date:'short'
-          }}</span>
+
+  <div #chatwrapper class="chatwrapper">
+    <div #chatContainer class="chatContainer" *ngFor="let chat of chats">
+      <div
+        [class.sender]="currentUser(chat.senderId)"
+        [class.textContainer]="!currentUser(chat.senderId)"
+      >
+        <div class="messageContainer">
+          <!-- <mat-icon class="profile">person</mat-icon> -->
+          <img [src]="url + '/images/' + chat.senderId?.avatar" class="profile" />
+          <div class="messageContainer-div-remove">
+            <span style="font-size: 10px; text-align: left">{{
+              chat.senderId?.userName
+            }}</span>
+            <div
+              [class.message]="!currentUser(chat.senderId)"
+              [class.senderMessage]="currentUser(chat.senderId)"
+              >{{ chat.message }}</div
+            >
+            <span style="font-size: 10px; text-align: right">{{
+              chat.time | date:'short'
+            }}</span>
+          </div>
         </div>
       </div>
     </div>
+    <!-- <h1 style="height: 40px"></h1> -->
   </div>
-  <h1 style="height: 40px"></h1>
-</div>
 
-<div class="inputContainer">
-  <textarea #teamChatTextarea (input)="onInput()" [(ngModel)]="message" rows="1" placeholder="Enter Message">
-  </textarea>
-  <mat-icon class="sendIcon" (click)="sendMessage()">send</mat-icon>
-</div>
+  <div class="inputContainer">
+    <textarea #teamChatTextarea (input)="onInput()" [(ngModel)]="message" rows="1" placeholder="Enter Message">
+    </textarea>
+    <button mat-icon-button class="sendIcon"(click)="sendMessage()"><mat-icon  >send</mat-icon></button>
+  </div>
+
+

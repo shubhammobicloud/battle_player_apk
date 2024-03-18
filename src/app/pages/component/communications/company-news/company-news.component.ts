@@ -33,7 +33,7 @@ export class CompanyNewsComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService
   ) {}
-  userId = this.authService.getUserIdFromToken();
+  userId = localStorage.getItem('userId');
   reacted: boolean = false;
   ngOnInit(): void {
     this.getCompanyNews();
@@ -69,7 +69,7 @@ export class CompanyNewsComponent implements OnInit {
     return date.toLocaleDateString('en-US', options); // Adjust locale and options as needed
   }
   likeNews(news: any) {
-    let id = this.authService.getUserIdFromToken();
+    let id =localStorage.getItem('userId');
     let data = {
       emoji: 'like',
       user: id,

@@ -3,7 +3,7 @@ import { environment } from 'src/environment/enviroment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { ToastrService } from 'ngx-toastr';
 interface UserProfile {
   email: string;
   userName: string;
@@ -26,7 +26,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private tostr: ToastrService
   ) {}
   ngOnInit() {
     this.getUserDetails();
@@ -41,7 +42,7 @@ export class ProfileComponent implements OnInit {
   }
   teamName: any;
   getUserDetails() {
-    const userId = this.authService.getUserIdFromToken(); // Assuming authentication
+    const userId = localStorage.getItem('userId'); // Assuming authentication
     this.http
       .get<UserProfile>(environment.baseUrl + 'user-details/' + userId)
       .subscribe((response: any) => {
@@ -54,7 +55,7 @@ export class ProfileComponent implements OnInit {
             this.teamName = res.teamName;
           });
         this.populateForm(); // Populate form controls with user profile data
-        console.log('User profile:', response); // For debugging
+        // console.log('User profile:', response); // For debugging
       });
   }
 
@@ -80,29 +81,17 @@ export class ProfileComponent implements OnInit {
           this.userProfile?.companyUnit ||
         this.selectedFile
       ) {
-        const userId = this.authService.getUserIdFromToken();
+        const userId = localStorage.getItem('userId');
 
-        this.http
-          .patch<UserProfile>(
-            environment.baseUrl + `updatePlayerDetails/` + userId,
-            this.userProfileForm.value
-          )
-          .subscribe(
-            (res) => {
-              alert('profile saved successfully');
+        this.http.patch<UserProfile>(environment.baseUrl + `updatePlayerDetails/` + userId,this.userProfileForm.value)
+          .subscribe((res) => {
+            this.tostr.success('Profile Updated Successfully')
               const formData = new FormData();
               if (this.selectedFile) {
-                console.log('selected file', this.selectedFile);
                 formData.append('avatar', this.selectedFile);
-
-                this.http
-                  .patch(
-                    environment.baseUrl + `playerImageUpdate/` + userId,
-                    formData
-                  )
+                this.http.patch(environment.baseUrl + `playerImageUpdate/` + userId,formData)
                   .subscribe((res) => {
                     console.log('image saved successfully');
-                    this.selectedFile = null;
                   });
               }
             },

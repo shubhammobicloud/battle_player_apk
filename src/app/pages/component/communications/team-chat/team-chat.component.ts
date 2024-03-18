@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   Component,
   OnInit,
-  ElementRef,
+  ElementRef,AfterViewChecked,
   ViewChild,
   AfterViewInit,
 } from '@angular/core';
@@ -14,7 +14,7 @@ import { environment } from 'src/environment/enviroment';
   templateUrl: './team-chat.component.html',
   styleUrls: ['./team-chat.component.scss'],
 })
-export class TeamChatComponent implements OnInit, AfterViewInit {
+export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked {
   url: string = `${environment.baseUrl}`;
   id = localStorage.getItem('userId');
   avatar = localStorage.getItem('avatar');
@@ -32,9 +32,12 @@ export class TeamChatComponent implements OnInit, AfterViewInit {
     | undefined;
 
   ngAfterViewInit(): void {
-    this.scrollToBottom();
-  }
 
+  }
+ngAfterViewChecked(): void {
+  this.scrollToBottom();
+
+}
   ngOnInit(): void {
     this.socket = io(`${this.url}team-namespaces`, {
       auth: {
@@ -117,14 +120,19 @@ export class TeamChatComponent implements OnInit, AfterViewInit {
         this.teamChatTextarea.nativeElement.style.border = '2px solid red';
       }
     }
+    this.scrollToBottom();
   }
+  @ViewChild('chatwrapper', { static: true }) chatWrapper!: ElementRef;
 
   scrollToBottom() {
-    if (this.container) {
-      this.container.nativeElement.scrollTop =
-        this.container.nativeElement.scrollHeight;
+    try {
+      // console.log(this.chatWrapper.nativeElement); // Check if this logs the correct element
+      this.chatWrapper.nativeElement.scrollTop = this.chatWrapper.nativeElement.scrollHeight;
+    } catch (err) {
+      console.error(err);
     }
   }
+
 
   onInput() {
     this.teamChatTextarea.nativeElement.style.border = '';

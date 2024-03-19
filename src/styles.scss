@@ -22,7 +22,7 @@ $custom-theme: mat.define-light-theme((
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($custom-theme);
-
+@import './assets/scss/custom.scss';
 // Import Angular Material core styles
 // Import Angular Material theming
 @import '@angular/material/theming';
@@ -34,7 +34,7 @@ $custom-theme: mat.define-light-theme((
 // Apply custom font to the entire application
 html, body {
   height: 100%;
-  font-family: 'Montserrat', sans-serif;
+  // font-family: 'Montserrat', sans-serif;
   margin: 0;
 }
 

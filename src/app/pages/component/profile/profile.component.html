@@ -4,7 +4,7 @@
       <h3 *ngIf="userProfile?.gameLeader">Hello Leader!!</h3>
       <h2>{{ userProfile?.userName }}</h2>
       <label for="avatarInput">
-        <img [src]="selectedFile ? displayedImage : (link + '/images/' + userProfile?.avatar)" alt="User Avatar" width="100px" style="cursor: pointer" />
+        <img [src]="selectedFile ? displayedImage : (link + '/images/' + userProfile?.avatar)" alt="User Avatar"  style="cursor: pointer" />
       <p> {{ isEditMode ? "Choose Image" : "" }}</p>
       </label>
       <input type="file" id="avatarInput" [disabled]="!isEditMode" style="display: none" (change)="onFileSelected($event)" accept="image/*">

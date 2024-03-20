@@ -9,9 +9,16 @@
     h3{
       margin: 0;
     }
+    h2{
+      margin: 0;
+    }
     img{
       border: 1px solid red;
       border-radius: 50%;
+      width: 30%;
+    }
+    mat-form-field{
+      width: 65%;
     }
     .image-container {
       position: relative;
@@ -25,8 +32,18 @@
       border-radius: 50%;
     }
     }
+    button{
+      width: 65%;
 
+    }
+    @media (min-width: 401px) {
+      button{
+        height:3rem;
+            font-size: 2rem;
+            font-weight: 600;
+      }
 
+      }
     .select-profile-picture {
       position: absolute;
       top: 0;
@@ -39,3 +56,4 @@
     }
   }
 }
+

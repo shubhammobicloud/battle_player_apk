@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
     this.isEditMode = !this.isEditMode;
 
     if (this.isEditMode) {
-      this.userProfileForm.enable();
+      // this.userProfileForm.enable();
     } else {
       this.userProfileForm.disable();
       if (

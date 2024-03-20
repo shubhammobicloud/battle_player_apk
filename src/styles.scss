@@ -44,3 +44,9 @@ body {
 }
 
 // Additional global styles can be added here
+@media (min-width: 401px) {
+  body{
+        font-size: 1.5rem;
+  }
+
+  }

@@ -40,7 +40,9 @@ html, body {
 
 // Set body height to 100%
 body {
-  height: 100vh;
+  height: calc(100vh - env(safe-area-inset-top));
+  position: fixed;
+  top: env(safe-area-inset-top);
 }
 
 // Additional global styles can be added here

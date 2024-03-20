@@ -5,7 +5,8 @@ const config: CapacitorConfig = {
   appName: 'Wurth Battle App',
   webDir: 'dist/translation-check-app',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'http',
+    cleartext: true
   }
 };
 

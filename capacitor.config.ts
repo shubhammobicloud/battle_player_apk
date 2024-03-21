@@ -6,6 +6,7 @@ const config: CapacitorConfig = {
   webDir: 'dist/translation-check-app',
   server: {
     androidScheme: 'http',
+    iosScheme: 'http',
     cleartext: true
   }
 };

@@ -21,7 +21,7 @@ export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked
   username = localStorage.getItem('userName');
   teamId = localStorage.getItem('teamId');
   socket: any;
-  chats: any;
+  chats: any[] = [];
   message: string = '';
   @ViewChild('teamChatTextarea') teamChatTextarea!: ElementRef;
 

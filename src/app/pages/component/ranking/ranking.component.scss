@@ -1,10 +1,15 @@
 .container{
-  max-height: 14rem;
+  width: 100vw;
 .tabs-container {
+  position: fixed;
   width: 100%;
   display: flex;
+  background-color: white;
+  z-index: 1;
   justify-content: center;
   flex-wrap: wrap;
+  overflow: hidden;
+  height: fit-content;
   .tab-button {
     flex: 1 1 auto;
     max-width: 30%;
@@ -13,7 +18,7 @@
     background-color: #838383b2;
     color: #200b0b78;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.26rem;
     border: 1px solid #ccc;
     padding: 8px;
     text-align: center;
@@ -28,5 +33,28 @@
     color: white;
   }
 }
+
 }
 
+// .container {
+//   position: relative;
+//   height: 100%;
+// }
+
+// .tabs-container {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   height: 56px; /* adjust to the height of the tabs container */
+//   overflow: hidden;
+// }
+
+.tab-content {
+  position: absolute;
+  top: 22vh; /* align with the bottom of the tabs container */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+}

@@ -1,38 +1,33 @@
 .container {
   display: flex;
-  min-height: 100vh; /* Ensures entire viewport is filled */
   flex-direction: column;
+  height: 100%; // This makes sure your container takes up the full height of the viewport
 }
 
 .header,
 .footer {
-  /* Set desired height for header and footer */
-  background-color: #f0f0f0; /* Example background color */
-  /* Optional styling for header and footer */
+  background-color: #f0f0f0;
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .header {
-  /* Additional styles for header, if needed */
   width: 100%;
-  app-header{
+  app-header {
     width: 100%;
   }
 }
 
 .footer {
-  /* Additional styles for footer, if needed */
   width: 100%;
-  app-menu{
+  app-menu {
     width: 100%;
   }
 }
 
 .content {
-  flex: 1; /* Takes up remaining space */
-  overflow-y: auto; /* Enables vertical scrolling */
+  flex-grow: 1; // This makes sure your content takes up all the remaining space
+  overflow-y: auto;
   position: relative;
 }

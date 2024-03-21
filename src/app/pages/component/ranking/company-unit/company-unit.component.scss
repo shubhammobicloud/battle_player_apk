@@ -1,6 +1,6 @@
 .container-table{
-  max-height: 56vh;
-  overflow-y: scroll;
+  max-height: fit-content;
+  overflow-y: scroll;;
 .player-list {
   width: 100%; /* Ensures list fits screen width */
   list-style: none; /* Removes default bullet points */

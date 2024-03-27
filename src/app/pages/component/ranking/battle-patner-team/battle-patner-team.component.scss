@@ -25,11 +25,19 @@
       font-size: 1rem;
     }
   }
-  &:first-child{
-    border: 3px solid red;
-  }
+  // &:first-child{
+  //   border: 3px solid red;
+  // }
 }
-
+.th-1 {
+  width: 37%;
+}
+.th-2{
+  width: 79%;
+}
+.th-3{
+  width: 79%;
+}
 .score {
   font-weight: bold; /* Emphasizes score */
 }

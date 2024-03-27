@@ -1,7 +1,15 @@
 <div class="container-table">
   <ul class="player-list">
-    <li *ngFor="let player of myTeamList, let i=index">
-     <span>{{i+1}}. <mat-icon>person</mat-icon> {{ player.name }} </span>  <span class="score">{{ player.score }}%</span>
+    <li class="table-con">
+      <p class="th-1">Sr.No</p>
+      <p class="th-2">Player Name</p>
+      <p class="th-3">Sales in LC</p>
+      <p class="th-4">Score</p>
+    </li>
+    <li *ngFor="let player of myTeamList; let i = index">
+      <span>{{ i + 1 }}. <mat-icon>person</mat-icon> {{ player.name }} </span>
+      <span class="sales">{{ player.sales }}</span>
+      <span class="score">{{ player.score }}%</span>
     </li>
   </ul>
 </div>

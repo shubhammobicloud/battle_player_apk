@@ -1,11 +1,22 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environment/enviroment';
 
 @Component({
   selector: 'app-battle-patner-team',
   templateUrl: './battle-patner-team.component.html',
   styleUrls: ['./battle-patner-team.component.scss']
 })
-export class BattlePatnerTeamComponent {
+export class BattlePatnerTeamComponent  implements OnInit{
+  // tableData!: any[];
+
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    // this.http.get<any[]>(`${environment.baseUrl}/ranking/my-team`).subscribe(data => {
+    //   this.tableData = data;
+    // });
+  }
   myTeamList=[
     { name: 'Player 1', sales: 1, score: 85 },
     { name: 'Player 2', sales: 1, score: 75 },

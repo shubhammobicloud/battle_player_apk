@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environment/enviroment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { MatMenuTrigger } from '@angular/material/menu';
 interface UserProfile {
   email: string;
   userName: string;
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit {
   userProfileForm!: FormGroup;
   link = environment.baseUrl;
   isEditMode = false;
+
   constructor(
     private http: HttpClient,
     private authService: AuthService,
@@ -83,13 +85,22 @@ export class ProfileComponent implements OnInit {
       ) {
         const userId = localStorage.getItem('userId');
 
-        this.http.patch<UserProfile>(environment.baseUrl + `updatePlayerDetails/` + userId,this.userProfileForm.value)
-          .subscribe((res) => {
-            this.tostr.success('Profile Updated Successfully')
+        this.http
+          .patch<UserProfile>(
+            environment.baseUrl + `updatePlayerDetails/` + userId,
+            this.userProfileForm.value
+          )
+          .subscribe(
+            (res) => {
+              this.tostr.success('Profile Updated Successfully');
               const formData = new FormData();
               if (this.selectedFile) {
                 formData.append('avatar', this.selectedFile);
-                this.http.patch(environment.baseUrl + `playerImageUpdate/` + userId,formData)
+                this.http
+                  .patch(
+                    environment.baseUrl + `playerImageUpdate/` + userId,
+                    formData
+                  )
                   .subscribe((res) => {
                     console.log('image saved successfully');
                   });

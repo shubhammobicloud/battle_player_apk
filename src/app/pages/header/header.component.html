@@ -1,3 +1,30 @@
 <div class="container">
   <h2>THE REINHOLD WURTH</h2>
+  <div class="contant">
+    <button
+      mat-icon-button
+      class="custom-btn"
+      (click)="toggleMenu()"
+      aria-label="Example icon-button with a menu"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="isMenuOpen" class="custom-menu">
+    <button class="mat-menu-item" routerLink="">
+      <span>
+        <mat-icon>logout </mat-icon>
+
+        Logout</span
+      >
+    </button>
+    <li *ngIf="showProfileOption">
+      <button class="mat-menu-item" routerLink="/profile/{{ userId }}/edit" routerLinkActive="active">
+        <span style="font-size: 11px">
+          <mat-icon>group</mat-icon>
+          Team Profile
+        </span>
+      </button>
+    </li>
+  </div>
 </div>

@@ -16,6 +16,8 @@ import { PageMaterialModule } from './modules/material/page-material.module';
 import { RankingModule } from './component/ranking/ranking.module';
 import { CommunicationsModule } from './component/communications/communications.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     GetStartedComponent,PagesComponent,
@@ -29,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,RouterModule,PageMaterialModule,RankingModule,CommunicationsModule,ReactiveFormsModule,
-    PageRoutingModule
+    PageRoutingModule,  MatMenuModule,
+    MatIconModule
   ]
 })
 export class PagesModule { }

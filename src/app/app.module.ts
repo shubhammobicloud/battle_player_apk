@@ -16,6 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { SetPasswordComponent } from './set-password/set-password.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
     PlayerImageComponent,
     PlayerNameComponent,
     SetPasswordComponent,
+    ForgotpasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+ 
     ToastrModule.forRoot(),
   ],
   providers: [],

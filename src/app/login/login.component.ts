@@ -24,21 +24,21 @@ export class LoginComponent {
   login() {
     if (this.loginForm.valid) {
       this.http
-        .post(`${environment.baseUrl}/admin/signin`, this.loginForm.value) .subscribe(
+        .post(`${environment.baseUrl}/signin`, this.loginForm.value) .subscribe(
           (res: any) => {
             console.log(res);
             if (res.message == 'Login successfully.') {
-              localStorage.setItem('token', res.token);
+              localStorage.setItem('token', res.data);
               localStorage.setItem('userId', res._id);
               localStorage.setItem('teamId', res.teamId);
               localStorage.setItem('avatar', res.avatar);
               localStorage.setItem('userName', res.userName);
               if (!res.firstLogin) {
-                this.toastr.success('Login successfully., Please Set Password');
-                this.route.navigate(['/', 'set-password', res._id]);
-              } else {
                 this.toastr.success('Login successfully.');
                 this.route.navigate(['/home']);
+                this.route.navigate(['/', 'set-password', res._id]);
+              } else {
+                this.toastr.success('Login successfully.','Please SetPassword ');
               }
             }
             // debugger

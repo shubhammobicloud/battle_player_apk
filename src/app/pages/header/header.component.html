@@ -19,7 +19,11 @@
       >
     </button>
     <li *ngIf="showProfileOption">
-      <button class="mat-menu-item" routerLink="/profile/{{ userId }}/edit" routerLinkActive="active">
+      <button
+        class="mat-menu-item"
+        routerLink="/home/profile/"
+        routerLinkActive="active"
+      >
         <span style="font-size: 11px">
           <mat-icon>group</mat-icon>
           Team Profile

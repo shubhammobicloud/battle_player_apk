@@ -9,29 +9,43 @@ import { environment } from 'src/environment/enviroment';
 })
 export class TeamScoreComponent {
   tableData!: any[];
-  constructor(private http: HttpClient) { }
+  defaultId = 'YOUR_DEFAULT_ID_HERE';
+  defaultIdCount = 0;
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjA1MTQyMzMzYjMyZmM2ODAyMWJiYWIiLCJlbWFpbCI6ImRoaXJhai5tb2JpY2xvdWRAZ21haWwuY29tIiwidGVhbUlkIjoiNjVmOThiNDVmMGU2NDk4ZDcyYjY2YzdkIiwicm9sZSI6ImFkbWluIiwiY29tcGFueUlkIjoiNjVmMmI5YjM4NTM4ODg2OGRkNGQyNzU4IiwiaWF0IjoxNzExNjIyODgxLCJleHAiOjE3MTE3MDkyODF9.K2PL0EVzrih5kNPMg2qVRe4XY-iuJW7ZnZQ0bp5s9ag';
-    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    // this.http.get<any[]>('http://192.168.29.223:3000/ranking/my-team',{ headers }).subscribe(data => {
-    //   this.tableData = data;
-    // });
-  
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    this.http
+      .get<any[]>(`${environment.baseUrl2}/ranking/my-team`, { headers })
+      .subscribe(
+        (data: any) => {
+          this.tableData = data['data'];
+
+          // Count occurrences of defaultId
+          this.defaultIdCount = this.countDefaultIdOccurrences(
+            this.tableData,
+            this.defaultId
+          );
+        },
+        (error) => {
+          console.error('An error occurred:', error);
+          // Handle error here
+        }
+      );
   }
-  myTeamList:any= [
-    
-    { name: 'Player 1', sales: 1, score: 85 },
-    { name: 'Player 2', sales: 1, score: 75 },
-    { name: 'Player 3', sales: 1, score: 65 },
-    { name: 'Player 4', sales: 1, score: 55 },
-    { name: 'Player 5', sales: 1, score: 45 },
-    { name: 'Player 6', sales: 1, score: 45 },
-    { name: 'Player 7', sales: 1, score: 45 },
-    { name: 'Player 8', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-  ];
+
+  countDefaultIdOccurrences(data: any[], defaultId: string): number {
+    let count =1;
+
+    for (const item of data) {
+      if (item.id === defaultId) {
+        for(count=1;count<=1;count++){}
+      }
+    }
+    return count;
+  }
 }

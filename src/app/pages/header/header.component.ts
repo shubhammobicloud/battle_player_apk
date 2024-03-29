@@ -25,7 +25,7 @@ export class HeaderComponent {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // Check current route to determine whether to show profile option
-        this.showProfileOption = event.url.includes('/team');
+        this.showProfileOption = event.url.includes('/home/profile');
       }
     });
   }

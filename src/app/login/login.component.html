@@ -1,7 +1,7 @@
 <div class="container-login" #sleectImage id="myDiv">
   <div class="logo-container">
-    <img src="../../assets/sports logo.png" alt="Sports Logo">
-    <img src="../../assets/logo wurth.png" alt="Wurth Logo">
+    <img src="../../assets/sports logo.png" alt="Sports Logo" />
+    <img src="../../assets/logo wurth.png" alt="Wurth Logo" />
   </div>
   <div class="login-content">
     <p>Hello Players</p>
@@ -11,16 +11,28 @@
     <div class="form-container" [formGroup]="loginForm">
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
-        <input matInput type="text" placeholder="Player's Email" formControlName="email">
+        <input
+          matInput
+          type="text"
+          placeholder="Player's Email"
+          formControlName="email"
+        />
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
-        <input matInput type="password" placeholder="Password" formControlName="password">
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
       </mat-form-field>
     </div>
-    <div class="button-login"  (click)="login()">
+    <div class="button-login" (click)="login()">
       <button mat-button color="primary">Login</button>
     </div>
-    <a href="#" class="forgot-password-link" routerLink="forgotpassword">Forgot Password?</a>
+    <a href="#" class="forgot-password-link" routerLink="forgotpassword"
+      >Forgot Password?</a
+    >
   </div>
 </div>

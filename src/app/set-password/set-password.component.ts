@@ -34,7 +34,7 @@ export class SetPasswordComponent {
        _id:_id,
        firstLogin:true
    }
-     this.http.patch(environment.baseUrl+'playerUpdatePassword/',data).subscribe(
+     this.http.patch(environment.baseUrl+'/user/admin-password',data).subscribe(
        (response:any) => {
          console.log('API Response:', response);
          if(response.message=="password updated successfully..."){

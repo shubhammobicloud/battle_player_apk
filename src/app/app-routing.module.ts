@@ -7,10 +7,15 @@ import { SetPasswordComponent } from './set-password/set-password.component';
 import { TeamNameComponent } from './team-name/team-name.component';
 import { TeamImageComponent } from './team-image/team-image.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { OtpsenderComponent } from './otpsender/otpsender.component';
 const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
+  },
+  {
+    path: 'otp',
+    component: OtpsenderComponent,
   },
   {
     path: 'forgotpassword',
@@ -36,6 +41,7 @@ const routes: Routes = [
     path: 'teamImage/:teamId',
     component: TeamImageComponent,
   },
+ 
   {
     path: 'home',
     loadChildren: () => {

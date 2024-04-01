@@ -17,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SetPasswordComponent } from './set-password/set-password.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { OtpsenderComponent } from './otpsender/otpsender.component';
+
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
     PlayerNameComponent,
     SetPasswordComponent,
     ForgotpasswordComponent,
+    OtpsenderComponent,
+
   ],
   imports: [
     BrowserModule,

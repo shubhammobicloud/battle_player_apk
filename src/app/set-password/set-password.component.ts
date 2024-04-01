@@ -34,20 +34,31 @@ export class SetPasswordComponent {
        _id:_id,
        firstLogin:true
    }
-     this.http.patch(environment.baseUrl+'/user/admin-password',data).subscribe(
-       (response:any) => {
-         console.log('API Response:', response);
-         if(response.message=="password updated successfully..."){
-          this.toastr.success('Password set successful')
-           this.route.navigate(['/','playername',_id])
-         }
+    //  this.http.patch(environment.baseUrl+'/user/admin-password',data).subscribe(
+    //    (response:any) => {
+    //      console.log('API Response:', response);
+    //      if(response.message=="password updated successfully..."){
+    //       this.toastr.success('Password set successful')
+    //        this.route.navigate(['/','playername',_id])
+    //      }
 
-       },
-       (error:any) => {
-         console.error('API Error:', error);
-         // Handle error, e.g., show an error message
-       }
-     );
+    //    },
+    //    (error:any) => {
+    //      console.error('API Error:', error);
+    //      // Handle error, e.g., show an error message
+    //    }
+    //  );
+    this.http
+      .post(`${environment.baseUrl2}/forget-password/send-otp`, {email : localStorage.getItem('otp-email')})
+      .subscribe((res: any) => {
+        console.log(res);
+        if (res.message == 'Login successfully.',(this.router)) {
+          sessionStorage.setItem('new-password', this.confirmPassword)
+          this.route.navigate(['/otp'])
+        }
+        console.log('Send Otp');
+      });
+
     }else{
       alert("Password Should Be At Least Of Minimun 8 Character, Must Contain Number And Alphabets")
     }

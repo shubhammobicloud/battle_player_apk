@@ -9,21 +9,27 @@ import { environment } from 'src/environment/enviroment';
   templateUrl: './forgotpassword.component.html',
   styleUrls: ['./forgotpassword.component.scss'],
 })
-export class ForgotpasswordComponent  {
+export class ForgotpasswordComponent {
   forgotpassword: FormGroup = new FormGroup({
     email: new FormControl(''),
   });
-  constructor(private http: HttpClient, private route: Router,private rouetrs:ActivatedRoute) {}
+  constructor(
+    private http: HttpClient,
+    private route: Router,
+    private rouetrs: ActivatedRoute
+  ) {}
   forgotpasswor() {
-    this.http
-      .post(`${environment.baseUrl2}/forget-password/send-otp`, this.forgotpassword.value)
-      .subscribe((res: any) => {
-        console.log(res);
-        if (res.message == 'Login successfully.',(this.rouetrs)) {
-        localStorage.setItem('otp-email',this.forgotpassword.value.email)
-          this.route.navigate(['/otp']); // Navigate to OTP page using Router
-        }
-        console.log('Send Otp');
-      });
+    // this.http
+    //   .post(`${environment.baseUrl2}/forget-password/send-otp`, this.forgotpassword.value)
+    //   .subscribe((res: any) => {
+    //     console.log(res);
+    //     if (res.message == 'Login successfully.',(this.rouetrs)) {
+    //     localStorage.setItem('otp-email',this.forgotpassword.value.email)
+    //       this.route.navigate(['/set-password/:_id']); // Navigate to OTP page using Router
+    //     }
+    //     console.log('Send Otp');
+    //   });
+    localStorage.setItem('otp-email', this.forgotpassword.value.email);
+    this.route.navigate(['/set-password/:_id']);
   }
 }

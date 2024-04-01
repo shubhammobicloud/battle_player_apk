@@ -30,7 +30,7 @@ export class OtpsenderComponent {
       .subscribe((res: any) => {
         console.log(res);
         if ((res.message == 'Login successfully.', this.rouetrs)) {
-          this.route.navigate(['set-password/:_id']);
+          this.route.navigate(['/']);
         }
         console.log('Send Otp');
       });

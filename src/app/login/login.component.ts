@@ -24,7 +24,7 @@ export class LoginComponent {
   login() {
     if (this.loginForm.valid) {
       this.http
-        .post(`${environment.baseUrl}/signin`, this.loginForm.value) .subscribe(
+        .post(`${environment.baseUrl}/user/signin`, this.loginForm.value) .subscribe(
           (res: any) => {
             console.log(res);
             if (res.message == 'Login successfully.') {

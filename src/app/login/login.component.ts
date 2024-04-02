@@ -24,7 +24,8 @@ export class LoginComponent {
   login() {
     if (this.loginForm.valid) {
       this.http
-        .post(`${environment.baseUrl}/user/signin`, this.loginForm.value) .subscribe(
+        .post(`${environment.baseUrl}/user/signin`, this.loginForm.value)
+        .subscribe(
           (res: any) => {
             console.log(res);
             if (res.message == 'Login successfully.') {
@@ -38,11 +39,15 @@ export class LoginComponent {
                 this.route.navigate(['/home']);
                 this.route.navigate(['/', 'set-password', res._id]);
               } else {
-                this.toastr.success('Login successfully.','Please SetPassword ');
+                this.toastr.success(
+                  'Login successfully.',
+                  'Please SetPassword '
+                );
               }
             }
             // debugger
-          },(error: HttpErrorResponse) => {
+          },
+          (error: HttpErrorResponse) => {
             console.log('error', error.error.error);
             // alert(error.error.error);
             this.toastr.error(error.error.error);

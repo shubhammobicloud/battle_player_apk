@@ -26,15 +26,19 @@ export class OtpsenderComponent {
     private toastr: ToastrService
   ) {}
   sendotpnumber() {
-    console.log(this.otppassword)
+    console.log(this.otppassword);
     this.http
-      .post(`${environment.baseUrl2}/forget-password/verify-otp`, {email:localStorage.getItem('otp-email'),otp:this.otppassword.value.otp})
+      .post(`${environment.baseUrl2}/forget-password/verify-otp`, {
+        email: localStorage.getItem('otp-email'),
+        otp: this.otppassword.value.otp,
+      
+      })
       .subscribe((res: any) => {
         console.log(res);
         if ((res.message == 'Login successfully.', this.rouetrs)) {
           if (!res.firstLogin) {
             this.toastr.success('Password updated successfully.');
-      
+
             setTimeout(() => {
               this.route.navigate(['/']); // Redirect after 2 seconds
             }, 2000);

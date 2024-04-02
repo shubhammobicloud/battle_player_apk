@@ -30,6 +30,7 @@ export class TeamScoreComponent {
             this.tableData,
             this.defaultId
           );
+          console.log('Count of defaultId:', this.defaultIdCount);
         },
         (error) => {
           console.error('An error occurred:', error);
@@ -39,13 +40,14 @@ export class TeamScoreComponent {
   }
 
   countDefaultIdOccurrences(data: any[], defaultId: string): number {
-    let count =1;
-
+    let count = 1;
+  
     for (const item of data) {
       if (item.id === defaultId) {
-        for(count=1;count<=1;count++){}
+        count++;
       }
     }
+  
     return count;
   }
 }

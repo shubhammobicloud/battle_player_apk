@@ -1,6 +1,10 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environment/enviroment';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -44,9 +48,13 @@ export class ProfileComponent implements OnInit {
   }
   teamName: any;
   getUserDetails() {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const userId = localStorage.getItem('userId'); // Assuming authentication
     this.http
-      .get<UserProfile>(environment.baseUrl + 'user-details/' + userId)
+      .get<UserProfile>(`${environment.baseUrl}` + '/user/details', { headers })
+
       .subscribe((response: any) => {
         this.userProfile = response.data;
         this.http
@@ -56,8 +64,7 @@ export class ProfileComponent implements OnInit {
           .subscribe((res) => {
             this.teamName = res.teamName;
           });
-        this.populateForm(); // Populate form controls with user profile data
-        // console.log('User profile:', response); // For debugging
+        this.populateForm();
       });
   }
 

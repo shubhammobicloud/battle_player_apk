@@ -30,6 +30,7 @@ export class OtpsenderComponent {
     this.http
       .post(`${environment.baseUrl2}/forget-password/verify-otp`, {
         email: localStorage.getItem('otp-email'),
+        newPassword:sessionStorage.getItem('new-password'),
         otp: this.otppassword.value.otp,
       
       })

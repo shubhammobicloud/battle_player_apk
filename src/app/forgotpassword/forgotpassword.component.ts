@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environment/enviroment';
 
@@ -11,8 +11,14 @@ import { environment } from 'src/environment/enviroment';
 })
 export class ForgotpasswordComponent {
   forgotpassword: FormGroup = new FormGroup({
-    email: new FormControl(''),
+    email: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/),
+      ],
+    }),
   });
+
   constructor(
     private http: HttpClient,
     private route: Router,
@@ -29,7 +35,20 @@ export class ForgotpasswordComponent {
     //     }
     //     console.log('Send Otp');
     //   });
-    localStorage.setItem('otp-email', this.forgotpassword.value.email);
-    this.route.navigate(['/set-password/:_id']);
+
+
+
+    if (this.forgotpassword.valid) {
+      localStorage.setItem('otp-email', this.forgotpassword.value.email);
+      // Assuming you have imported Router from '@angular/router'
+      
+      this.route.navigate(['/set-password/:_id']);
+    } else {
+      // Handle invalid form
+      console.log('Form is invalid');
+      // You can also display an error message to the user
+    }
+  
+    
   }
 }

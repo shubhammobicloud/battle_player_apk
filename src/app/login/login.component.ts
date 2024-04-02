@@ -12,7 +12,12 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent {
   loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    password: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.pattern(/^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/),
+      ],
+    }),
   });
 
   constructor(

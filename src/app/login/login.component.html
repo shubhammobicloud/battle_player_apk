@@ -17,6 +17,12 @@
           placeholder="Player's Email"
           formControlName="email"
         />
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')" class="error">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')" class="error">
+          Invalid email format
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
@@ -26,6 +32,19 @@
           placeholder="Password"
           formControlName="password"
         />
+        <mat-error
+          *ngIf="loginForm.get('password')?.hasError('required')"
+          class="error"
+        >
+          Password is required
+        </mat-error>
+        <mat-error
+          *ngIf="loginForm.get('password')?.hasError('pattern')"
+          class="error"
+        >
+          Password must contain at least 8 characters, including one uppercase
+          letter, one lowercase letter, one symbol, and at least two numbers.
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="button-login" (click)="login()">

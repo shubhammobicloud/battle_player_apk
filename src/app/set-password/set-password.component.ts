@@ -20,6 +20,7 @@ export class SetPasswordComponent {
   ) {}
   setPassword(): void {
     // Check if passwords match
+    console.log(this.confirmPassword)
     let validatePass = this.validatePassword(this.password);
     let _id = this.router.snapshot.params['_id'];
     console.log(validatePass);

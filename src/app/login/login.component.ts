@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from 'src/environment/enviroment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../services/users/users.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent {
   loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
+    role:  new FormControl('user', Validators.required),
     password: new FormControl('', {
       validators: [
         Validators.required,
@@ -21,42 +21,34 @@ export class LoginComponent {
   });
 
   constructor(
-    private http: HttpClient,
     private route: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private userService:UserService
   ) {}
 
   login() {
     if (this.loginForm.valid) {
-      this.http
-        .post(`${environment.baseUrl}/user/signin`, this.loginForm.value)
-        .subscribe(
+     this.userService.signIn(this.loginForm.value).subscribe(
           (res: any) => {
-            console.log(res);
             if (res.message == 'Login successfully.') {
-              localStorage.setItem('token', res.data);
-              localStorage.setItem('userId', res._id);
-              localStorage.setItem('teamId', res.teamId);
-              localStorage.setItem('avatar', res.avatar);
-              localStorage.setItem('userName', res.userName);
-              if (!res.firstLogin) {
-                this.toastr.success('Login successfully.');
-                this.route.navigate(['/home']);
-                this.route.navigate(['/', 'set-password', res._id]);
-              } else {
+              localStorage.setItem('token', res.data.token);
+              if (!res.data.firstLogin) {
                 this.toastr.success(
                   'Login successfully.',
                   'Please SetPassword '
                 );
+                sessionStorage.setItem('redirectFrom', 'login'); // Or 'forgot-password'
+
+                this.route.navigate(['/', 'set-password', res.data.token]);
+              } else {
+                this.route.navigate(['/home']);
+                this.toastr.success('Login successfully.');
               }
             }
-            // debugger
-          },
-          (error: HttpErrorResponse) => {
-            console.log('error', error.error.error);
-            // alert(error.error.error);
-            this.toastr.error(error.error.error);
+          },(error)=>{
+            this.toastr.error(error.error.message)
           }
+
         );
     }
   }

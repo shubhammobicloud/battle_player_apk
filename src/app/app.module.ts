@@ -17,7 +17,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { SetPasswordComponent } from './set-password/set-password.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { OtpsenderComponent } from './otpsender/otpsender.component';
 
 
 
@@ -29,7 +28,6 @@ import { OtpsenderComponent } from './otpsender/otpsender.component';
     PlayerNameComponent,
     SetPasswordComponent,
     ForgotpasswordComponent,
-    OtpsenderComponent,
 
   ],
   imports: [
@@ -44,7 +42,7 @@ import { OtpsenderComponent } from './otpsender/otpsender.component';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
- 
+
     ToastrModule.forRoot(),
   ],
   providers: [],

@@ -4,17 +4,18 @@ import {
   OnInit,
   ElementRef,AfterViewChecked,
   ViewChild,
-  AfterViewInit,
+  AfterViewInit,OnDestroy
 } from '@angular/core';
 import { Socket, io } from 'socket.io-client';
 import { environment } from 'src/environment/enviroment';
+
 
 @Component({
   selector: 'app-team-chat',
   templateUrl: './team-chat.component.html',
   styleUrls: ['./team-chat.component.scss'],
 })
-export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked {
+export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked,OnDestroy {
   url: string = `${environment.baseUrl}`;
   id = localStorage.getItem('userId');
   avatar = localStorage.getItem('avatar');
@@ -37,6 +38,9 @@ export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked
 ngAfterViewChecked(): void {
   this.scrollToBottom();
 
+}
+ngOnDestroy(): void {
+    this.socket.disconnect();
 }
   ngOnInit(): void {
     this.socket = io(`${this.url}team-namespaces`, {

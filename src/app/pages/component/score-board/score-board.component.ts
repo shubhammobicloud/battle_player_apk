@@ -22,16 +22,16 @@ export class ScoreBoardComponent implements OnInit {
 
 constructor(private authService:AuthService,private http:HttpClient){}
 ngOnInit(): void {
-   let id= localStorage.getItem( "userId");
+   let id= localStorage.getItem( "token");
     // console.log(id,"USER ID")/
-  this.http.get(environment.baseUrl+'playerDetails/'+id).subscribe((res:any)=>{
+  // this.http.get(environment.baseUrl+'playerDetails/'+id).subscribe((res:any)=>{
 
-        localStorage.setItem( "userId" , res.data._id);
-        localStorage.setItem( "teamId" , res.data.teamId);
-        localStorage.setItem('avatar',res.data.avatar);
-        localStorage.setItem('userName',res.data.userName);
-    // console.log(res)
-  })
+  //       localStorage.setItem( "userId" , res.data._id);
+  //       localStorage.setItem( "teamId" , res.data.teamId);
+  //       localStorage.setItem('avatar',res.data.avatar);
+  //       localStorage.setItem('userName',res.data.userName);
+  //   // console.log(res)
+  // })
 }
 
 

@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environment/enviroment';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../services/users/users.service';
+import { ForgetPasswordService } from '../services/forgot-password/forgot-password.service';
 @Component({
   selector: 'app-set-password',
   templateUrl: './set-password.component.html',
   styleUrls: ['./set-password.component.scss'],
 })
-export class SetPasswordComponent {
+export class SetPasswordComponent implements OnInit {
   password: string = '';
   confirmPassword: string = '';
   passwordMismatchError: string = ''; // New variable to hold password mismatch error message
@@ -16,18 +17,22 @@ export class SetPasswordComponent {
     private http: HttpClient,
     private router: ActivatedRoute,
     private route: Router,
+    private userService:UserService,
+    private forgerPasswordService:ForgetPasswordService,
     private toastr: ToastrService
   ) {}
+redirectedForm:any;
+  ngOnInit(): void {
+      this.redirectedForm = sessionStorage.getItem('redirectFrom');
+
+  }
   setPassword(): void {
-    // Check if passwords match
-    console.log(this.confirmPassword)
     let validatePass = this.validatePassword(this.password);
-    let _id = this.router.snapshot.params['_id'];
-    console.log(validatePass);
+    let token = this.router.snapshot.params['token'];
+
     if (validatePass) {
       if (this.password !== this.confirmPassword) {
-        this.passwordMismatchError =
-          'Passwords do not match. Please try again.';
+        this.passwordMismatchError ='Passwords do not match. Please try again.';
         this.toastr.error(this.passwordMismatchError);
         return;
       } else {
@@ -35,40 +40,23 @@ export class SetPasswordComponent {
       }
       let data = {
         password: this.confirmPassword,
-        _id: _id,
+        token: token,
         firstLogin: true,
       };
-      //  this.http.patch(environment.baseUrl+'/user/admin-password',data).subscribe(
-      //    (response:any) => {
-      //      console.log('API Response:', response);
-      //      if(response.message=="password updated successfully..."){
-      //       this.toastr.success('Password set successful')
-      //        this.route.navigate(['/','playername',_id])
-      //      }
+     this.userService.setPassword(data).subscribe(
+        (res: any) => {
+          if ((res.message == "Update successfully.")) {
 
-      //    },
-      //    (error:any) => {
-      //      console.error('API Error:', error);
-      //      // Handle error, e.g., show an error message
-      //    }
-      //  );
-      this.http
-        .post(`${environment.baseUrl2}/forget-password/send-otp`, {
-          email: localStorage.getItem('otp-email'),
-        })
-        .subscribe((res: any) => {
-          console.log(res);
-          if ((res.message == 'Login successfully.', this.router)) {
-            sessionStorage.setItem('new-password', this.confirmPassword);
-            this.route.navigate(['/otp']);
-          }
-          console.log('Send Otp');
+              this.route.navigate(['/playername',token]);
+            }
+
+
         });
-    } else {
-      alert(
-        'Password Should Be At Least Of Minimun 8 Character, Must Contain Number And Alphabets'
-      );
-    }
+  } else {
+    this.toastr.warning(
+      'Password Should Be At Least Of Minimun 8 Character, Must Contain Number And Alphabets'
+    );
+  }
   }
 
   validatePassword(password: string): boolean {

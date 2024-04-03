@@ -7,41 +7,36 @@ import { SetPasswordComponent } from './set-password/set-password.component';
 import { TeamNameComponent } from './team-name/team-name.component';
 import { TeamImageComponent } from './team-image/team-image.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { OtpsenderComponent } from './otpsender/otpsender.component';
 const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
   },
   {
-    path: 'otp',
-    component: OtpsenderComponent,
-  },
-  {
     path: 'forgotpassword',
     component: ForgotpasswordComponent,
   },
   {
-    path: 'set-password/:_id',
+    path: 'set-password/:token',
     component: SetPasswordComponent,
   },
   {
-    path: 'playername/:_id',
+    path: 'playername/:token',
     component: PlayerNameComponent,
   },
   {
-    path: 'playerimage/:_id',
+    path: 'playerimage/:token',
     component: PlayerImageComponent,
   },
   {
-    path: 'teamName/:_id',
+    path: 'teamName/:token',
     component: TeamNameComponent,
   },
   {
-    path: 'teamImage/:teamId',
+    path: 'teamImage/:token',
     component: TeamImageComponent,
   },
- 
+
   {
     path: 'home',
     loadChildren: () => {

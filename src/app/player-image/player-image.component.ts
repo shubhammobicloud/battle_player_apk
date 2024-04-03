@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environment/enviroment';
+import { UserService } from '../services/users/users.service';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
@@ -15,7 +15,8 @@ export class PlayerImageComponent {
     private active: ActivatedRoute,
     private route: Router,
     private authService: AuthService,
-    private toastr:ToastrService
+    private toastr:ToastrService,
+    private userService:UserService
   ) {}
 
   displayedImage: string | ArrayBuffer | null =
@@ -36,27 +37,22 @@ export class PlayerImageComponent {
   }
 
   submit() {
-    let _id = this.active.snapshot.params['_id'];
+    let token = this.active.snapshot.params['token'];
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('avatar', this.selectedFile, this.selectedFile.name);
+      formData.append('token', token);
 
-      this.http
-        .patch(`${environment.baseUrl}playerImageUpdate/${_id}`, formData)
+     this.userService.updatePlayer(formData)
         .subscribe(
           (res: any) => {
             console.log('File upload response:', res);
-            if (res.message == 'update successfully') {
+            if (res.message == "Update successfully.") {
               this.toastr.success('Profile Image Updated Successfully!');
-              if (res.gameLeader) {
+              if (res.data.gameLeader) {
                 this.authService.gameLeader = true;
-                this.route.navigate(['/', 'teamImage', res.teamId]);
-                let teamId = localStorage.getItem('teamId');
-                this.http
-                  .get(environment.baseUrl + 'sendMailToPlayer/' + teamId)
-                  .subscribe((res) => {
-                    console.log(res);
-                  });
+                this.route.navigate(['/', 'teamImage', token]);
+
               } else {
                 this.authService.gameLeader = false;
                 this.route.navigate(['/', 'home']);

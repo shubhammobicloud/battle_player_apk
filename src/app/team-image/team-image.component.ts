@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environment/enviroment';
-
+import { TeamService } from '../services/team/team.service';
 @Component({
   selector: 'app-team-image',
   templateUrl: './team-image.component.html',
@@ -10,7 +9,7 @@ import { environment } from 'src/environment/enviroment';
 })
 export class TeamImageComponent {
 
-  constructor(private http: HttpClient, private active: ActivatedRoute, private route: Router) {}
+  constructor(private http: HttpClient, private active: ActivatedRoute, private route: Router,private teamService:TeamService) {}
 
   displayedImage: string | ArrayBuffer | null = 'https://i.pinimg.com/originals/35/3d/7a/353d7a34da6baa266f4557b8181cb33c.jpg';
   selectedFile: File | null = null;
@@ -29,15 +28,13 @@ export class TeamImageComponent {
   }
 
   submit() {                                                  // upload the selected image..
-    let teamId = this.active.snapshot.params['teamId'];
     if (this.selectedFile) {
       const formData = new FormData();
-      formData.append('teamAvatar', this.selectedFile, this.selectedFile.name);
-      let _id=teamId
-      this.http.patch(`${environment.baseUrl}teamImageUpdate/${_id}`, formData).subscribe(
+      formData.append('avatar', this.selectedFile, this.selectedFile.name);
+      this.teamService.updateTeamImage(formData).subscribe(
         (res:any) => {
           console.log('File upload response:', res);
-          if(res.message=='Update successful'){
+          if(res.message=="Update successfully."){
               this.route.navigate(['/','home']);
           }
         },

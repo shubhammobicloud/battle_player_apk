@@ -41,7 +41,7 @@ export class CompanyNewsComponent implements OnInit {
   listOfNews: any;
   getCompanyNews() {
     this.http
-      .get(environment.baseUrl + 'newsFeed/' + 'campanyxyz')
+      .get(environment.baseUrl + 'news/getNews')
       .subscribe((res: any) => {
         this.listOfNews = res.data;
         this.listOfNews.forEach((news: any) => {

@@ -34,7 +34,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Team Name</mat-label>
-        <input matInput [value]="teamName" disabled />
+        <input matInput formControlName="name" [disabled]="true"/>
       </mat-form-field>
       <button mat-raised-button type="button" (click)="toggleEditMode()">
         {{ isEditMode ? "Save" : "Edit Profile" }}

@@ -1,10 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environment/enviroment';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +12,7 @@ interface UserProfile {
   avatar: string;
   teamId: string;
   gameLeader: boolean;
-  teamName: string;
+  // teamName: string;
 }
 @Component({
   selector: 'app-profile',
@@ -44,27 +40,29 @@ export class ProfileComponent implements OnInit {
     this.userProfileForm = this.fb.group({
       email: [{ value: '', disabled: true }, Validators.email],
       companyUnit: [{ value: '', disabled: true }],
+      name:[{value:'',disabled:true}],
     });
   }
-  teamName: any;
   getUserDetails() {
-    const token = localStorage.getItem('token');
+     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const userId = localStorage.getItem('userId'); // Assuming authentication
     this.http
-      .get<UserProfile>(`${environment.baseUrl}` + '/user/details', { headers })
+      .get<UserProfile>(`${environment.baseUrl}` + '/user/details', {headers})
 
       .subscribe((response: any) => {
+        
         this.userProfile = response.data;
         this.http
           .get<UserProfile>(
             environment.baseUrl + 'getTeam/' + response.data.teamId
           )
-          .subscribe((res) => {
-            this.teamName = res.teamName;
+          .subscribe((res:any) => {
+            console.log(res.data.teamId.name)
+            // this.teamName = res.data.teamId.name;
           });
-        this.populateForm();
+        this.populateForm(); 
       });
   }
 
@@ -73,6 +71,7 @@ export class ProfileComponent implements OnInit {
       this.userProfileForm.patchValue({
         email: this.userProfile.email,
         companyUnit: this.userProfile.companyUnit,
+        name: (this.userProfile.teamId as unknown as {[key: string]: string})['name']
       });
     }
   }

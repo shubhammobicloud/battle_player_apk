@@ -6,10 +6,9 @@
       <p class="th-3">Sales in LC</p>
       <p class="th-4">Score</p>
     </li>
-    
 
-    <li *ngFor="let player of tableData let i=index">
-      <span class="teamid">{{i+1}}</span>
+    <li *ngFor="let player of tableData; let i = index">
+      <span class="teamid">{{ i + 1 }}</span>
       <span> <mat-icon>person</mat-icon> {{ player.name }} </span>
       <span class="sales">{{ player.currentSalesRepLC }}</span>
       <span class="score">{{ player.core }}%</span>

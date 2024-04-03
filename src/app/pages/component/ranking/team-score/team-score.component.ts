@@ -20,7 +20,7 @@ export class TeamScoreComponent {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     this.http
-      .get<any[]>(`${environment.baseUrl}ranking/my-team`, { headers })
+      .get<any[]>(`${environment.baseUrl}/ranking/my-team`, { headers })
       .subscribe(
         (data: any) => {
           this.tableData = data['data'];

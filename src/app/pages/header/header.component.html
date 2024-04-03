@@ -1,6 +1,6 @@
 <div class="container">
   <h2>THE REINHOLD WURTH</h2>
-  <div class="contant">
+  <div class="box">
     <button
       mat-icon-button
       class="custom-btn"
@@ -12,10 +12,8 @@
   </div>
   <div *ngIf="isMenuOpen" class="custom-menu">
     <button class="mat-menu-item" routerLink="">
-      <span>
-        <mat-icon>logout </mat-icon>
-
-        Logout</span
+      <span class="text">
+        <mat-icon>logout </mat-icon>Logout</span
       >
     </button>
     <li *ngIf="showProfileOption">
@@ -24,7 +22,7 @@
         routerLink="/home/profile/"
         routerLinkActive="active"
       >
-        <span style="font-size: 11px">
+        <span style="font-size: 11px" class="text">
           <mat-icon>group</mat-icon>
           Team Profile
         </span>

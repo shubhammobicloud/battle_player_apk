@@ -26,11 +26,11 @@ export class TeamScoreComponent {
           this.tableData = data['data'];
 
           // Count occurrences of defaultId
-          this.defaultIdCount = this.countDefaultIdOccurrences(
-            this.tableData,
-            this.defaultId
-          );
-          console.log('Count of defaultId:', this.defaultIdCount);
+          // this.defaultIdCount = this.countDefaultIdOccurrences(
+          //   this.tableData,
+          //   this.defaultId
+          // );
+          // console.log('Count of defaultId:', this.defaultIdCount);
         },
         (error) => {
           console.error('An error occurred:', error);
@@ -39,15 +39,15 @@ export class TeamScoreComponent {
       );
   }
 
-  countDefaultIdOccurrences(data: any[], defaultId: string): number {
-    let count = 1;
+  // countDefaultIdOccurrences(data: any[], defaultId: string): number {
+  //   let count = 1;
   
-    for (const item of data) {
-      if (item.id === defaultId) {
-        count++;
-      }
-    }
+  //   for (const item of data) {
+  //     if (item.id === defaultId) {
+  //       count++;
+  //     }
+  //   }
   
-    return count;
-  }
+  //   return count;
+  // }
 }

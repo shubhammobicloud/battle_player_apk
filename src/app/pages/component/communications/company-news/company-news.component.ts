@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environment/enviroment';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import {
@@ -10,7 +9,7 @@ import {
   animate,
 } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
-
+import { NewsSerives } from 'src/app/services/news/news.service';
 @Component({
   selector: 'app-company-news',
   templateUrl: './company-news.component.html',
@@ -30,8 +29,8 @@ import { ToastrService } from 'ngx-toastr';
 export class CompanyNewsComponent implements OnInit {
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private newsService:NewsSerives
   ) {}
   userId = localStorage.getItem('userId');
   reacted: boolean = false;
@@ -40,8 +39,7 @@ export class CompanyNewsComponent implements OnInit {
   }
   listOfNews: any;
   getCompanyNews() {
-    this.http
-      .get(environment.baseUrl + 'news/getNews')
+   this.newsService.getNews()
       .subscribe((res: any) => {
         this.listOfNews = res.data;
         this.listOfNews.forEach((news: any) => {
@@ -75,21 +73,21 @@ export class CompanyNewsComponent implements OnInit {
       user: id,
     };
 
-    this.http
-      .put(environment.baseUrl + 'react-on-news/' + news._id, data)
-      .subscribe(
-        (res: any) => {
-          if (res.message == ' Reactions removed successfully') {
-            this.toastr.warning('Disliked');
-          } else if (res.message == 'Reactions added successfully') {
-            this.toastr.success('Liked');
-          }
-          this.getCompanyNews();
-        },
-        (error) => {
-          // Handle error
-          console.error('An error occurred:', error);
-        }
-      );
+    // this.http
+    //   .put(environment.baseUrl + 'react-on-news/' + news._id, data)
+    //   .subscribe(
+    //     (res: any) => {
+    //       if (res.message == ' Reactions removed successfully') {
+    //         this.toastr.warning('Disliked');
+    //       } else if (res.message == 'Reactions added successfully') {
+    //         this.toastr.success('Liked');
+    //       }
+    //       this.getCompanyNews();
+    //     },
+    //     (error) => {
+    //       // Handle error
+    //       console.error('An error occurred:', error);
+    //     }
+    //   );
   }
 }

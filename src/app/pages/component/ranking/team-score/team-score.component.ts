@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { environment } from 'src/environment/enviroment';
-
+import { RankingService } from 'src/app/services/ranking/ranking.service';
 @Component({
   selector: 'app-team-score',
   templateUrl: './team-score.component.html',
@@ -12,15 +11,14 @@ export class TeamScoreComponent {
   defaultId = 'YOUR_DEFAULT_ID_HERE';
   defaultIdCount = 0;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private rankingService:RankingService) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http
-      .get<any[]>(`${environment.baseUrl}ranking/my-team`, { headers })
+    this.rankingService.getMyTeamRanking()
       .subscribe(
         (data: any) => {
           this.tableData = data['data'];
@@ -41,13 +39,13 @@ export class TeamScoreComponent {
 
   // countDefaultIdOccurrences(data: any[], defaultId: string): number {
   //   let count = 1;
-  
+
   //   for (const item of data) {
   //     if (item.id === defaultId) {
   //       count++;
   //     }
   //   }
-  
+
   //   return count;
   // }
 }

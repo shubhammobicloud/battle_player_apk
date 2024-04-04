@@ -4,7 +4,6 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import html2canvas from 'html2canvas';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environment/enviroment';
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',

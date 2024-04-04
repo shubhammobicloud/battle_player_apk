@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environment/enviroment';
 
 @Component({
   selector: 'app-battle-patner-team',

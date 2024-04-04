@@ -31,5 +31,7 @@ export class UserService {
     setPassword = (data:any) =>{
       return this.http.patch(this.baseUrl + 'player-password',data)
     }
-
+    getProfileDetails=()=>{
+      return this.http.get(this.baseUrl+'details',this.httpOptions)
+    }
 }

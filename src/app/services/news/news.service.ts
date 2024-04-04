@@ -7,16 +7,20 @@ import { environment } from "src/environment/enviroment";
 @Injectable({
     providedIn: 'root'
 })
-export class RankingService{
+export class NewsSerives{
 
-  private baseUrl = environment.baseUrl + 'ranking/'
+  private baseUrl = environment.baseUrl + 'news/'
   private httpOptions = this.headerService.updateHeader();
   constructor(
     private headerService: HeaderService,
     private toster: ToastrService,
     private http: HttpClient
 ) { }
-    getMyTeamRanking = () =>{
-  return this.http.get(this.baseUrl + 'my-team',this.httpOptions)
-}
+    getNews = () =>{
+        return this.http.get(this.baseUrl,this.httpOptions)
+    }
+
+    reactOnNews=()=>{
+      return this.http.get(this.baseUrl+'react',this.httpOptions);
+    }
 }

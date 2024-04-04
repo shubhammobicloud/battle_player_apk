@@ -43,7 +43,9 @@ ngOnDestroy(): void {
     this.socket.disconnect();
 }
   ngOnInit(): void {
-    this.socket = io(`${this.url}team-namespaces`, {
+
+    this.socket = io(`${this.url}/team-namespaces`, {
+
       auth: {
         _id: this.id,
         serverOffset: this.id,

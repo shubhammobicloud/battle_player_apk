@@ -23,12 +23,7 @@ export class TeamScoreComponent {
         (data: any) => {
           this.tableData = data['data'];
 
-          // Count occurrences of defaultId
-          // this.defaultIdCount = this.countDefaultIdOccurrences(
-          //   this.tableData,
-          //   this.defaultId
-          // );
-          // console.log('Count of defaultId:', this.defaultIdCount);
+          
         },
         (error) => {
           console.error('An error occurred:', error);

@@ -9,7 +9,7 @@ import { environment } from "src/environment/enviroment";
 })
 export class UserService {
 
-    private baseUrl = environment.baseUrl + '/user/'
+    private baseUrl = environment.baseUrl + 'user/'
     private httpOptions = this.headerService.updateHeader();
     constructor(
         private headerService: HeaderService,

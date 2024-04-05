@@ -6,6 +6,7 @@ import { ScoreBoardComponent } from '../../component/score-board/score-board.com
 import { ProfileComponent } from '../../component/profile/profile.component';
 import { RankingComponent } from '../../component/ranking/ranking.component';
 import { CommunicationsComponent } from '../../component/communications/communications.component';
+import { TeamDetailsComponent } from '../../component/team-details/team-details.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'ranking', component: RankingComponent},
       { path: 'communications', component: CommunicationsComponent },
       { path: 'profile', component: ProfileComponent },
+      {path:'Team-profile',component:TeamDetailsComponent}
     ]
   },
 

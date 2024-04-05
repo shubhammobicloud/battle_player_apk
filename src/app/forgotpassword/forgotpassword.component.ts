@@ -15,7 +15,7 @@ export class ForgotpasswordComponent {
   password: string = '';
   showOtp: boolean = false;
   showPassword: boolean = false;
-
+  link = environment.baseUrl;
   forgotPasswordForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
   });
@@ -27,21 +27,7 @@ export class ForgotpasswordComponent {
     private rouetrs: ActivatedRoute,
     private toastr:ToastrService
   ) {}
-  // forgotpasswor() {
-  //   if (this.forgotpassword.valid) {
-  //     this.forgerPasswordService.sendOtp({email: this.forgotpassword.value.email}).subscribe(
-  //       (res: any) => {
-  //         if ((res.message == "Otp sent sucessfully.")) {
-  //           this.route.navigate(['/otp']);
-  //         }
-  //       });
-  //     sessionStorage.setItem('redirectFrom', 'forgot password');
-  //   } else {
-  //     this.toastr.error('Form is invalid');
-  //   }
 
-
-  // }
   validateEmail(email: string) {
     const re = /^(([^<>()[\\]\\\\.,;:\s@"]+(\.[^<>()[\\]\\\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
@@ -49,7 +35,9 @@ export class ForgotpasswordComponent {
 
   submitEmail() {
     if (this.forgotPasswordForm.valid) {
+
       this.forgerPasswordService.sendOtp({email:this.forgotPasswordForm.value.email}).subscribe((res:any)=>{
+
         console.log(res)
         if(res.message=="Otp sent sucessfully."){
           this.toastr.success(res.message)
@@ -60,10 +48,12 @@ export class ForgotpasswordComponent {
         }
       },(error:any)=>{
         this.toastr.error(error.error.message)
+     
       }
       )
 
     }
+
   }
 
   submitOtpAndPassword() {

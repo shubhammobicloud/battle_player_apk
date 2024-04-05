@@ -1,4 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { environment } from 'src/environment/enviroment';
 
 @Component({
   selector: 'app-global-countries',
@@ -6,19 +8,29 @@ import { Component } from '@angular/core';
   styleUrls: ['./global-countries.component.scss']
 })
 export class GlobalCountriesComponent {
-  tableHeader = ['Player Name'];
-  myTeamList=[
-    { name: 'Player 1', sales: 1, score: 85 },
-    { name: 'Player 2', sales: 1, score: 75 },
-    { name: 'Player 3', sales: 1, score: 65 },
-    { name: 'Player 4', sales: 1, score: 55 },
-    { name: 'Player 5', sales: 1, score: 45 },
-    { name: 'Player 6', sales: 1, score: 45 },
-    { name: 'Player 7', sales: 1, score: 45 },
-    { name: 'Player 8', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-  ]
+  tableData!: any[];
+  defaultId = 'YOUR_DEFAULT_ID_HERE';
+  
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    this.http
+      .get<any[]>(`${environment.baseUrl}ranking/companies`, { headers })
+      .subscribe(
+        (data: any) => {
+          this.tableData = data['data'];
+
+          
+        },
+        (error) => {
+          console.error('An error occurred:', error);
+          // Handle error here
+        }
+      );
+  }
 }

@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
       email: [{ value: '', disabled: true }, Validators.email],
       companyUnit: [{ value: '', disabled: true }],
       name: [{ value: '', disabled: true }],
-      displayedImage:[{value:'',}]
+      displayedImage: [{ value: '' }],
     });
   }
   getUserDetails() {

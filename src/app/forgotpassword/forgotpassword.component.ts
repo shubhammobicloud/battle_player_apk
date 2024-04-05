@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ForgetPasswordService } from '../services/forgot-password/forgot-password.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environment/enviroment';
 @Component({
   selector: 'app-forgotpassword',
   templateUrl: './forgotpassword.component.html',

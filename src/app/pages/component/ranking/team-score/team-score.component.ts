@@ -25,7 +25,7 @@ export class TeamScoreComponent {
 
           
         },
-        (error) => {
+        (error:any) => {
           console.error('An error occurred:', error);
           // Handle error here
         }

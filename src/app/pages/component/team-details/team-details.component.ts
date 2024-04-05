@@ -159,8 +159,8 @@ export class TeamDetailsComponent implements OnInit {
 
   tableHeader = ['Player Name'];
   myTeamList = [
-    { name: 'Player 1', gameLeaderName: 'Demo' },
-    { name: 'Player 2', gameLeaderName: 'Demo' },
-    { name: 'Player 3', gameLeaderName: 'Demo' },
+    { name: 'Player 1', gameLeaderName: 'Demo' , imag:'../../assets/Max-R_Headshot (1).jpg' },
+    { name: 'Player 2', gameLeaderName: 'Demo' ,imag:'../../assets/Max-R_Headshot (1).jpg'},
+    { name: 'Player 3', gameLeaderName: 'Demo' ,imag:'../../assets/Max-R_Headshot (1).jpg'},
   ];
 }

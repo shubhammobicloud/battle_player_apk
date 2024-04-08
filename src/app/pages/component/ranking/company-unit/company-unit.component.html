@@ -7,7 +7,7 @@
       <p class="th-3">Sales in LC</p>
       <p class="th-4">Score</p>
     </li> -->
-    <li *ngFor="let player of myTeamList, let i=index" class="tab">
+    <li *ngFor="let player of tableData; let i = index" class="tab" >
      <span>{{i+1}}. <mat-icon>person</mat-icon> {{ player.name }} </span>       <span class="sales">{{ player.sales }}</span> <span class="score">{{ player.score }}</span>
     </li>
   </ul>

@@ -1,24 +1,27 @@
 <div class="container">
   <h2>THE REINHOLD WUTRTH</h2>
   <div class="box">
-    <button mat-icon-button class="custom-btn" (click)="toggleMenu($event)" aria-label="Example icon-button with a menu">
-      <mat-icon >more_vert</mat-icon>
+    <button
+      mat-icon-button
+      class="custom-btn"
+      (click)="toggleMenu($event)"
+      aria-label="Example icon-button with a menu"
+    >
+      <mat-icon>more_vert</mat-icon>
     </button>
   </div>
 </div>
 
-<div *ngIf="isMenuOpen" class="custom-menu" >
+<div *ngIf="isMenuOpen" class="custom-menu">
   <li>
-    <span class="mat-menu-item"routerLink="">
-      <span class="text" ><mat-icon>logout</mat-icon>Logout</span>
+    <span class="mat-menu-item" routerLink="">
+      <span class="text"><mat-icon>logout</mat-icon>Logout</span>
     </span>
   </li>
   <li>
-    <button class="mat-menu-item" routerLink="Team-profile">
-      <span style="font-size: 11px" class="text">
-        <mat-icon>group</mat-icon>
-        Team Profile
-      </span>
-    </button>
+    <span class="mat-menu-item-text" routerLink="Team-profile">
+      <mat-icon style="font-size: 29px;">group</mat-icon>
+      Team Profile
+    </span>
   </li>
 </div>

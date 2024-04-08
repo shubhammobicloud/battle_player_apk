@@ -1,3 +1,4 @@
+
 .container-table {
   max-height: fit-content;
   overflow-y: scroll;
@@ -9,11 +10,11 @@
   }
 
   .player-list li {
-    display: flex; /* Arranges player name and score horizontally */
-    justify-content: space-between; /* Distributes content evenly */
-    align-items: center; /* Vertically aligns name and score */
-    padding: 10px 30px; /* Adds some padding for readability */
-    border-bottom: 1px solid #ff2929; /* Adds a separator line */
+    display: flex;
+    justify-content: space-between; 
+    padding: 18px 16px;
+    text-align: center;
+    border-bottom: 1px solid #ff2929; 
     // border: 2px solid red;
     span {
       display: flex;

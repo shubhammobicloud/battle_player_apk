@@ -7,14 +7,14 @@
       <p class="th-3">Sales in LC</p>
       <p class="th-4">Score</p>
     </li> -->
-    <li *ngFor="let player of tableData; let i = index" class="tab" >
+    <li *ngFor="let Unit of tableData; let i = index" class="tab" >
      <span class="player-info">
        <span class="sr-number">{{i+1}}.</span>
        <mat-icon>person</mat-icon> 
-       <span class="player-name">{{ player.name }}</span>
+       <span class="player-name">{{ Unit.name }}</span>
      </span>       
-     <span class="sales">{{ player.companyCurrentLC}}</span>
-     <span class="score">{{ player.rankingScore ? player.rankingScore + "%" : "NA" }}</span>
+     <span class="sales">{{ Unit.companyCurrentLC}}</span>
+     <span class="score">{{ Unit.rankingScore ? Unit.rankingScore + "%" : "NA" }}</span>
     </li>
   </ul>
   <hr/>

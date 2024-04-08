@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { CompainesService } from 'src/app/services/ranking/compaines.service';
 import { environment } from 'src/environment/enviroment';
 
 @Component({
@@ -10,28 +11,23 @@ import { environment } from 'src/environment/enviroment';
 export class GlobalCountriesComponent {
   tableData!: any[];
   defaultId = 'YOUR_DEFAULT_ID_HERE';
+  defaultIdCount = 0;
 
-  
- // Method to calculate floor of rankingScore
-//  floorRankingScore(score: number): number {
-//   return Math.floor(score);
-// }
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private rankingService:CompainesService) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http
-      .get<any[]>(`${environment.baseUrl}ranking/companies`, { headers })
+    this.rankingService.getglobalRanking ()
       .subscribe(
         (data: any) => {
           this.tableData = data['data'];
 
           
         },
-        (error) => {
+        (error:any) => {
           console.error('An error occurred:', error);
           // Handle error here
         }

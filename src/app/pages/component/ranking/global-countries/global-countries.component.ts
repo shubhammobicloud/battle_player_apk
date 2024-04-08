@@ -10,8 +10,12 @@ import { environment } from 'src/environment/enviroment';
 export class GlobalCountriesComponent {
   tableData!: any[];
   defaultId = 'YOUR_DEFAULT_ID_HERE';
-  
 
+  
+ // Method to calculate floor of rankingScore
+//  floorRankingScore(score: number): number {
+//   return Math.floor(score);
+// }
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {

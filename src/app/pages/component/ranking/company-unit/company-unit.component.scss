@@ -44,4 +44,25 @@
   .tb{
     text-align: center;
   }
+  .player-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .sr-number {
+    margin-right: 5px; /* Adjust as needed */
+  }
+  
+  .player-name {
+    margin-right: 10px; /* Adjust as needed */
+  }
+  
+
+  .sales {
+    display: inline-block;
+    width: 60px; /* Adjust width as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }

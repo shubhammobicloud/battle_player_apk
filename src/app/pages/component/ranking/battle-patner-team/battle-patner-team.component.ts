@@ -20,7 +20,7 @@ export class BattlePatnerTeamComponent  implements OnInit{
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     this.http
-      .get<any[]>(`${environment.baseUrl}/ranking/battle-team`, { headers })
+      .get<any[]>(`${environment.baseUrl}ranking/battle-team`, { headers } , )
       .subscribe(
         (data: any) => {
           this.tableData = data['data'];

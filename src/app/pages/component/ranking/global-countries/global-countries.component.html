@@ -4,13 +4,13 @@
     <thead></thead>
    
 
-    <li *ngFor="let player of tableData; let i = index" class="tab" >
+    <li *ngFor="let company of tableData; let i = index" class="tab" >
       <span class="teamid" style="text-align:justify;">{{ i + 1 }}</span>
-      <span style="text-align: center;">
+      <span >
         <!-- <mat-icon>person</mat-icon>  -->
-        {{ player.name }} </span>
-      <span class="sales" style="text-align: center;">{{ player.companyCurrentLC }}</span>
-      <span class="score"style="text-align: center;">{{ player.rankingScore }}%</span>
+        {{ company.name.slice(0,14)}}... </span>
+      <span class="sales" style="text-align: center;">{{ company.companyCurrentLC }}</span>
+      <span class="score"style="text-align: center;">{{ company.rankingScore.toString().slice(0,4) }}%</span>
       </li>
   </ul>
   <hr/>

@@ -19,7 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 
-
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +42,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-
+    MatIconModule,
     ToastrModule.forRoot(),
   ],
   providers: [],

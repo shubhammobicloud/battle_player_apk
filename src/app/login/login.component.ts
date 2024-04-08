@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/users/users.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,7 +20,14 @@ export class LoginComponent {
       ],
     }),
   });
+  hide = true;
 
+  public showPassword: boolean = false;
+  // get emailInput() { return this.emailInput.get('email'); }
+  // get passwordInput() { return this.p.get('password'); } 
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
   constructor(
     private route: Router,
     private toastr: ToastrService,
@@ -50,6 +58,8 @@ export class LoginComponent {
           }
 
         );
+    }else{
+      this.toastr.error('Please enter the field')
     }
   }
 }

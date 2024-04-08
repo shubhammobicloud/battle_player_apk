@@ -75,8 +75,9 @@ h2 {
 }
 
 .container:hover .custom-menu {
-  display: block; /* Display the menu on hover */
+  display: none; /* Display the menu on hover */
 }
+
 
 .custom-btn {
   background-color: transparent;
@@ -96,6 +97,10 @@ h2 {
 
 .active {
   background-color: #fff; /* Define active state style */
+ 
+    background-color: #fff;
+    display: inline-table;
+
 }
 
 .mat-icon{

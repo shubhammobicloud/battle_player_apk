@@ -161,6 +161,6 @@ export class TeamDetailsComponent implements OnInit {
   myTeamList = [
     { name: 'Player 1', gameLeaderName: 'Demo' , imag:'../../assets/Max-R_Headshot (1).jpg' },
     { name: 'Player 2', gameLeaderName: 'Demo' ,imag:'../../assets/Max-R_Headshot (1).jpg'},
-    { name: 'Player 3', gameLeaderName: 'Demo' ,imag:'../../assets/Max-R_Headshot (1).jpg'},
+    { name: 'Player 3', gameLeaderName: 'Demo' ,imag:'/assets/Max-R_Headshot (1).jpg'},
   ];
 }

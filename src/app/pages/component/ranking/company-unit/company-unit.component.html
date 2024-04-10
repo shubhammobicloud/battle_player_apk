@@ -10,7 +10,7 @@
         </span>
         <!-- <span class="sales">{{ Unit.companyCurrentLC }}</span> -->
         <span class="score">{{
-          Unit.rankingScore ? Unit.rankingScore + "" : "0"
+          Unit.rankingScore ? Unit.rankingScore .toString().slice(0,4)+ "" : "0" 
         }}%</span>
       </li>
     </ng-container>

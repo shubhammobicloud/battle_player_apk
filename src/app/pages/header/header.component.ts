@@ -10,8 +10,8 @@ export class HeaderComponent {
   isMenuOpen: boolean = false;
 
   // Method to toggle the menu
-  toggleMenu(event: MouseEvent): void {
-    event.stopPropagation(); // Prevent click event propagation
+  toggleMenu(event: any): void {
+    event.stopPropagation(); 
     this.isMenuOpen = !this.isMenuOpen;
   }
   //  this code is to close active menus in drop down in custome-menu drop down

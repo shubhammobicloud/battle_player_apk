@@ -10,7 +10,7 @@ export class HeaderService {
         let authToken: string = `${localStorage.getItem('token')}`;
         ;
         let headers: HttpHeaders = new HttpHeaders({
-          'Authorization': 'Bearer ' + authToken
+        //   'Authorization': 'Bearer ' + authToken
         });
 
         let httpOptions: any = {

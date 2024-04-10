@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/users/users.service';
 interface UserProfile {
   email: string;
   userName: string;
-  companyUnit: number;
+  companyUnit: string;
   avatar: string;
   teamId: string;
   gameLeader: boolean;

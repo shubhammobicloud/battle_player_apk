@@ -30,7 +30,7 @@ export class TeamDetailsComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
+    private authService:AuthService,
     private fb: FormBuilder,
     private tostr: ToastrService
   ) {}
@@ -53,7 +53,7 @@ export class TeamDetailsComponent implements OnInit {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const userId = localStorage.getItem('userId'); // Assuming authentication
     this.http
-      .get<TeamProfile>(`${environment.baseUrl}` + '', { headers })
+      .get<TeamProfile>(`${environment.baseUrl}` + 'user/details', { headers })
 
       .subscribe((response: any) => {
         this.TeamProfile = response.data;

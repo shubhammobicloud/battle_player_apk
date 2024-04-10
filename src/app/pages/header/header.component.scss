@@ -44,16 +44,16 @@
 // }
 .container {
   display: flex;
-  align-items: center; /* Align items vertically center */
+  align-items: center;
   background-color: rgb(255, 0, 0);
-   width: 100%;
+  width: 100%;
 }
 
 h2 {
-  margin-right: auto; /* Push the h2 to the left as much as possible */
+  margin-right: auto; 
   color: white;
   margin: 10px;
-//     padding-block: 10px;
+  //     padding-block: 10px;
 }
 
 .box {
@@ -65,17 +65,16 @@ h2 {
   top: 8%;
   right: 3px;
   margin-bottom: -40px;
-  width: 100px;
   background-color: #fff;
   border: 1px solid #fff;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  // padding: 8px;
+  //  padding: 8px;
   z-index: 1000;
 }
 
 .container:hover .custom-menu {
-  display: block; /* Display the menu on hover */
+  display: none; 
 }
 
 .custom-btn {
@@ -90,29 +89,36 @@ h2 {
   padding: 5px;
   text-align: left;
   border: none;
+   font-size: 1rem;
   background-color: #fff;
   cursor: pointer;
 }
 
 .active {
-  background-color: #fff; /* Define active state style */
+  background-color: #fff;
+  display: inline-table;
 }
 
-.mat-icon{
+.mat-icon {
   color: #131212;
 }
-.custom-btn  > mat-icon{
+.custom-btn > mat-icon {
   color: #fff;
 }
 
-.custom-btn  > mat-icon:hover{
-  color: rgb(255, 0, 0);;
+.custom-btn > mat-icon:hover {
+  color: rgb(255, 0, 0);
 }
-li{
+li {
   list-style: none;
 }
-.text{
+.mat-menu-item-text {
   margin: auto;
-  // font-size: 16px;
-  margin-top: -40px;
+  display: block;
+  padding: 6px;
+  text-align: left;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
 }

@@ -9,7 +9,6 @@ import {
 import { Socket, io } from 'socket.io-client';
 import { environment } from 'src/environment/enviroment';
 
-
 @Component({
   selector: 'app-team-chat',
   templateUrl: './team-chat.component.html',
@@ -42,15 +41,15 @@ ngAfterViewChecked(): void {
 ngOnDestroy(): void {
     this.socket.disconnect();
 }
-  ngOnInit(): void {
+  async ngOnInit() {
 
-    this.socket = io(`${this.url}/team-namespaces`, {
+    this.socket = io(`${this.url}team-namespaces`, {
 
       auth: {
-        _id: this.id,
         serverOffset: this.id,
       },
     });
+    this.socket.disconnect;
 
     // Listen for the 'connect' event
     this.socket.on('connect', () => {
@@ -67,18 +66,37 @@ ngOnDestroy(): void {
       console.error('Socket.IO connection timeout:', timeout);
     });
 
-    this.socket.emit('joinRoom', { teamId: this.teamId });
+    try {    
+      const response=  await this.socket.emitWithAck('joinRoom',{teamId:this.teamId});
+      console.log(response,"response of joinRoom"); // 'ok'
+      if(response.error == 'error'){
+        alert(response.message);
+      }
+      if(response.status == 'ok'){
+        const response =  await this.socket.emitWithAck('loadChat',{teamId:this.teamId});
+        console.log(response,"response of loadChat"); 
+        if(response.error == 'error'){
+          alert(response.message);
+        }
+        if(response.status == 'ok'){
+          // const chats = response.existingChat;
+          this.chats = response.existingChat;
+        }
+      }
+    } catch (error) {
+      console.log(error,"error message of joinRoom")
+    }
 
-    this.socket.on('joinedRoom', (data: any) => {
-      this.socket.emit('loadChat', { teamId: this.teamId });
-    });
+    // disconnect
+    this.socket.on('disconnected',(data:any)=>{
+      if(data == 'disconnect'){
+        alert('Internet is not on or connection is very slow.');
+      }
+    })
 
-    this.socket.on('existingChat', (data: any) => {
-      this.chats = data;
-    });
-
-    this.socket.on('loadNewTeamChat', (data: any) => {
-      // sending
+    this.socket.on('loadNewTeamChat', (data: any, callback:any) => {
+      try {
+        // sending
       const newChat = {
         message: data.message,
         time: data.time,
@@ -88,8 +106,14 @@ ngOnDestroy(): void {
           userName: data.userName,
         },
       };
-      this.chats.push(newChat);
       this.socket.auth.serverOffset = data.id;
+      callback({
+        status: 'ok',
+      });
+      this.chats.push(newChat);
+      } catch (error) {
+       alert("error occured while loading new data");
+      }
     });
   }
 
@@ -100,7 +124,7 @@ ngOnDestroy(): void {
     return userId !== null && userId !== undefined && senderId?._id === userId;
   };
 
-  sendMessage() {
+  async sendMessage() {
     if (this.message !== '') {
       const selfMessage = {
         time: new Date(),
@@ -118,9 +142,19 @@ ngOnDestroy(): void {
         senderId: this.id,
         teamId: this.teamId,
       };
-      this.socket.emit('newTeamChat', data);
+      try {    
+        const response=  await this.socket.emitWithAck('newTeamChat',data);
+        console.log(response,"response of newTeamChat"); // 'ok'
+        if(response.status == 'ok'){
       this.chats.push(selfMessage);
       this.message = '';
+        }
+        if(response.status == 'error'){
+          alert(response.message);
+        }
+      }catch(error:any){
+        console.log(error.message);
+      }
     } else {
       if (this.teamChatTextarea) {
         this.teamChatTextarea.nativeElement.style.border = '2px solid red';

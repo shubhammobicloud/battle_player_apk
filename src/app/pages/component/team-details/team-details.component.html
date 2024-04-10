@@ -5,10 +5,9 @@
       <h2>{{ TeamProfile?.userName }}</h2>
       <label for="avatarInput">
         <img
+          formControlName="displayedImage"
           [src]="
-            selectedFile
-              ? displayedImage
-              : link + 'http://192.168.29.234:3000/images/' + TeamProfile
+            selectedFile ? displayedImage : link + 'images/' + displayedImage
           "
           alt="User Avatar"
           style="cursor: pointer"
@@ -25,26 +24,34 @@
       />
       <mat-form-field appearance="fill">
         <mat-label>Team Name</mat-label>
-        <input matInput formControlName="email" [disabled]="true" />
+        <input matInput formControlName="name" [disabled]="true" />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Game Leader Name</mat-label>
-        <input matInput formControlName="name" [disabled]="true" />
+        <input matInput formControlName="Gameleadername" [disabled]="true" />
       </mat-form-field>
 
+      <hr />
       <div class="container-table">
         <ul class="player-list">
-          <li class="table-con">
-            <p class="th-1">GameLeader Name</p>
-            <p class="th-2">Player Name</p>
-          </li>
           <li *ngFor="let player of myTeamList">
-            <span><mat-icon>person</mat-icon> {{ player.name }} </span>
-            <span class="sales">{{ player.gameLeaderName }}</span>
+            <span>
+              <div class="circle">
+                <img
+                  src="../../assets/Max-R_Headshot (1).jpg"
+                  alt=""
+                  width="100"
+                  class="Profile"
+                />
+              </div>
+              {{ player.name }}
+            </span>
           </li>
         </ul>
       </div>
+      <hr />
+      <br />
       <button mat-raised-button type="button" (click)="toggleEditMode()">
         {{ isEditMode ? "Save" : "Edit Profile" }}
       </button>

@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/users/users.service';
+import {jwtDecode} from 'jwt-decode';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,7 +22,14 @@ export class LoginComponent {
       ],
     }),
   });
+  hide = true;
 
+  public showPassword: boolean = false;
+  // get emailInput() { return this.emailInput.get('email'); }
+  // get passwordInput() { return this.p.get('password'); } 
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
   constructor(
     private route: Router,
     private toastr: ToastrService,
@@ -32,6 +42,10 @@ export class LoginComponent {
           (res: any) => {
             if (res.message == 'Login successfully.') {
               localStorage.setItem('token', res.data.token);
+              let data :{_id:any,teamId:any}= jwtDecode(res.data.token);
+              localStorage.setItem('userId', data._id);
+              localStorage.setItem('teamId', data.teamId);
+              // console.log("data", data)
               if (!res.data.firstLogin) {
                 this.toastr.success(
                   'Login successfully'
@@ -49,6 +63,8 @@ export class LoginComponent {
           }
 
         );
+    }else{
+      this.toastr.error('Please enter the field')
     }
   }
 }

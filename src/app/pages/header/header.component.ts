@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
@@ -9,9 +9,19 @@ import { NavigationEnd, Router } from '@angular/router';
 export class HeaderComponent {
   isMenuOpen: boolean = false;
 
-  toggleMenu() {
+  // Method to toggle the menu
+  toggleMenu(event: MouseEvent): void {
+    event.stopPropagation(); // Prevent click event propagation
     this.isMenuOpen = !this.isMenuOpen;
   }
+//  this code is to close active menus in drop down in custome-menu drop down
+  @HostListener('document:click', ['$event'])
+clickOutsideMenu(event: MouseEvent) {
+  const target = event.target as Element; // Explicitly cast event.target to Element
+  if (!target.closest('.custom-menu') && this.isMenuOpen) {
+    this.isMenuOpen = false;
+  }
+}
 
   menuItemClicked(action: string) {
     console.log('Menu item clicked:', action);
@@ -32,5 +42,8 @@ export class HeaderComponent {
   logOut(){
     localStorage.removeItem("token");
     this.router.navigate(['/'])
+  }
+  isActive(path: string): boolean {
+    return this.router.isActive(path, true);
   }
 }

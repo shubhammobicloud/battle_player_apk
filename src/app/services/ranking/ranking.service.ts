@@ -16,7 +16,27 @@ export class RankingService{
     private toster: ToastrService,
     private http: HttpClient
 ) { }
+// team Score
     getMyTeamRanking = () =>{
   return this.http.get(this.baseUrl + 'my-team',this.httpOptions)
+}
+// Company Team
+getcompanyTeamRanking = () =>{
+  return this.http.get(this.baseUrl + 'company-teams',this.httpOptions)
+}
+
+// Global Ranking
+getglobalRanking = () =>{
+  return this.http.get(this.baseUrl + 'companies',this.httpOptions)
+}
+
+// company Unit 
+getcompanyuintRanking = () =>{
+  return this.http.get(this.baseUrl + 'units',this.httpOptions)
+}
+
+
+getbattleteamRanking = () =>{
+  return this.http.get(this.baseUrl + 'battle-team',this.httpOptions)
 }
 }

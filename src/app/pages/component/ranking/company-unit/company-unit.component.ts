@@ -1,4 +1,8 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { RankingService } from 'src/app/services/ranking/ranking.service';
+
+import { environment } from 'src/environment/enviroment';
 
 @Component({
   selector: 'app-company-unit',
@@ -6,18 +10,28 @@ import { Component } from '@angular/core';
   styleUrls: ['./company-unit.component.scss']
 })
 export class CompanyUnitComponent {
-  myTeamList=[
-    { name: 'Player 1', sales: 1, score: 85 },
-    { name: 'Player 2', sales: 1, score: 75 },
-    { name: 'Player 3', sales: 1, score: 65 },
-    { name: 'Player 4', sales: 1, score: 55 },
-    { name: 'Player 5', sales: 1, score: 45 },
-    { name: 'Player 6', sales: 1, score: 45 },
-    { name: 'Player 7', sales: 1, score: 45 },
-    { name: 'Player 8', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-  ]
+  tableData!: any[];
+  defaultId = 'YOUR_DEFAULT_ID_HERE';
+  defaultIdCount = 0;
+
+  constructor(private http: HttpClient,private rankingService:RankingService) {}
+
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    this.rankingService.getcompanyuintRanking()
+      .subscribe(
+        (data: any) => {
+          this.tableData = data['data'];
+
+          
+        },
+        (error:any) => {
+          console.error('An error occurred:', error);
+          // Handle error here
+        }
+      );
+  }
 }

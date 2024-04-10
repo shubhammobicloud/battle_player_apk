@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { RankingService } from 'src/app/services/ranking/ranking.service';
+import { environment } from 'src/environment/enviroment';
 
 @Component({
   selector: 'app-battle-patner-team',
@@ -7,27 +9,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./battle-patner-team.component.scss']
 })
 export class BattlePatnerTeamComponent  implements OnInit{
-  // tableData!: any[];
+  tableData!: any[];
+  defaultId = 'YOUR_DEFAULT_ID_HERE';
+  defaultIdCount = 0;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private rankingService:RankingService) {}
 
   ngOnInit(): void {
-    // this.http.get<any[]>(`${environment.baseUrl}/ranking/my-team`).subscribe(data => {
-    //   this.tableData = data;
-    // });
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    this.rankingService.  getbattleteamRanking()
+      .subscribe(
+        (data: any) => {
+          this.tableData = data['data'];
+
+          
+        },
+        (error:any) => {
+          console.error('An error occurred:', error);
+          // Handle error here
+        }
+      );
   }
-  myTeamList=[
-    { name: 'Player 1', sales: 1, score: 85 },
-    { name: 'Player 2', sales: 1, score: 75 },
-    { name: 'Player 3', sales: 1, score: 65 },
-    { name: 'Player 4', sales: 1, score: 55 },
-    { name: 'Player 5', sales: 1, score: 45 },
-    { name: 'Player 6', sales: 1, score: 45 },
-    { name: 'Player 7', sales: 1, score: 45 },
-    { name: 'Player 8', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-    { name: 'Player 9', sales: 1, score: 45 },
-  ]
 }

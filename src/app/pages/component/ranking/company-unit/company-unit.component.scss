@@ -1,14 +1,14 @@
 .container-table {
   max-height: fit-content;
   overflow-y: scroll;
-  .player-list {
+  .Unit-list {
     width: 100%; /* Ensures list fits screen width */
     list-style: none; /* Removes default bullet points */
     padding: 0; /* Removes default padding */
     margin: 0; /* Removes default margin */
   }
 
-  .player-list li {
+  .Unit-list li {
     display: flex; /* Arranges player name and score horizontally */
     justify-content: space-between; /* Distributes content evenly */
     align-items: center; /* Vertically aligns name and score */

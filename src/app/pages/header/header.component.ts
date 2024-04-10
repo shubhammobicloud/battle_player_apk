@@ -10,38 +10,38 @@ export class HeaderComponent {
   isMenuOpen: boolean = false;
 
   // Method to toggle the menu
-  toggleMenu(event: MouseEvent): void {
-    event.stopPropagation(); // Prevent click event propagation
+  toggleMenu(event: any): void {
+    event.stopPropagation(); 
     this.isMenuOpen = !this.isMenuOpen;
   }
-//  this code is to close active menus in drop down in custome-menu drop down
+  //  this code is to close active menus in drop down in custome-menu drop down
   @HostListener('document:click', ['$event'])
-clickOutsideMenu(event: MouseEvent) {
-  const target = event.target as Element; // Explicitly cast event.target to Element
-  if (!target.closest('.custom-menu') && this.isMenuOpen) {
-    this.isMenuOpen = false;
+  clickOutsideMenu(event: MouseEvent) {
+    const target = event.target as Element;
+    if (!target.closest('.custom-menu') && this.isMenuOpen) {
+      this.isMenuOpen = false;
+    }
   }
-}
 
   menuItemClicked(action: string) {
     console.log('Menu item clicked:', action);
   }
   showProfileOption: boolean = false;
-  userId!: string; // Assuming you have user ID available after authentication
+  userId!: string;
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Check current route to determine whether to show profile option
         this.showProfileOption = event.url.includes('/home/profile');
       }
     });
   }
-  logOut(){
-    localStorage.removeItem("token");
-    this.router.navigate(['/'])
+  logOut() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/']);
   }
   isActive(path: string): boolean {
     return this.router.isActive(path, true);

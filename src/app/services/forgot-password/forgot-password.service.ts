@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { HttpClient } from "@angular/common/http";
-import { HeaderService } from "../header/header.service";
 import { environment } from "src/environment/enviroment";
 import { Observable, finalize } from "rxjs";
 @Injectable({
@@ -12,7 +11,6 @@ export class ForgetPasswordService {
     private baseUrl = environment.baseUrl + 'forget-password/'
     // private httpOptions = this.headerService.updateHeader();
     constructor(
-        private headerService: HeaderService,
         private toster: ToastrService,
         private http: HttpClient
     ) { }

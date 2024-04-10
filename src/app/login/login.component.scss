@@ -20,33 +20,31 @@
     text-align: center;
 
     p {
-      margin: 5px 0;
+      margin-block: 5px 0;
+      font-size: 1.3rem;
       font-weight: 600;
     }
 
     h1 {
-      margin: 10px 0;
+      margin-block: 5px 0;
       font-size: 2rem;
     }
 
     .form-container {
       display: flex;
       flex-direction: column;
-      margin-bottom: 20px;
+      // margin-bottom: 20px;
 
       mat-form-field {
         width: 100%;
+        font-size: 1.2rem;
         margin-bottom: 15px;
       }
       .error {
         color: #333;
         font-size: 13px;
-        
-        // font-weight: 600;
-        // height: 10px;
-        
       }
-      
+
     }
 
     .button-login {
@@ -54,7 +52,7 @@
       border-radius: 10px;
       width: 100%;
       text-align: center;
-      margin-top: 50px;
+      // margin-top: 50px;
 
       button {
         font-size: 1.4rem;
@@ -68,7 +66,7 @@
       margin-top: 10px;
       display: inline-block;
       font-weight: 600;
-
+      font-size: 1.3rem;
       &:hover {
         text-decoration: underline;
       }

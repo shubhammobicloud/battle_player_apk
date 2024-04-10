@@ -15,7 +15,6 @@ export class ForgotpasswordComponent {
   password: string = '';
   showOtp: boolean = false;
   showPassword: boolean = false;
-  link = environment.baseUrl;
   forgotPasswordForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
   });
@@ -35,10 +34,7 @@ export class ForgotpasswordComponent {
 
   submitEmail() {
     if (this.forgotPasswordForm.valid) {
-
       this.forgerPasswordService.sendOtp({email:this.forgotPasswordForm.value.email}).subscribe((res:any)=>{
-
-        console.log(res)
         if(res.message=="Otp sent sucessfully."){
           this.toastr.success(res.message)
           this.showOtp = true;
@@ -48,10 +44,13 @@ export class ForgotpasswordComponent {
         }
       },(error:any)=>{
         this.toastr.error(error.error.message)
-     
       }
       )
 
+    }else if(this.forgotPasswordForm.get('email')?.hasError('required')){
+      this.toastr.warning("Email Required!!")
+    }else{
+      this.toastr.warning("Invalid Email!!")
     }
 
   }
@@ -69,9 +68,9 @@ export class ForgotpasswordComponent {
         if ((res.message == "Password updated successfully")) {
         this.toastr.success(res.message)
           this.route.navigate(['/'])
-        }else{
-          this.toastr.error('Invalid OTP')
         }
+      },(error)=>{
+        this.toastr.error(error.error.message)
       });
     }
   }

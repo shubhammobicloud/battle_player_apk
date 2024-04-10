@@ -29,4 +29,8 @@ export class HeaderComponent {
       }
     });
   }
+  logOut(){
+    localStorage.removeItem("token");
+    this.router.navigate(['/'])
+  }
 }

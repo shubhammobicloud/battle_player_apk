@@ -20,7 +20,7 @@ export class NewsSerives{
         return this.http.get(this.baseUrl,this.httpOptions)
     }
 
-    reactOnNews=()=>{
-      return this.http.get(this.baseUrl+'react',this.httpOptions);
+    reactOnNews=(Id:any)=>{
+      return this.http.put(this.baseUrl+'react/'+Id,'',this.httpOptions);
     }
 }

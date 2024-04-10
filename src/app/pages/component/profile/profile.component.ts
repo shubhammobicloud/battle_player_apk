@@ -46,7 +46,6 @@ export class ProfileComponent implements OnInit {
     });
   }
   getUserDetails() {
-    const token = localStorage.getItem('token');
    this.userService.getProfileDetails().subscribe((response: any) => {
         this.userProfile = response.data;
         this.populateForm();

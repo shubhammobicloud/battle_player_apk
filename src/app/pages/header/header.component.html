@@ -11,7 +11,7 @@
     </button>
   </div>
   <div *ngIf="isMenuOpen" class="custom-menu">
-    <button class="mat-menu-item" routerLink="">
+    <button class="mat-menu-item" (click)="logOut()">
       <span class="text">
         <mat-icon>logout </mat-icon>Logout</span
       >

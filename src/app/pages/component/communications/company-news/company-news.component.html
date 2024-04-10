@@ -15,7 +15,7 @@
               <button mat-raised-button (click)="likeNews(news._id)">
                 <mat-icon class="thumb-up-icon" [ngClass]="{'liked': news.reacted}" [ngStyle]="{'color': news.reacted ? 'green' : 'red'}">thumb_up_alt_outlined</mat-icon>
               </button>
-              <span *ngIf="news.reactions > 0">{{ news.reactions }} Likes</span>
+              <span *ngIf="news.reaction > 0">{{ news.reaction }} Likes</span>
             </div>
           </mat-card-actions>
           <mat-card-footer align="right" class="card-footer">{{ getFormattedDate(news.createdAt) }}</mat-card-footer>

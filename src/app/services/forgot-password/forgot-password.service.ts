@@ -3,7 +3,7 @@ import { ToastrService } from "ngx-toastr";
 import { HttpClient } from "@angular/common/http";
 import { HeaderService } from "../header/header.service";
 import { environment } from "src/environment/enviroment";
-
+import { Observable, finalize } from "rxjs";
 @Injectable({
     providedIn: 'root'
 })
@@ -16,13 +16,44 @@ export class ForgetPasswordService {
         private toster: ToastrService,
         private http: HttpClient
     ) { }
+    makeApiCall(): void {
+      // Show loading indicator
+      this.toster.info('Loading...', 'API Call in progress', {
+        disableTimeOut: true,
+        closeButton: true,
+        positionClass: 'toast-top-right'
+      });
+    }
+    sendOtp = (data: any): Observable<any>=> {
+      const loadingToast = this.toster.info('','Sending OTP...', {
+        disableTimeOut: true,
+        closeButton: true,
+        positionClass: 'toast-top-right'
+      });
 
-    sendOtp = (data:any) => {
-        return this.http.post(this.baseUrl + 'send-otp',data);
+      return this.http.post<any>(this.baseUrl + 'send-otp', data)
+        .pipe(
+          finalize(() => {
+            if (loadingToast) {
+              this.toster.clear(loadingToast.toastId);
+            }
+          })
+        );
     }
 
-    verifyOtp = (data:any)=>{
-        return this.http.post(this.baseUrl +'verify-otp',data);
+    verifyOtp = (data:any):Observable<any>=>{
+      const loadingToast = this.toster.info('','Verifing OTP...', {
+        disableTimeOut: true,
+        closeButton: true,
+        positionClass: 'toast-top-right'
+      });
+        return this.http.post(this.baseUrl +'verify-otp',data).pipe(
+          finalize(() => {
+            if (loadingToast) {
+              this.toster.clear(loadingToast.toastId);
+            }
+          })
+        );
     }
 
 

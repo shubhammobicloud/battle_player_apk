@@ -34,8 +34,7 @@ export class LoginComponent {
               localStorage.setItem('token', res.data.token);
               if (!res.data.firstLogin) {
                 this.toastr.success(
-                  'Login successfully.',
-                  'Please SetPassword '
+                  'Login successfully'
                 );
                 sessionStorage.setItem('redirectFrom', 'login'); // Or 'forgot-password'
 

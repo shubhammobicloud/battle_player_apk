@@ -11,8 +11,8 @@
           <mat-icon>person</mat-icon> 
           <span class="player-name">{{ companyteam.name }}</span>
         </span>       
-        <span class="sales">{{ companyteam.companyCurrentLC}}</span>
-        <span class="score">{{ companyteam.rankingScore ? companyteam.rankingScore + "%" : "NA" }}</span>
+        <!-- <span class="sales">{{ companyteam.companyCurrentLC}}</span> -->
+        <span class="score">{{ companyteam.rankingScore ? companyteam.rankingScore + "%" : "0" }}%</span>
        </li>
     </ng-container>
     <ng-template #noData>

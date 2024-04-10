@@ -8,10 +8,10 @@
           <mat-icon>person</mat-icon>
           <span class="player-name">{{ Unit.name }}</span>
         </span>
-        <span class="sales">{{ Unit.companyCurrentLC }}</span>
+        <!-- <span class="sales">{{ Unit.companyCurrentLC }}</span> -->
         <span class="score">{{
-          Unit.rankingScore ? Unit.rankingScore + "%" : "NA"
-        }}</span>
+          Unit.rankingScore ? Unit.rankingScore + "" : "0"
+        }}%</span>
       </li>
     </ng-container>
     <ng-template #noData>

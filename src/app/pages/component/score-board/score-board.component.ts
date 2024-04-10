@@ -3,7 +3,9 @@ import { Share } from '@capacitor/share';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import html2canvas from 'html2canvas';
 import { AuthService } from 'src/app/services/auth.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
+import { environment } from 'src/environment/enviroment';
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
@@ -18,8 +20,10 @@ export class ScoreBoardComponent implements OnInit {
   dynamicImageUrl: string = 'path_to_dynamic_image.png';
   teamAScore: number = 30;
   teamBScore: number = 60;
+  eventImageURL:string = ''
+  baseUrl:string = environment.baseUrl
 
-constructor(private authService:AuthService,private http:HttpClient){}
+constructor(private authService:AuthService,private http:HttpClient, private dashboardService:DashboardService){}
 ngOnInit(): void {
    let id= localStorage.getItem( "token");
     // console.log(id,"USER ID")/
@@ -31,6 +35,8 @@ ngOnInit(): void {
   //       localStorage.setItem('userName',res.data.userName);
   //   // console.log(res)
   // })
+
+  this.getEventImage()
 }
 
 
@@ -159,5 +165,17 @@ ngOnInit(): void {
   generateUniqueFilename(prefix: string, extension: string): string {
     const timestamp = Date.now();
     return `${prefix}${timestamp}${extension}`;
+  }
+
+  getEventImage(){
+this.dashboardService.getEventImage().subscribe({
+  next:(res)=>{
+    console.log("api res", res)
+    this.eventImageURL = res.data.matchAvatar
+  },
+  error:(err:HttpErrorResponse)=>{
+    console.log("api error ",err)
+  }
+})
   }
 }

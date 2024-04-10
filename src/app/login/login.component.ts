@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/users/users.service';
+import {jwtDecode} from 'jwt-decode';
+
 
 @Component({
   selector: 'app-login',
@@ -40,6 +42,10 @@ export class LoginComponent {
           (res: any) => {
             if (res.message == 'Login successfully.') {
               localStorage.setItem('token', res.data.token);
+              let data :{_id:any,teamId:any}= jwtDecode(res.data.token);
+              localStorage.setItem('userId', data._id);
+              localStorage.setItem('teamId', data.teamId);
+              // console.log("data", data)
               if (!res.data.firstLogin) {
                 this.toastr.success(
                   'Login successfully.',

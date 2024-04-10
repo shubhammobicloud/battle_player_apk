@@ -1,16 +1,23 @@
+
+
 <div class="container-table">
   <hr/>
-  <ul class="player-list" >
-    <!-- <li class="table-con">
-      <p class="th-1">Sr.No</p>
-      <p class="th-2" >Player Name</p>
-      <p class="th-3">Sales in LC</p>
-      <p class="th-4">Score</p>
-    </li> -->
-    <li *ngFor="let player of myTeamList; let i = index" class="tab">
-      <span>{{ i + 1 }}. <mat-icon>person</mat-icon> {{ player.name }} </span>      <span class="sales">{{ player.sales }}</span>
-      <span class="score">{{ player.score }}%</span>
-    </li>
+  <ul class="player-list">
+    <ng-container *ngIf="tableData && tableData.length > 0; else noData">
+      <li *ngFor="let companyteam of tableData; let i = index" class="tab" >
+     
+        <span class="player-info">
+          <span class="sr-number">{{i+1}}.</span>
+          <mat-icon>person</mat-icon> 
+          <span class="player-name">{{ companyteam.name }}</span>
+        </span>       
+        <span class="sales">{{ companyteam.companyCurrentLC}}</span>
+        <span class="score">{{ companyteam.rankingScore ? companyteam.rankingScore + "%" : "NA" }}</span>
+       </li>
+    </ng-container>
+    <ng-template #noData>
+      <li>No data found</li>
+    </ng-template>
   </ul>
   <hr/>
 </div>

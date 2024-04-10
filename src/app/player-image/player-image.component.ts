@@ -49,12 +49,12 @@ export class PlayerImageComponent {
             console.log('File upload response:', res);
             if (res.message == "Update successfully.") {
               this.toastr.success('Profile Image Updated Successfully!');
-              if (res.data.gameLeader) {
-                this.authService.gameLeader = true;
+              if (res.data) {
+
                 this.route.navigate(['/', 'teamImage', token]);
 
               } else {
-                this.authService.gameLeader = false;
+
                 this.route.navigate(['/', 'home']);
               }
             }

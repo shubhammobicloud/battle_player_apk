@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/users/users.service';
 interface UserProfile {
   email: string;
   userName: string;
-  companyUnit: number;
+  companyUnit: string;
   avatar: string;
   teamId: string;
   gameLeader: boolean;
@@ -46,7 +46,6 @@ export class ProfileComponent implements OnInit {
     });
   }
   getUserDetails() {
-    const token = localStorage.getItem('token');
    this.userService.getProfileDetails().subscribe((response: any) => {
         this.userProfile = response.data;
         this.populateForm();

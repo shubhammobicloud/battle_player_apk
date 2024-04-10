@@ -21,11 +21,11 @@ export class GlobalCountriesComponent {
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.rankingService.getglobalRanking ()
+    this.rankingService.getglobalRanking()
       .subscribe(
         (data: any) => {
           this.tableData = data['data'];
-
+          // debugger
           
         },
         (error:any) => {
@@ -33,5 +33,5 @@ export class GlobalCountriesComponent {
           // Handle error here
         }
       );
-  }
+}
 }

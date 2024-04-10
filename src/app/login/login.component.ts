@@ -49,8 +49,7 @@ export class LoginComponent {
               // console.log("data", data)
               if (!res.data.firstLogin) {
                 this.toastr.success(
-                  'Login successfully.',
-                  'Please SetPassword '
+                  'Login successfully'
                 );
                 sessionStorage.setItem('redirectFrom', 'login'); // Or 'forgot-password'
 

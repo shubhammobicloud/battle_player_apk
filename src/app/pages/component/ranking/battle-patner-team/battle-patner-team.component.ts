@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { BattleteamService } from 'src/app/services/ranking/battleteam.service';
+import { RankingService } from 'src/app/services/ranking/ranking.service';
 import { environment } from 'src/environment/enviroment';
 
 @Component({
@@ -13,7 +13,7 @@ export class BattlePatnerTeamComponent  implements OnInit{
   defaultId = 'YOUR_DEFAULT_ID_HERE';
   defaultIdCount = 0;
 
-  constructor(private http: HttpClient,private rankingService:BattleteamService) {}
+  constructor(private http: HttpClient,private rankingService:RankingService) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');

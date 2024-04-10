@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { CompainesService } from 'src/app/services/ranking/compaines.service';
+import { RankingService } from 'src/app/services/ranking/ranking.service';
+
 import { environment } from 'src/environment/enviroment';
 
 @Component({
@@ -13,7 +14,7 @@ export class GlobalCountriesComponent {
   defaultId = 'YOUR_DEFAULT_ID_HERE';
   defaultIdCount = 0;
 
-  constructor(private http: HttpClient,private rankingService:CompainesService) {}
+  constructor(private http: HttpClient,private rankingService:RankingService) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');

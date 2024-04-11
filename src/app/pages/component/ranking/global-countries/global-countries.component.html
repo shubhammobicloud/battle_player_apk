@@ -1,22 +1,28 @@
-
-
 <div class="container-table">
-  <hr>
+  <hr />
   <table class="player-table">
     <ng-container *ngIf="tableData && tableData.length > 0; else noData">
-      <tr *ngFor="let company of tableData; let i = index" class="tab" >
-        <td class="teamid" style="text-align:center;">{{ i + 1 }}</td>
+      <tr *ngFor="let company of tableData; let i = index" class="tab">
+        <td class="teamid" style="text-align: center">{{ i + 1 }}</td>
         <td>
           <mat-icon>person</mat-icon>
-          {{ company.name.slice(0,14)}}...
+          {{ company.name.slice(0, 14) }}...
         </td>
         <!-- <td class="sales">{{ player.targetOrSalesRepLC }}</td> -->
-        <td class="score">{{ company.rankingScore ? company.rankingScore .toString().slice(0,4)+  "": "0"}}%</td>
+        <td class="score">
+          {{
+            company.rankingScore
+              ? company.rankingScore.toString().slice(0, 4) + ""
+              : "0"
+          }}%
+        </td>
       </tr>
     </ng-container>
     <ng-template #noData>
-      <tr><td colspan="3">No data found</td></tr>
+      <tr>
+        <td colspan="3">No data found</td>
+      </tr>
     </ng-template>
   </table>
-  <hr>
+  <hr />
 </div>

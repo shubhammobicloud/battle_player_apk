@@ -4,7 +4,7 @@
     <ng-container *ngIf="tableData && tableData.length > 0; else noData">
       <li *ngFor="let battle of tableData; let i = index" class="tab">
         <span class="teamid" style="text-align: justify"
-          >{{ i + 1 }}. <mat-icon>person</mat-icon> 
+          >{{ i + 1 }}<mat-icon>person</mat-icon> 
           {{ battle.username ? battle.username:battle.email .slice(0,14)}}
         </span>
         <!-- <span class="sales">{{ battle.sales }}</span> -->

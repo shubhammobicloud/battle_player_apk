@@ -20,7 +20,7 @@ export class ScoreBoardComponent implements OnInit {
   dynamicImageUrl: string = 'path_to_dynamic_image.png';
   teamAScore: number = 30;
   teamBScore: number = 60;
-  eventImageURL:string = ''
+  eventImageURL:string = '../../../../assets/ground.jpg'
   baseUrl:string = environment.baseUrl
 
 constructor(private authService:AuthService,private http:HttpClient, private dashboardService:DashboardService){}
@@ -37,6 +37,7 @@ ngOnInit(): void {
   // })
 
   this.getEventImage()
+  this.getTeamImages()
 }
 
 
@@ -168,14 +169,27 @@ ngOnInit(): void {
   }
 
   getEventImage(){
-this.dashboardService.getEventImage().subscribe({
+  this.dashboardService.getEventImage().subscribe({
   next:(res)=>{
     console.log("api res", res)
-    this.eventImageURL = res.data.matchAvatar
+    this.eventImageURL = res.data.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.eventImageURL
   },
   error:(err:HttpErrorResponse)=>{
     console.log("api error ",err)
   }
 })
+  }
+
+  getTeamImages(){
+    this.dashboardService.getTeamImages().subscribe({
+      next:(res)=>{
+        console.log("api res", res)
+        this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage
+        this.teamBImage = res.data?.battlePartnerTeamId?.avatar?`${environment.baseUrl}images/${res.data.battlePartnerTeamId.avatar}`:this.teamBImage
+      },
+      error:(err:HttpErrorResponse)=>{
+        console.log("api error ",err)
+      }
+    })
   }
 }

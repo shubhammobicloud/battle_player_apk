@@ -24,6 +24,7 @@ export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked
   chats: any[] = [];
   message: string = '';
   counter = 0;
+  showFullMessage: boolean = false;
   @ViewChild('teamChatTextarea') teamChatTextarea!: ElementRef;
 
   constructor(private http: HttpClient) {}
@@ -185,7 +186,9 @@ async ngOnDestroy() {
     }
   }
 
-
+  toggleExpand(chat: any) {
+    chat.expanded = !chat.expanded;
+  }
   onInput() {
     this.teamChatTextarea.nativeElement.style.border = '';
   }

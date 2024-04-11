@@ -12,11 +12,15 @@
             <span style="font-size: 10px; text-align: left">{{
               chat.senderId?.userName
             }}</span>
-            <div
-              [class.message]="!currentUser(chat.senderId)"
-              [class.senderMessage]="currentUser(chat.senderId)"
-              >{{ chat.message }}</div
-            >
+           <div [class.message]="!currentUser(chat.senderId)" [class.senderMessage]="currentUser(chat.senderId)">
+            <ng-container *ngIf="chat.message.length <= 50 || chat.expanded; else truncatedMessage">
+              {{ chat.message }}
+            </ng-container>
+            <ng-template #truncatedMessage>
+              <span>{{ chat.message.slice(0, 50) }}...</span>
+              <a (click)="toggleExpand(chat)">Read more</a>
+            </ng-template>
+          </div>
             <span style="font-size: 10px; text-align: right">{{
               chat.time | date:'short'
             }}</span>

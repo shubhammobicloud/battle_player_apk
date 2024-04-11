@@ -171,7 +171,7 @@ ngOnInit(): void {
 this.dashboardService.getEventImage().subscribe({
   next:(res)=>{
     console.log("api res", res)
-    this.eventImageURL = res.data.matchAvatar
+    this.eventImageURL = res.data.avatar
   },
   error:(err:HttpErrorResponse)=>{
     console.log("api error ",err)

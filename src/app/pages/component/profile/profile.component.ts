@@ -56,7 +56,9 @@ export class ProfileComponent implements OnInit {
     if (this.userProfile) {
       this.userProfileForm.patchValue({
         email: this.userProfile.email,
-        companyUnit: this.userProfile.companyUnit,
+        companyUnit: (this.userProfile.teamId as unknown as { [key: string]: string })[
+          'companyUnit'
+        ],
         name: (this.userProfile.teamId as unknown as { [key: string]: string })[
           'name'
         ],
@@ -79,7 +81,7 @@ export class ProfileComponent implements OnInit {
                 formData.append('avatar', this.selectedFile);
                  this.userService.updatePlayer(formData).subscribe((res: any) => {
 
-                    console.log('image saved successfully');
+                    console.log('Image saved successfully');
                   });
               }
             }

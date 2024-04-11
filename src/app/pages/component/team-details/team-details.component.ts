@@ -12,7 +12,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { TeamService } from 'src/app/services/team/team.service';
 interface TeamProfile {
   userName: string;
-  TeamName: String;
+  name: String;
   companyUnit: number;
   avatar: string;
   teamId: string;
@@ -60,7 +60,7 @@ export class TeamDetailsComponent implements OnInit {
     this.teamProfileForm = this.fb.group({
       email: [{ value: '', disabled: true }, Validators.email],
       gameLeadername: [{ value: '', disabled: true }],
-      TeamName: [{ value: '', disabled: true }],
+      name: [{ value: '', disabled: true }],
       displayedImage: [{ value: '' }],
     });
   }
@@ -87,7 +87,7 @@ export class TeamDetailsComponent implements OnInit {
         gameLeadername: (
           this.TeamProfile.teamId as unknown as { [key: string]: string }
         )['gameLeadername'],
-        TeamName: (
+        name: (
           this.TeamProfile.teamId as unknown as { [key: string]: string }
         )['name'],
         displayedImage: this.TeamProfile.avatar as unknown as {

@@ -1,47 +1,26 @@
 .container-table {
-  max-height: fit-content;
-  overflow-y: scroll;
-  .player-list {
-    width: 100%; /* Ensures list fits screen width */
-    list-style: none; /* Removes default bullet points */
-    padding: 0; /* Removes default padding */
-    margin: 0; /* Removes default margin */
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers content horizontally */
+  justify-content: center; /* Centers content vertically */
+}
 
-  .player-list li {
-    display: flex; /* Arranges player name and score horizontally */
-    justify-content: space-between; /* Distributes content evenly */
-    align-items: center; /* Vertically aligns name and score */
-    padding: 14px 17px; /* Adds some padding for readability */
-    border-bottom: 1px solid #ff2929; /* Adds a separator line */
-    // border: 2px solid red;
-    span {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      mat-icon {
-        width: 1rem;
-        height: 1rem;
-        font-size: 1rem;
-      }
-    }
-    // &:first-child {
-    //   border: 3px solid red;
-    // }
-  }
-  .th-1 {
-    width: 37%;
-  }
-  .th-2 {
-    width: 79%;
-  }
-  .th-3 {
-    width: 79%;
-  }
-  .score {
-    font-weight: bold; /* Emphasizes score */
-  }
-  .tb{
-    text-align: center;
-  }
+.player-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  
+}
+
+.player-table td {
+      padding: 14px 17px; 
+  // border: 1px solid #ddd;
+  text-align: left;
+  border-bottom: 1px solid #ff2929;
+}
+
+.tab td {
+  text-align: center;
+
+
 }

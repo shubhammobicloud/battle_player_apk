@@ -2,11 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import {
   Component,
   OnInit,
-  ElementRef,
-  AfterViewChecked,
+  ElementRef,AfterViewChecked,
   ViewChild,
-  AfterViewInit,
-  OnDestroy,
+  AfterViewInit,OnDestroy
 } from '@angular/core';
 import { Socket, io } from 'socket.io-client';
 import { environment } from 'src/environment/enviroment';
@@ -16,9 +14,7 @@ import { environment } from 'src/environment/enviroment';
   templateUrl: './team-chat.component.html',
   styleUrls: ['./team-chat.component.scss'],
 })
-export class TeamChatComponent
-  implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy
-{
+export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked,OnDestroy {
   url: string = `${environment.baseUrl}`;
   id = localStorage.getItem('userId');
   avatar = localStorage.getItem('avatar');
@@ -36,51 +32,55 @@ export class TeamChatComponent
     | ElementRef
     | undefined;
 
-  ngAfterViewInit(): void {}
-  ngAfterViewChecked(): void {
-    this.scrollToBottom();
+  ngAfterViewInit(): void {
+
   }
-  ngOnDestroy(): void {
-    this.socket.disconnect();
-  }
+ngAfterViewChecked(): void {
+  this.scrollToBottom();
+
+}
+async ngOnDestroy() {
+  console.log('Internet is not on or connection is very slow.');
+      const response =  await this.socket.timeout(5000).emitWithAck('disconnected',{teamId:this.teamId});
+      console.log(response, 'response of disconnect');
+    // this.socket.disconnect();
+}
   async ngOnInit() {
+
     this.socket = io(`${this.url}team-namespaces`, {
+
       auth: {
         serverOffset: this.id,
-        teamId: this.teamId,
+        teamId:this.teamId
       },
       // enable retries
-      ackTimeout: 10000,
-      retries: 3,
+    ackTimeout: 10000,
+    retries: 3,
     });
-    this.socket.disconnect;
+    // this.socket.disconnect;
 
     // Listen for the 'connect' event
     this.socket.on('connect', async () => {
       console.log('Socket.IO connected successfully');
-      try {
-        const response = await this.socket
-          .timeout(5000)
-          .emitWithAck('joinRoom', { teamId: this.teamId });
-        console.log(response, 'response of joinRoom'); // 'ok'
-        if (response.status == 'error') {
+      try {    
+        const response=  await this.socket.timeout(5000).emitWithAck('joinRoom',{teamId:this.teamId});
+        console.log(response,"response of joinRoom"); // 'ok'
+        if(response.status == 'error'){
           alert(response.message);
         }
-        if (response.status == 'ok') {
-          const response = await this.socket
-            .timeout(5000)
-            .emitWithAck('loadChat', { teamId: this.teamId });
-          console.log(response, 'response of loadChat');
-          if (response.status == 'error') {
+        if(response.status == 'ok'){
+          const response =  await this.socket.timeout(5000).emitWithAck('loadChat',{teamId:this.teamId});
+          console.log(response,"response of loadChat"); 
+          if(response.status == 'error'){
             alert(response.message);
           }
-          if (response.status == 'ok') {
+          if(response.status == 'ok'){
             // const chats = response.existingChat;
             this.chats = response.existingChat;
           }
         }
       } catch (error) {
-        console.log(error, 'error message of joinRoom');
+        console.log(error,"error message of joinRoom")
       }
     });
 
@@ -92,36 +92,36 @@ export class TeamChatComponent
 
     // Listen for the 'connect_timeout' event
     this.socket.on('connect_timeout', (timeout: number) => {
-      alert('Socket.IO connection timeout:' + timeout);
+      // alert('Socket.IO connection timeout:'+ timeout)
       console.error('Socket.IO connection timeout: ', timeout);
     });
 
-    // disconnect
-    this.socket.on('disconnect', () => {
-      console.log('Internet is not on or connection is very slow.');
-      alert('Internet is not on or connection is very slow.');
-    });
 
-    this.socket.on('loadNewTeamChat', (data: any, callback: any) => {
+    // disconnect
+    this.socket.on('disconnect',async()=>{
+      alert('Internet is not on or connection is very slow.');
+    })
+
+    this.socket.on('loadNewTeamChat', (data: any, callback:any) => {
       try {
         // sending
-        const newChat = {
-          message: data.message,
-          time: data.time,
-          senderId: {
-            _id: data.id,
-            avatar: data.avatar,
-            userName: data.userName,
-          },
-        };
-        this.socket.auth.serverOffset = data.id;
-        this.chats.push(newChat);
-        console.log(data, 'response of loadNewTeamChat');
-        callback({
-          status: 'ok',
-        });
+      const newChat = {
+        message: data.message,
+        time: data.time,
+        senderId: {
+          _id: data.id,
+          avatar: data.avatar,
+          userName: data.userName,
+        },
+      };
+      this.socket.auth.serverOffset = data.id;
+      this.chats.push(newChat);
+      console.log(data, 'response of loadNewTeamChat')
+      callback({
+        status: 'ok',
+      });
       } catch (error) {
-        alert('error occured while loading new data');
+       alert("error occured while loading new data");
       }
     });
   }
@@ -151,22 +151,20 @@ export class TeamChatComponent
         senderId: this.id,
         teamId: this.teamId,
       };
-      console.log(this.socket.id, 'socket id');
-      // compute a unique offset
-      const clientOffset = `${this.socket.id}-${this.counter++}`;
-      this.chats.push(selfMessage);
-      this.message = '';
-      try {
-        const response = await this.socket
-          .timeout(5000)
-          .emitWithAck('newTeamChat', data, clientOffset);
-        console.log(response, 'response of newTeamChat'); // 'ok'
-        if (response.status == 'ok') {
+      console.log(this.socket.id,"socket id");
+       // compute a unique offset
+       const clientOffset = `${this.socket.id}-${this.counter++}`;
+       this.chats.push(selfMessage);
+       this.message = '';
+      try {    
+        const response=  await this.socket.timeout(5000).emitWithAck('newTeamChat',data,clientOffset);
+        console.log(response,"response of newTeamChat"); // 'ok'
+        if(response.status == 'ok'){
         }
-        if (response.status == 'error') {
+        if(response.status == 'error'){
           alert(response.message);
         }
-      } catch (error: any) {
+      }catch(error:any){
         console.log(error.message);
       }
     } else {
@@ -181,12 +179,12 @@ export class TeamChatComponent
   scrollToBottom() {
     try {
       // console.log(this.chatWrapper.nativeElement); // Check if this logs the correct element
-      this.chatWrapper.nativeElement.scrollTop =
-        this.chatWrapper.nativeElement.scrollHeight;
+      this.chatWrapper.nativeElement.scrollTop = this.chatWrapper.nativeElement.scrollHeight;
     } catch (err) {
       console.error(err);
     }
   }
+
 
   onInput() {
     this.teamChatTextarea.nativeElement.style.border = '';

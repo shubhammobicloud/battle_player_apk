@@ -18,8 +18,8 @@ export class ScoreBoardComponent implements OnInit {
   teamAImage:string='../../assets/teambimage.jpg';
   teamBImage:string='../../assets/teamImage.png'
   dynamicImageUrl: string = 'path_to_dynamic_image.png';
-  teamAScore: number = 30;
-  teamBScore: number = 60;
+  teamAScore: number = 0;
+  teamBScore: number = 0;
   eventImageURL:string = '../../../../assets/ground.jpg'
   baseUrl:string = environment.baseUrl
 
@@ -185,7 +185,11 @@ ngOnInit(): void {
       next:(res)=>{
         console.log("api res", res)
         this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage
-        this.teamBImage = res.data?.battlePartnerTeamId?.avatar?`${environment.baseUrl}images/${res.data.battlePartnerTeamId.avatar}`:this.teamBImage
+        this.teamAName=res.data?.name
+        this.teamBName=res.data?.battlePartnerTeamId?.name
+        this.teamBImage = res.data?.battlePartnerTeamId?.avatar?`${environment.baseUrl}images/${res.data.battlePartnerTeamId.avatar}`:this.teamBImage;
+        this.teamAScore= (res.data?.currentSales/res.data?.targetSales)*100
+        this.teamBScore= (res.data?.battlePartnerTeamId?.currentSales/res.data?.battlePartnerTeamId?.targetSales)*100
       },
       error:(err:HttpErrorResponse)=>{
         console.log("api error ",err)

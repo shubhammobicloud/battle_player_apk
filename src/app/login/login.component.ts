@@ -42,10 +42,12 @@ export class LoginComponent {
           (res: any) => {
             if (res.message == 'Login successfully.') {
               localStorage.setItem('token', res.data.token);
-              let data :{_id:any,teamId:any,avatar:any}= jwtDecode(res.data.token);
+              let data :{_id:any,teamId:any,avatar:any,userName:any}= jwtDecode(res.data.token);
+              console.log(data )
               localStorage.setItem('userId', data._id);
               localStorage.setItem('teamId', data.teamId);
               localStorage.setItem('avatar',data.avatar)
+              localStorage.setItem('userName',data.userName)
               // console.log("data", data)
               if (!res.data.firstLogin) {
                 this.toastr.success(

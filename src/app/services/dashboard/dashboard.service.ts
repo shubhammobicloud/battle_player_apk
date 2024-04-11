@@ -12,4 +12,8 @@ export class DashboardService {
   getEventImage(): Observable<any> {
     return this.http.get(`${environment.baseUrl}event/one`);
   }
+
+  getTeamImages(): Observable<any> {
+    return this.http.get(`${environment.baseUrl}team/details`);
+  }
 }

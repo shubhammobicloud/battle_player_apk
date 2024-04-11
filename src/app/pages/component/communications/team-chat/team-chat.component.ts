@@ -63,7 +63,7 @@ async ngOnDestroy() {
     // Listen for the 'connect' event
     this.socket.on('connect', async () => {
       console.log('Socket.IO connected successfully');
-      try {    
+      try {
         const response=  await this.socket.timeout(5000).emitWithAck('joinRoom',{teamId:this.teamId});
         console.log(response,"response of joinRoom"); // 'ok'
         if(response.status == 'error'){
@@ -71,7 +71,7 @@ async ngOnDestroy() {
         }
         if(response.status == 'ok'){
           const response =  await this.socket.timeout(5000).emitWithAck('loadChat',{teamId:this.teamId});
-          console.log(response,"response of loadChat"); 
+          console.log(response,"response of loadChat");
           if(response.status == 'error'){
             alert(response.message);
           }
@@ -157,7 +157,7 @@ async ngOnDestroy() {
        const clientOffset = `${this.socket.id}-${this.counter++}`;
        this.chats.push(selfMessage);
        this.message = '';
-      try {    
+      try {
         const response=  await this.socket.timeout(5000).emitWithAck('newTeamChat',data,clientOffset);
         console.log(response,"response of newTeamChat"); // 'ok'
         if(response.status == 'ok'){

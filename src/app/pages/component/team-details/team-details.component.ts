@@ -9,12 +9,14 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { TeamService } from 'src/app/services/team/team.service';
 interface TeamProfile {
   userName: string;
+  TeamName: String;
   companyUnit: number;
   avatar: string;
   teamId: string;
-  gameLeadername:string;
+  gameLeadername: string;
   gameLeader: boolean;
 }
 @Component({
@@ -27,62 +29,73 @@ export class TeamDetailsComponent implements OnInit {
   teamProfileForm!: FormGroup;
   link = environment.baseUrl;
   isEditMode = false;
-
+  tableData!: any[];
   constructor(
     private http: HttpClient,
-    private authService:AuthService,
+    private teamservices: TeamService,
     private fb: FormBuilder,
     private tostr: ToastrService
   ) {}
-  ngOnInit() {
-    this.getUserDetails();
+  ngOnInit(): void {
     this.initForm();
+    this.getUserDetails();
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    this.http
+      .get<any>(`${environment.baseUrl}user/player-list`, { headers })
+      .subscribe(
+        (data: any) => {
+          this.tableData = data['data'];
+        },
+        (error: any) => {
+          console.error('An error occurred:', error);
+          // Handle error here
+        }
+      );
   }
 
   initForm(): void {
     this.teamProfileForm = this.fb.group({
-      gameLeadername:[{value:'', disabled:true}],
-      companyUnit: [{ value: '', disabled: true }],
-      name: [{ value: '', disabled: true }],
+      email: [{ value: '', disabled: true }, Validators.email],
+      gameLeadername: [{ value: '', disabled: true }],
+      TeamName: [{ value: '', disabled: true }],
       displayedImage: [{ value: '' }],
     });
   }
+
   getUserDetails() {
     const token = localStorage.getItem('token');
-
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const userId = localStorage.getItem('userId'); // Assuming authentication
-    this.http
-      .get<TeamProfile>(`${environment.baseUrl}` + 'user/details', { headers })
 
-      .subscribe((response: any) => {
+    this.http;
+    this.teamservices.getTeamDetails().subscribe(
+      (response: any) => {
         this.TeamProfile = response.data;
-        this.http
-          .get<TeamProfile>(
-            environment.baseUrl + 'getTeam/' + response.data.teamId
-          )
-          .subscribe((res: any) => {
-            console.log(res.data.teamId.name);
-            // this.teamName = res.data.teamId.name;
-          });
         this.populateForm();
-      });
+      },
+      (error) => {
+        console.error('Error fetching user details:', error);
+      }
+    );
   }
 
   populateForm(): void {
-    if (this.TeamProfile) {
+    if (this.TeamProfile && this.TeamProfile.teamId) {
       this.teamProfileForm.patchValue({
-        companyUnit: this.TeamProfile.companyUnit,
-        name: (this.TeamProfile.teamId as unknown as { [key: string]: string })[
-          'name'
-        ],
-        displayedImage: (
-          this.TeamProfile.teamId as unknown as {
-            [key: string]: string;
-          }
-        )['avatar'],
+        gameLeadername: (
+          this.TeamProfile.teamId as unknown as { [key: string]: string }
+        )['gameLeadername'],
+        TeamName: (
+          this.TeamProfile.teamId as unknown as { [key: string]: string }
+        )['name'],
+        displayedImage: this.TeamProfile.avatar as unknown as {
+          [key: string]: string;
+        }['avatar'],
       });
     }
+    this.displayedImage = this.teamProfileForm.get('displayedImage')?.value;
   }
 
   toggleEditMode(): void {
@@ -119,21 +132,19 @@ export class TeamDetailsComponent implements OnInit {
               if (this.selectedFile) {
                 formData.append('avatar', this.selectedFile);
                 this.http
-                  .patch(
-                    `${environment.baseUrl}` + ' ' + userId,
-                    formData,
-                    { headers }
-                  )
+                  .patch(`${environment.baseUrl}` + ' ' + userId, formData, {
+                    headers,
+                  })
                   // /images/'
                   .subscribe((res: any) => {
                     this.displayedImage = res.userProfile.teamId.avatar;
                     console.log(this.displayedImage);
-                    console.log('image saved successfully');
+                    console.log('Image saved successfully');
                   });
               }
             },
             (error: HttpErrorResponse) => {
-              console.error('error while updating');
+              console.error('Error while updating');
             }
           );
       }
@@ -156,11 +167,4 @@ export class TeamDetailsComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile);
     }
   }
-
-  tableHeader = ['Player Name'];
-  myTeamList = [
-    { name: 'Player 1', gameLeaderName: 'Demo' , imag:'../../assets/Max-R_Headshot (1).jpg' },
-    { name: 'Player 2', gameLeaderName: 'Demo' ,imag:'../../assets/Max-R_Headshot (1).jpg'},
-    { name: 'Player 3', gameLeaderName: 'Demo' ,imag:'/assets/Max-R_Headshot (1).jpg'},
-  ];
 }

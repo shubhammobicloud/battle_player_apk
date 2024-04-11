@@ -30,4 +30,7 @@ export class UserService {
     getProfileDetails=()=>{
       return this.http.get(this.baseUrl+'details')
     }
+    sendMailToPlayers=()=>{
+      return this.http.get(this.baseUrl+'player-mail')
+    }
 }

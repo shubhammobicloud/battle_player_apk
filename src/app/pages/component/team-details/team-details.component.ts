@@ -169,4 +169,37 @@ export class TeamDetailsComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile);
     }
   }
+  tableHeader = ['Player Name'];
+  myTeamList = [
+    {
+      name: 'Player 1',
+      gameLeaderName: 'Demo',
+      imag: '../../assets/Max-R_Headshot (1).jpg',
+    },
+    {
+      name: 'Player 2',
+      gameLeaderName: 'Demo',
+      imag: '../../assets/Max-R_Headshot (1).jpg',
+    },
+    {
+      name: 'Player 3',
+      gameLeaderName: 'Demo',
+      imag: '/assets/Max-R_Headshot (1).jpg',
+    },
+    {
+      name: 'Player 4',
+      gameLeaderName: 'Demo',
+      imag: '/assets/Max-R_Headshot (1).jpg',
+    },
+    {
+      name: 'Player 5',
+      gameLeaderName: 'Demo',
+      imag: '/assets/Max-R_Headshot (1).jpg',
+    },
+    {
+      name: 'Player 6',
+      gameLeaderName: 'Demo',
+      imag: '/assets/Max-R_Headshot (1).jpg',
+    },
+  ];
 }

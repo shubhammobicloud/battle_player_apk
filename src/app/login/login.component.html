@@ -30,20 +30,20 @@
         <mat-icon matSuffix (click)="togglePasswordVisibility()">
             {{showPassword?'visibility_off':'visibility'}}
         </mat-icon>
-   
+
         <mat-error
           *ngIf="loginForm.get('password')?.hasError('required')"
           class="error"
         >
           Password is required
         </mat-error>
-        <mat-error
+        <!-- <mat-error
           *ngIf="loginForm.get('password')?.hasError('pattern')"
           class="error"
         >
           Password must contain at least 8 characters, including one uppercase
           letter, one lowercase letter, one symbol, and at least two numbers.
-        </mat-error>
+        </mat-error> -->
       </mat-form-field>
     </div>
     <div class="button-login" (click)="login()">

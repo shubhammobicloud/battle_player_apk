@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { environment } from 'src/environment/enviroment';
+import { take } from 'rxjs';
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
@@ -25,17 +26,6 @@ export class ScoreBoardComponent implements OnInit {
 
 constructor(private authService:AuthService,private http:HttpClient, private dashboardService:DashboardService){}
 ngOnInit(): void {
-   let id= localStorage.getItem( "token");
-    // console.log(id,"USER ID")/
-  // this.http.get(environment.baseUrl+'playerDetails/'+id).subscribe((res:any)=>{
-
-  //       localStorage.setItem( "userId" , res.data._id);
-  //       localStorage.setItem( "teamId" , res.data.teamId);
-  //       localStorage.setItem('avatar',res.data.avatar);
-  //       localStorage.setItem('userName',res.data.userName);
-  //   // console.log(res)
-  // })
-
   this.getEventImage()
   this.getTeamImages()
 }
@@ -172,7 +162,11 @@ ngOnInit(): void {
   this.dashboardService.getEventImage().subscribe({
   next:(res)=>{
     console.log("api res", res)
-    this.eventImageURL = res.data.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.eventImageURL
+    this.storeImageLocally( res.data.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.eventImageURL).subscribe((res) => {
+      console.log(URL.createObjectURL(res));
+      this.eventImageURL =URL.createObjectURL(res)
+    })
+
   },
   error:(err:HttpErrorResponse)=>{
     console.log("api error ",err)
@@ -184,16 +178,28 @@ ngOnInit(): void {
     this.dashboardService.getTeamImages().subscribe({
       next:(res)=>{
         console.log("api res", res)
-        this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage
-        this.teamAName=res.data?.name
-        this.teamBName=res.data?.battlePartnerTeamId?.name
-        this.teamBImage = res.data?.battlePartnerTeamId?.avatar?`${environment.baseUrl}images/${res.data.battlePartnerTeamId.avatar}`:this.teamBImage;
-        this.teamAScore= (res.data?.currentSales/res.data?.targetSales)*100
-        this.teamBScore= (res.data?.battlePartnerTeamId?.currentSales/res.data?.battlePartnerTeamId?.targetSales)*100
+        // this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage;
+        this.storeImageLocally(res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage).subscribe((res) => {
+          console.log(URL.createObjectURL(res));
+          this.teamAImage=URL.createObjectURL(res)
+        })
+        this.storeImageLocally(res.data?.battlePartnerTeamId?.avatar?`${environment.baseUrl}images/${res.data.battlePartnerTeamId.avatar}`:this.teamBImage).subscribe((res) => {
+          console.log(URL.createObjectURL(res));
+          this.teamBImage =URL.createObjectURL(res)
+        })
+        this.teamAName = res.data?.name;
+        this.teamBName = res.data?.battlePartnerTeamId?.name;
+
+        this.teamAScore = (res.data?.currentSales/res.data?.targetSales)*100
+        this.teamBScore = (res.data?.battlePartnerTeamId?.currentSales/res.data?.battlePartnerTeamId?.targetSales)*100
       },
       error:(err:HttpErrorResponse)=>{
         console.log("api error ",err)
       }
     })
+  }
+
+  storeImageLocally(imgUrl:string){
+      return this.http.get(imgUrl,{responseType:'blob'}).pipe(take(1))
   }
 }

@@ -23,9 +23,9 @@ export class BattlePatnerTeamComponent  implements OnInit{
     this.rankingService.  getbattleteamRanking()
       .subscribe(
         (data: any) => {
-          this.tableData = data['data'];
+          this.tableData = data['data'].sort((a:any,b:any)=>b.rankingScore-a.rankingScore);
 
-          
+
         },
         (error:any) => {
           console.error('An error occurred:', error);

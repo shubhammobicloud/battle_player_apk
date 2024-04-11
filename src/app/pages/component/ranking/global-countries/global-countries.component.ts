@@ -24,9 +24,9 @@ export class GlobalCountriesComponent {
     this.rankingService.getglobalRanking()
       .subscribe(
         (data: any) => {
-          this.tableData = data['data'];
+          this.tableData = data['data'].sort((a:any,b:any)=>b.rankingScore-a.rankingScore);
           // debugger
-          
+
         },
         (error:any) => {
           console.error('An error occurred:', error);

@@ -24,12 +24,12 @@
       />
       <mat-form-field appearance="fill">
         <mat-label>Team Name</mat-label>
-        <input matInput formControlName="name" [value]="TeamProfile?.name" [disabled]="true" />
+        <input matInput formControlName="name"  [disabled]="true" />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Game Leader Name</mat-label>
-        <input matInput formControlName=" " [disabled]="true" />
+        <input matInput formControlName=" gameLeadername" [value]="TeamProfile?.userName" [disabled]="true" />
       </mat-form-field>
 
       <hr />
@@ -41,7 +41,7 @@
           <li *ngFor="let player of tableData">
             <span>
               <div class="circle">
-                <img formControlName="displayedImage" [src]="player.avatar" />
+                <img formControlName="displayedImage" [src]="'http://192.168.29.234:3000/images/'+player.avatar" />
               </div>
               {{ player.name ? player.name : player.email.slice(0, 7) }}
             </span>

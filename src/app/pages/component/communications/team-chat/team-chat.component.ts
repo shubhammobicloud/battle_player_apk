@@ -48,11 +48,13 @@ export class TeamChatComponent
       auth: {
         serverOffset: this.id,
         teamId: this.teamId,
+
       },
       // enable retries
       ackTimeout: 10000,
       retries: 3,
     });
+
     this.socket.disconnect;
 
     // Listen for the 'connect' event
@@ -92,7 +94,7 @@ export class TeamChatComponent
 
     // Listen for the 'connect_timeout' event
     this.socket.on('connect_timeout', (timeout: number) => {
-      alert('Socket.IO connection timeout:' + timeout);
+      // alert('Socket.IO connection timeout:' + timeout);
       console.error('Socket.IO connection timeout: ', timeout);
     });
 

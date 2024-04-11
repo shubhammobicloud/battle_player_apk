@@ -24,12 +24,17 @@
       />
       <mat-form-field appearance="fill">
         <mat-label>Team Name</mat-label>
-        <input matInput formControlName="name"  [disabled]="true" />
+        <input matInput formControlName="name" [disabled]="true" />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Game Leader Name</mat-label>
-        <input matInput formControlName=" gameLeadername" [value]="TeamProfile?.userName" [disabled]="true" />
+        <input
+          matInput
+          formControlName=" gameLeadername"
+          [value]="TeamProfile?.userName"
+          [disabled]="true"
+        />
       </mat-form-field>
 
       <hr />
@@ -38,19 +43,18 @@
           <ng-container
             *ngIf="tableData && tableData.length > 0; else noData"
           ></ng-container>
-           <li *ngFor="let player of tableData">
-             
-             <!-- <li *ngFor="let player of myTeamList"> -->
+          <li *ngFor="let player of tableData">
+            <!-- <li *ngFor="let player of myTeamList"> -->
             <span>
               <div class="circle">
-                <img formControlName="displayedImage" [src]="'http://192.168.29.234:3000/images/'+player.avatar" />
+                <img
+                  formControlName="displayedImage"
+                  [src]="'http://192.168.29.234:3000/images/' + player.avatar"
+                />
               </div>
-              
-              
             </span>
             <span>
               {{ player.name ? player.name : player.email.slice(0, 7) }}
-
             </span>
           </li>
         </ul>

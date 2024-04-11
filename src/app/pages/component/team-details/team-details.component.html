@@ -4,11 +4,15 @@
       <h3 *ngIf="TeamProfile?.gameLeader">Hello Leader!!</h3>
       <h2>{{ TeamProfile?.userName }}</h2>
       <label for="avatarInput">
-        <img formControlName="displayedImage" [src]="selectedFile?displayedImage: link+'images/'+ displayedImage"
-        alt="User Avatar"
-        style="cursor: pointer"
-      />
-      <p>{{ isEditMode ? "Choose Image" : "" }}</p>
+        <img
+          formControlName="displayedImage"
+          [src]="
+            selectedFile ? displayedImage : link + 'images/' + displayedImage
+          "
+          alt="User Avatar"
+          style="cursor: pointer"
+        />
+        <p>{{ isEditMode ? "Choose Image" : "" }}</p>
       </label>
       <input
         type="file"
@@ -20,24 +24,24 @@
       />
       <mat-form-field appearance="fill">
         <mat-label>Team Name</mat-label>
-        <input matInput formControlName="TeamName" [disabled]="true" />
+        <input matInput formControlName="name"  [disabled]="true" />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Game Leader Name</mat-label>
-        <input matInput formControlName=" " [disabled]="true" />
+        <input matInput formControlName=" gameLeadername" [value]="TeamProfile?.userName" [disabled]="true" />
       </mat-form-field>
 
       <hr />
       <div class="container-table">
         <ul class="player-list">
-          <ng-container *ngIf="tableData && tableData.length > 0; else noData"></ng-container>
+          <ng-container
+            *ngIf="tableData && tableData.length > 0; else noData"
+          ></ng-container>
           <li *ngFor="let player of tableData">
             <span>
               <div class="circle">
-                <img formControlName="displayedImage" [src]="selectedFile?displayedImage: link+'images/'+ displayedImage"
-          
-              />
+                <img formControlName="displayedImage" [src]="'http://192.168.29.234:3000/images/'+player.avatar" />
               </div>
               {{ player.name ? player.name : player.email.slice(0, 7) }}
             </span>

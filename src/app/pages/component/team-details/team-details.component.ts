@@ -10,9 +10,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { TeamService } from 'src/app/services/team/team.service';
+import { UserService } from 'src/app/services/users/users.service';
 interface TeamProfile {
   userName: string;
-  TeamName: String;
+  name: string;
   companyUnit: number;
   avatar: string;
   teamId: string;
@@ -32,7 +33,7 @@ export class TeamDetailsComponent implements OnInit {
   tableData!: any[];
   constructor(
     private http: HttpClient,
-    private teamservices: TeamService,
+    private userService:UserService,
     private fb: FormBuilder,
     private tostr: ToastrService
   ) {}
@@ -60,8 +61,9 @@ export class TeamDetailsComponent implements OnInit {
     this.teamProfileForm = this.fb.group({
       email: [{ value: '', disabled: true }, Validators.email],
       gameLeadername: [{ value: '', disabled: true }],
-      TeamName: [{ value: '', disabled: true }],
+      name: [{ value: '', disabled: true }],
       displayedImage: [{ value: '' }],
+
     });
   }
 
@@ -70,7 +72,7 @@ export class TeamDetailsComponent implements OnInit {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     this.http;
-    this.teamservices.getTeamDetails().subscribe(
+    this.userService.getProfileDetails().subscribe(
       (response: any) => {
         this.TeamProfile = response.data;
         this.populateForm();
@@ -82,14 +84,14 @@ export class TeamDetailsComponent implements OnInit {
   }
 
   populateForm(): void {
-    if (this.TeamProfile && this.TeamProfile.teamId) {
+    if (this.TeamProfile) {
       this.teamProfileForm.patchValue({
         gameLeadername: (
           this.TeamProfile.teamId as unknown as { [key: string]: string }
-        )['gameLeadername'],
-        TeamName: (
-          this.TeamProfile.teamId as unknown as { [key: string]: string }
-        )['name'],
+        )['userName'],
+        name: (this.TeamProfile.teamId as unknown as { [key: string]: string })[
+          'name'
+        ],
         displayedImage: this.TeamProfile.avatar as unknown as {
           [key: string]: string;
         }['avatar'],

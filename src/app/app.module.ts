@@ -18,9 +18,9 @@ import { SetPasswordComponent } from './set-password/set-password.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
-
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { AuthInterceptor } from './services/interceptor/auth-interceptor.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +29,6 @@ import { AuthInterceptor } from './services/interceptor/auth-interceptor.service
     PlayerNameComponent,
     SetPasswordComponent,
     ForgotpasswordComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -50,8 +49,8 @@ import { AuthInterceptor } from './services/interceptor/auth-interceptor.service
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

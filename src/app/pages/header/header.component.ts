@@ -7,7 +7,11 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  isMenuOpen: boolean = false;
+  isMenuOpen = false;
+  // showPope = false;
+  showPopes(event: MouseEvent) {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 
   // Method to toggle the menu
   toggleMenu(event: any): void {
@@ -40,6 +44,7 @@ export class HeaderComponent {
     });
   }
   logOut() {
+    // this.showPope = true;
     localStorage.removeItem('token');
     this.router.navigate(['/']);
   }

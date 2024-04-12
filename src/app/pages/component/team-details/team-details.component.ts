@@ -33,7 +33,7 @@ export class TeamDetailsComponent implements OnInit {
   tableData!: any[];
   constructor(
     private http: HttpClient,
-    private userService:UserService,
+    private userService: UserService,
     private fb: FormBuilder,
     private tostr: ToastrService
   ) {}
@@ -63,7 +63,6 @@ export class TeamDetailsComponent implements OnInit {
       gameLeadername: [{ value: '', disabled: true }],
       name: [{ value: '', disabled: true }],
       displayedImage: [{ value: '' }],
-
     });
   }
 
@@ -169,37 +168,97 @@ export class TeamDetailsComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile);
     }
   }
-  tableHeader = ['Player Name'];
-  myTeamList = [
-    {
-      name: 'Player 1',
-      gameLeaderName: 'Demo',
-      imag: '../../assets/Max-R_Headshot (1).jpg',
-    },
-    {
-      name: 'Player 2',
-      gameLeaderName: 'Demo',
-      imag: '../../assets/Max-R_Headshot (1).jpg',
-    },
-    {
-      name: 'Player 3',
-      gameLeaderName: 'Demo',
-      imag: '/assets/Max-R_Headshot (1).jpg',
-    },
-    {
-      name: 'Player 4',
-      gameLeaderName: 'Demo',
-      imag: '/assets/Max-R_Headshot (1).jpg',
-    },
-    {
-      name: 'Player 5',
-      gameLeaderName: 'Demo',
-      imag: '/assets/Max-R_Headshot (1).jpg',
-    },
-    {
-      name: 'Player 6',
-      gameLeaderName: 'Demo',
-      imag: '/assets/Max-R_Headshot (1).jpg',
-    },
-  ];
+  // tableHeader = ['Player Name'];
+  // myTeamList = [
+  //   {
+  //     name: 'Player 1',
+  //     gameLeaderName: 'Demo',
+  //     imag: '../../assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 2',
+  //     gameLeaderName: 'Demo',
+  //     imag: '../../assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 3',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 4',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 5',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 6',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 7',
+  //     gameLeaderName: 'Demo',
+  //     imag: '../../assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 8',
+  //     gameLeaderName: 'Demo',
+  //     imag: '../../assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 9',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 10',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 11',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 12',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 1',
+  //     gameLeaderName: 'Demo',
+  //     imag: '../../assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 2',
+  //     gameLeaderName: 'Demo',
+  //     imag: '../../assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 3',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 4',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 5',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  //   {
+  //     name: 'Player 6',
+  //     gameLeaderName: 'Demo',
+  //     imag: '/assets/Max-R_Headshot (1).jpg',
+  //   },
+  // ];
 }

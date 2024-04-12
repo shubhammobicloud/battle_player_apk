@@ -11,19 +11,20 @@
     </button>
   </div>
   <div *ngIf="isMenuOpen" class="custom-menu">
-    <button class="mat-menu-item" (click)="logOut()">
-      <span class="text"> <mat-icon>logout</mat-icon>Logout </span>
-    </button>
-    <!-- <li>
+    <li>
+
+      <button class="mat-menu-item" (click)="logOut()">
+        <span class="text"> <mat-icon>logout</mat-icon>Logout </span>
+      </button>
+    </li>
+    <li>
       <button
         class="mat-menu-item"
         routerLink="Team-profile"
         routerLinkActive="active"
       >
-        <span  class="text">
-          <mat-icon>group</mat-icon>Team Profile
-        </span>
+        <span class="text"> <mat-icon>group</mat-icon>Team Profile </span>
       </button>
-    </li> -->
+    </li>
   </div>
 </div>

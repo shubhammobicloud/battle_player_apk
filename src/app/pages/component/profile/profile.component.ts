@@ -80,7 +80,7 @@ export class ProfileComponent implements OnInit {
               if (this.selectedFile) {
                 formData.append('avatar', this.selectedFile);
                  this.userService.updatePlayer(formData).subscribe((res: any) => {
-
+                    localStorage.setItem("avatar", res.data.avatar)
                     console.log('Image saved successfully');
                   });
               }

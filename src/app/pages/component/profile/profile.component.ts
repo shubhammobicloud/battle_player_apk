@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
     private http: HttpClient,
     private fb: FormBuilder,
     private tostr: ToastrService,
-    private userService:UserService
+    private userService: UserService
   ) {}
   ngOnInit() {
     this.getUserDetails();
@@ -46,26 +46,28 @@ export class ProfileComponent implements OnInit {
     });
   }
   getUserDetails() {
-   this.userService.getProfileDetails().subscribe((response: any) => {
-        this.userProfile = response.data;
-        this.populateForm();
-      });
+    this.userService.getProfileDetails().subscribe((response: any) => {
+      this.userProfile = response.data;
+      this.populateForm();
+    });
   }
 
   populateForm(): void {
     if (this.userProfile) {
       this.userProfileForm.patchValue({
         email: this.userProfile.email,
-        companyUnit: (this.userProfile.teamId as unknown as { [key: string]: string })[
-          'companyUnit'
-        ],
+        companyUnit: (
+          this.userProfile.teamId as unknown as { [key: string]: string }
+        )['companyUnit'],
         name: (this.userProfile.teamId as unknown as { [key: string]: string })[
           'name'
         ],
-        displayedImage:this.userProfile.avatar as unknown as {[key:string]:string}['avatar']
+        displayedImage: this.userProfile.avatar as unknown as {
+          [key: string]: string;
+        }['avatar'],
       });
     }
-    this.displayedImage=this.userProfileForm.get('displayedImage')?.value
+    this.displayedImage = this.userProfileForm.get('displayedImage')?.value;
   }
 
   toggleEditMode(): void {
@@ -76,33 +78,32 @@ export class ProfileComponent implements OnInit {
     } else {
       this.userProfileForm.disable();
       if (this.selectedFile) {
-              const formData = new FormData();
-              if (this.selectedFile) {
-                formData.append('avatar', this.selectedFile);
-                 this.userService.updatePlayer(formData).subscribe((res: any) => {
-                    localStorage.setItem("avatar", res.data.avatar)
-                    console.log('Image saved successfully');
-                  });
-              }
-            }
-
+        const formData = new FormData();
+        if (this.selectedFile) {
+          formData.append('avatar', this.selectedFile);
+          this.userService.updatePlayer(formData).subscribe((res: any) => {
+            localStorage.setItem('avatar', res.data.avatar);
+            console.log('Image saved successfully');
+          });
+        }
       }
-
+    }
   }
   // /user/player-update
   selectedFile: File | null = null;
-  displayedImage: string | ArrayBuffer | null = 'https://www.w3schools.com/howto/img_avatar.png';
-  showImage=false;
-    onFileSelected(event: any): void {
-      const fileInput = event.target as HTMLInputElement;
-      if (fileInput.files && fileInput.files.length > 0) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.displayedImage = reader.result as string;
-        };
-        this.selectedFile = fileInput.files[0];
-        console.log(this.selectedFile);
-        reader.readAsDataURL(this.selectedFile);
-      }
+  displayedImage: string | ArrayBuffer | null =
+    'https://www.w3schools.com/howto/img_avatar.png';
+  showImage = false;
+  onFileSelected(event: any): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.displayedImage = reader.result as string;
+      };
+      this.selectedFile = fileInput.files[0];
+      console.log(this.selectedFile);
+      reader.readAsDataURL(this.selectedFile);
     }
+  }
 }

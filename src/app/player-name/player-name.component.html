@@ -1,16 +1,37 @@
 <div class="container-playerName">
   <span>
-    <img src="../../assets/sports logo.png" alt="Sports Logo">
-    <img src="../../assets/logo wurth.png" alt="Wurth Logo">
+    <img src="../../assets/sports logo.png" alt="Sports Logo" />
+    <img src="../../assets/logo wurth.png" alt="Wurth Logo" />
   </span>
 
-  <div style="margin-block-start: 40px;">
+  <div style="margin-block-start: 40px">
     <h2>Tell Us Your Player Name</h2>
-   <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill">
       <mat-label>Name Your Player</mat-label>
-      <input matInput [(ngModel)]="userName" type="text" placeholder="Player Name">
+      <input
+        matInput
+        [(ngModel)]="userName"
+        name="userName"
+        #userNameInput="ngModel"
+        type="text"
+        placeholder="Player Name"
+        required
+        minlength="3"
+        maxlength="20"
+      />
+      <mat-error *ngIf="userNameInput.errors?.['required']" class="error">
+        Player name is required.
+      </mat-error>
+    
     </mat-form-field>
   </div>
 
-  <button mat-raised-button color="primary" class="continueButton" (click)="submit()">Continue</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="continueButton"
+    (click)="submit()"
+  >
+    Continue
+  </button>
 </div>

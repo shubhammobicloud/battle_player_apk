@@ -27,6 +27,11 @@ redirectedForm:any;
 
   }
   setPassword(): void {
+    if (this.password !== this.confirmPassword) {
+      this.toastr.error('Passwords do not match. Please try again.');
+      return;
+    }
+
     let validatePass = this.validatePassword(this.password);
     let token = this.router.snapshot.params['token'];
 
@@ -43,6 +48,10 @@ redirectedForm:any;
         token: token,
         firstLogin: true,
       };
+      if (!this.validatePassword(this.password)) {
+        this.toastr.warning('Password should be at least 8 characters long, must contain numbers, and alphabets.');
+        return;
+      }
      this.userService.setPassword(data).subscribe(
         (res: any) => {
           if ((res.message == "Update successfully.")) {
@@ -66,6 +75,25 @@ redirectedForm:any;
 
     return (
       password.length >= minLength && containsLettersAndNumbers.test(password)
+    );
+  }
+
+  isPasswordValid(): boolean {
+    // Define your password pattern criteria
+    const minLength = 8;
+    const hasLowerCase = /[a-z]/.test(this.password);
+    const hasUpperCase = /[A-Z]/.test(this.password);
+    const hasNumber = /\d/.test(this.password);
+    const hasSpecialChar = /[^a-zA-Z0-9]/.test(this.password);
+
+    // Check if the password meets all criteria
+    return (
+     !! this.password &&
+      this.password.length >= minLength &&
+      hasLowerCase &&
+      hasUpperCase &&
+      hasNumber &&
+      hasSpecialChar
     );
   }
 }

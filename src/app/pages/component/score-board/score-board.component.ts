@@ -99,7 +99,7 @@ ngOnInit(): void {
       console.error('Error capturing or sharing image:', error);
     }
   }
-
+  
   // Function to write to the filesystem
   async writeToFilesystem(directory: Directory, path: string, data: string) {
     // Check if the directory exists, and create it if not
@@ -148,6 +148,7 @@ ngOnInit(): void {
 
   // (Optional) Function to check data URL validity (replace with your validation logic)
   isValidDataURL(dataURL: string): boolean {
+
     // Implement your validation logic here, checking for the expected format and content of the data URL
     return true; // Replace with your actual validation logic
   }

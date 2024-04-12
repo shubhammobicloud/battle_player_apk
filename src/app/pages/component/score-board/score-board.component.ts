@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { environment } from 'src/environment/enviroment';
+import { take } from 'rxjs';
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
@@ -18,24 +19,13 @@ export class ScoreBoardComponent implements OnInit {
   teamAImage:string='../../assets/teambimage.jpg';
   teamBImage:string='../../assets/teamImage.png'
   dynamicImageUrl: string = 'path_to_dynamic_image.png';
-  teamAScore: number = 30;
-  teamBScore: number = 60;
+  teamAScore: number = 0;
+  teamBScore: number = 0;
   eventImageURL:string = '../../../../assets/ground.jpg'
   baseUrl:string = environment.baseUrl
 
 constructor(private authService:AuthService,private http:HttpClient, private dashboardService:DashboardService){}
 ngOnInit(): void {
-   let id= localStorage.getItem( "token");
-    // console.log(id,"USER ID")/
-  // this.http.get(environment.baseUrl+'playerDetails/'+id).subscribe((res:any)=>{
-
-  //       localStorage.setItem( "userId" , res.data._id);
-  //       localStorage.setItem( "teamId" , res.data.teamId);
-  //       localStorage.setItem('avatar',res.data.avatar);
-  //       localStorage.setItem('userName',res.data.userName);
-  //   // console.log(res)
-  // })
-
   this.getEventImage()
   this.getTeamImages()
 }
@@ -109,7 +99,7 @@ ngOnInit(): void {
       console.error('Error capturing or sharing image:', error);
     }
   }
-
+  
   // Function to write to the filesystem
   async writeToFilesystem(directory: Directory, path: string, data: string) {
     // Check if the directory exists, and create it if not
@@ -158,6 +148,7 @@ ngOnInit(): void {
 
   // (Optional) Function to check data URL validity (replace with your validation logic)
   isValidDataURL(dataURL: string): boolean {
+
     // Implement your validation logic here, checking for the expected format and content of the data URL
     return true; // Replace with your actual validation logic
   }
@@ -172,7 +163,11 @@ ngOnInit(): void {
   this.dashboardService.getEventImage().subscribe({
   next:(res)=>{
     console.log("api res", res)
-    this.eventImageURL = res.data.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.eventImageURL
+    this.storeImageLocally( res.data.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.eventImageURL).subscribe((res) => {
+      console.log(URL.createObjectURL(res));
+      this.eventImageURL =URL.createObjectURL(res)
+    })
+
   },
   error:(err:HttpErrorResponse)=>{
     console.log("api error ",err)
@@ -184,12 +179,28 @@ ngOnInit(): void {
     this.dashboardService.getTeamImages().subscribe({
       next:(res)=>{
         console.log("api res", res)
-        this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage
-        this.teamBImage = res.data?.battlePartnerTeamId?.avatar?`${environment.baseUrl}images/${res.data.battlePartnerTeamId.avatar}`:this.teamBImage
+        // this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage;
+        this.storeImageLocally(res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage).subscribe((res) => {
+          console.log(URL.createObjectURL(res));
+          this.teamAImage=URL.createObjectURL(res)
+        })
+        this.storeImageLocally(res.data?.battlePartnerTeamId?.avatar?`${environment.baseUrl}images/${res.data.battlePartnerTeamId.avatar}`:this.teamBImage).subscribe((res) => {
+          console.log(URL.createObjectURL(res));
+          this.teamBImage =URL.createObjectURL(res)
+        })
+        this.teamAName = res.data?.name;
+        this.teamBName = res.data?.battlePartnerTeamId?.name;
+
+        this.teamAScore = (res.data?.currentSales/res.data?.targetSales)*100
+        this.teamBScore = (res.data?.battlePartnerTeamId?.currentSales/res.data?.battlePartnerTeamId?.targetSales)*100
       },
       error:(err:HttpErrorResponse)=>{
         console.log("api error ",err)
       }
     })
+  }
+
+  storeImageLocally(imgUrl:string){
+      return this.http.get(imgUrl,{responseType:'blob'}).pipe(take(1))
   }
 }

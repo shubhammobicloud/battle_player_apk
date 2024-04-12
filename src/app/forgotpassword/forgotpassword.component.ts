@@ -36,7 +36,7 @@ export class ForgotpasswordComponent {
   submitEmail() {
     if (this.forgotPasswordForm.valid) {
       this.forgerPasswordService.sendOtp({email:this.forgotPasswordForm.value.email}).subscribe((res:any)=>{
-        if(res.message=="Otp sent sucessfully."){
+        if(res.message=="OTP sent sucessfully."){
           this.toastr.success(res.message)
           this.showOtp = true;
           this.showPassword = true;

@@ -100,7 +100,7 @@ async ngOnDestroy() {
 
     // disconnect
     this.socket.on('disconnect',async()=>{
-      alert('Internet is not on or connection is very slow.');
+      // alert('Internet is not on or connection is very slow.');
     })
 
     this.socket.on('loadNewTeamChat', (data: any, callback:any) => {

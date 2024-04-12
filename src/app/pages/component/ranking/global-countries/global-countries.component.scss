@@ -2,14 +2,16 @@
 .container-table {
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
 }
 
 .player-table {
+  background-color: white;
   width: 100%;
+
   border-collapse: collapse;
-  overflow-x: auto; 
+  overflow-x: auto;
 
 }
 
@@ -21,8 +23,3 @@
   border-bottom: 1px solid #ff2929;
 }
 
-.tab td {
-  // text-align: center;
-
-
-}

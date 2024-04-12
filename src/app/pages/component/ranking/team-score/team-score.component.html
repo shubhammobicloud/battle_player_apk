@@ -7,11 +7,16 @@
         <td>
           <mat-icon>person</mat-icon>
         </td>
-        <td style="text-align: justify; overflow-x: auto;">
+        <td style="text-align: justify; overflow: auto;">
           {{ player.username ? player.username : player.email}}
         </td>
         <!-- <td class="sales">{{ player.targetOrSalesRepLC }}</td> -->
-        <td class="score">{{ player.rankingScore.toString().slice(0, 4) }}%</td>
+        
+        <td class="score">
+          {{
+            player.rankingScore ? player.rankingScore .toString().slice(0,4)+ "" : "0" 
+          }}%
+        </td>
       </tr>
     </ng-container>
     <ng-template #noData>

@@ -2,7 +2,9 @@
   <div class="container">
     <div class="user-profile">
       <h3 *ngIf="userProfile?.gameLeader">Hello Leader!!</h3>
-      <h2>{{ userProfile?.userName }}</h2>
+      <span class="userNameEdit"> <h2>{{ userProfile?.userName }}</h2><button mat-icon-button type="button" (click)="toggleEditMode()">
+        <mat-icon> {{ isEditMode ? "check" : "edit" }}</mat-icon>
+       </button></span>
       <label for="avatarInput">
         <img formControlName="displayedImage" [src]="selectedFile?displayedImage: link+'images/'+ displayedImage"
           alt="User Avatar"
@@ -25,17 +27,15 @@
       <mat-form-field appearance="fill">
         <mat-label>Company Unit</mat-label>
         <input matInput formControlName="companyUnit" [disabled]="true" />
-        
+
       </mat-form-field>
-      
-      
+
+
       <mat-form-field appearance="fill">
         <mat-label>Team Name</mat-label>
         <input matInput formControlName="name" [disabled]="true" />
       </mat-form-field>
-      <button mat-raised-button type="button" (click)="toggleEditMode()">
-        {{ isEditMode ? "Save" : "Edit Profile" }}
-      </button>
+
     </div>
   </div>
 </form>

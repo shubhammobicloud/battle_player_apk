@@ -7,6 +7,23 @@
     width: 100%;
     text-align: center;
     margin-block-start: 1rem;
+    .userNameEdit{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      button{
+        // width: 65%;
+        font-size: large;
+        // background-color: red;
+        color: rgb(0, 0, 0);
+        mat-icon{
+          font-size: 2rem;
+          width: 2rem;
+          height: 2rem;
+        }
+      }
+    }
     h3{
       margin: 0;
     }
@@ -34,13 +51,7 @@
       border-radius: 50%;
     }
     }
-    button{
-      width: 65%;
-      font-size: large;
-      background-color: red;
-      color: white;
 
-    }
     @media (min-width: 401px) {
       button{
         height:3rem;

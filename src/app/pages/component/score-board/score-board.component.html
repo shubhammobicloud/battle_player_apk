@@ -21,12 +21,12 @@
     <div class="score-bar">
       <div class="progress-bar-container">
         <mat-progress-bar mode="determinate" [value]="teamAScore" ></mat-progress-bar>
-        <p>{{ teamAScore }}%</p>
+        <p>{{ teamAScore?teamAScore:0 }}%</p>
       </div>
 
       <div class="progress-bar-container">
         <mat-progress-bar mode="determinate" [value]="teamBScore" ></mat-progress-bar>
-        <p>{{ teamBScore }}%</p>
+        <p>{{ teamBScore?teamBScore:0 }}%</p>
       </div>
     </div>
   </div>

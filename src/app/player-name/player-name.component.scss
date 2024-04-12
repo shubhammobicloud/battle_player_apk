@@ -5,12 +5,23 @@
   align-items: center;
   text-align: center;
 
+
 img{
   max-width: 50%;
+}
+.error{
+  color: #333;
+  font-size: 14px;
+  margin-left: -17px;
+  
+}
+.continueButton{
+margin-top: 10px;
 }
 }
 mat-form-field{
   width: 65%;
+  margin: 10px 20px;
 }
 @media (min-width:700px){
 
@@ -21,5 +32,11 @@ mat-form-field{
       width: 15rem;
       font-size: 1.5rem;
     }
+    .error{
+      color: #333;
+      font-size: 1rem;
+      
+    }
 
+    
 }

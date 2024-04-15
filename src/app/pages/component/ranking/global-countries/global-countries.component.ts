@@ -13,7 +13,7 @@ export class GlobalCountriesComponent {
   tableData!: any[];
   defaultId = 'YOUR_DEFAULT_ID_HERE';
   defaultIdCount = 0;
-
+// this code is relate to flag 
   icon(name:string):string {
     let name1 = name.toLowerCase()
     console.log("name", name)

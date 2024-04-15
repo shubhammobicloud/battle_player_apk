@@ -1,14 +1,16 @@
 <div class="container-communications">
   <div class="tabsContainer">
-    <div
-      class="tabs"
-      [class.activeTab]="showTeamChat"
-      (click)="showTeamChat = true"
-    >
-      Team Chat
+    <div *ngIf="shouldShowTabsForUser()">
+      <div
+        class="tabs"
+        [class.activeTab]="showTeamChat"
+        (click)="showTeamChat = false"
+      >
+        Team Chat
+      </div>
     </div>
     <div
-      class="tabs"
+      class="tabs"  
       [class.activeTab]="!showTeamChat"
       (click)="showTeamChat = false"
     >
@@ -18,7 +20,7 @@
 
   <div class="content-chat-news">
     <div *ngIf="showTeamChat">
-      <app-team-chat></app-team-chat>
+      <app-team-chat *ngIf="shouldShowTabsForUser()"></app-team-chat>
     </div>
 
     <div *ngIf="!showTeamChat">

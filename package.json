@@ -27,6 +27,7 @@
     "@capacitor/ios": "^5.7.1",
     "@capacitor/share": "^5.0.7",
     "@capacitor/status-bar": "^5.0.7",
+    "flag-icons": "^7.2.1",
     "html2canvas": "^1.4.1",
     "jwt-decode": "^4.0.0",
     "ngx-toastr": "^18.0.0",

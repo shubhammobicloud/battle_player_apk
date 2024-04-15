@@ -5,7 +5,8 @@
       <tr *ngFor="let player of tableData; let i = index" class="tab">
         <td class="teamid" style="text-align: center">{{ i + 1 }}</td>
         <td>
-          <mat-icon>person</mat-icon>
+          <!-- <span class="fi fi-gr"></span> -->
+          <mat-icon >person</mat-icon>
         </td>
         <td style="text-align: justify; overflow: auto;">
           {{ player.username ? player.username : player.email}}

@@ -14,6 +14,11 @@ export class GlobalCountriesComponent {
   defaultId = 'YOUR_DEFAULT_ID_HERE';
   defaultIdCount = 0;
 
+  icon=(name:string)=>{
+    return `fi fi-${name}`
+  };
+  // icon:string ="fi fi-in";
+
   constructor(private http: HttpClient,private rankingService:RankingService) {}
 
   ngOnInit(): void {

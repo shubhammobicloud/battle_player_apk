@@ -14,10 +14,12 @@ export class GlobalCountriesComponent {
   defaultId = 'YOUR_DEFAULT_ID_HERE';
   defaultIdCount = 0;
 
-  icon=(name:string)=>{
-    return `fi fi-${name}`
-  };
-  // icon:string ="fi fi-in";
+  icon(name:string):string {
+    let name1 = name.toLowerCase()
+    console.log("name", name)
+    return `fi fi-${name1}`;
+  }
+  
 
   constructor(private http: HttpClient,private rankingService:RankingService) {}
 
@@ -31,7 +33,7 @@ export class GlobalCountriesComponent {
         (data: any) => {
           this.tableData = data['data'].sort((a:any,b:any)=>b.rankingScore-a.rankingScore);
           // debugger
-
+// this.getFlagUrl.name
         },
         (error:any) => {
           console.error('An error occurred:', error);
@@ -39,4 +41,11 @@ export class GlobalCountriesComponent {
         }
       );
 }
+// getIconClass(name: string): string {
+//   return `fi fi-in`; 
+// }
+
+// getFlagUrl(flagName: string): string {
+//   return this.rankingService.getFlagUrl(flagName);
+// }
 }

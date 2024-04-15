@@ -1,4 +1,3 @@
-
 .container-table {
   display: flex;
   flex-direction: column;
@@ -12,14 +11,22 @@
 
   border-collapse: collapse;
   overflow-x: auto;
-
 }
-
 
 .player-table td {
-  padding: 8px ;
-  // border: 1px solid #ddd;
-
+  padding: 8px;
   border-bottom: 1px solid #ff2929;
+  text-align: center;
 }
 
+.iconcircle {
+  width: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+// .iconcircle mat-icon td {
+//   font-size:9rem;
+// }
+#icon {
+  font-size: 30px;
+}

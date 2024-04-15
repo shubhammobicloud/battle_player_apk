@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 
 @Component({
@@ -10,7 +10,7 @@ import { jwtDecode } from 'jwt-decode';
 export class CommunicationsComponent implements OnInit {
   showTeamChat: boolean = true;
   hidesuper: boolean = false;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private elRef: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {
     const token: any = localStorage.getItem('token');
@@ -25,8 +25,10 @@ export class CommunicationsComponent implements OnInit {
     console.log('check', data.superUser);
 
     this.hidesuper = data.superUser;
+    
     if (data.superUser) {
       this.showTeamChat = !this.showTeamChat;
+  
     }
   }
 

@@ -16,15 +16,22 @@ overflow: hidden;
     &:hover {
       background-color: rgb(255, 0, 0);
     }
+    
 
     &.activeTab {
       background-color: rgb(255, 0, 0);
       color: #fff;
     }
   }
+  .name{
+      margin-right: 80px;
+    
+  }
 }
 
-
+.name{
+  margin-right: 90px;
+}
 .content-chat-news{
   height: 70vh;
   overflow-y: scroll;

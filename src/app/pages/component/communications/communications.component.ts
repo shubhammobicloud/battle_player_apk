@@ -5,15 +5,15 @@ import { jwtDecode } from 'jwt-decode';
 @Component({
   selector: 'app-communications',
   templateUrl: './communications.component.html',
-  styleUrls: ['./communications.component.scss']
+  styleUrls: ['./communications.component.scss'],
 })
-export class CommunicationsComponent  implements OnInit{
-  showTeamChat: boolean = true; // Initially show Team Chat
-  hidesuper:boolean=false
+export class CommunicationsComponent implements OnInit {
+  showTeamChat: boolean = true;
+  hidesuper: boolean = false;
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    const token:any = localStorage.getItem('token');
+    const token: any = localStorage.getItem('token');
 
     let data: {
       _id: any;
@@ -24,24 +24,19 @@ export class CommunicationsComponent  implements OnInit{
     } = jwtDecode(token);
     console.log('check', data.superUser);
 
-    
-    this.hidesuper = data.superUser
-  if(data.superUser){
-
-    this.showTeamChat=!this.showTeamChat
-  }
+    this.hidesuper = data.superUser;
+    if (data.superUser) {
+      this.showTeamChat = !this.showTeamChat;
+    }
   }
 
   shouldShowTabsForUser(): boolean {
-    const token = localStorage.getItem('token'); // Retrieve token here
+    const token = localStorage.getItem('token');
 
     if (token) {
-      // Token is present, you can perform authorization checks here
-      // For demonstration purposes, let's assume userHasPermission is true
-      const userHasPermission = true; // Replace with your actual logic
+      const userHasPermission = true;
       return userHasPermission;
     } else {
-      // Token is not present, user doesn't have permission
       return false;
     }
   }

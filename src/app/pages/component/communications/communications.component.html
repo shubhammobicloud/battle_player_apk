@@ -1,5 +1,7 @@
 <div class="container-communications">
   <div class="tabsContainer">
+
+ 
     <div *ngIf="shouldShowTabsForUser()">
       <div *ngIf="!hidesuper">
         <div
@@ -9,8 +11,9 @@
         >
           Team Chat
         </div>
-      </div>
-
+        </div>
+      
+      
       <!-- Superuser Tab (News Post) -->
       <div *ngIf="hidesuper">
         <div
@@ -22,11 +25,11 @@
         </div>
       </div>
     </div>
-
+    
     <div
       class="tabs"
       [class.activeTab]="!showTeamChat"
-      (click)="(showTeamChat)"
+      (click)="showTeamChat = false"
       [class.name]="hidesuper"
     >
       Company News
@@ -34,14 +37,9 @@
   </div>
 
   <div class="content-chat-news">
-    <div>
-      <div *ngIf="!hidesuper">
-        <app-team-chat></app-team-chat>
-      </div>
-
-      <div *ngIf="hidesuper">
-        <app-newspost></app-newspost>
-      </div>
+    <div *ngIf="showTeamChat">
+      <app-team-chat *ngIf="!showTeamChat" ></app-team-chat>
+      <app-newspost *ngIf="showTeamChat"></app-newspost>
     </div>
 
     <div *ngIf="!showTeamChat">

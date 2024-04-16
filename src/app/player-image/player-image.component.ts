@@ -41,13 +41,13 @@ export class PlayerImageComponent {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('avatar', this.selectedFile, this.selectedFile.name);
-      formData.append('token', token);
+      // formData.append('token', token);
 
      this.userService.updatePlayer(formData)
         .subscribe(
           (res: any) => {
             console.log('File upload response:', res);
-            if (res.message == "Update successfully.") {
+            if (res.success) {
               this.toastr.success('Profile Image Updated Successfully!');
               if (res.data) {
 

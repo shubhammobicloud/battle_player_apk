@@ -41,11 +41,11 @@ export class TeamImageComponent {
       this.teamService.updateTeamImage(formData).subscribe(
         (res: any) => {
           console.log('File upload response:', res);
-          if (res.message == 'Update successfully.') {
+          if (res.success) {
             this.userService.sendMailToPlayers().subscribe(res=>{
               console.log(res)
             });
-            this.route.navigate(['/', 'mybattle']);
+            this.route.navigate(['/', 'home']);
           }
         },
         (error) => {

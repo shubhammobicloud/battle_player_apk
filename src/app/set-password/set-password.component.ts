@@ -54,8 +54,7 @@ redirectedForm:any;
       }
      this.userService.setPassword(data).subscribe(
         (res: any) => {
-          if ((res.message == "Update successfully.")) {
-
+          if ((res.success)) {
               this.route.navigate(['/playername',token]);
             }
 

@@ -50,7 +50,7 @@ export class PlayerImageComponent {
             if (res.success) {
               this.toastr.success('Profile Image Updated Successfully!');
               if (res.data) {
-
+                localStorage.setItem("avatar",res.data.avatar)
                 this.route.navigate(['/', 'teamImage', token]);
 
               } else {

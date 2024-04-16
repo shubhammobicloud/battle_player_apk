@@ -37,13 +37,18 @@
   </div>
 
   <div class="content-chat-news">
-    <div *ngIf="showTeamChat">
-      <app-team-chat *ngIf="!showTeamChat" ></app-team-chat>
-      <app-newspost *ngIf="showTeamChat"></app-newspost>
-    </div>
-
     <div *ngIf="!showTeamChat">
+      <!-- Display Company News component if Team Chat is not selected -->
       <app-company-news></app-company-news>
     </div>
+  
+    <div *ngIf="showTeamChat && !hidesuper">
+      <!-- Display Team Chat component if a regular user is logged in -->
+      <app-team-chat></app-team-chat>
+    </div>
+  
+    <div *ngIf="showTeamChat && hidesuper">
+      <!-- Display News Post component if a superuser is logged in -->
+      <app-newspost></app-newspost>
+    </div>
   </div>
-</div>

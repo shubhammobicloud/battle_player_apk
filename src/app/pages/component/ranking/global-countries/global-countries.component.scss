@@ -20,13 +20,16 @@
 }
 
 .iconcircle {
-  width: 100%;
+  width: 40px; /* Adjust the size as needed */
+  height: 40px; /* Adjust the size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   overflow: hidden;
+  background-color: #f0f0f0; 
 }
-// .iconcircle mat-icon td {
-//   font-size:9rem;
-// }
-#icon {
-  font-size: 30px;
+
+.iconcircle i {
+  font-size: 204px;
 }

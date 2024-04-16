@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { pipe } from 'rxjs';
 import { RankingService } from 'src/app/services/ranking/ranking.service';
 
 import { environment } from 'src/environment/enviroment';
@@ -17,6 +18,11 @@ export class GlobalCountriesComponent {
   icon(name:string):string {
     let name1 = name.toLowerCase()
     console.log("name", name)
+    // if(name){
+      
+    // }else{
+    //   return 'fi fi-in';
+    // }
     return `fi fi-${name1}`;
   }
   
@@ -28,12 +34,12 @@ export class GlobalCountriesComponent {
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.rankingService.getglobalRanking()
-      .subscribe(
-        (data: any) => {
+    this.rankingService.getglobalRanking().subscribe((data: any) => {
           this.tableData = data['data'].sort((a:any,b:any)=>b.rankingScore-a.rankingScore);
+          console.log(data)
           // debugger
 // this.getFlagUrl.name
+
         },
         (error:any) => {
           console.error('An error occurred:', error);
@@ -45,7 +51,7 @@ export class GlobalCountriesComponent {
 //   return `fi fi-in`; 
 // }
 
-// getFlagUrl(flagName: string): string {
-//   return this.rankingService.getFlagUrl(flagName);
-// }
+getFlagUrl(flagName: string): string {
+  return this.rankingService.getFlagUrl(flagName);
+}
 }

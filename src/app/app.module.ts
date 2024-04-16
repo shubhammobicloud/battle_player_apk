@@ -17,7 +17,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SetPasswordComponent } from './set-password/set-password.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-
+// src/app/pages/component/communications/newspost/newspost.component.html
 import { MatIconModule } from '@angular/material/icon';
 import { AuthInterceptor } from './services/interceptor/auth-interceptor.service';
 

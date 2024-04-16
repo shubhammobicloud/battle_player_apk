@@ -1,19 +1,32 @@
 <div class="container-communications">
   <div class="tabsContainer">
     <div *ngIf="shouldShowTabsForUser()">
-      <div
-        class="tabs"
-        [class.activeTab]="showTeamChat"
-        (click)="showTeamChat = true"
-        *ngIf="!hidesuper"
-      >
-        Team Chat
+      <div *ngIf="!hidesuper">
+        <div
+          class="tabs"
+          [class.activeTab]="showTeamChat"
+          (click)="showTeamChat = true"
+        >
+          Team Chat
+        </div>
+      </div>
+
+      <!-- Superuser Tab (News Post) -->
+      <div *ngIf="hidesuper">
+        <div
+          class="tabs"
+          [class.activeTab]="!showTeamChat"
+          (click)="showTeamChat = false"
+        >
+          News Post
+        </div>
       </div>
     </div>
+
     <div
       class="tabs"
       [class.activeTab]="!showTeamChat"
-      (click)="showTeamChat = false"
+      (click)="(showTeamChat)"
       [class.name]="hidesuper"
     >
       Company News
@@ -21,8 +34,14 @@
   </div>
 
   <div class="content-chat-news">
-    <div *ngIf="showTeamChat">
-      <app-team-chat></app-team-chat>
+    <div>
+      <div *ngIf="!hidesuper">
+        <app-team-chat></app-team-chat>
+      </div>
+
+      <div *ngIf="hidesuper">
+        <app-newspost></app-newspost>
+      </div>
     </div>
 
     <div *ngIf="!showTeamChat">

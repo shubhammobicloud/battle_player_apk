@@ -25,8 +25,6 @@ export class LoginComponent {
   hide = true;
 
   public showPassword: boolean = false;
-  // get emailInput() { return this.emailInput.get('email'); }
-  // get passwordInput() { return this.p.get('password'); } 
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
 import { jwtDecode } from 'jwt-decode';
 
 @Component({
@@ -28,6 +29,7 @@ export class CommunicationsComponent implements OnInit {
     
     if (data.superUser) {
       this.showTeamChat = !this.showTeamChat;
+      
   
     }
   }
@@ -42,4 +44,5 @@ export class CommunicationsComponent implements OnInit {
       return false;
     }
   }
+  
 }

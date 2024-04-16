@@ -18,21 +18,31 @@ import { CommunicationsModule } from './component/communications/communications.
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { NewspostComponent } from './component/communications/newspost/newspost.component';
 @NgModule({
   declarations: [
-    GetStartedComponent,PagesComponent,
+    GetStartedComponent,
+    PagesComponent,
     TeamNameComponent,
     TeamImageComponent,
     ScoreBoardComponent,
     CommunicationsComponent,
     ProfileComponent,
-    HeaderComponent,MenuComponent,
-    TeamDetailsComponent
+    HeaderComponent,
+    MenuComponent,
+    TeamDetailsComponent,
+    
   ],
   imports: [
-    CommonModule,RouterModule,PageMaterialModule,RankingModule,CommunicationsModule,ReactiveFormsModule,
-    PageRoutingModule,  MatMenuModule,
-    MatIconModule
-  ]
+    CommonModule,
+    RouterModule,
+    PageMaterialModule,
+    RankingModule,
+    CommunicationsModule,
+    ReactiveFormsModule,
+    PageRoutingModule,
+    MatMenuModule,
+    MatIconModule,
+  ],
 })
-export class PagesModule { }
+export class PagesModule {}

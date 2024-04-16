@@ -6,19 +6,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NewspostComponent } from './newspost/newspost.component';
 
 @NgModule({
   declarations: [
 
     TeamChatComponent,
      CompanyNewsComponent,
+     NewspostComponent,
   ],
   imports: [
     CommonModule,MatIconModule,FormsModule,MatCardModule,BrowserAnimationsModule
   ],
   exports:[
     TeamChatComponent,
-    CompanyNewsComponent
+    CompanyNewsComponent,
+    NewspostComponent,
   ]
 })
 export class CommunicationsModule { }

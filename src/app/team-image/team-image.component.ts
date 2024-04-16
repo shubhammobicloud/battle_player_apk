@@ -45,7 +45,7 @@ export class TeamImageComponent {
             this.userService.sendMailToPlayers().subscribe(res=>{
               console.log(res)
             });
-            this.route.navigate(['/', 'home']);
+            this.route.navigate(['/', 'mybattle']);
           }
         },
         (error) => {

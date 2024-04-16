@@ -25,7 +25,7 @@ export class UserService {
       return this.http.patch(this.baseUrl + 'player-update',data)
   }
     setPassword = (data:any) =>{
-      return this.http.patch(this.baseUrl + 'player-password',data)
+      return this.http.patch(this.baseUrl + 'set-password',data)
     }
     getProfileDetails=()=>{
       return this.http.get(this.baseUrl+'details')

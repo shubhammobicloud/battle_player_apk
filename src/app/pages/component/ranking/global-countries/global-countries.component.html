@@ -6,21 +6,22 @@
         <td class="teamid" style="text-align: justify">{{ i + 1 }}</td>
         <td>
           <div class="iconcircle">
+            <!-- <i id="icon" ngClass="{{ icon(company.name.slice(0, 2)) }}"></i> -->
             <i
               id="icon"
-              ngClass="{{ icon(company.name.slice(0, 2)) }}"
+              [ngClass]="company?.name ? icon(company.name.slice(0, 2)) : ''"
             ></i>
           </div>
         </td>
 
-        <td class="name" style="overflow-x: scroll ;">
-          {{ company.name.slice(3)}}
+        <td class="name">
+          {{ company?.name ? company.name.substring(3) : "" }}
         </td>
 
         <td class="score">
           {{
-            company.rankingScore
-              ? company.rankingScore.toString().slice(0, 4) + ""
+            company?.rankingScore
+              ? company?.rankingScore.toString().slice(0, 4) + ""
               : "0"
           }}%
         </td>

@@ -34,6 +34,22 @@ export class CompanyTeamsComponent {
         }
       );
   }
+
+  formatRankingScore(score: number): string {
+    if (score !== null && score !== undefined) {
+      // Convert score to string
+      let scoreString = score.toString();
+      
+      // Remove decimal point and trailing zeros
+      scoreString = scoreString.replace(/(\.0+|\.)/g, "");
+
+      // Append "%" symbol
+      return scoreString + "%";
+    } else {
+      // If score is null or undefined, return "0%"
+      return "0%";
+    }
+  }
 }
 
 

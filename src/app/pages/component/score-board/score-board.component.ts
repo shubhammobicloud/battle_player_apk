@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Share } from '@capacitor/share';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import html2canvas from 'html2canvas';
@@ -10,26 +10,29 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
-  styleUrls: ['./score-board.component.scss']
+  styleUrls: ['./score-board.component.scss'],
 })
 export class ScoreBoardComponent implements OnInit {
   teamAName: string = 'Team A';
   teamBName: string = 'Team B';
   centerLogo: string = '../../assets/sports logo.png';
-  teamAImage:string='../../assets/teambimage.jpg';
-  teamBImage:string='../../assets/teamImage.png'
+  teamAImage: string = '../../assets/teambimage.jpg';
+  teamBImage: string = '../../assets/teamImage.png';
   dynamicImageUrl: string = 'path_to_dynamic_image.png';
   teamAScore: number = 0;
   teamBScore: number = 0;
-  eventImageURL:string = '../../../../assets/ground.jpg'
-  baseUrl:string = environment.baseUrl
+  eventImageURL: string = '../../../../assets/ground.jpg';
+  baseUrl: string = environment.baseUrl;
 
-constructor(private authService:AuthService,private http:HttpClient, private dashboardService:DashboardService){}
-ngOnInit(): void {
-  this.getEventImage()
-  this.getTeamImages()
-}
-
+  constructor(
+    private authService: AuthService,
+    private http: HttpClient,
+    private dashboardService: DashboardService
+  ) {}
+  ngOnInit(): void {
+    this.getEventImage();
+    this.getTeamImages();
+  }
 
   async share() {
     const divElement = document.getElementById('myDiv');
@@ -47,7 +50,9 @@ ngOnInit(): void {
 
       // Check if the data URL is valid (optional)
       if (!this.isValidDataURL(dataURL)) {
-        console.error('Invalid data URL. Ensure the div content is valid for canvas capture.');
+        console.error(
+          'Invalid data URL. Ensure the div content is valid for canvas capture.'
+        );
         return;
       }
 
@@ -62,13 +67,16 @@ ngOnInit(): void {
 
       // Attempt to write to different directories, stopping on the first success
       try {
-        await this.writeToFilesystem(Directory.Documents, `${filename}`, dataURL);
+        await this.writeToFilesystem(
+          Directory.Documents,
+          `${filename}`,
+          dataURL
+        );
         directory = Directory.Documents;
         success = true;
       } catch (error) {
         console.error('Error writing to Documents directory:', error);
       }
-
 
       if (!success) {
         try {
@@ -81,7 +89,7 @@ ngOnInit(): void {
       }
 
       if (success) {
-        console.log(directory, "Chosen directory");
+        console.log(directory, 'Chosen directory');
       }
 
       const fileUri = await Filesystem.getUri({
@@ -99,7 +107,7 @@ ngOnInit(): void {
       console.error('Error capturing or sharing image:', error);
     }
   }
-  
+
   // Function to write to the filesystem
   async writeToFilesystem(directory: Directory, path: string, data: string) {
     // Check if the directory exists, and create it if not
@@ -118,14 +126,17 @@ ngOnInit(): void {
     const directoryPath = path.substring(0, path.lastIndexOf('/'));
 
     // Check if the directory exists, and create it if not
-    const directoryExists = await this.doesDirectoryExist(directory, directoryPath);
+    const directoryExists = await this.doesDirectoryExist(
+      directory,
+      directoryPath
+    );
     if (!directoryExists) {
       await Filesystem.mkdir({
         path: directoryPath,
         directory,
         recursive: true, // Create parent directories if they don't exist
       });
-      console.log(directoryExists,directoryPath)
+      console.log(directoryExists, directoryPath);
     }
   }
 
@@ -148,7 +159,6 @@ ngOnInit(): void {
 
   // (Optional) Function to check data URL validity (replace with your validation logic)
   isValidDataURL(dataURL: string): boolean {
-
     // Implement your validation logic here, checking for the expected format and content of the data URL
     return true; // Replace with your actual validation logic
   }
@@ -159,48 +169,63 @@ ngOnInit(): void {
     return `${prefix}${timestamp}${extension}`;
   }
 
-  getEventImage(){
-  this.dashboardService.getEventImage().subscribe({
-  next:(res)=>{
-    console.log("api res", res)
-    this.storeImageLocally( res.data.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.eventImageURL).subscribe((res) => {
-      console.log(URL.createObjectURL(res));
-      this.eventImageURL =URL.createObjectURL(res)
-    })
-
-  },
-  error:(err:HttpErrorResponse)=>{
-    console.log("api error ",err)
+  getEventImage() {
+    this.dashboardService.getEventImage().subscribe({
+      next: (res) => {
+        console.log('api res', res);
+        this.storeImageLocally(
+          res.data.avatar
+            ? `${environment.baseUrl}images/${res.data.avatar}`
+            : this.eventImageURL
+        ).subscribe((res) => {
+          console.log(URL.createObjectURL(res));
+          this.eventImageURL = URL.createObjectURL(res);
+        });
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log('api error ', err);
+      },
+    });
   }
-})
-  }
 
-  getTeamImages(){
+  getTeamImages() {
     this.dashboardService.getTeamImages().subscribe({
-      next:(res)=>{
-        console.log("api res", res)
+      next: (res) => {
+        console.log('api res', res);
         // this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage;
-        this.storeImageLocally(res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage).subscribe((res) => {
+        this.storeImageLocally(
+          res.data?.avatar
+            ? `${environment.baseUrl}images/${res.data.avatar}`
+            : this.teamBImage
+        ).subscribe((res) => {
           console.log(URL.createObjectURL(res));
-          this.teamAImage=URL.createObjectURL(res)
-        })
-        this.storeImageLocally(res.data?.battlePartnerTeamId?.avatar?`${environment.baseUrl}images/${res.data.battlePartnerTeamId.avatar}`:this.teamBImage).subscribe((res) => {
+          this.teamAImage = URL.createObjectURL(res);
+        });
+        this.storeImageLocally(
+          res.data?.battlePartnerTeamId?.avatar
+            ? `${environment.baseUrl}images/${res.data.battlePartnerTeamId.avatar}`
+            : this.teamBImage
+        ).subscribe((res) => {
           console.log(URL.createObjectURL(res));
-          this.teamBImage =URL.createObjectURL(res)
-        })
+          this.teamBImage = URL.createObjectURL(res);
+        });
         this.teamAName = res.data?.name;
         this.teamBName = res.data?.battlePartnerTeamId?.name;
 
-        this.teamAScore = (res.data?.currentSales/res.data?.targetSales)*100
-        this.teamBScore = (res.data?.battlePartnerTeamId?.currentSales/res.data?.battlePartnerTeamId?.targetSales)*100
+        this.teamAScore =
+          (res.data?.currentSales / res.data?.targetSales) * 100;
+        this.teamBScore =
+          (res.data?.battlePartnerTeamId?.currentSales /
+            res.data?.battlePartnerTeamId?.targetSales) *
+          100;
       },
-      error:(err:HttpErrorResponse)=>{
-        console.log("api error ",err)
-      }
-    })
+      error: (err: HttpErrorResponse) => {
+        console.log('api error ', err);
+      },
+    });
   }
 
-  storeImageLocally(imgUrl:string){
-      return this.http.get(imgUrl,{responseType:'blob'}).pipe(take(1))
+  storeImageLocally(imgUrl: string) {
+    return this.http.get(imgUrl, { responseType: 'blob' }).pipe(take(1));
   }
 }

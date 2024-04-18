@@ -17,6 +17,9 @@ export class UserService {
         return this.http.get(this.baseUrl + 'get')
     }
 
+    getUserPlayer=()=>{
+      return this.http.get(this.baseUrl + 'player-list')
+    }
     signIn = (data:any) =>{
         return this.http.post(this.baseUrl + 'signin',data)
     }

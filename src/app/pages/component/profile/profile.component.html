@@ -31,12 +31,16 @@
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" [disabled]="true" />
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" *ngIf="!isSuperuser">
         <mat-label>Company Unit</mat-label>
         <input matInput formControlName="companyUnit" [disabled]="true" />
       </mat-form-field>
+      <mat-form-field appearance="fill" *ngIf="isSuperuser">
+        <mat-label>Company Name</mat-label>
+        <input matInput formControlName="companyName" [disabled]="true" />
+      </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" *ngIf="!isSuperuser">
         <mat-label>Team Name</mat-label>
         <input matInput formControlName="name" [disabled]="true" />
       </mat-form-field>

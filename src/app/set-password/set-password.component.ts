@@ -10,6 +10,9 @@ import { ForgetPasswordService } from '../services/forgot-password/forgot-passwo
   styleUrls: ['./set-password.component.scss'],
 })
 export class SetPasswordComponent implements OnInit {
+  isPasswordMatch(): boolean {
+    return this.password === this.confirmPassword;
+  }
   password: string = '';
   confirmPassword: string = '';
   passwordMismatchError: string = ''; // New variable to hold password mismatch error message
@@ -76,7 +79,15 @@ redirectedForm:any;
       password.length >= minLength && containsLettersAndNumbers.test(password)
     );
   }
-
+// public passwordhide:boolean=false;
+// public togglePasswordVisibility() {
+//     this.showPassword = !this.showPassword;
+    
+//     }
+  public showPassword: boolean = false;
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
   isPasswordValid(): boolean {
     // Define your password pattern criteria
     const minLength = 8;

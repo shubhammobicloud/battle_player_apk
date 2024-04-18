@@ -12,12 +12,11 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { TeamService } from 'src/app/services/team/team.service';
 import { UserService } from 'src/app/services/users/users.service';
 interface TeamProfile {
+  email: string;
   userName: string;
-  name: string;
-  companyUnit: number;
+  companyUnit: string;
   avatar: string;
   teamId: string;
-  gameLeadername: string;
   gameLeader: boolean;
 }
 @Component({
@@ -26,6 +25,8 @@ interface TeamProfile {
   styleUrls: ['./team-details.component.scss'],
 })
 export class TeamDetailsComponent implements OnInit {
+  detailsimage:string=`${environment.baseUrl}/images/`;
+  defalutimage:string='../../assets/images.png';
   TeamProfile: TeamProfile | null = null;
   teamProfileForm!: FormGroup;
   link = environment.baseUrl;
@@ -40,7 +41,7 @@ export class TeamDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.getUserDetails();
-
+   
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
@@ -48,7 +49,15 @@ export class TeamDetailsComponent implements OnInit {
       .get<any>(`${environment.baseUrl}user/player-list`, { headers })
       .subscribe(
         (data: any) => {
-          this.tableData = data['data'];
+          console.log("data0", data)
+          let data1 = data.data.filter((obj:any, i:number)=>{
+            console.log("obj", obj)
+            return !obj.gameLeader
+          })
+          this.tableData = data1;
+         
+
+          console.log("data1", data1)
         },
         (error: any) => {
           console.error('An error occurred:', error);
@@ -75,6 +84,7 @@ export class TeamDetailsComponent implements OnInit {
       (response: any) => {
         this.TeamProfile = response.data;
         this.populateForm();
+        
       },
       (error) => {
         console.error('Error fetching user details:', error);

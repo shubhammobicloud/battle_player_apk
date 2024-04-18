@@ -45,20 +45,27 @@ export class ProfileComponent implements OnInit {
       displayedImage: [{ value: '' }],
     });
   }
+
+  
   getUserDetails() {
     this.userService.getProfileDetails().subscribe((response: any) => {
+      // console.log('demo',data)
+
       this.userProfile = response.data;
+      // console.log('demo')
       this.populateForm();
     });
   }
-
   populateForm(): void {
     if (this.userProfile) {
       this.userProfileForm.patchValue({
         email: this.userProfile.email,
-        companyUnit: (
-          this.userProfile.teamId as unknown as { [key: string]: string }
-        )['companyUnit'],
+      
+
+          companyUnit: (
+            this.userProfile.teamId as unknown as { [key: string]: string }
+          )['companyUnit'],
+        
         name: (this.userProfile.teamId as unknown as { [key: string]: string })[
           'name'
         ],
@@ -69,6 +76,12 @@ export class ProfileComponent implements OnInit {
     }
     this.displayedImage = this.userProfileForm.get('displayedImage')?.value;
   }
+
+
+
+
+
+
 
   toggleEditMode(): void {
     this.isEditMode = !this.isEditMode;

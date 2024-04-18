@@ -1,13 +1,16 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent  implements OnInit{
   isMenuOpen = false;
+  showTeamChat: boolean = true;
+  hidesuper: boolean = false;
   // showPope = false;
   showPopes(event: MouseEvent) {
     this.isMenuOpen = !this.isMenuOpen;
@@ -42,6 +45,26 @@ export class HeaderComponent {
         this.showProfileOption = event.url.includes('/home/profile');
       }
     });
+
+
+    const token: any = localStorage.getItem('token');
+
+    let data: {
+      _id: any;
+      teamId: any;
+      avatar: any;
+      userName: any;
+      superUser: boolean;
+    } = jwtDecode(token);
+    console.log('check', data.superUser);
+
+    this.hidesuper = data.superUser;
+    
+    if (data.superUser) {
+      this.showTeamChat = !this.showTeamChat;
+      
+  
+    }
   }
   logOut() {
     // this.showPope = true;

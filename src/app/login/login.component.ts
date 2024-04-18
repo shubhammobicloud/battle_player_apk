@@ -65,7 +65,7 @@ export class LoginComponent {
 
         );
     }else{
-      this.toastr.error('Please enter the field')
+      this.toastr.error('Please fill the details.')
     }
   }
 }

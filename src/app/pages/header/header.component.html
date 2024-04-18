@@ -10,7 +10,7 @@
       <mat-icon>more_vert</mat-icon>
     </button>
   </div>
-  <div *ngIf="isMenuOpen" class="custom-menu">
+  <div *ngIf="isMenuOpen" class="custom-menu"  routerLinkActive="active">
     <li>
       <button class="mat-menu-item" (click)="logOut()">
         <span class="text"> <mat-icon>logout</mat-icon>Logout </span>
@@ -22,7 +22,7 @@
       <button
         class="mat-menu-item"
         routerLink="Team-profile"
-        routerLinkActive="active"
+       
       >
         <span class="text"> <mat-icon>group</mat-icon>Team Profile </span>
       </button>

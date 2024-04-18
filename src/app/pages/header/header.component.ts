@@ -11,6 +11,7 @@ export class HeaderComponent  implements OnInit{
   isMenuOpen = false;
   showTeamChat: boolean = true;
   hidesuper: boolean = false;
+
   // showPope = false;
   showPopes(event: MouseEvent) {
     this.isMenuOpen = !this.isMenuOpen;
@@ -25,7 +26,7 @@ export class HeaderComponent  implements OnInit{
   @HostListener('document:click', ['$event'])
   clickOutsideMenu(event: MouseEvent) {
     const target = event.target as Element;
-    if (!target.closest('.custom-menu') && this.isMenuOpen) {
+    if (!target.closest('custom-menu') && this.isMenuOpen) {
       this.isMenuOpen = false;
     }
   }

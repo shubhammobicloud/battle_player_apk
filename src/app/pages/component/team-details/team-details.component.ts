@@ -42,11 +42,13 @@ export class TeamDetailsComponent implements OnInit {
     this.initForm();
     this.getUserDetails();
    
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // const token = localStorage.getItem('token');
+    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     this.http
-      .get<any>(`${environment.baseUrl}user/player-list`, { headers })
+
+      // .get<any>(`${environment.baseUrl}user/player-list`, { headers })
+      this.userService.getUserPlayer()
       .subscribe(
         (data: any) => {
           console.log("data0", data)
@@ -76,8 +78,8 @@ export class TeamDetailsComponent implements OnInit {
   }
 
   getUserDetails() {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // const token = localStorage.getItem('token');
+    
 
     this.http;
     this.userService.getProfileDetails().subscribe(

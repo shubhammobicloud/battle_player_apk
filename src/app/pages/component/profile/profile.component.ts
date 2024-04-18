@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
   userProfileForm!: FormGroup;
   isEditMode = false;
   link = environment.baseUrl;
+  isSuperuser:boolean = false
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -41,6 +42,7 @@ export class ProfileComponent implements OnInit {
     this.userProfileForm = this.fb.group({
       email: [{ value: '', disabled: true }, Validators.email],
       companyUnit: [{ value: '', disabled: true }],
+      companyName: [{ value: '', disabled: true }],
       name: [{ value: '', disabled: true }],
       displayedImage: [{ value: '' }],
     });
@@ -52,6 +54,18 @@ export class ProfileComponent implements OnInit {
       // console.log('demo',data)
 
       this.userProfile = response.data;
+
+      console.log("res",response.data?.teamId?.name)
+      this.isSuperuser = response.data.superUser
+      this.userProfileForm.patchValue({companyUnit:response.data?.teamId?.companyUnit})
+      
+      // this.userProfile?.teamId as unknown as{[key:string]:string}['name']
+
+      
+      this.userProfileForm.patchValue({email:response.data.email})
+      this.userProfileForm.patchValue({companyName:response.data.companyId.name})
+      this.userProfileForm.patchValue({displayedImage:response.data.avatar})
+      this.userProfileForm.patchValue({name:response.data.userName})
       // console.log('demo')
       this.populateForm();
     });
@@ -59,12 +73,6 @@ export class ProfileComponent implements OnInit {
   populateForm(): void {
     if (this.userProfile) {
       this.userProfileForm.patchValue({
-        email: this.userProfile.email,
-      
-
-          companyUnit: (
-            this.userProfile.teamId as unknown as { [key: string]: string }
-          )['companyUnit'],
         
         name: (this.userProfile.teamId as unknown as { [key: string]: string })[
           'name'

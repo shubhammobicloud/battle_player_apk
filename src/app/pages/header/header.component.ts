@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -33,7 +33,7 @@ export class HeaderComponent {
   showProfileOption: boolean = false;
   userId!: string;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private toastr:ToastrService ,) {}
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
@@ -47,6 +47,8 @@ export class HeaderComponent {
     // this.showPope = true;
     localStorage.removeItem('token');
     this.router.navigate(['/']);
+    this.toastr.success('Logout successfully.');
+
   }
   isActive(path: string): boolean {
     return this.router.isActive(path, true);

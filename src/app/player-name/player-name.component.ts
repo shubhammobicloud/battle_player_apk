@@ -26,6 +26,7 @@ export class PlayerNameComponent {
       this.userService.updatePlayer(data)
         .subscribe((res: any) => {
           if (res.success) {
+            localStorage.setItem('userName',res.data.userName)
             this.toastr.success('Username Set Successful!!');
             this.route.navigate(['/', 'playerimage', token]);
           }

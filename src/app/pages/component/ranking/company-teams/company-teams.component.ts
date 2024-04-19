@@ -11,16 +11,10 @@ import { environment } from 'src/environment/enviroment';
 })
 export class CompanyTeamsComponent {
   tableData!: any[];
-  defaultId = 'YOUR_DEFAULT_ID_HERE';
-  defaultIdCount = 0;
 
   constructor(private http: HttpClient,private rankingService:RankingService) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
     this.rankingService.getcompanyTeamRanking()
       .subscribe(
         (data: any) => {

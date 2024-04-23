@@ -2,7 +2,6 @@ import {
   Component,
   ViewChild,
   ElementRef,
-  AfterViewInit,
   OnInit,
   OnDestroy,
 } from '@angular/core';
@@ -10,17 +9,14 @@ import { AngularEditorConfig, UploadResponse } from '@kolkov/angular-editor';
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpEvent,
-  HttpEventType,
-  HttpRequest,
-  HttpResponse,
+  HttpEvent
 } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { environment } from 'src/environment/enviroment';
 import { NewsUpdateService } from 'src/app/services/news/newsUpdate.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Observer, of, tap } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 @Component({
   selector: 'app-newspost',
   templateUrl: './newspost.component.html',
@@ -60,9 +56,6 @@ export class NewspostComponent implements OnInit, OnDestroy {
     spellcheck: true,
     minHeight: '20rem',
     maxHeight: '20rem',
-    // minWidth: '100%',
-    // width: '50rem',
-
     upload: (file: File): Observable<HttpEvent<UploadResponse>> => {
       console.log('file is', file);
       return Observable.create(
@@ -163,7 +156,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
               console.log(res);
               if (res.statusCode == 200) {
                 this.toastr.success('News added successfully');
-                this.route.navigate(['/', 'dashboard', 'news-list']);
+ 
               }
             },
             (error: HttpErrorResponse) => {

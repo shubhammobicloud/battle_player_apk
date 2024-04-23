@@ -8,13 +8,12 @@
         <td>
           <mat-icon>person</mat-icon>
         </td>
-          
+
         <td style="text-align: justify;overflow: auto;">
-          {{ battle.username ? battle.username:battle.email.slice(0,7
-          )}}
+          {{ battle.username ? battle.username:battle.email}}
            <!-- {{ player.username ? player.username : player.email.slice(0, 10) }}... -->
         </td>
-    
+
         <td class="score">
           {{
             battle.rankingScore

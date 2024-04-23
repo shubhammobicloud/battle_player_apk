@@ -17,7 +17,7 @@ export class BattlePatnerTeamComponent  implements OnInit{
 
   ngOnInit(): void {
 
-    this.rankingService.  getbattleteamRanking()
+    this.rankingService.getbattleteamRanking()
       .subscribe(
         (data: any) => {
           this.tableData = data['data'].sort((a:any,b:any)=>b.rankingScore-a.rankingScore);

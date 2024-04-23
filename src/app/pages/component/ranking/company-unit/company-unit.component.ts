@@ -17,9 +17,6 @@ export class CompanyUnitComponent {
   constructor(private http: HttpClient,private rankingService:RankingService) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     this.rankingService.getcompanyuintRanking()
       .subscribe(

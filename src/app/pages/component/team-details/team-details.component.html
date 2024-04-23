@@ -3,7 +3,7 @@
     <div class="user-profile">
       <h3 *ngIf="TeamProfile?.gameLeader">Hello Leader!!</h3>
       <h2>{{ TeamProfile?.userName }}</h2>
-      <label for="avatarInput">
+      <label for="avatarInput" class="team-profile">
         <img
           formControlName="displayedImage"
           [src]="
@@ -11,6 +11,7 @@
           "
           alt="User Avatar"
           style="cursor: pointer"
+          
         />
         <p>{{ isEditMode ? "Choose Image" : "" }}</p>
       </label>

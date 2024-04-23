@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient,HttpParams  } from "@angular/common/http";
 import { environment } from "src/environment/enviroment";
 import { Observable } from "rxjs";
 
@@ -24,7 +24,18 @@ export class RankingService{
 getcompanyTeamRanking = () =>{
   return this.http.get(this.baseUrl + 'company-teams')
 }
+getTeamRankingOfTwoTeams(teamId: string, battlePartnerTeamId: string): Observable<any> {
+  // Set up the URL with parameters
+  const url = `${this.baseUrl}company-teams`;
 
+  // Set up the parameters
+  const params = new HttpParams()
+    .set('teamId', teamId)
+    .set('battlePartnerTeamId', battlePartnerTeamId);
+
+  // Make the GET request with parameters
+  return this.http.get(url, { params });
+}
 // Global Ranking
 getglobalRanking = () =>{
   return this.http.get(this.baseUrl + 'companies')

@@ -6,7 +6,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { environment } from 'src/environment/enviroment';
-import { take } from 'rxjs';
+import { map, take } from 'rxjs';
+import { RankingService } from 'src/app/services/ranking/ranking.service';
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
@@ -25,14 +26,39 @@ export class ScoreBoardComponent implements OnInit {
   baseUrl: string = environment.baseUrl;
 
   constructor(
-    private authService: AuthService,
     private http: HttpClient,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private rankingService:RankingService,
   ) {}
   ngOnInit(): void {
     this.getEventImage();
     this.getTeamImages();
   }
+  // getTeamScore(teamName1: string, teamName2: string): void {
+  //   console.log(teamName1,teamName2,"2 team data found")
+  //   this.rankingService.getcompanyTeamRanking()
+  //     .pipe(
+  //       map((data:any) => {
+  //         const teams = data.data; // Assuming the data structure has a 'teams' property
+  //         if (teams && Array.isArray(teams)) {
+  //           const team1 = teams.find(team => team.name == teamName1);
+  //           const team2 = teams.find(team => team.name == teamName2);
+  //           if (team1 && team2) {
+  //             // Both teams found, now you can do whatever you want with their scores
+  //             console.log(`${teamName1} score: ${team1.rankingScore}`);
+  //             console.log(`${teamName2} score: ${team2.rankingScore}`);
+  //             this.teamAScore=team1.rankingScore
+  //             this.teamBScore=team2.rankingScore
+  //           } else {
+  //             console.log('One or both teams not found.');
+  //           }
+  //         } else {
+  //           console.log('Teams data not found or not in the expected format.');
+  //         }
+  //       })
+  //     )
+  //     .subscribe();
+  // }
 
   async share() {
     const divElement = document.getElementById('myDiv');
@@ -198,7 +224,7 @@ export class ScoreBoardComponent implements OnInit {
             ? `${environment.baseUrl}images/${res.data.avatar}`
             : this.teamBImage
         ).subscribe((res) => {
-          console.log(URL.createObjectURL(res));
+          // console.log(URL.createObjectURL(res));
           this.teamAImage = URL.createObjectURL(res);
         });
         this.storeImageLocally(
@@ -206,18 +232,28 @@ export class ScoreBoardComponent implements OnInit {
             ? `${environment.baseUrl}images/${res.data.battlePartnerTeamId.avatar}`
             : this.teamBImage
         ).subscribe((res) => {
-          console.log(URL.createObjectURL(res));
+          // console.log(URL.createObjectURL(res));
           this.teamBImage = URL.createObjectURL(res);
         });
         this.teamAName = res.data?.name;
         this.teamBName = res.data?.battlePartnerTeamId?.name;
 
-        this.teamAScore =
-          (res.data?.currentSales / res.data?.targetSales) * 100;
-        this.teamBScore =
-          (res.data?.battlePartnerTeamId?.currentSales /
-            res.data?.battlePartnerTeamId?.targetSales) *
-          100;
+        // this.teamAScore = (res.data?.currentSales / res.data?.targetSales) * 100;
+        // this.teamBScore = (res.data?.battlePartnerTeamId?.currentSales /  res.data?.battlePartnerTeamId?.targetSales) *  100;
+        // this.getTeamScore(this.teamAName,this.teamBName)
+        this.rankingService.getTeamRankingOfTwoTeams(res.data._id,res.data.battlePartnerTeamId._id).subscribe((rankRes)=>{
+          console.log(rankRes.data._id,"Asddddddddddd")
+          rankRes.data.forEach((findId:any)=>{
+            console.log(findId,"Asddddddddddd",res.data.name)
+            if(res.data.name==findId.name){
+              this.teamAScore=findId.rankingScore;
+            }
+            if(res.data.battlePartnerTeamId.name==findId.name){
+              this.teamBScore=findId.rankingScore;
+            }
+          })
+
+        })
       },
       error: (err: HttpErrorResponse) => {
         console.log('api error ', err);

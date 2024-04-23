@@ -14,10 +14,6 @@ export class TeamScoreComponent {
   constructor(private http: HttpClient,private rankingService:RankingService) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
     this.rankingService.getMyTeamRanking()
       .subscribe(
         (data: any) => {

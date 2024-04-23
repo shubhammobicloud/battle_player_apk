@@ -37,7 +37,9 @@ html, body {
 
   margin: 0;
 }
-
+.angular-editor {
+  background-color: white;
+}
 // Set body height to 100%
 body {
   height: calc(100vh - env(safe-area-inset-top));

@@ -51,11 +51,8 @@ export class PlayerImageComponent {
               this.toastr.success('Profile Image Updated Successfully!');
               localStorage.setItem("avatar",res.data.avatar)
               if (res.data.gameLeader) {
-
                 this.route.navigate(['/', 'teamImage', token]);
-
               } else {
-
                 this.route.navigate(['/', 'home']);
               }
             }

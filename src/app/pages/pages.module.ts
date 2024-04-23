@@ -19,6 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { NewspostComponent } from './component/communications/newspost/newspost.component';
+
+
 @NgModule({
   declarations: [
     GetStartedComponent,
@@ -31,6 +33,8 @@ import { NewspostComponent } from './component/communications/newspost/newspost.
     HeaderComponent,
     MenuComponent,
     TeamDetailsComponent,
+
+
     
   ],
   imports: [

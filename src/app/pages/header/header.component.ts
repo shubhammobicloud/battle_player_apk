@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';import { jwtDecode } from 'jwt-decode';
 
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -36,7 +37,7 @@ export class HeaderComponent  implements OnInit{
   showProfileOption: boolean = false;
   userId!: string;
 
-  constructor(private router: Router,private toastr:ToastrService ,) {}
+  constructor(private router: Router,private toastr:ToastrService ) {}
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
@@ -66,14 +67,54 @@ export class HeaderComponent  implements OnInit{
   
     }
   }
-  logOut() {
-    // this.showPope = true;
-    localStorage.removeItem('token');
-    this.router.navigate(['/']);
-    this.toastr.success('Logout successfully.');
 
+  // logOut(): void {
+
+
+  //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
+  //     width: '250px',
+  //     data: { message: 'Are you sure you want to logout?'
+        
+  //      }
+      
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       localStorage.removeItem('token');
+  //       this.router.navigate(['/']);
+  //       this.toastr.success('Logout successfully.');
+  //       console.log(result)
+  //     }
+  //   });
+
+
+  // }
+
+  
+
+  logOut(): void {
+    Swal.fire({
+      title: 'Confirm Logout',
+      text: 'Are you sure you want to log out?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      confirmButtonColor: 'rgb(255, 0, 0)',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('token');
+        this.router.navigate(['/']);
+        this.toastr.success('Logout successfully.');
+      }
+    });
   }
+
   isActive(path: string): boolean {
     return this.router.isActive(path, true);
   }
 }
+
+
+ 

@@ -7,12 +7,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-
+  isActiveButton: string | null = null;
   constructor(private router: Router) { }
 
   ngOnInit(): void { }
 
   onButtonClick(path: string): void {
+    this.isActiveButton = path;
     this.router.navigate(['home', path]);
   }
 }

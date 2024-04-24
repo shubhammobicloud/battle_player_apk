@@ -98,7 +98,15 @@
       "GLOBAL_COMPANY": "Global Company"
     },
 
-      "NO_DATA_FOUND": "No data found"
+      "NO_DATA_FOUND": "No data found",
+      "LOGOUT_POPUP":{
+        "CONFIRM_LOGOUT": "Confirm Logout",
+        "LOGOUT_CONFIRMATION": "Are you sure you want to log out?",
+        "YES": "Yes",
+        "NO": "No",
+        "LOGOUT_SUCCESS": "Logout successfully."
+      }
+
 
 
 

@@ -97,7 +97,15 @@
       "GLOBAL_COMPANY": "Globales Unternehmen"
     },
 
-      "NO_DATA_FOUND": "Keine Daten gefunden"
+      "NO_DATA_FOUND": "Keine Daten gefunden",
+      "LOGOUT_POPUP":{
+        "CONFIRM_LOGOUT": "Abmeldung bestätigen",
+        "LOGOUT_CONFIRMATION": "Möchten Sie sich wirklich abmelden?",
+        "YES": "Ja",
+        "NO": "Nein",
+        "LOGOUT_SUCCESS": "Erfolgreich abgemeldet."
+      }
+
 
 
 

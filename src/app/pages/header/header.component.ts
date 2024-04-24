@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';import { jwtDecode } from 'jwt-decode';
+import { TranslateService } from '@ngx-translate/core';
 
 import Swal from 'sweetalert2';
 @Component({
@@ -20,7 +21,7 @@ export class HeaderComponent  implements OnInit{
 
   // Method to toggle the menu
   toggleMenu(event: any): void {
-    event.stopPropagation(); 
+    event.stopPropagation();
     this.isMenuOpen = !this.isMenuOpen;
   }
   //  this code is to close active menus in drop down in custome-menu drop down
@@ -38,7 +39,7 @@ export class HeaderComponent  implements OnInit{
   showProfileOption: boolean = false;
   userId!: string;
 
-  constructor(private router: Router,private toastr:ToastrService ) {}
+  constructor(private router: Router,private toastr:ToastrService,private translateService:TranslateService ) {}
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
@@ -61,56 +62,36 @@ export class HeaderComponent  implements OnInit{
     console.log('check', data.superUser);
 
     this.hidesuper = data.superUser;
-    
+
     if (data.superUser) {
       this.showTeamChat = !this.showTeamChat;
-      
-  
+
+
     }
   }
 
-  // logOut(): void {
 
-
-  //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
-  //     width: '250px',
-  //     data: { message: 'Are you sure you want to logout?'
-        
-  //      }
-      
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       localStorage.removeItem('token');
-  //       this.router.navigate(['/']);
-  //       this.toastr.success('Logout successfully.');
-  //       console.log(result)
-  //     }
-  //   });
-
-
-  // }
-
-  
 
   logOut(): void {
-    Swal.fire({
-      title: 'Confirm Logout',
-      text: 'Are you sure you want to log out?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-      confirmButtonColor: 'rgb(255, 0, 0)',
-      cancelButtonText: 'No',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        localStorage.removeItem('token');
-        this.router.navigate(['/']);
-        this.toastr.success('Logout successfully.');
-      }
+    this.translateService.get(['LOGOUT_POPUP.CONFIRM_LOGOUT', 'LOGOUT_POPUP.LOGOUT_CONFIRMATION', 'LOGOUT_POPUP.YES', 'LOGOUT_POPUP.NO', 'LOGOUT_POPUP.LOGOUT_SUCCESS']).subscribe(translations => {
+      Swal.fire({
+        title: translations['LOGOUT_POPUP.CONFIRM_LOGOUT'],
+        text: translations['LOGOUT_POPUP.LOGOUT_CONFIRMATION'],
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: translations['LOGOUT_POPUP.YES'],
+        confirmButtonColor: 'rgb(255, 0, 0)',
+        cancelButtonText: translations['LOGOUT_POPUP.NO'],
+      }).then((result:any) => {
+        if (result.isConfirmed) {
+          localStorage.removeItem('token');
+          this.router.navigate(['/']);
+          this.toastr.success(translations['LOGOUT_POPUP.LOGOUT_SUCCESS']);
+        }
+      });
     });
   }
+
 
   isActive(path: string): boolean {
     return this.router.isActive(path, true);
@@ -118,4 +99,3 @@ export class HeaderComponent  implements OnInit{
 }
 
 
- 

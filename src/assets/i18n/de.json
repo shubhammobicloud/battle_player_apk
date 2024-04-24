@@ -1,0 +1,107 @@
+{
+  "APP_MAIN": {
+    "LOGIN_PAGE": {
+      "LOGO_ALT_TEXT": "Sportlogo",
+      "WUERTH_LOGO_ALT_TEXT": "Wuerth-Logo",
+      "HELLO_PLAYERS": "Hallo Spieler",
+      "READY_FOR_BATTLE_DAY": "Bereit für den Kampftag",
+      "LOGIN_TITLE": "ANMELDUNG",
+      "LOGIN_SUBTITLE": "Für den Kampf",
+      "EMAIL_LABEL": "E-Mail",
+      "EMAIL_PLACEHOLDER": "Spieler-E-Mail",
+      "EMAIL_REQUIRED_ERROR": "E-Mail ist erforderlich",
+      "EMAIL_INVALID_ERROR": "Ungültiges E-Mail-Format",
+      "PASSWORD_LABEL": "Passwort",
+      "PASSWORD_PLACEHOLDER": "Passwort",
+      "PASSWORD_REQUIRED_ERROR": "Passwort ist erforderlich",
+      "FORGOT_PASSWORD_LINK": "Passwort vergessen?",
+      "LOGIN_BUTTON_TEXT": "Anmelden"
+    },
+    "SET_PASSWORD_PAGE": {
+      "SPORTS_LOGO_ALT_TEXT": "Sport-Logo",
+      "WUERTH_LOGO_ALT_TEXT": "Wuerth-Logo",
+      "SET_PASSWORD_TITLE": "Passwort festlegen",
+      "PASSWORD_LABEL": "Passwort",
+      "PASSWORD_PLACEHOLDER": "Geben Sie Ihr Passwort ein",
+      "CONFIRM_PASSWORD_LABEL": "Passwort bestätigen",
+      "CONFIRM_PASSWORD_PLACEHOLDER": "Bestätigen Sie Ihr Passwort",
+      "PASSWORD_LENGTH_ERROR": "Passwort muss mindestens 8 Zeichen lang sein.",
+      "PASSWORD_MISMATCH_ERROR": "Passwörter stimmen nicht überein.",
+      "SET_PASSWORD_BUTTON_TEXT": "Passwort festlegen"
+    },
+    "PLAYER_NAME_PAGE": {
+      "SPORTS_LOGO_ALT_TEXT": "Sport-Logo",
+      "WUERTH_LOGO_ALT_TEXT": "Wuerth-Logo",
+      "TELL_US_PLAYER_NAME": "Sag uns deinen Spielernamen",
+      "NAME_YOUR_PLAYER": "Benenne deinen Spieler",
+      "PLAYER_NAME_PLACEHOLDER": "Spielername",
+      "PLAYER_NAME_REQUIRED_ERROR": "Spielername ist erforderlich.",
+      "CONTINUE_BUTTON_TEXT": "Fortsetzen"
+    },
+    "PLAYER_IMAGE_PAGE": {
+      "SPORTS_LOGO_ALT_TEXT": "Sportlogo",
+      "WUERTH_LOGO_ALT_TEXT": "Wuerth Logo",
+      "SELECTED_IMAGE_ALT_TEXT": "Ausgewähltes Bild",
+      "CHOOSE_FILE_TEXT": "Datei auswählen",
+      "TAP_HERE_TEXT": "Tippen Sie hier, um Ihr Bild auszuwählen",
+      "CONTINUE_BUTTON_TEXT": "Fortfahren"
+    },
+    "TEAM_IMAGE_PAGE": {
+      "SPORTS_LOGO_ALT_TEXT": "Sportlogo",
+      "WUERTH_LOGO_ALT_TEXT": "Wuerth Logo",
+      "SELECTED_IMAGE_ALT_TEXT": "Ausgewähltes Bild",
+      "CHOOSE_FILE_TEXT": "Datei auswählen",
+      "TAP_HERE_TEXT": "Tippen Sie hier, um das Mannschaftsbild auszuwählen",
+      "CONTINUE_BUTTON_TEXT": "Fortfahren"
+    }
+  },
+  "MENU_OPTIONS": {
+    "MYBATTLE": "Mein Kampf",
+    "RANKING": "Rangliste",
+    "COMMUNICATION": "Chat",
+    "PROFILE": "Profil"
+  },
+  "HEADER_PAGE": {
+    "TITLE": "DIE REINHOLD WUERTH",
+    "LOGOUT": "Abmelden",
+    "TEAM_PROFILE": "Teamprofil"
+  },
+    "SHARE_BUTTON": "Teilen",
+    "COMMUNICATION_PAGE":{
+      "TEAM_CHAT_TAB": "Team-Chat",
+      "NEWS_POST_TAB": "Nachrichtenbeitrag",
+      "COMPANY_NEWS_TAB": "Unternehmensnachrichten",
+      "TEAM_CHAT_PAGE":{
+        "READ_MORE": "Mehr lesen",
+        "ENTER_MESSAGE_PLACEHOLDER": "Nachricht eingeben"
+      },
+      "NEWS_POST_PAGE":{
+        "TITLE_LABEL": "Titel",
+        "POST_BUTTON_TEXT": "Veröffentlichen"
+      }
+
+    },
+    "PROFILE_PAGE":{
+      "HELLO_LEADER": "Hallo Leiter!!",
+      "CHOOSE_IMAGE": "Bild auswählen",
+      "EMAIL_LABEL": "E-Mail",
+      "COMPANY_UNIT_LABEL": "Unternehmenseinheit",
+      "COMPANY_NAME_LABEL": "Firmenname",
+      "TEAM_NAME_LABEL": "Teamname"
+    },
+    "RANKING_PAGE":{
+      "MY_TEAM": "Mein Team",
+      "BATTLE_TEAM": "Kampfteam",
+      "COMPANY_TEAM": "Unternehmens-Team",
+      "COMPANY_UNIT": "Unternehmenseinheit",
+      "GLOBAL_COMPANY": "Globales Unternehmen"
+    },
+
+      "NO_DATA_FOUND": "Keine Daten gefunden"
+
+
+
+
+
+
+}

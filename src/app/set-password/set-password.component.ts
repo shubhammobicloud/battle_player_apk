@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/users/users.service';
 import { ForgetPasswordService } from '../services/forgot-password/forgot-password.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-set-password',
   templateUrl: './set-password.component.html',
@@ -22,8 +23,15 @@ export class SetPasswordComponent implements OnInit {
     private route: Router,
     private userService:UserService,
     private forgerPasswordService:ForgetPasswordService,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    public translate: TranslateService
+  ) {
+
+
+    let lang:any=localStorage.getItem('lang')
+    translate.use(lang);
+
+  }
 redirectedForm:any;
   ngOnInit(): void {
       this.redirectedForm = sessionStorage.getItem('redirectFrom');
@@ -82,7 +90,7 @@ redirectedForm:any;
 // public passwordhide:boolean=false;
 // public togglePasswordVisibility() {
 //     this.showPassword = !this.showPassword;
-    
+
 //     }
   public showPassword: boolean = false;
   public togglePasswordVisibility(): void {

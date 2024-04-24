@@ -9,12 +9,12 @@
         <td>
           <mat-icon>person</mat-icon>
         </td>
-          
+
         <td style="text-align: justify;overflow: auto;">
           {{ companyteam.name }}
            <!-- {{ player.username ? player.username : player.email.slice(0, 10) }}... -->
         </td>
-    
+
         <td class="score">
           {{ companyteam.rankingScore ? companyteam.rankingScore.toString().slice(0,5) + "" : "0" }}%
         </td>
@@ -22,7 +22,7 @@
     </ng-container>
     <ng-template #noData>
       <tr>
-        <td colspan="3">No data found</td>
+        <td colspan="3">{{ 'NO_DATA_FOUND' | translate }}</td>
       </tr>
     </ng-template>
   </table>

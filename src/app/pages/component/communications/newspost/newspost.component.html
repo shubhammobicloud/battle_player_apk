@@ -1,10 +1,10 @@
 <div class="container">
- <form [formGroup]="newsContent">
-   <mat-form-field appearance="fill" class="title">
-     <mat-label>Title</mat-label>
-       <input type="text" matInput formControlName="title">
-   </mat-form-field>
-   <angular-editor formControlName="content" id="angular-editor" class="angular-editor" [config]="config" #editor></angular-editor>
-   <button mat-raised-button  class="postNewsButton" (click)="submitContent()">Post</button>
- </form>
- </div>
+  <form [formGroup]="newsContent">
+    <mat-form-field appearance="fill" class="title">
+      <mat-label>{{ 'COMMUNICATION_PAGE.NEWS_POST_PAGE.TITLE_LABEL' | translate }}</mat-label>
+      <input type="text" matInput formControlName="title">
+    </mat-form-field>
+    <angular-editor formControlName="content" id="angular-editor" class="angular-editor" [config]="config" #editor></angular-editor>
+    <button mat-raised-button class="postNewsButton" (click)="submitContent()">{{ 'COMMUNICATION_PAGE.NEWS_POST_PAGE.sPOST_BUTTON_TEXT' | translate }}</button>
+  </form>
+</div>

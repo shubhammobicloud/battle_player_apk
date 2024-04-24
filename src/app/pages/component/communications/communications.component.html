@@ -7,7 +7,7 @@
           [class.activeTab]="showTeamChat"
           (click)="showTeamChat = true"
         >
-          Team Chat
+         {{ 'COMMUNICATION_PAGE.TEAM_CHAT_TAB' | translate }}
         </div>
       </div>
 
@@ -18,7 +18,7 @@
           [class.activeTab]="showTeamChat"
           (click)="showTeamChat = true"
         >
-          News Post
+          {{ 'COMMUNICATION_PAGE.NEWS_POST_TAB' | translate }}
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
       (click)="showTeamChat = false"
       [class.name]="hidesuper"
     >
-      Company News
+      {{ 'COMMUNICATION_PAGE.COMPANY_NEWS_TAB' | translate }}
     </div>
 
   </div>
@@ -38,7 +38,7 @@
       <!-- Display Company News component if Team Chat is not selected -->
       <app-company-news></app-company-news>
     </div>
-    
+
     <div *ngIf="showTeamChat && !hidesuper" class="content-chat-news">
       <!-- Display Team Chat component if a regular user is logged in -->
       <app-team-chat></app-team-chat>

@@ -1,7 +1,7 @@
 <form [formGroup]="teamProfileForm">
   <div class="container">
     <div class="user-profile">
-      <h3 *ngIf="TeamProfile?.gameLeader">Hello Leader!!</h3>
+      <h3 *ngIf="TeamProfile?.gameLeader">{{ 'PROFILE_PAGE.HELLO_LEADER' | translate }}</h3>
       <h2>{{ TeamProfile?.userName }}</h2>
       <label for="avatarInput" class="team-profile">
         <img
@@ -11,7 +11,7 @@
           "
           alt="User Avatar"
           style="cursor: pointer"
-          
+
         />
         <p>{{ isEditMode ? "Choose Image" : "" }}</p>
       </label>

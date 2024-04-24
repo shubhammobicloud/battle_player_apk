@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/services/users/users.service';
 import { ToastrService } from 'ngx-toastr';
 import { NewsSerives } from 'src/app/services/news/news.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-company-news',
@@ -14,7 +15,8 @@ export class CompanyNewsComponent implements OnInit {
     private http: HttpClient,
     private toastr: ToastrService,
     private newsService: NewsSerives,
-    private userService: UserService
+    private userService: UserService,
+    private sanitize:DomSanitizer
   ) {}
 
   userId: any;
@@ -86,5 +88,8 @@ export class CompanyNewsComponent implements OnInit {
         console.error('An error occurred:', error);
       }
     );
+  }
+  sanitizerHTML(content:string){
+    return this.sanitize.bypassSecurityTrustHtml(content)
   }
 }

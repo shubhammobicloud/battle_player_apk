@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/users/users.service';
-import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-player-image',
   templateUrl: './player-image.component.html',
@@ -11,13 +10,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PlayerImageComponent {
   constructor(
-    private http: HttpClient,
     private active: ActivatedRoute,
     private route: Router,
-    private authService: AuthService,
     private toastr:ToastrService,
-    private userService:UserService
-  ) {}
+    private userService:UserService,
+    public translate:TranslateService
+  ) {
+    let lang:any=localStorage.getItem('lang')
+    console.log(lang,"asdwqerqwr")
+    translate.use(lang);
+  }
 
   displayedImage: string | ArrayBuffer | null =
     'https://www.w3schools.com/howto/img_avatar.png';

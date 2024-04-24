@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>THE REINHOLD WUERTH</h2>
+  <h2>{{ 'HEADER_PAGE.TITLE' | translate }}</h2>
   <div class="box">
     <button
       mat-icon-button
@@ -13,18 +13,16 @@
   <div *ngIf="isMenuOpen" class="custom-menu"  routerLinkActive="active">
     <li>
       <button class="mat-menu-item" (click)="logOut()">
-        <span class="text"> <mat-icon>logout</mat-icon>Logout </span>
+        <span class="text"> <mat-icon>logout</mat-icon>{{ 'HEADER_PAGE.LOGOUT' | translate }} </span>
       </button>
     </li>
-
 
     <li *ngIf="showTeamChat && !hidesuper">
       <button
         class="mat-menu-item"
         routerLink="Team-profile"
-       
       >
-        <span class="text"> <mat-icon>group</mat-icon>Team Profile </span>
+        <span class="text"> <mat-icon>group</mat-icon>{{ 'HEADER_PAGE.TEAM_PROFILE' | translate }} </span>
       </button>
     </li>
   </div>

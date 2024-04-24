@@ -1,13 +1,13 @@
 <div class="container-playerImage">
   <span>
-    <img src="../../assets/sports logo.png" alt="Sports Logo">
-    <img src="../../assets/logo wurth.png" alt="Wuerth Logo">
+    <img src="../../assets/sports logo.png" alt="{{ 'APP_MAIN.PLAYER_IMAGE_PAGE.SPORTS_LOGO_ALT_TEXT' | translate }}">
+    <img src="../../assets/logo wurth.png" alt="{{ 'APP_MAIN.PLAYER_IMAGE_PAGE.WUERTH_LOGO_ALT_TEXT' | translate }}">
   </span>
 
   <div class="image-container">
     <label class="hoverable" for="fileInput">
-      <img [src]="displayedImage" alt="Selected Image" />
-      <div class="hover-text">Choose File</div>
+      <img [src]="displayedImage" alt="{{ 'APP_MAIN.PLAYER_IMAGE_PAGE.SELECTED_IMAGE_ALT_TEXT' | translate }}" />
+      <div class="hover-text">{{ 'APP_MAIN.PLAYER_IMAGE_PAGE.CHOOSE_FILE_TEXT' | translate }}</div>
       <div class="background"></div>
     </label>
     <br />
@@ -17,8 +17,8 @@
       class="select-profile-picture"
       (change)="onFileSelected($event)"
     />
-    <span class="message">Tap here to select your picture</span>
+    <span class="message">{{ 'APP_MAIN.PLAYER_IMAGE_PAGE.TAP_HERE_TEXT' | translate }}</span>
   </div>
 
-  <button mat-raised-button color="primary" class="continueButton" (click)="submit()">Continue</button>
+  <button mat-raised-button color="primary" class="continueButton" (click)="submit()">{{ 'APP_MAIN.PLAYER_IMAGE_PAGE.CONTINUE_BUTTON_TEXT' | translate }}</button>
 </div>

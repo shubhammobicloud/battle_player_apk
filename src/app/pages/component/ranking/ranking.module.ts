@@ -7,6 +7,7 @@ import { BattlePatnerTeamComponent } from './battle-patner-team/battle-patner-te
 import { CompanyTeamsComponent } from './company-teams/company-teams.component';
 import { RankingComponent } from './ranking.component';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -14,10 +15,11 @@ import { MatIconModule } from '@angular/material/icon';
     CompanyUnitComponent,
     GlobalCountriesComponent,
     BattlePatnerTeamComponent,
-    CompanyTeamsComponent
+    CompanyTeamsComponent,
+
   ],
   imports: [
-    CommonModule,MatIconModule
+    CommonModule,MatIconModule,    TranslateModule.forChild()
   ]
 })
 export class RankingModule { }

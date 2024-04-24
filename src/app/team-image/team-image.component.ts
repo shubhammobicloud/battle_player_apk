@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TeamService } from '../services/team/team.service';
+import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../services/users/users.service';
 @Component({
   selector: 'app-team-image',
@@ -12,8 +12,12 @@ export class TeamImageComponent {
   constructor(
     private userService: UserService,
     private route: Router,
-    private teamService: TeamService
-  ) {}
+    private teamService: TeamService,
+    public translate:TranslateService
+  ) {
+    let lang:any=localStorage.getItem('lang')
+    translate.use(lang);
+  }
 
   displayedImage: string | ArrayBuffer | null =
     'https://i.pinimg.com/originals/35/3d/7a/353d7a34da6baa266f4557b8181cb33c.jpg';

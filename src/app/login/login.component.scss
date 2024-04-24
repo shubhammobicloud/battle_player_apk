@@ -44,7 +44,7 @@
       .error {
         color: #333;
         font-size: 13px;
-        margin-left: -17px 
+        margin-left: -17px
       }
 
     }
@@ -73,5 +73,16 @@
         text-decoration: underline;
       }
     }
+  }
+}
+.lang-drop-down {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-block: 20px 0;
+  width: 60%;
+  mat-label{
+    font-size: 1.1rem;
+    color: #cc0000;
   }
 }

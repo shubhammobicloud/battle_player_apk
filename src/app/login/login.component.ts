@@ -1,17 +1,24 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/users/users.service';
 import {jwtDecode} from 'jwt-decode';
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+  selectedLanguage = 'en';
+languageCodes = ['en', 'de'];
+  languages:any = {
+    en: 'English',
+    de: 'German',
+  };
+
   loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
     role:  new FormControl('user', Validators.required),
@@ -31,9 +38,19 @@ export class LoginComponent {
   constructor(
     private route: Router,
     private toastr: ToastrService,
-    private userService:UserService
-  ) {}
-
+    private userService:UserService,
+    public translate:TranslateService
+  ) {
+    this.translate.addLangs(this.languageCodes);
+  translate.setDefaultLang('en');
+  translate.use('de');
+  }
+  ngOnInit(): void {
+    this.translate.onLangChange.subscribe(event => {
+      // Update localStorage with the new language
+      localStorage.setItem('lang', event.lang);
+    });
+  }
   login() {
     if (this.loginForm.valid) {
      this.userService.signIn(this.loginForm.value).subscribe(

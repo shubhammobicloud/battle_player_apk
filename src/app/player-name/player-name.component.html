@@ -1,26 +1,26 @@
 <div class="container-playerName">
   <span>
-    <img src="../../assets/sports logo.png" alt="Sports Logo" />
-    <img src="../../assets/logo wurth.png" alt="Wuerth Logo" />
+    <img src="../../assets/sports logo.png" alt="{{ 'APP_MAIN.PLAYER_NAME_PAGE.SPORTS_LOGO_ALT_TEXT' | translate }}" />
+    <img src="../../assets/logo wurth.png" alt="{{ 'APP_MAIN.PLAYER_NAME_PAGE.WUERTH_LOGO_ALT_TEXT' | translate }}" />
   </span>
 
   <div style="margin-block-start: 40px">
-    <h2>Tell Us Your Player Name</h2>
+    <h2>{{ 'APP_MAIN.PLAYER_NAME_PAGE.TELL_US_PLAYER_NAME' | translate }}</h2>
     <mat-form-field appearance="fill">
-      <mat-label>Name Your Player</mat-label>
+      <mat-label>{{ 'APP_MAIN.PLAYER_NAME_PAGE.NAME_YOUR_PLAYER' | translate }}</mat-label>
       <input
         matInput
         [(ngModel)]="userName"
         name="userName"
         #userNameInput="ngModel"
         type="text"
-        placeholder="Player Name"
+        placeholder="{{ 'APP_MAIN.PLAYER_NAME_PAGE.PLAYER_NAME_PLACEHOLDER' | translate }}"
         required
         minlength="3"
         maxlength="20"
       />
       <mat-error *ngIf="userNameInput.errors?.['required']" class="error">
-        Player name is required.
+        {{ 'APP_MAIN.PLAYER_NAME_PAGE.PLAYER_NAME_REQUIRED_ERROR' | translate }}
       </mat-error>
 
     </mat-form-field>
@@ -32,6 +32,6 @@
     class="continueButton"
     (click)="submit()"
   >
-    Continue
+    {{ 'APP_MAIN.PLAYER_NAME_PAGE.CONTINUE_BUTTON_TEXT' | translate }}
   </button>
 </div>

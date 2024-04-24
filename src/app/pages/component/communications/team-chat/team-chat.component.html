@@ -18,7 +18,7 @@
             </ng-container>
             <ng-template #truncatedMessage>
               <span>{{ chat.message.slice(0, 50) }}...</span>
-              <a (click)="toggleExpand(chat)" style="color: blue;">...Read more</a>
+              <a (click)="toggleExpand(chat)" style="color: blue;">{{ 'COMMUNICATION_PAGE.TEAM_CHAT_PAGE.READ_MORE' | translate }}</a>
             </ng-template>
           </div>
             <span style="font-size: 10px; text-align: right">{{
@@ -32,9 +32,8 @@
   </div>
 
   <div class="inputContainer">
-    <textarea #teamChatTextarea (input)="onInput()" [(ngModel)]="message" rows="1" placeholder="Enter Message">
-    </textarea>
-    <button mat-icon-button class="sendIcon"(click)="sendMessage()"><mat-icon  >send</mat-icon></button>
+    <textarea #teamChatTextarea (input)="onInput()" [(ngModel)]="message" rows="1" placeholder="{{ 'COMMUNICATION_PAGE.TEAM_CHAT_PAGE.ENTER_MESSAGE_PLACEHOLDER' | translate }}"></textarea>
+        <button mat-icon-button class="sendIcon"(click)="sendMessage()"><mat-icon  >send</mat-icon></button>
   </div>
 
 

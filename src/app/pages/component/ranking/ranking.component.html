@@ -7,7 +7,7 @@
       (click)="setActiveTab('My Team')"
       [ngClass]="activeTab == 'My Team' ? 'active' : ''"
     >
-      My Team
+     {{ 'RANKING_PAGE.MY_TEAM' | translate }}
     </button>
     <button
       mat-raised-button
@@ -15,7 +15,8 @@
       (click)="setActiveTab('Battle Team')"
       [ngClass]="activeTab == 'Battle Team' ? 'active' : ''"
     >
-      Battle Team
+      {{ 'RANKING_PAGE.BATTLE_TEAM' | translate }}
+
     </button>
     <button
       mat-raised-button
@@ -23,7 +24,8 @@
       (click)="setActiveTab('Company Team')"
       [ngClass]="activeTab == 'Company Team' ? 'active' : ''"
     >
-      Company Team
+      {{ 'RANKING_PAGE.COMPANY_TEAM' | translate }}
+
     </button>
     <button
       mat-raised-button
@@ -31,7 +33,8 @@
       (click)="setActiveTab('Company Unit')"
       [ngClass]="activeTab == 'Company Unit' ? 'active' : ''"
     >
-      Company Unit
+      {{ 'RANKING_PAGE.COMPANY_UNIT' | translate }}
+
     </button>
     <button
       mat-raised-button
@@ -39,7 +42,7 @@
       (click)="setActiveTab('Global Company')"
       [ngClass]="activeTab == 'Global Company' ? 'active' : ''"
     >
-      Global Company
+      {{ 'RANKING_PAGE.GLOBAL_COMPANY' | translate }}
     </button>
   </div>
   <hr />

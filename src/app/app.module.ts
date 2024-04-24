@@ -10,20 +10,22 @@ import { PlayerNameComponent } from './player-name/player-name.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { SetPasswordComponent } from './set-password/set-password.component';
+import { MatSelectModule } from "@angular/material/select";
 import { ToastrModule } from 'ngx-toastr';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 // src/app/pages/component/communications/newspost/newspost.component.html
 import { MatIconModule } from '@angular/material/icon';
 import { AuthInterceptor } from './services/interceptor/auth-interceptor.service';
-
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TeamImageComponent } from './team-image/team-image.component';
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,TeamImageComponent,
     LoginComponent,
     PlayerImageComponent,
     PlayerNameComponent,
@@ -31,7 +33,7 @@ import { AuthInterceptor } from './services/interceptor/auth-interceptor.service
     ForgotpasswordComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,MatSelectModule,
     RouterModule,
     PagesModule,
     HttpClientModule,
@@ -44,8 +46,16 @@ import { AuthInterceptor } from './services/interceptor/auth-interceptor.service
     MatButtonModule,
     MatIconModule,
     ToastrModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => new TranslateHttpLoader(http),
+        deps: [HttpClient],
+      }
+    })
   ],
   providers: [
+    TranslateService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

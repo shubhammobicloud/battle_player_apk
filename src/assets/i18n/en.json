@@ -1,0 +1,107 @@
+{
+  "APP_MAIN": {
+    "LOGIN_PAGE": {
+      "LOGO_ALT_TEXT": "Sports Logo",
+      "WUERTH_LOGO_ALT_TEXT": "Wuerth Logo",
+      "HELLO_PLAYERS": "Hello Players",
+      "READY_FOR_BATTLE_DAY": "Are You Ready For Battle Day",
+      "LOGIN_TITLE": "LOGIN",
+      "LOGIN_SUBTITLE": "For Battle",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "Player's Email",
+      "EMAIL_REQUIRED_ERROR": "Email is required",
+      "EMAIL_INVALID_ERROR": "Invalid email format",
+      "PASSWORD_LABEL": "Password",
+      "PASSWORD_PLACEHOLDER": "Password",
+      "PASSWORD_REQUIRED_ERROR": "Password is required",
+      "FORGOT_PASSWORD_LINK": "Forgot Password?",
+      "LOGIN_BUTTON_TEXT": "Login"
+    },
+    "SET_PASSWORD_PAGE": {
+      "SPORTS_LOGO_ALT_TEXT": "Sports Logo",
+      "WUERTH_LOGO_ALT_TEXT": "Wuerth Logo",
+      "SET_PASSWORD_TITLE": "Set Password",
+      "PASSWORD_LABEL": "Password",
+      "PASSWORD_PLACEHOLDER": "Enter your password",
+      "CONFIRM_PASSWORD_LABEL": "Confirm Password",
+      "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm your password",
+      "PASSWORD_LENGTH_ERROR": "Password must be at least 8 characters long.",
+      "PASSWORD_MISMATCH_ERROR": "Passwords do not match.",
+      "SET_PASSWORD_BUTTON_TEXT": "Set Password"
+    },
+    "PLAYER_NAME_PAGE": {
+      "SPORTS_LOGO_ALT_TEXT": "Sports Logo",
+      "WUERTH_LOGO_ALT_TEXT": "Wuerth Logo",
+      "TELL_US_PLAYER_NAME": "Tell Us Your Player Name",
+      "NAME_YOUR_PLAYER": "Name Your Player",
+      "PLAYER_NAME_PLACEHOLDER": "Player Name",
+      "PLAYER_NAME_REQUIRED_ERROR": "Player name is required.",
+      "CONTINUE_BUTTON_TEXT": "Continue"
+    },
+    "PLAYER_IMAGE_PAGE": {
+      "SPORTS_LOGO_ALT_TEXT": "Sports Logo",
+      "WUERTH_LOGO_ALT_TEXT": "Wuerth Logo",
+      "SELECTED_IMAGE_ALT_TEXT": "Selected Image",
+      "CHOOSE_FILE_TEXT": "Choose File",
+      "TAP_HERE_TEXT": "Tap here to select your picture",
+      "CONTINUE_BUTTON_TEXT": "Continue"
+    },
+    "TEAM_IMAGE_PAGE": {
+      "SPORTS_LOGO_ALT_TEXT": "Sports Logo",
+      "WUERTH_LOGO_ALT_TEXT": "Wuerth Logo",
+      "SELECTED_IMAGE_ALT_TEXT": "Selected Image",
+      "CHOOSE_FILE_TEXT": "Choose File",
+      "TAP_HERE_TEXT": "Tap here to select team picture",
+      "CONTINUE_BUTTON_TEXT": "Continue"
+    }
+
+  },
+  "MENU_OPTIONS": {
+    "MYBATTLE": "My Battle",
+    "RANKING": "Ranking",
+    "COMMUNICATION": "Chat",
+    "PROFILE": "Profile"
+  },
+  "HEADER_PAGE": {
+    "TITLE": "THE REINHOLD WUERTH",
+    "LOGOUT": "Logout",
+    "TEAM_PROFILE": "Team Profile"
+  },
+    "SHARE_BUTTON": "Share",
+    "COMMUNICATION_PAGE":{
+      "TEAM_CHAT_TAB": "Team Chat",
+      "NEWS_POST_TAB": "News Post",
+      "COMPANY_NEWS_TAB": "Company News",
+      "TEAM_CHAT_PAGE":{
+        "READ_MORE": "Read more",
+        "ENTER_MESSAGE_PLACEHOLDER": "Enter Message"
+      },
+      "NEWS_POST_PAGE":{
+        "TITLE_LABEL": "Title",
+        "POST_BUTTON_TEXT": "Post"
+      }
+
+    },
+    "PROFILE_PAGE":{
+      "HELLO_LEADER": "Hello Leader!!",
+      "CHOOSE_IMAGE": "Choose Image",
+      "EMAIL_LABEL": "Email",
+      "COMPANY_UNIT_LABEL": "Company Unit",
+      "COMPANY_NAME_LABEL": "Company Name",
+      "TEAM_NAME_LABEL": "Team Name"
+    },
+    "RANKING_PAGE":{
+      "MY_TEAM": "My Team",
+      "BATTLE_TEAM": "Battle Team",
+      "COMPANY_TEAM": "Company Team",
+      "COMPANY_UNIT": "Company Unit",
+      "GLOBAL_COMPANY": "Global Company"
+    },
+
+      "NO_DATA_FOUND": "No data found"
+
+
+
+
+
+}

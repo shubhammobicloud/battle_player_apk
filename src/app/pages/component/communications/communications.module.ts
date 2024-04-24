@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NewspostComponent } from './newspost/newspost.component';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [TeamChatComponent, CompanyNewsComponent, NewspostComponent],
   imports: [
@@ -23,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     MatFormFieldModule,
     AngularEditorModule,
+    TranslateModule.forChild()
   ],
   exports: [TeamChatComponent, CompanyNewsComponent, NewspostComponent],
 })

@@ -8,6 +8,7 @@ import {
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/users/users.service';
+
 interface UserProfile {
   email: string;
   userName: string;
@@ -31,7 +32,8 @@ export class ProfileComponent implements OnInit {
     private http: HttpClient,
     private fb: FormBuilder,
     private tostr: ToastrService,
-    private userService: UserService
+    private userService: UserService,
+
   ) {}
   ngOnInit() {
     this.getUserDetails();
@@ -84,11 +86,6 @@ export class ProfileComponent implements OnInit {
     }
     this.displayedImage = this.userProfileForm.get('displayedImage')?.value;
   }
-
-
-
-
-
 
 
   toggleEditMode(): void {

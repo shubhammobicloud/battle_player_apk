@@ -27,5 +27,10 @@
     &:first-child{
       padding-inline-start: 10px;
     }
+
+    
+  }
+  span.active{
+    background-color: rgb(133, 34, 34);
   }
 }

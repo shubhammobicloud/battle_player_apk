@@ -19,6 +19,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule,TranslateLoader,TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+
 @NgModule({
   declarations: [
     GetStartedComponent,

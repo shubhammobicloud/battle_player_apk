@@ -66,7 +66,7 @@ export class ForgotpasswordComponent {
       })
       .subscribe((res: any) => {
         console.log(res);
-        if ((res.message == "Password updated successfully")) {
+        if ((res.success)) {
         this.toastr.success(res.message)
           this.route.navigate(['/'])
         }

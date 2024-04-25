@@ -8,7 +8,7 @@
   .logo-container {
     display: flex;
     flex-direction: row;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 
     img {
       max-width: 50%;
@@ -18,10 +18,10 @@
 
   .login-content {
     text-align: center;
-    margin: 14px;
+    margin: 5px 10px;
 
     p {
-      margin-block: 5px 0;
+      margin-block: 0px 0;
       font-size: 1.3rem;
       font-weight: 600;
     }
@@ -77,12 +77,12 @@
 }
 .lang-drop-down {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   margin-block: 20px 0;
-  width: 60%;
-  mat-label{
-    font-size: 1.1rem;
-    color: #cc0000;
+  width: 100%;
+  padding-inline-end: 1rem;
+  select{
+    width: 20%;
   }
 }

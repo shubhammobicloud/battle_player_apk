@@ -28,9 +28,16 @@
       padding-inline-start: 10px;
     }
 
-    
+
   }
   span.active{
-    background-color: rgb(133, 34, 34);
+    background-color: rgb(235, 111, 111);
+     p{
+      width: fit-content;
+      text-wrap: nowrap;
+      color: white;
+      font-weight: 500;
+      margin: 0;
+    }
   }
 }

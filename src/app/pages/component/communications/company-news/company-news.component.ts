@@ -77,9 +77,9 @@ export class CompanyNewsComponent implements OnInit {
   likeNews(news_id: any) {
     this.newsService.reactOnNews(news_id).subscribe(
       (res: any) => {
-        if (res.message == 'Reactions removed successfully') {
+        if (res.message=='Reactions removed successfully') {
           this.toastr.warning('Disliked');
-        } else if (res.message == 'Reactions added successfully') {
+        } else if (res.message=='Reactions added successfully') {
           this.toastr.success('Liked');
         }
         this.getCompanyNews();

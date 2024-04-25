@@ -57,12 +57,13 @@ languageCodes = ['en', 'de'];
           (res: any) => {
             if (res.message == 'Login successfully.') {
               localStorage.setItem('token', res.data.token);
-              let data :{_id:any,teamId:any,avatar:any,userName:any}= jwtDecode(res.data.token);
+              let data :{_id:any,teamId:any,avatar:any,userName:any,gameLeader:any}= jwtDecode(res.data.token);
               console.log(data )
               localStorage.setItem('userId', data._id);
               localStorage.setItem('teamId', data.teamId);
               localStorage.setItem('avatar',data.avatar)
               localStorage.setItem('userName',data.userName)
+              localStorage.setItem('gameleader',data.gameLeader)
               // console.log("data", data)
               if (!res.data.firstLogin) {
                 this.toastr.success(

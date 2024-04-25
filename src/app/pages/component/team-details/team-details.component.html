@@ -85,8 +85,8 @@
       </ng-template>
       <hr />
       <br />
-      <button mat-raised-button type="button" (click)="toggleEditMode()">
-        {{ isEditMode ? "Save" : "Edit Profile" }}
+      <button mat-raised-button type="button" (click)="toggleEditMode()" *ngIf="gameleader">
+        {{  isEditMode ? "Save" : "Edit Profile" }}
       </button>
     </div>
   </div>

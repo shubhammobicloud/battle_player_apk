@@ -1,7 +1,7 @@
 <form [formGroup]="userProfileForm">
   <div class="container">
     <div class="user-profile">
-      <h3 *ngIf="userProfile?.gameLeader">{{ 'PROFILE_PAGE.HELLO_LEADER' | translate }}</h3>
+      <h3 *ngIf="userProfile?.gameLeader">Hello Leader!!</h3>
       <span class="userNameEdit">
         <h2>{{ userProfile?.userName }}</h2>
         <button mat-icon-button type="button" (click)="toggleEditMode()">
@@ -12,7 +12,11 @@
         <img
           formControlName="displayedImage"
           [src]="
-            selectedFile ? displayedImage : link + 'images/' + displayedImage
+            selectedFile
+              ? displayedImage
+              : displayedImage
+              ? link + 'images/' + displayedImage
+              : '../../assets/images.png'
           "
           alt="User Avatar"
           style="cursor: pointer"
@@ -28,20 +32,20 @@
         accept="image/*"
       />
       <mat-form-field appearance="fill">
-        <mat-label>{{ 'PROFILE_PAGE.EMAIL_LABEL' | translate }}</mat-label>
+        <mat-label>Email</mat-label>
         <input matInput formControlName="email" [disabled]="true" />
       </mat-form-field>
       <mat-form-field appearance="fill" *ngIf="!isSuperuser">
-        <mat-label>{{ 'PROFILE_PAGE.COMPANY_UNIT_LABEL' | translate }}</mat-label>
+        <mat-label>Company Unit</mat-label>
         <input matInput formControlName="companyUnit" [disabled]="true" />
       </mat-form-field>
       <mat-form-field appearance="fill" *ngIf="isSuperuser">
-        <mat-label>{{ 'PROFILE_PAGE.COMPANY_NAME_LABEL' | translate }}</mat-label>
+        <mat-label>Company Name</mat-label>
         <input matInput formControlName="companyName" [disabled]="true" />
       </mat-form-field>
 
       <mat-form-field appearance="fill" *ngIf="!isSuperuser">
-        <mat-label>{{ 'PROFILE_PAGE.TEAM_NAME_LABEL' | translate }}</mat-label>
+        <mat-label>Team Name</mat-label>
         <input matInput formControlName="name" [disabled]="true" />
       </mat-form-field>
     </div>

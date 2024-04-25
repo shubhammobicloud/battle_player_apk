@@ -21,16 +21,16 @@
     font-size: 1.26rem;
     border: 1px solid #ccc;
     padding: 8px;
+    overflow: hidden;
+    word-wrap: break-word;
     text-align: center;
     cursor: pointer;
-    // &:hover {
-    //   background-color: #ee4340;
-    //   color: white;
-    // }
   }
   .active {
     background-color: rgb(255, 0, 0); /* Active button color */
     color: white;
+    min-height: 4rem;
+    height: fit-content;
   }
 }
 
@@ -51,6 +51,7 @@
 // }
 
 .tab-content {
+  background-color: rgba(255, 255, 255, 0.507);
   position: absolute;
   top: 22vh; /* align with the bottom of the tabs container */
   left: 0;

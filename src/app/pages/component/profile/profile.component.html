@@ -31,21 +31,21 @@
         (change)="onFileSelected($event)"
         accept="image/*"
       />
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'PROFILE_PAGE.EMAIL_LABEL' | translate }}</mat-label>
         <input matInput formControlName="email" [disabled]="true" />
       </mat-form-field>
-      <mat-form-field appearance="fill" *ngIf="!isSuperuser">
-        <mat-label>Company Unit</mat-label>
+      <mat-form-field appearance="outline" *ngIf="!isSuperuser">
+        <mat-label>{{ 'PROFILE_PAGE.COMPANY_UNIT_LABEL' | translate }}</mat-label>
         <input matInput formControlName="companyUnit" [disabled]="true" />
       </mat-form-field>
-      <mat-form-field appearance="fill" *ngIf="isSuperuser">
-        <mat-label>Company Name</mat-label>
+      <mat-form-field appearance="outline" *ngIf="isSuperuser">
+        <mat-label>{{ 'PROFILE_PAGE.COMPANY_NAME_LABEL' | translate }}</mat-label>
         <input matInput formControlName="companyName" [disabled]="true" />
       </mat-form-field>
 
-      <mat-form-field appearance="fill" *ngIf="!isSuperuser">
-        <mat-label>Team Name</mat-label>
+      <mat-form-field appearance="outline" *ngIf="!isSuperuser">
+        <mat-label>{{ 'PROFILE_PAGE.TEAM_NAME_LABEL' | translate }}</mat-label>
         <input matInput formControlName="name" [disabled]="true" />
       </mat-form-field>
     </div>

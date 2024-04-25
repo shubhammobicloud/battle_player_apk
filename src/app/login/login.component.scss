@@ -8,7 +8,7 @@
   .logo-container {
     display: flex;
     flex-direction: row;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 
     img {
       max-width: 50%;
@@ -18,11 +18,10 @@
 
   .login-content {
     text-align: center;
-    margin: -18px;
-    // margin: 14px;
+    margin: 5px 10px;
 
     p {
-      margin-block: 5px 0;
+      margin-block: 0px 0;
       font-size: 1.3rem;
       font-weight: 600;
     }
@@ -45,7 +44,7 @@
       .error {
         color: #333;
         font-size: 13px;
-        margin-left: -17px 
+        margin-left: -17px
       }
 
     }
@@ -74,5 +73,16 @@
         text-decoration: underline;
       }
     }
+  }
+}
+.lang-drop-down {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-block: 20px 0;
+  width: 100%;
+  padding-inline-end: 1rem;
+  select{
+    width: 20%;
   }
 }

@@ -1,21 +1,25 @@
 <div class="container-login" #sleectImage id="myDiv">
+  <div class="lang-drop-down">
+    <select name="lang" #langSelect [(ngModel)]="selectedLanguage" (ngModelChange)="translate.use($event)">
+      <option *ngFor="let code of languageCodes" [value]="code"> {{ languages[code] }}</option>
+    </select>
+  </div>
   <div class="logo-container">
     <img src="../../assets/sports logo.png" alt="{{ 'APP_MAIN.LOGIN_PAGE.LOGO_ALT_TEXT' | translate }}" />
     <img src="../../assets/logo wurth.png" alt="{{ 'APP_MAIN.LOGIN_PAGE.WUERTH_LOGO_ALT_TEXT' | translate }}" />
   </div>
+
   <div class="login-content">
     <p>{{ 'APP_MAIN.LOGIN_PAGE.HELLO_PLAYERS' | translate }}</p>
     <p>{{ 'APP_MAIN.LOGIN_PAGE.READY_FOR_BATTLE_DAY' | translate }}</p>
     <h1>{{ 'APP_MAIN.LOGIN_PAGE.LOGIN_TITLE' | translate }}</h1>
     <p>{{ 'APP_MAIN.LOGIN_PAGE.LOGIN_SUBTITLE' | translate }}</p>
     <div class="lang-drop-down">
-      <mat-form-field appearance="outline">
-        <mat-label>Language</mat-label>
-        <mat-select name="lang" #langSelect [(ngModel)]="selectedLanguage" (selectionChange)="translate.use(langSelect.value)">
-          <!-- <mat-option value="asdad">HIIi</mat-option> -->
-          <mat-option *ngFor="let code of languageCodes"[value]="code"> {{ languages[code] }}</mat-option>
-        </mat-select>
-       </mat-form-field>
+      <!-- <mat-form-field appearance="outline"> -->
+        <!-- <mat-label>Language</mat-label> -->
+
+
+       <!-- </mat-form-field> -->
     </div>
     <div class="form-container" [formGroup]="loginForm">
       <mat-form-field appearance="fill">

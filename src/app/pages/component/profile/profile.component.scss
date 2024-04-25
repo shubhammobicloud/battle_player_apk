@@ -1,5 +1,6 @@
 .container{
   width: 100vw;
+  background-color: rgba(255, 255, 255, 0.507);
   .user-profile{
     display: flex;
     flex-direction: column;
@@ -7,6 +8,10 @@
     width: 100%;
     text-align: center;
     margin-block-start: 1rem;
+    // mat-form-field{
+    //   background-color: rgba(255, 255, 255, 0.644);
+    //   color: black;
+    // }
     .userNameEdit{
       display: flex;
       flex-direction: row;
@@ -72,4 +77,19 @@
     }
 
   }
+}
+/* In your component's .scss file */
+:host ::ng-deep .mdc-text-field--outlined.mdc-text-field--disabled .mdc-text-field__input {
+  /* Add your styles here */
+  color: #363636; /* Example text color */
+  // background-color: #f5f5f5; /* Example background color */
+  // border: 1px solid #ccc; /* Example border */
+  /* Add more styles as needed */
+}
+:host ::ng-deep .mdc-text-field--outlined.mdc-text-field--disabled .mdc-floating-label, .mdc-text-field--outlined.mdc-text-field--disabled .mdc-floating-label--float-above {
+  color: #363636;
+}
+
+:host ::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: #ffffffc4
 }

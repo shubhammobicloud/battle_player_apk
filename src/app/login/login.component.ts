@@ -43,7 +43,7 @@ languageCodes = ['en', 'de'];
   ) {
     this.translate.addLangs(this.languageCodes);
   translate.setDefaultLang('en');
-  translate.use('de');
+  translate.use('en');
   }
   ngOnInit(): void {
     this.translate.onLangChange.subscribe(event => {
@@ -55,7 +55,7 @@ languageCodes = ['en', 'de'];
     if (this.loginForm.valid) {
      this.userService.signIn(this.loginForm.value).subscribe(
           (res: any) => {
-            if (res.message == 'Login successfully.') {
+            if (res.success) {
               localStorage.setItem('token', res.data.token);
               let data :{_id:any,teamId:any,avatar:any,userName:any,gameLeader:any}= jwtDecode(res.data.token);
               console.log(data )

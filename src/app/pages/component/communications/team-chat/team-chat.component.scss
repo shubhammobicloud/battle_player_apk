@@ -65,14 +65,16 @@
 }
 .inputContainer {
   display: flex;
+  background-color: rgba(255, 255, 255, 0.507);
   justify-content: space-around;
   position: fixed;
   padding: 5px 0px;
   bottom: 82px;
   width: 100%;
   align-items: center;
-  background-color: white;
+  background-color: transparent;
   textarea {
+    background-color: transparent;
     width: 75%;
     padding: 8px;
     border: 1px solid #3f3434;

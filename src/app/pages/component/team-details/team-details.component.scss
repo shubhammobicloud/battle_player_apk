@@ -52,8 +52,9 @@
     }
     .player-list li {
       display: flex;
-      justify-content: space-between;
+      // justify-content: space-between;
       align-items: center;
+      gap: 17px;
       padding: 10px 96px;
       border-bottom: 1px solid #ff2929;
       // width: 66%;

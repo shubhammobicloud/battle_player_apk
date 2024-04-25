@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { TeamService } from 'src/app/services/team/team.service';
 import { UserService } from 'src/app/services/users/users.service';
+import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 interface TeamProfile {
   email: string;
   userName: string;
@@ -25,48 +26,55 @@ interface TeamProfile {
   styleUrls: ['./team-details.component.scss'],
 })
 export class TeamDetailsComponent implements OnInit {
-  detailsimage:string=`${environment.baseUrl}/images/`;
-  defalutimage:string='../../assets/images.png';
+  detailsimage: string = `${environment.baseUrl}/images/`;
+  defalutimage: string = '../../assets/images.png';
   TeamProfile: TeamProfile | null = null;
   teamProfileForm!: FormGroup;
   link = environment.baseUrl;
   isEditMode = false;
-  tableData!: any[];
+  tableData!: TeamProfile[];
+  teamName: string = '';
   constructor(
     private http: HttpClient,
     private userService: UserService,
+    private team: TeamService,
     private fb: FormBuilder,
-    private tostr: ToastrService
+    private tostr: ToastrService,
+    private dashboardService: DashboardService
   ) {}
   ngOnInit(): void {
     this.initForm();
     this.getUserDetails();
+    this.getTeamImages();
    
-    // const token = localStorage.getItem('token');
-    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http
+    this.http;
 
-      // .get<any>(`${environment.baseUrl}user/player-list`, { headers })
-      this.userService.getUserPlayer()
-      .subscribe(
-        (data: any) => {
-          console.log("data0", data)
-          let data1 = data.data.filter((obj:any, i:number)=>{
-            console.log("obj", obj)
-            return !obj.gameLeader
-          })
-          this.tableData = data1;
-         
+    this.userService.getUserPlayer().subscribe(
+      (data: any) => {
+        console.log('data0', data);
+        
+        this.tableData  = data.data;
 
-          console.log("data1", data1)
-        },
-        (error: any) => {
-          console.error('An error occurred:', error);
-          // Handle error here
-        }
-      );
+        this.sortTeamProfiles();
+      },
+      (error: any) => {
+        console.error('An error occurred:', error);
+        // Handle error here
+      }
+    );
   }
+
+  //  sortTeamProfilesByGameLeader(teamProfiles: TeamProfile[]): TeamProfile[] {
+  //   return teamProfiles.sort((a, b) => {
+  //     if (a.gameLeader && !b.gameLeader) {
+  //       return -1; // a comes first
+  //     } else if (!a.gameLeader && b.gameLeader) {
+  //       return 1; // b comes first
+  //     } else {
+  //     }
+  //   });
+  // }
 
   initForm(): void {
     this.teamProfileForm = this.fb.group({
@@ -77,38 +85,56 @@ export class TeamDetailsComponent implements OnInit {
     });
   }
 
-  getUserDetails() {
-    // const token = localStorage.getItem('token');
     
 
-    this.http;
-    this.userService.getProfileDetails().subscribe(
-      (response: any) => {
-        this.TeamProfile = response.data;
-        this.populateForm();
-        
-      },
-      (error) => {
-        console.error('Error fetching user details:', error);
-      }
-    );
+  getUserDetails() {
+    // const token = localStorage.getItem('token');
+    this.userService.getProfileDetails().subscribe((response: any) => {
+      // console.log('demo',data)
+
+      this.TeamProfile = response.data;
+      // TeamName: response.data?.teamId?.name
+      console.log('res', response.data?.teamId?.name);
+
+      this.teamName = response.data?.teamId?.name;
+
+      this.teamProfileForm.patchValue({ email: response.data.email });
+      // this.sortPeople();
+      
+      this.populateForm();
+      this.sortTeamProfiles();
+    });
   }
+  
+  sortTeamProfiles() {
+    this.tableData = this.sortTeamProfilesByGameLeader(this.tableData);
+  }
+
+  sortTeamProfilesByGameLeader(teamProfiles: TeamProfile[]): TeamProfile[] {
+    return teamProfiles.sort((a, b) => {
+      if (a.gameLeader && !b.gameLeader) { 
+        return -1; // a comes first
+      } else if (!a.gameLeader && b.gameLeader) {
+        return 1; // b comes first
+      } else {
+        return 0; // no change in order
+      }
+    });
+  }
+ 
 
   populateForm(): void {
     if (this.TeamProfile) {
       this.teamProfileForm.patchValue({
-        gameLeadername: (
-          this.TeamProfile.teamId as unknown as { [key: string]: string }
-        )['userName'],
         name: (this.TeamProfile.teamId as unknown as { [key: string]: string })[
           'name'
         ],
-        displayedImage: this.TeamProfile.avatar as unknown as {
-          [key: string]: string;
-        }['avatar'],
+        // displayedImage: this.TeamProfile.avatar as unknown as {
+        //   [key: string]: string;
+        // }['avatar'],
       });
     }
-    this.displayedImage = this.teamProfileForm.get('displayedImage')?.value;
+    // this.displayedImage = this.teamProfileForm.get('displayedImage')?.value;
   }
 
   toggleEditMode(): void {
@@ -117,53 +143,26 @@ export class TeamDetailsComponent implements OnInit {
     if (this.isEditMode) {
       // this.userProfileForm.enable();
     } else {
+      console.log('elselllllllllllllllllll');
       this.teamProfileForm.disable();
-      if (
-        this.teamProfileForm.value.companyUnit !==
-          this.TeamProfile?.companyUnit ||
-        this.selectedFile
-      ) {
-        const userId = localStorage.getItem('userId');
-        const token = localStorage.getItem('token');
-
-        const headers = new HttpHeaders().set(
-          'Authorization',
-          `Bearer ${token}`
-        );
-        // console.log(headers);
-        this.http
-          .patch<TeamProfile>(
-            // `${environment.baseUrl}` + '',
-            this.teamProfileForm.value,
-            { headers }
-          )
-          .subscribe(
-            (res: any) => {
-              this.TeamProfile = res.data.teamId;
-              this.tostr.success('Profile Updated Successfully');
-              const formData = new FormData();
-              if (this.selectedFile) {
-                formData.append('avatar', this.selectedFile);
-                this.http
-                  .patch(`${environment.baseUrl}` + ' ' + userId, formData, {
-                    headers,
-                  })
-                  // /images/'
-                  .subscribe((res: any) => {
-                    this.displayedImage = res.userProfile.teamId.avatar;
-                    console.log(this.displayedImage);
-                    console.log('Image saved successfully');
-                  });
-              }
-            },
-            (error: HttpErrorResponse) => {
-              console.error('Error while updating');
+      if (this.selectedFile) {
+        const formData = new FormData();
+        if (this.selectedFile) {
+          formData.append('avatar', this.selectedFile);
+          this.team.updateTeamImage(formData).subscribe((res: any) => {
+            if (res.statusCode == 200) {
+              console.log('ressssssssssss', res);
+              // localStorage.setItem('avatar', res.data?.avatar);
+              console.log('Image updated successfully');
+              this.tostr.success('Image updated successfully');
+            } else {
+              this.tostr.error('failed');
             }
-          );
+          });
+        }
       }
     }
   }
-
   selectedFile: File | null = null;
   displayedImage: string | ArrayBuffer | null =
     'https://www.w3schools.com/howto/img_avatar.png';
@@ -180,97 +179,21 @@ export class TeamDetailsComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile);
     }
   }
-  // tableHeader = ['Player Name'];
-  // myTeamList = [
-  //   {
-  //     name: 'Player 1',
-  //     gameLeaderName: 'Demo',
-  //     imag: '../../assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 2',
-  //     gameLeaderName: 'Demo',
-  //     imag: '../../assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 3',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 4',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 5',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 6',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 7',
-  //     gameLeaderName: 'Demo',
-  //     imag: '../../assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 8',
-  //     gameLeaderName: 'Demo',
-  //     imag: '../../assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 9',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 10',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 11',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 12',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 1',
-  //     gameLeaderName: 'Demo',
-  //     imag: '../../assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 2',
-  //     gameLeaderName: 'Demo',
-  //     imag: '../../assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 3',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 4',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 5',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  //   {
-  //     name: 'Player 6',
-  //     gameLeaderName: 'Demo',
-  //     imag: '/assets/Max-R_Headshot (1).jpg',
-  //   },
-  // ];
+
+  getTeamImages() {
+    this.dashboardService.getTeamImages().subscribe({
+      next: (res: any) => {
+        console.log('api res', res);
+        // this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage;
+        this.displayedImage = res.data?.avatar;
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log('api error ', err);
+      },
+    });
+  }
+
+
+
+  
 }

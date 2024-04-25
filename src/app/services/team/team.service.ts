@@ -15,4 +15,7 @@ export class TeamService {
   getTeamDetails = () => {
     return this.http.get(this.baseUrl + 'details');
   };
+  // updateTeamDetails=()=>{
+  //   return this.http.patch(this.baseUrl + '');
+  // }
 }

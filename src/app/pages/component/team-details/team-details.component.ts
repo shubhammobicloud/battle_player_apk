@@ -32,7 +32,7 @@ export class TeamDetailsComponent implements OnInit {
   teamProfileForm!: FormGroup;
   link = environment.baseUrl;
   isEditMode = false;
-  tableData!: any[];
+  tableData!: TeamProfile[];
   teamName: string = '';
   constructor(
     private http: HttpClient,
@@ -54,8 +54,9 @@ export class TeamDetailsComponent implements OnInit {
       (data: any) => {
         console.log('data0', data);
         
-        this.tableData = data.data;
+        this.tableData  = data.data;
 
+        this.sortTeamProfiles();
       },
       (error: any) => {
         console.error('An error occurred:', error);
@@ -63,6 +64,17 @@ export class TeamDetailsComponent implements OnInit {
       }
     );
   }
+
+  //  sortTeamProfilesByGameLeader(teamProfiles: TeamProfile[]): TeamProfile[] {
+  //   return teamProfiles.sort((a, b) => {
+  //     if (a.gameLeader && !b.gameLeader) {
+  //       return -1; // a comes first
+  //     } else if (!a.gameLeader && b.gameLeader) {
+  //       return 1; // b comes first
+  //     } else {
+  //     }
+  //   });
+  // }
 
   initForm(): void {
     this.teamProfileForm = this.fb.group({
@@ -72,6 +84,8 @@ export class TeamDetailsComponent implements OnInit {
       displayedImage: [{ value: '' }],
     });
   }
+
+    
 
   getUserDetails() {
     // const token = localStorage.getItem('token');
@@ -86,20 +100,28 @@ export class TeamDetailsComponent implements OnInit {
 
       this.teamProfileForm.patchValue({ email: response.data.email });
       // this.sortPeople();
-
+      
       this.populateForm();
+      this.sortTeamProfiles();
     });
   }
   
-  // sortPeople() {
-  //   this.tableData.sort((a:any, b:any) => {
-  //     if (a.gameLeader && !b.gameLeader) {
-  //       return 1; // a comes first
-  //     } else if (!a.gameLeader && b.gameLeader){
-  //       return -1; // b comes first
-  //     } 
-  //   });
-  // }
+  sortTeamProfiles() {
+    this.tableData = this.sortTeamProfilesByGameLeader(this.tableData);
+  }
+
+  sortTeamProfilesByGameLeader(teamProfiles: TeamProfile[]): TeamProfile[] {
+    return teamProfiles.sort((a, b) => {
+      if (a.gameLeader && !b.gameLeader) { 
+        return -1; // a comes first
+      } else if (!a.gameLeader && b.gameLeader) {
+        return 1; // b comes first
+      } else {
+        return 0; // no change in order
+      }
+    });
+  }
+ 
 
   populateForm(): void {
     if (this.TeamProfile) {

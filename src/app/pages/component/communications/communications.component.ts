@@ -25,8 +25,8 @@ export class CommunicationsComponent implements OnInit {
     } = jwtDecode(token);
     console.log('check', data.superUser);
 
-    // this.hidesuper = data.superUser;
-    this.hidesuper=true
+    this.hidesuper = data.superUser;
+    // this.hidesuper=true
     
     if (data.superUser) {
       this.showTeamChat = !this.showTeamChat;

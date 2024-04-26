@@ -4,6 +4,9 @@ import {
   ElementRef,
   OnInit,
   OnDestroy,
+  Input,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { AngularEditorConfig, UploadResponse } from '@kolkov/angular-editor';
 import {
@@ -23,6 +26,8 @@ import { Observable, Observer } from 'rxjs';
   styleUrls: ['./newspost.component.scss'],
 })
 export class NewspostComponent implements OnInit, OnDestroy {
+  @Output() newPost: EventEmitter<any> = new EventEmitter<any>();
+  showTeamChat: boolean = false;
   @ViewChild('editor') editor: ElementRef|any;
   images: any[] = [];
   newsContent = new FormGroup({
@@ -50,7 +55,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
     }
   }
 
-
+@Input()
   
   config: AngularEditorConfig = {
     editable: true,
@@ -141,10 +146,12 @@ export class NewspostComponent implements OnInit, OnDestroy {
           )
           .subscribe(
             (res: any) => {
+              console.log('vffrr',res);
               if (res.statusCode == 200) {
                 this.toastr.success(res.message);
-
-                this.route.navigate(['/', 'dashboard', 'news-list']);
+                this.updateParentVariable(true)
+              
+                // this.route.navigate(['/', 'dashboard', 'news-list']);
               }
             },
             (error: HttpErrorResponse) => {
@@ -162,7 +169,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
                 this.toastr.success('News added successfully');
  
               }
-            },
+            },  
             (error: HttpErrorResponse) => {
               console.log('error in api', error);
               this.toastr.error(error.error.message);
@@ -172,6 +179,9 @@ export class NewspostComponent implements OnInit, OnDestroy {
     } else {
       this.toastr.error('Enter All Fields');
     }
+  }
+  updateParentVariable(value: any) {
+    this.newPost.emit(value);
   }
   addVideo() {
     const videoLink = prompt('Please enter the YouTube video URL:');
@@ -187,7 +197,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
       }
     }
   }
-
+ 
   getYouTubeVideoId(url: string): string | null {
     const videoIdRegex =
       /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&]{11})/;

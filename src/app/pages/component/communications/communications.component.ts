@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
 import { jwtDecode } from 'jwt-decode';
+import { NewsUpdateService } from 'src/app/services/news/newsUpdate.service';
 
 @Component({
   selector: 'app-communications',
@@ -9,9 +10,13 @@ import { jwtDecode } from 'jwt-decode';
   styleUrls: ['./communications.component.scss'],
 })
 export class CommunicationsComponent implements OnInit {
+  currentItem: any;
+
   showTeamChat: boolean = true;
   hidesuper: boolean = false;
-  constructor(private http: HttpClient,private elRef: ElementRef, private renderer: Renderer2) {}
+  constructor(private http: HttpClient,private elRef: ElementRef, private renderer: Renderer2, private updateNews:NewsUpdateService) {
+    this.showTeamChat = updateNews.showTeamChat
+  }
 
   ngOnInit(): void {
     const token: any = localStorage.getItem('token');
@@ -35,6 +40,12 @@ export class CommunicationsComponent implements OnInit {
     }
   }
 
+  handleUpdateParentState(value: any) {
+    console.log("calling ", value)
+    this.showTeamChat = value;
+  }
+
+ 
   shouldShowTabsForUser(): boolean {
     const token = localStorage.getItem('token');
 

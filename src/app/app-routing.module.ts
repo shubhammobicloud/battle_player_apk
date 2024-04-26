@@ -7,6 +7,7 @@ import { SetPasswordComponent } from './set-password/set-password.component';
 import { TeamNameComponent } from './team-name/team-name.component';
 import { TeamImageComponent } from './team-image/team-image.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { NewspostComponent } from './pages/component/communications/newspost/newspost.component';
 const routes: Routes = [
   {
     path: '',
@@ -36,8 +37,7 @@ const routes: Routes = [
     path: 'teamImage/:token',
     component: TeamImageComponent,
   },
-
-  {
+{
     path: 'home',
     loadChildren: () => {
       return import('./pages/pages.module').then((m) => m.PagesModule);

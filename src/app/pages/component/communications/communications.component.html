@@ -36,7 +36,7 @@
   <!-- <div class="content-company-news"> -->
     <div *ngIf="!showTeamChat" class="content-company-news">
       <!-- Display Company News component if Team Chat is not selected -->
-      <app-company-news></app-company-news>
+      <app-company-news (updateParentState)="handleUpdateParentState($event)"></app-company-news>
     </div>
 
     <div *ngIf="showTeamChat && !hidesuper" class="content-chat-news">
@@ -46,7 +46,7 @@
 
     <div *ngIf="showTeamChat && hidesuper" class="content-chat-news">
       <!-- Display News Post component if a superuser is logged in -->
-      <app-newspost></app-newspost>
+      <app-newspost (updateParentState)="handleUpdateParentState($event)"></app-newspost>
     </div>
   <!-- </div> -->
 <!-- </div> -->

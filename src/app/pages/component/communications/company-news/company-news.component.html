@@ -8,7 +8,10 @@
             <!-- <mat-card-subtitle class="timestamp"></mat-card-subtitle> -->
           </mat-card-header>
           <mat-card-content class="card-content">
-            <p [innerHTML]="sanitizerHTML(news.content)"></p>
+            <p [innerHTML]="sanitizerHTML(news.content)" class="responsive-text"></p>
+            <div class="like-container">
+              
+            </div>
           </mat-card-content>
           <mat-card-actions class="card-action">
             <div class="like-container">
@@ -16,6 +19,14 @@
                 <mat-icon class="thumb-up-icon" [ngClass]="{'liked': news.reacted}" [ngStyle]="{'color': news.reacted ? 'green' : 'red'}">thumb_up_alt_outlined</mat-icon>
               </button>
               <span *ngIf="news.reaction > 0">{{ news.reaction }} Likes</span>
+            </div>
+            <div class="swap-conatiner">
+              <button class="button-gap" [class.activeTab]="showTeamChat" (click)="updateNews(news)">
+                <mat-icon style="color: #f73834;">create</mat-icon>
+              </button>
+              <button class="button-gap">
+                <mat-icon style="color: #f73834" (click)="deleteNews(news._id)">delete</mat-icon>
+              </button>
             </div>
           </mat-card-actions>
           <mat-card-footer align="right" class="card-footer">{{ getFormattedDate(news.createdAt) }}</mat-card-footer>

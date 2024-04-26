@@ -7,27 +7,33 @@ import { ProfileComponent } from '../../component/profile/profile.component';
 import { RankingComponent } from '../../component/ranking/ranking.component';
 import { CommunicationsComponent } from '../../component/communications/communications.component';
 import { TeamDetailsComponent } from '../../component/team-details/team-details.component';
+import { NewspostComponent } from '../../component/communications/newspost/newspost.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: PagesComponent,
     children: [
-      { path: '',redirectTo:'mybattle',pathMatch:'full' },
+      { path: '', redirectTo: 'mybattle', pathMatch: 'full' },
       { path: 'mybattle', component: ScoreBoardComponent },
-      { path: 'ranking', component: RankingComponent},
-      { path: 'communications', component: CommunicationsComponent },
+      { path: 'ranking', component: RankingComponent },
+      {
+        path: 'newspost',
+        component: NewspostComponent,
+      },
+
+      {
+        path: 'communications',
+        component: CommunicationsComponent,
+      },
       { path: 'profile', component: ProfileComponent },
-      {path:'Team-profile',component:TeamDetailsComponent}
-    ]
+      { path: 'Team-profile', component: TeamDetailsComponent },
+    ],
   },
-
-
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class PageRoutingModule { }
+export class PageRoutingModule {}

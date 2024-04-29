@@ -1,5 +1,6 @@
 .container {
   width: 100vw;
+  background-color: rgba(255, 255, 255, 0.466);
   .user-profile {
     display: flex;
     flex-direction: column;
@@ -22,7 +23,7 @@
     mat-form-field {
       width: 65%;
     }
-    
+
     button {
       width: 65%;
       margin-bottom: 10px;
@@ -40,7 +41,7 @@
     max-height: fit-content;
     margin: -40px;
     margin-left: -75px;
-    
+
 
     .player-list {
       max-height: 300px;
@@ -74,7 +75,7 @@
       display: inline-block;
       text-align: center;
 
-   
+
     }
       // &:first-child {
       //   border: 3px solid red;

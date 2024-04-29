@@ -12,6 +12,7 @@ export class NewsUpdateService {
 
   news: any[] = []; // Assuming news data structure is an array of any
   baseUrl = environment.baseUrl + 'news/';
+  showTeamChat:boolean = true;
 
   uploadNews(formData: FormData): Observable<HttpResponse<any>> {
     const url = `${this.baseUrl}upload`;

@@ -13,6 +13,7 @@ export class HeaderComponent  implements OnInit{
   isMenuOpen = false;
   showTeamChat: boolean = true;
   hidesuper: boolean = false;
+ 
 
   // showPope = false;
   showPopes(event: MouseEvent) {

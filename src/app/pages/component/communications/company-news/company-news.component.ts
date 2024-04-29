@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UserService } from 'src/app/services/users/users.service';
 import { ToastrService } from 'ngx-toastr';
 import { NewsSerives } from 'src/app/services/news/news.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { NewsUpdateService } from 'src/app/services/news/newsUpdate.service';
+import { environment } from 'src/environment/enviroment';
 
 @Component({
   selector: 'app-company-news',
@@ -11,11 +14,18 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./company-news.component.scss']
 })
 export class CompanyNewsComponent implements OnInit {
+  @Output() updateParentState: EventEmitter<any> = new EventEmitter<any>();
+
+
+  
+  showTeamChat: boolean = false;
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
     private newsService: NewsSerives,
+    private route: Router,
     private userService: UserService,
+    private updateService: NewsUpdateService,
     private sanitize:DomSanitizer
   ) {}
 
@@ -91,5 +101,43 @@ export class CompanyNewsComponent implements OnInit {
   }
   sanitizerHTML(content:string){
     return this.sanitize.bypassSecurityTrustHtml(content)
+  }
+  updateNews(news: any) {
+    console.log(news);
+    this.updateService.news = news;
+    // this.updateService.showTeamChat = false
+    this.updateParentVariable(true)
+
+    if (news) {
+      // this.showTeamChat = !this.showTeamChat;
+      // @Output()
+      
+    }
+  }
+  updateParentVariable(value: any) {
+    this.updateParentState.emit(value);
+  }
+  getListofNews() {
+    this.http.get(environment.baseUrl + 'news').subscribe((res: any) => {
+      this.listOfNews = res.data;
+    });
+  }
+
+
+  deleteNews(id: any) {
+    this.http.delete(environment.baseUrl + 'news/' + id).subscribe(
+      (res: any) => {
+        // console.log(res)
+        if (res.success) {
+          // location.reload()
+          this.toastr.success('News deleted successfully');
+          this.getListofNews();
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log('error', error);
+        this.toastr.error(error.error.message);
+      }
+    );
   }
 }

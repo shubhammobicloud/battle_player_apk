@@ -1,7 +1,7 @@
 <form [formGroup]="teamProfileForm">
   <div class="container">
     <div class="user-profile">
-      <h3 *ngIf="TeamProfile?.gameLeader">Hello Leader!!</h3>
+      <!-- <h3 *ngIf="TeamProfile?.gameLeader">Hello Leader!!</h3> -->
       <h2>{{ teamName }}</h2>
       <label for="avatarInput" class="team-profile">
         <img
@@ -85,8 +85,8 @@
       </ng-template>
       <hr />
       <br />
-      <button mat-raised-button type="button" (click)="toggleEditMode()">
-        {{ isEditMode ? "Save" : "Edit Profile" }}
+      <button mat-raised-button type="button" (click)="toggleEditMode()" *ngIf="gameleader">
+        {{  isEditMode ? "Save" : "Edit Profile" }}
       </button>
     </div>
   </div>

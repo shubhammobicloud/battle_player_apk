@@ -34,6 +34,8 @@ export class TeamDetailsComponent implements OnInit {
   isEditMode = false;
   tableData!: TeamProfile[];
   teamName: string = '';
+  gameleader: boolean;
+
   constructor(
     private http: HttpClient,
     private userService: UserService,
@@ -41,20 +43,23 @@ export class TeamDetailsComponent implements OnInit {
     private fb: FormBuilder,
     private tostr: ToastrService,
     private dashboardService: DashboardService
-  ) {}
+  ) {
+    const gameleaderString = localStorage.getItem('gameleader');
+    // Convert the string value back to boolean
+    this.gameleader = gameleaderString ? JSON.parse(gameleaderString) : false;
+  }
   ngOnInit(): void {
     this.initForm();
     this.getUserDetails();
     this.getTeamImages();
-   
 
     this.http;
 
     this.userService.getUserPlayer().subscribe(
       (data: any) => {
         console.log('data0', data);
-        
-        this.tableData  = data.data;
+
+        this.tableData = data.data;
 
         this.sortTeamProfiles();
       },
@@ -85,8 +90,6 @@ export class TeamDetailsComponent implements OnInit {
     });
   }
 
-    
-
   getUserDetails() {
     // const token = localStorage.getItem('token');
     this.userService.getProfileDetails().subscribe((response: any) => {
@@ -100,19 +103,19 @@ export class TeamDetailsComponent implements OnInit {
 
       this.teamProfileForm.patchValue({ email: response.data.email });
       // this.sortPeople();
-      
+
       this.populateForm();
       this.sortTeamProfiles();
     });
   }
-  
+
   sortTeamProfiles() {
     this.tableData = this.sortTeamProfilesByGameLeader(this.tableData);
   }
 
   sortTeamProfilesByGameLeader(teamProfiles: TeamProfile[]): TeamProfile[] {
     return teamProfiles.sort((a, b) => {
-      if (a.gameLeader && !b.gameLeader) { 
+      if (a.gameLeader && !b.gameLeader) {
         return -1; // a comes first
       } else if (!a.gameLeader && b.gameLeader) {
         return 1; // b comes first
@@ -121,7 +124,6 @@ export class TeamDetailsComponent implements OnInit {
       }
     });
   }
- 
 
   populateForm(): void {
     if (this.TeamProfile) {
@@ -192,8 +194,4 @@ export class TeamDetailsComponent implements OnInit {
       },
     });
   }
-
-
-
-  
 }

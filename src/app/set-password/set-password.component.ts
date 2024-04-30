@@ -66,10 +66,12 @@ redirectedForm:any;
      this.userService.setPassword(data).subscribe(
         (res: any) => {
           if ((res.success)) {
+              this.toastr.success(res.message)
               this.route.navigate(['/playername',token]);
             }
-
-
+        },
+        (error:any)=>{
+          this.toastr.error(error.error.message);
         });
   } else {
     this.toastr.warning(

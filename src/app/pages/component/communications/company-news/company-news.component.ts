@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NewsUpdateService } from 'src/app/services/news/newsUpdate.service';
 import { environment } from 'src/environment/enviroment';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-company-news',
@@ -16,7 +17,8 @@ import { environment } from 'src/environment/enviroment';
 export class CompanyNewsComponent implements OnInit {
   @Output() updateParentState: EventEmitter<any> = new EventEmitter<any>();
 
-
+  showTeamChats: boolean = true;
+  hidesuper: boolean = false;
   
   showTeamChat: boolean = false;
   constructor(
@@ -35,6 +37,25 @@ export class CompanyNewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCompanyNews();
+    const token: any = localStorage.getItem('token');
+
+    let data: {
+      _id: any;
+      teamId: any;
+      avatar: any;
+      userName: any;
+      superUser: boolean;
+    } = jwtDecode(token);
+
+    console.log('check', data.superUser);
+    this.hidesuper = data.superUser;
+    // this.hidesuper=true
+    
+    if (data.superUser) {
+      this.showTeamChat = !this.showTeamChat;
+      
+  
+    }
   }
 
   listOfNews: any;

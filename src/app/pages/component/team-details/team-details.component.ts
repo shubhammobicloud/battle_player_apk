@@ -144,20 +144,25 @@ export class TeamDetailsComponent implements OnInit {
 
     if (this.isEditMode) {
       // this.userProfileForm.enable();
+
     } else {
       console.log('elselllllllllllllllllll');
       this.teamProfileForm.disable();
       if (this.selectedFile) {
         const formData = new FormData();
+
+
         if (this.selectedFile) {
           formData.append('avatar', this.selectedFile);
+          debugger
           this.team.updateTeamImage(formData).subscribe((res: any) => {
             if (res.statusCode == 200) {
               console.log('ressssssssssss', res);
               // localStorage.setItem('avatar', res.data?.avatar);
               console.log('Image updated successfully');
-              this.tostr.success('Image updated successfully');
+              this.tostr.success('Image added successfully');
             } else {
+    
               this.tostr.error('failed');
             }
           });
@@ -165,6 +170,7 @@ export class TeamDetailsComponent implements OnInit {
       }
     }
   }
+  
   selectedFile: File | null = null;
   displayedImage: string | ArrayBuffer | null =
     'https://www.w3schools.com/howto/img_avatar.png';
@@ -188,6 +194,7 @@ export class TeamDetailsComponent implements OnInit {
         console.log('api res', res);
         // this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage;
         this.displayedImage = res.data?.avatar;
+
       },
       error: (err: HttpErrorResponse) => {
         console.log('api error ', err);

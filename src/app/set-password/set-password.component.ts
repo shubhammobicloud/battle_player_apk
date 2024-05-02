@@ -47,32 +47,34 @@ redirectedForm:any;
     let token = this.router.snapshot.params['token'];
 
     if (validatePass) {
-      if (this.password !== this.confirmPassword) {
-        this.passwordMismatchError ='Passwords do not match. Please try again.';
-        this.toastr.error(this.passwordMismatchError);
-        return;
+      if (this.password == this.confirmPassword) {
+        // this.passwordMismatchError ='Passwords do not match. Please try again.';
+        let data = {
+          password: this.confirmPassword,
+          token: token,
+          firstLogin: true,
+        };
+        // if (!this.validatePassword(this.password)) {
+        //   this.toastr.warning('Password should be at least 8 characters long, must contain numbers, and alphabets.');
+        //   return;
+        // }
+       this.userService.setPassword(data).subscribe(
+          (res: any) => {
+            if ((res.success)) {
+                this.toastr.success(res.message)
+                this.route.navigate(['/playername',token]);
+              }
+          },
+          (error:any)=>{
+            this.toastr.error(error.error.message);
+          });
       } else {
+        this.toastr.error('Passwords do not match. Please try again');
+        
+        
         this.passwordMismatchError = '';
       }
-      let data = {
-        password: this.confirmPassword,
-        token: token,
-        firstLogin: true,
-      };
-      if (!this.validatePassword(this.password)) {
-        this.toastr.warning('Password should be at least 8 characters long, must contain numbers, and alphabets.');
-        return;
-      }
-     this.userService.setPassword(data).subscribe(
-        (res: any) => {
-          if ((res.success)) {
-              this.toastr.success(res.message)
-              this.route.navigate(['/playername',token]);
-            }
-        },
-        (error:any)=>{
-          this.toastr.error(error.error.message);
-        });
+      
   } else {
     this.toastr.warning(
       'Password Should Be At Least Of Minimun 8 Character, Must Contain Number And Alphabets'

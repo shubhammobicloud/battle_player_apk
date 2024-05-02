@@ -4,23 +4,23 @@
     <div class="footer-center"  id="mydiv" >
       <button mat-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="onButtonClick('mybattle')">
-          <span class="menuSpan">My Battle</span>
+        <button class="menuButton" mat-menu-item (click)="onButtonClick('mybattle')">
+          <span class="menuSpan" [ngClass]="isActiveButton=='mybattle'?'active':''">My Battle</span>
         </button>
-        <button mat-menu-item (click)="onButtonClick('ranking')">
-          <span class="menuSpan">Ranking</span>
+        <button class="menuButton" mat-menu-item (click)="onButtonClick('ranking')">
+          <span class="menuSpan" [ngClass]="isActiveButton=='ranking'?'active':''">Ranking</span>
         </button>
-        <button mat-menu-item (click)="onButtonClick('communications')">
-          <span class="menuSpan">Chat</span>
+        <button class="menuButton" mat-menu-item (click)="onButtonClick('communications')">
+          <span class="menuSpan" [ngClass]="isActiveButton=='communications'?'active':''">Chat</span>
         </button>
-        <button mat-menu-item (click)="onButtonClick('profile')">
-          <span class="menuSpan">Profile</span>
+        <button class="menuButton" mat-menu-item (click)="onButtonClick('profile')">
+          <span class="menuSpan" [ngClass]="isActiveButton=='profile'?'active':''">Profile</span>
         </button>
-        <button mat-menu-item routerLink="Team-profile">
-          <span class="menuSpan">Team Details</span>
+        <button class="menuButton" mat-menu-item (click)="onButtonClick('Team-profile')">
+          <span class="menuSpan" [ngClass]="isActiveButton=='Team-profile'?'active':''">Team Details</span>
         </button>
-        <button mat-menu-item (click)="logOut()">
-          <span class="menuSpan">Log Out</span>
+        <button class="menuButton" mat-menu-item (click)="logOut() ">
+          <span class="menuSpan" [ngClass]="isActiveButton=='logOut'?'active':''">Log Out</span>
         </button>
       </mat-menu>
       </div>

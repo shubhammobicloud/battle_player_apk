@@ -68,7 +68,7 @@ export class PagesComponent implements OnInit {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: translations['LOGOUT_POPUP.YES'],
-        confirmButtonColor: 'rgb(255, 0, 0)',
+        confirmButtonColor: '#cc0000',
         cancelButtonText: translations['LOGOUT_POPUP.NO'],
       }).then((result:any) => {
         if (result.isConfirmed) {

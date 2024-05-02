@@ -23,6 +23,8 @@ import { AuthInterceptor } from './services/interceptor/auth-interceptor.service
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TeamImageComponent } from './team-image/team-image.component';
+import { MatCardModule } from '@angular/material/card';
+import {MatTooltipModule} from '@angular/material/tooltip'
 @NgModule({
   declarations: [
     AppComponent,TeamImageComponent,
@@ -33,7 +35,7 @@ import { TeamImageComponent } from './team-image/team-image.component';
     ForgotpasswordComponent,
   ],
   imports: [
-    BrowserModule,MatSelectModule,
+    BrowserModule,MatSelectModule,MatCardModule,MatTooltipModule,
     RouterModule,
     PagesModule,
     HttpClientModule,

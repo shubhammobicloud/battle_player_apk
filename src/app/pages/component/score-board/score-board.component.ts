@@ -205,7 +205,7 @@ export class ScoreBoardComponent implements OnInit {
             : this.eventImageURL
         ).subscribe((res) => {
           console.log(URL.createObjectURL(res));
-          this.eventImageURL = URL.createObjectURL(res);
+          this.centerLogo = URL.createObjectURL(res);
         });
       },
       error: (err: HttpErrorResponse) => {

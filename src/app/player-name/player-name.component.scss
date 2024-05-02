@@ -1,28 +1,60 @@
 .container-playerName{
   height: 100%;
-  background: linear-gradient(to bottom, #f6dfdf, #FF5454);  display: flex;
+
+  display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-
-
-img{
-  max-width: 50%;
+  .header-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #cc0000;
+    .header-logo{
+     img{
+      width: 100px;
+     }
+    }
+    .header-title{
+      color: white;
+      text-align: center;
+    }
+}
+.card-container{
+  // padding: 10px;
+  margin-block-start: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // border: 1px solid black;
+  mat-card{
+    background-color: #dedede;
+    padding: 25px;
+    border-radius: 16px;
+    h2{
+      font-size: 1.4rem;
+      color: #cc0000;
+    }
+    mat-form-field{
+      width: 100%;
+      // msargin: 10px 20px;
+    }
+    .continueButton{
+      // margin-top: 10px;
+      background-color: #cc0000;
+      color: white;
+    }
+  }
 }
 .error{
   color: #333;
   font-size: 14px;
   margin-left: -17px;
-  
+
 }
-.continueButton{
-margin-top: 10px;
+
 }
-}
-mat-form-field{
-  width: 65%;
-  margin: 10px 20px;
-}
+
 @media (min-width:700px){
 
     mat-form-field{
@@ -35,8 +67,8 @@ mat-form-field{
     .error{
       color: #333;
       font-size: 1rem;
-      
+
     }
 
-    
+
 }

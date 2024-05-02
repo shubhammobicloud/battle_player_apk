@@ -1,24 +1,33 @@
 <div class="container-playerImage">
-  <span>
-    <img src="../../assets/sports logo.png" alt="{{ 'TEAM_IMAGE_PAGE.SPORTS_LOGO_ALT_TEXT' | translate }}">
-    <img src="../../assets/logo wurth.png" alt="{{ 'TEAM_IMAGE_PAGE.WUERTH_LOGO_ALT_TEXT' | translate }}">
-  </span>
+  <div class="header-div">
+    <div class="header-logo">
+      <img src="assets/sports logo.png" alt="">
+    </div>
+    <div class="header-title">
+      <h2>THE REINHOLD WURTH OPEN 2024
+      </h2>
+    </div>
+  </div>
+  <div class="card-container">
+    <mat-card>
+      <div class="image-container">
+        <label class="hoverable" for="fileInput">
+          <img [src]="displayedImage" alt="{{ 'APP_MAIN.TEAM_IMAGE_PAGE.SELECTED_IMAGE_ALT_TEXT' | translate }}" />
+          <div class="hover-text">{{ 'APP_MAIN.TEAM_IMAGE_PAGE.CHOOSE_FILE_TEXT' | translate }}</div>
+        </label>
+        <input
+          id="fileInput"
+          type="file"
+          class="select-profile-picture"
+          (change)="onFileSelected($event)"
+          hidden
+        />
+      </div>
+      <span class="message">{{ 'APP_MAIN.TEAM_IMAGE_PAGE.TAP_HERE_TEXT' | translate }}</span>
 
-  <div class="image-container">
-    <label class="hoverable" for="fileInput">
-      <img [src]="displayedImage" alt="{{ 'TEAM_IMAGE_PAGE.SELECTED_IMAGE_ALT_TEXT' | translate }}" />
-      <div class="hover-text">{{ 'TEAM_IMAGE_PAGE.CHOOSE_FILE_TEXT' | translate }}</div>
-      <div class="background"></div>
-    </label>
-    <br />
-    <input
-      id="fileInput"
-      type="file"
-      class="select-profile-picture"
-      (change)="onFileSelected($event)"
-    />
-    <span class="message">{{ 'TEAM_IMAGE_PAGE.TAP_HERE_TEXT' | translate }}</span>
+      <button mat-raised-button class="continueButton" (click)="submit()">{{ 'APP_MAIN.PLAYER_IMAGE_PAGE.CONTINUE_BUTTON_TEXT' | translate }}</button>
+    </mat-card>
   </div>
 
-  <button mat-raised-button color="primary" class="continueButton" (click)="submit()">{{ 'TEAM_IMAGE_PAGE.CONTINUE_BUTTON_TEXT' | translate }}</button>
+
 </div>

@@ -1,7 +1,9 @@
+<div class="container">
 <form [formGroup]="teamProfileForm">
-  <div class="container">
+
     <div class="user-profile">
       <!-- <h3 *ngIf="TeamProfile?.gameLeader">Hello Leader!!</h3> -->
+      <mat-card>
       <h2>{{ teamName }}</h2>
       <label for="avatarInput" class="team-profile">
         <img
@@ -26,35 +28,7 @@
         (change)="onFileSelected($event)"
         accept="image/*"
       />
-      <!-- <table class="profile-info">
-        <tr>
-          <td><strong>Team Name</strong></td>
-          <td>{{ teamName }}</td>
-        </tr>
-        <tr>
-          <td><strong>GL </strong></td>
-          <td>{{ TeamProfile?.email ? TeamProfile?.email : TeamProfile?.userName }}</td>
-        </tr>
-      </table> -->
-      <!-- <mat-form-field appearance="fill">
-        <mat-label>Team Name</mat-label>
-        <input matInput formControlName="name" [disabled]="true" />
-      </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Game Leader Name</mat-label>
-        <input
-          matInput
-          name="gameleader"
-          formControlName=" gameleader"
-          [value]="
-            TeamProfile?.email ? TeamProfile?.email : TeamProfile?.userName
-          "
-          [disabled]="true"
-        />
-      </mat-form-field> -->
-
-      <hr />
       <div class="container-table">
         <ul class="player-list">
           <ng-container
@@ -83,11 +57,13 @@
           <td colspan="3">No data found</td>
         </tr>
       </ng-template>
-      <hr />
+
       <br />
       <button mat-raised-button type="button" (click)="toggleEditMode()" *ngIf="gameleader">
         {{  isEditMode ? "Save" : "Edit Profile" }}
       </button>
+    </mat-card>
     </div>
-  </div>
+
 </form>
+</div>

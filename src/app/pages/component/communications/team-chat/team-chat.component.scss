@@ -3,8 +3,8 @@
     // display: flex;
     // flex-direction: column;
     // justify-content: flex-end;
-    max-height: 67vh;
-    min-height: 67vh;
+    max-height: 70vh;
+    min-height: 63vh;
     width: 100%;
     overflow-y: auto;
 
@@ -36,13 +36,40 @@
   }
 
   .senderMessage {
-    background: #67f367;
+    // background: #67f367;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
     padding: 5px;
-    border-radius: 0 8px 8px 8px;
+
     // border: 1px solid green;
     overflow-wrap: break-word;
-    width: 150px;
-    border: 0.1px solid rgba(219, 112, 147, 0.2);
+    width: fit-content;
+    // border: 0.1px solid rgba(219, 112, 147, 0.2);
+    mat-card{
+      background-color: #cc0000;
+      max-width:10rem;
+      border-radius: 10px 0px 10px  10px ;
+      border: 1px solid white;
+      width: fit-content;
+      word-wrap: break-word;
+      mat-card-header{
+        justify-content: flex-end;
+        color: #fff;
+        padding: 5px 5px 0px 5px;
+      }
+      mat-card-content{
+        color: white;
+        font-size: 13px;
+        font-weight: 100;
+      }
+      mat-card-actions{
+        color: #dedede;
+        padding:5px;
+        min-height: 20px;
+      }
+    }
   }
 
   .profile {
@@ -50,22 +77,47 @@
     height: 35px;
     // border: 1px solid blue;
     border-radius: 50px;
-    margin-top: 14px;
+    border: 1.5px solid #cc0000;
+    margin-top: -17px;
   }
   .message {
-    background: #fff4de;
+    // background: #fff4de;
     padding: 5px;
-    border-radius: 0 8px 8px 8px;
-    // border: 1px solid green;
-    overflow-wrap: break-word;
-    width: 150px;
-    border: 0.1px solid rgba(219, 112, 147, 0.2);
 
+    // border: 1px solid green;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    overflow-wrap: break-word;
+    width: fit-content;
+    // border: 0.1px solid rgba(219, 112, 147, 0.2);
+    mat-card{
+      background-color: white;
+      border: 1px solid #cc0000;
+      border-radius: 0 10px  10px  10px ;
+      max-width:10rem;
+      width: fit-content;
+      word-wrap: break-word;
+      mat-card-header{
+        color: #cc0000;
+        padding: 5px 5px 0px 5px;
+      }
+      mat-card-content{
+        color: #cc0000;
+        font-size: 13px;
+        font-weight: 100;
+      }
+      mat-card-actions{
+        color: #959595;
+        padding:5px;
+        min-height: 20px;
+      }
+    }
   }
 }
 .inputContainer {
   display: flex;
-  background-color: rgba(255, 255, 255, 0.507);
+  // background-color: rgba(255, 255, 255, 0.507);
   justify-content: space-around;
   position: fixed;
   padding: 5px 0px;
@@ -93,5 +145,34 @@
     height: 2rem;
     font-size: 2rem;
   }
+  }
+}
+
+.inputBoxContainer{
+  width: 95%;
+  display: flex;
+  gap :1rem;
+  margin: 10px 10px;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  input{
+    background-color: #ffffff;
+    border-radius: 10px;
+    outline: none;
+    border: 2px solid #cc0000;
+    height: inherit;
+    min-width: 70%;
+    min-height: 40px;
+    font-size: 1.2rem;
+    color: #000000;
+    padding-inline-start: 5px;
+    flex-grow: 1;
+  }
+  button{
+    background-color: #cc0000;
+    mat-icon{
+      color: white;
+    }
   }
 }

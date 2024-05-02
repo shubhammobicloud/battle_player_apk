@@ -1,15 +1,15 @@
 <div class="container">
-  <h2>{{ 'HEADER_PAGE.TITLE' | translate }}</h2>
-  <div class="box">
-    <button
-      mat-icon-button
-      class="custom-btn"
-      (click)="toggleMenu($event)"
-      aria-label="Example icon-button with a menu"
-    >
-      <mat-icon>more_vert</mat-icon>
-    </button>
+  <div class="header-div">
+    <div class="header-logo">
+      <img src="assets/sports logo.png" alt="">
+    </div>
+    <div class="header-title">
+      <h2>THE REINHOLD WURTH OPEN 2024
+      </h2>
+    </div>
+
   </div>
+
   <div *ngIf="isMenuOpen" class="custom-menu"  routerLinkActive="active">
     <li>
       <button class="mat-menu-item" (click)="logOut()">

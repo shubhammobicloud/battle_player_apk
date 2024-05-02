@@ -7,6 +7,12 @@
     // width: 100%;
     text-align: center;
     margin-block-start: 1rem;
+   mat-card{
+    width: 80%;
+    background-color: #dedede;
+    display: flex;
+    color: #cc0000;
+    align-items: center;
     h3 {
       margin: 0;
     }
@@ -16,17 +22,19 @@
     img {
       border: 1px solid red;
       border-radius: 50%;
-      width: 150px;
-      height: 150px;
+      width: 120px;
+      height: 120px;
     }
     mat-form-field {
       width: 65%;
     }
-    
+
     button {
       width: 65%;
-      margin-bottom: 10px;
+      margin-bottom: 10px;background-color: #cc0000;
+      color: white;
     }
+   }
     @media (min-width: 401px) {
       button {
         height: 3rem;
@@ -40,25 +48,25 @@
     max-height: fit-content;
     margin: -40px;
     margin-left: -75px;
-    
+
 
     .player-list {
       max-height: 300px;
       overflow-y: auto;
       // margin: 0;
     }
-    hr {
-      border-bottom: 1px solid #ff2929;
-    }
+
     .player-list li {
       display: flex;
       // justify-content: space-between;
       align-items: center;
       gap: 17px;
-      padding: 10px 96px;
+      padding: 10px 20px;
       border-bottom: 1px solid #ff2929;
       // width: 66%;
-
+        &:last-child{
+          border: none;
+        }
       span {
         display: flex;
         align-items: center;
@@ -74,7 +82,7 @@
       display: inline-block;
       text-align: center;
 
-   
+
     }
       // &:first-child {
       //   border: 3px solid red;

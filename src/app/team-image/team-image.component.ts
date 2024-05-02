@@ -13,10 +13,13 @@ export class TeamImageComponent {
     private userService: UserService,
     private route: Router,
     private teamService: TeamService,
-    public translate:TranslateService
+    public translate: TranslateService
   ) {
+
+
     let lang:any=localStorage.getItem('lang')
     translate.use(lang);
+
   }
 
   displayedImage: string | ArrayBuffer | null =

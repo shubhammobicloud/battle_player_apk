@@ -1,11 +1,35 @@
 <div class="container">
   <div class="header">
     <app-header></app-header>
+    <div class="footer-center"  id="mydiv" >
+      <button mat-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onButtonClick('mybattle')">
+          <span class="menuSpan">My Battle</span>
+        </button>
+        <button mat-menu-item (click)="onButtonClick('ranking')">
+          <span class="menuSpan">Ranking</span>
+        </button>
+        <button mat-menu-item (click)="onButtonClick('communications')">
+          <span class="menuSpan">Chat</span>
+        </button>
+        <button mat-menu-item (click)="onButtonClick('profile')">
+          <span class="menuSpan">Profile</span>
+        </button>
+        <button mat-menu-item routerLink="Team-profile">
+          <span class="menuSpan">Team Details</span>
+        </button>
+        <button mat-menu-item (click)="logOut()">
+          <span class="menuSpan">Log Out</span>
+        </button>
+      </mat-menu>
+      </div>
   </div>
 
-  <div class="content" style="background-position: center; background-size: cover; opacity: 1;" [style.background-image]="'url(' + backgroundImageUrl + ')'">
-
+  <div class="content">
       <router-outlet></router-outlet>
   </div>
-  <div class="footer"><app-menu></app-menu></div>
+  <!-- <div class="footer"></div> -->
+
 </div>
+

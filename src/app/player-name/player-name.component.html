@@ -1,37 +1,46 @@
 <div class="container-playerName">
-  <span>
-    <img src="../../assets/sports logo.png" alt="{{ 'APP_MAIN.PLAYER_NAME_PAGE.SPORTS_LOGO_ALT_TEXT' | translate }}" />
-    <img src="../../assets/logo wurth.png" alt="{{ 'APP_MAIN.PLAYER_NAME_PAGE.WUERTH_LOGO_ALT_TEXT' | translate }}" />
-  </span>
-
-  <div style="margin-block-start: 40px">
-    <h2>{{ 'APP_MAIN.PLAYER_NAME_PAGE.TELL_US_PLAYER_NAME' | translate }}</h2>
-    <mat-form-field appearance="fill">
-      <mat-label>{{ 'APP_MAIN.PLAYER_NAME_PAGE.NAME_YOUR_PLAYER' | translate }}</mat-label>
-      <input
-        matInput
-        [(ngModel)]="userName"
-        name="userName"
-        #userNameInput="ngModel"
-        type="text"
-        placeholder="{{ 'APP_MAIN.PLAYER_NAME_PAGE.PLAYER_NAME_PLACEHOLDER' | translate }}"
-        required
-        minlength="3"
-        maxlength="20"
-      />
-      <mat-error *ngIf="userNameInput.errors?.['required']" class="error">
-        {{ 'APP_MAIN.PLAYER_NAME_PAGE.PLAYER_NAME_REQUIRED_ERROR' | translate }}
-      </mat-error>
-
-    </mat-form-field>
+  <div class="header-div">
+    <div class="header-logo">
+      <img src="assets/sports logo.png" alt="">
+    </div>
+    <div class="header-title">
+      <h2>THE REINHOLD WURTH OPEN 2024
+      </h2>
+    </div>
   </div>
 
-  <button
-    mat-raised-button
-    color="primary"
-    class="continueButton"
-    (click)="submit()"
-  >
-    {{ 'APP_MAIN.PLAYER_NAME_PAGE.CONTINUE_BUTTON_TEXT' | translate }}
-  </button>
+
+  <div class="card-container">
+    <mat-card>
+      <h2>{{ 'APP_MAIN.PLAYER_NAME_PAGE.TELL_US_PLAYER_NAME' | translate }}</h2>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ 'APP_MAIN.PLAYER_NAME_PAGE.NAME_YOUR_PLAYER' | translate }}</mat-label>
+        <input
+          matInput
+          [(ngModel)]="userName"
+          name="userName"
+          #userNameInput="ngModel"
+          type="text"
+          placeholder="{{ 'APP_MAIN.PLAYER_NAME_PAGE.PLAYER_NAME_PLACEHOLDER' | translate }}"
+          required
+          minlength="3"
+          maxlength="20"
+        />
+        <mat-error *ngIf="userNameInput.errors?.['required']" class="error">
+          {{ 'APP_MAIN.PLAYER_NAME_PAGE.PLAYER_NAME_REQUIRED_ERROR' | translate }}
+        </mat-error>
+
+      </mat-form-field>
+
+
+    <button
+      mat-raised-button
+
+      class="continueButton"
+      (click)="submit()"
+    >
+      {{ 'APP_MAIN.PLAYER_NAME_PAGE.CONTINUE_BUTTON_TEXT' | translate }}
+    </button>
+      </mat-card>
+      </div>
 </div>

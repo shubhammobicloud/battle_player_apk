@@ -19,7 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule,TranslateLoader,TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
   ],
   imports: [
-    CommonModule,
+    CommonModule,DragDropModule,
     RouterModule,
     PageMaterialModule,
     RankingModule,

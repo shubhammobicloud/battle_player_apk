@@ -17,6 +17,18 @@
       "FORGOT_PASSWORD_LINK": "Forgot Password?",
       "LOGIN_BUTTON_TEXT": "Login"
     },
+    "FORGOT_PASSWORD":{
+      "FORGOT_PASSWORD_TITLE": "Forgot Password",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_REQUIRED_ERROR": "Email is required",
+      "EMAIL_INVALID_ERROR": "Invalid email format",
+      "OTP_LABEL": "OTP",
+      "OTP_REQUIRED_ERROR": "OTP is required",
+      "PASSWORD_LABEL": "Password",
+      "PASSWORD_REQUIRED_ERROR": "Password is required",
+      "REQUEST_OTP_BUTTON": "Request OTP",
+      "SUBMIT_BUTTON": "Submit"
+    },
     "SET_PASSWORD_PAGE": {
       "SPORTS_LOGO_ALT_TEXT": "Sports Logo",
       "WUERTH_LOGO_ALT_TEXT": "Wuerth Logo",
@@ -105,7 +117,20 @@
         "YES": "Yes",
         "NO": "No",
         "LOGOUT_SUCCESS": "Logout successfully."
-      }
+      },
+    "TOASTER_RESPONSE":{
+      "LOGIN_SUCCESS_MESSAGE": "Login successfully",
+      "FILL_DETAILS_ERROR": "Please fill the details",
+      "NO_MATCHING_DATA_ERROR": "No matching data found. Please check your credentials and try again.",
+        "INVALID_EMAIL_ERROR": "Invalid Email Id or Email Not Found",
+        "EMAIL_REQUIRED_WARNING": "Email Required!!",
+        "INVALID_EMAIL_WARNING": "Invalid Email!!",
+        "SENDING_OTP": "Sending OTP...",
+        "OTP_SENT_SUCCESSFULLY": "OTP sent successfully",
+        "PASSWORD_VALIDATION_MESSAGE": "Password should be at least 8 characters long and contain both letters and numbers.",
+        "PASSWORD_UPDATED_SUCCESSFULLY": "Password updated successfully",
+        "USERNAME_SET_SUCCESSFUL": "Username Set Successful!!"
+    }
 
 
 

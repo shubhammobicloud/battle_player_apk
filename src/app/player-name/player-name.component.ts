@@ -32,7 +32,7 @@ export class PlayerNameComponent {
         .subscribe((res: any) => {
           if (res.success) {
             localStorage.setItem('userName',res.data.userName)
-            this.toastr.success('Username Set Successful!!');
+            this.toastr.success(this.translate.instant('USERNAME_SET_SUCCESSFUL'));
             this.route.navigate(['/', 'playerimage', token]);
           }
         });

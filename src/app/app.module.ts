@@ -47,7 +47,11 @@ import {MatTooltipModule} from '@angular/material/tooltip'
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(
+      {timeOut: 2000,
+        extendedTimeOut: 2000,
+        preventDuplicates: true}
+    ),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

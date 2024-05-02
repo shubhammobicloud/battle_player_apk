@@ -3,6 +3,7 @@ import { ToastrService } from "ngx-toastr";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environment/enviroment";
 import { Observable, finalize } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 @Injectable({
     providedIn: 'root'
 })
@@ -12,7 +13,8 @@ export class ForgetPasswordService {
     // private httpOptions = this.headerService.updateHeader();
     constructor(
         private toster: ToastrService,
-        private http: HttpClient
+        private http: HttpClient,
+        public translate: TranslateService
     ) { }
     makeApiCall(): void {
       // Show loading indicator
@@ -23,7 +25,7 @@ export class ForgetPasswordService {
       });
     }
     sendOtp = (data: any): Observable<any>=> {
-      const loadingToast = this.toster.info('','Sending OTP...', {
+      const loadingToast = this.toster.info('',this.translate.instant('TOASTER_RESPONSE.SENDING_OTP'), {
         disableTimeOut: true,
         closeButton: true,
         positionClass: 'toast-top-right'

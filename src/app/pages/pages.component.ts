@@ -27,7 +27,11 @@ export class PagesComponent implements OnInit {
     translate.use(lang);
   }
   ngOnInit(): void {
-
+    if(localStorage.getItem("activePage")){
+      this.isActiveButton=localStorage.getItem("activePage")
+    }else{
+      this.isActiveButton='mybattle'
+    }
   }
 
   getEventImage() {
@@ -52,9 +56,11 @@ export class PagesComponent implements OnInit {
 
   onButtonClick(path: string): void {
     this.isActiveButton = path;
+    localStorage.setItem("activePage",this.isActiveButton)
     this.router.navigate(['home', path]);
   }
   logOut(): void {
+    // this.isActiveButton = 'logOut';
     this.translate.get(['LOGOUT_POPUP.CONFIRM_LOGOUT', 'LOGOUT_POPUP.LOGOUT_CONFIRMATION', 'LOGOUT_POPUP.YES', 'LOGOUT_POPUP.NO', 'LOGOUT_POPUP.LOGOUT_SUCCESS']).subscribe(translations => {
       Swal.fire({
         title: translations['LOGOUT_POPUP.CONFIRM_LOGOUT'],
@@ -62,13 +68,14 @@ export class PagesComponent implements OnInit {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: translations['LOGOUT_POPUP.YES'],
-        confirmButtonColor: 'rgb(255, 0, 0)',
+        confirmButtonColor: '#cc0000',
         cancelButtonText: translations['LOGOUT_POPUP.NO'],
       }).then((result:any) => {
         if (result.isConfirmed) {
           localStorage.removeItem('token');
           this.router.navigate(['/']);
           this.toast.success(translations['LOGOUT_POPUP.LOGOUT_SUCCESS']);
+          localStorage.removeItem("activePage")
         }
       });
     });

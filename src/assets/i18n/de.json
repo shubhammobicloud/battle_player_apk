@@ -17,6 +17,18 @@
       "FORGOT_PASSWORD_LINK": "Passwort vergessen?",
       "LOGIN_BUTTON_TEXT": "Anmelden"
     },
+    "FORGOT_PASSWORD":{
+      "FORGOT_PASSWORD_TITLE": "Passwort vergessen",
+      "EMAIL_LABEL": "E-Mail",
+      "EMAIL_REQUIRED_ERROR": "E-Mail wird benötigt",
+      "EMAIL_INVALID_ERROR": "Ungültiges E-Mail-Format",
+      "OTP_LABEL": "OTP",
+      "OTP_REQUIRED_ERROR": "OTP wird benötigt",
+      "PASSWORD_LABEL": "Passwort",
+      "PASSWORD_REQUIRED_ERROR": "Passwort wird benötigt",
+      "REQUEST_OTP_BUTTON": "OTP anfordern",
+      "SUBMIT_BUTTON": "Einreichen"
+    },
     "SET_PASSWORD_PAGE": {
       "SPORTS_LOGO_ALT_TEXT": "Sport-Logo",
       "WUERTH_LOGO_ALT_TEXT": "Wuerth-Logo",
@@ -104,6 +116,19 @@
         "YES": "Ja",
         "NO": "Nein",
         "LOGOUT_SUCCESS": "Erfolgreich abgemeldet."
+      },
+      "TOASTER_RESPONSE":{
+        "LOGIN_SUCCESS_MESSAGE": "Anmeldung erfolgreich",
+        "FILL_DETAILS_ERROR": "Bitte füllen Sie die Details aus",
+        "NO_MATCHING_DATA_ERROR": "Keine übereinstimmenden Daten gefunden. Bitte überprüfen Sie Ihre Anmeldeinformationen und versuchen Sie es erneut.",
+        "EMAIL_REQUIRED_WARNING": "E-Mail erforderlich!!",
+        "INVALID_EMAIL_WARNING": "Ungültige E-Mail!!",
+        "INVALID_EMAIL_ERROR": "Ungültige E-Mail-ID oder E-Mail nicht gefunden",
+        "SENDING_OTP": "OTP wird gesendet...",
+        "OTP_SENT_SUCCESSFULLY": "OTP erfolgreich gesendet",
+        "PASSWORD_VALIDATION_MESSAGE": "Das Passwort muss mindestens 8 Zeichen lang sein und sowohl Buchstaben als auch Zahlen enthalten.",
+        "PASSWORD_UPDATED_SUCCESSFULLY": "Passwort erfolgreich aktualisiert",
+        "USERNAME_SET_SUCCESSFUL": "Benutzername erfolgreich festgelegt!!"
       }
 
 

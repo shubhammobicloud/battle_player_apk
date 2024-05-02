@@ -20,12 +20,12 @@
               </button>
               <span *ngIf="news.reaction > 0">{{ news.reaction }} Likes</span>
             </div>
-            <div class="swap-conatiner">
+            <div class="swap-conatiner" *ngIf="showTeamChats && hidesuper">
               <button class="button-gap" [class.activeTab]="showTeamChat" (click)="updateNews(news)">
-                <mat-icon style="color: #f73834;">create</mat-icon>
+                <mat-icon class="edemo" style="color: rgb(255, 0, 0);;">create</mat-icon>
               </button>
               <button class="button-gap">
-                <mat-icon style="color: #f73834" (click)="deleteNews(news._id)">delete</mat-icon>
+                <mat-icon class="edemo" style="color: rgb(255, 0, 0);" (click)="deleteNews(news._id)">delete</mat-icon>
               </button>
             </div>
           </mat-card-actions>

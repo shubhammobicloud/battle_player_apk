@@ -9,39 +9,44 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { AngularEditorConfig, UploadResponse } from '@kolkov/angular-editor';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpEvent
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { environment } from 'src/environment/enviroment';
 import { NewsUpdateService } from 'src/app/services/news/newsUpdate.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Observer } from 'rxjs';
+
 @Component({
   selector: 'app-newspost',
   templateUrl: './newspost.component.html',
   styleUrls: ['./newspost.component.scss'],
 })
 export class NewspostComponent implements OnInit, OnDestroy {
-  @Output() newPost: EventEmitter<any> = new EventEmitter<any>();
+  characterCount: number = 0;
+  textarea: string = '';
+
+  @Output() updateParentState1: EventEmitter<any> = new EventEmitter<any>();
   showTeamChat: boolean = false;
-  @ViewChild('editor') editor: ElementRef|any;
+  @ViewChild('editor') editor: ElementRef | any;
+
   images: any[] = [];
+
   newsContent = new FormGroup({
     content: new FormControl('', Validators.required),
     title: new FormControl('', Validators.required),
   });
+
   updateNews: boolean = false;
   newsId!: string;
+
   constructor(
     private http: HttpClient,
     private updateService: NewsUpdateService,
     private route: Router,
     private toastr: ToastrService
   ) {}
+
   ngOnInit(): void {
     let data: any = this.updateService.news;
     this.newsId = data._id;
@@ -53,10 +58,9 @@ export class NewspostComponent implements OnInit, OnDestroy {
         title: data.title,
       });
     }
+    this.countCharacters();
   }
 
-@Input()
-  
   config: AngularEditorConfig = {
     editable: true,
     enableToolbar: false,
@@ -79,8 +83,8 @@ export class NewspostComponent implements OnInit, OnDestroy {
           image.onload = () => {
             let width = image.width;
             let height = image.height;
-            image.classList.add('insideNews')
-            image.className='insideNews'
+            image.classList.add('insideNews');
+            image.className = 'insideNews';
             // Resize the image if either dimension is greater than the maximum
             if (width > maxDimension || height > maxDimension) {
               // Calculate the new dimensions while maintaining aspect ratio
@@ -110,20 +114,17 @@ export class NewspostComponent implements OnInit, OnDestroy {
               // Create FormData and append resized image
               const formData = new FormData();
               formData.append('file', blob, file.name);
-                this.updateService.uploadNews(formData)
-                  .subscribe(
-                    (response:any) => {
-                      console.log('Upload successful:', response.body.imageUrl);
-                      this.images.push(response.body.imageUrl);
-                     observer.next(response);
-                     observer.complete()
-                    },
-                    (error) => {
-                      console.error('Upload failed:', error);
-                    }
-                  );
-
-
+              this.updateService.uploadNews(formData).subscribe(
+                (response: any) => {
+                  console.log('Upload successful:', response.body.imageUrl);
+                  this.images.push(response.body.imageUrl);
+                  observer.next(response);
+                  observer.complete();
+                },
+                (error) => {
+                  console.error('Upload failed:', error);
+                }
+              );
             }, file.type);
           };
         }
@@ -133,8 +134,21 @@ export class NewspostComponent implements OnInit, OnDestroy {
     translate: 'no',
     sanitize: false,
     toolbarPosition: 'top',
-    toolbarHiddenButtons: [['insertVideo','toggleEditorMode']],
+    toolbarHiddenButtons: [['insertVideo', 'toggleEditorMode']],
   };
+
+  countCharacters() {
+    const editorContent = this.newsContent.get('content')?.value;
+    if (editorContent) {
+        // Remove non-character content using regular expression
+        const cleanContent = editorContent.replace(/[^a-zA-Z]/g, '');
+        // Count characters
+        this.characterCount = cleanContent.length;
+    } else {
+        this.characterCount = 0;
+    }
+}
+
   submitContent() {
     if (this.newsContent.valid) {
       console.log(this.newsContent.value);
@@ -146,11 +160,11 @@ export class NewspostComponent implements OnInit, OnDestroy {
           )
           .subscribe(
             (res: any) => {
-              console.log('vffrr',res);
+              console.log('vffrr', res);
               if (res.statusCode == 200) {
+                this.updateParentState1.emit(false);
                 this.toastr.success(res.message);
-                this.updateParentVariable(true)
-              
+
                 // this.route.navigate(['/', 'dashboard', 'news-list']);
               }
             },
@@ -161,28 +175,26 @@ export class NewspostComponent implements OnInit, OnDestroy {
           );
       } else {
         console.log('news adding', this.images);
-        this.updateService.postNews(this.newsContent.value)
-          .subscribe(
-            (res: any) => {
-              console.log(res);
-              if (res.statusCode == 200) {
-                this.toastr.success('News added successfully');
- 
-              }
-            },  
-            (error: HttpErrorResponse) => {
-              console.log('error in api', error);
-              this.toastr.error(error.error.message);
+        this.updateService.postNews(this.newsContent.value).subscribe(
+          (res: any) => {
+            console.log(res);
+            if (res.statusCode == 200) {
+              this.toastr.success('News added successfully');
+
+              this.updateParentState1.emit(false);
             }
-          );
+          },
+          (error: HttpErrorResponse) => {
+            console.log('error in api', error);
+            this.toastr.error(error.error.message);
+          }
+        );
       }
     } else {
       this.toastr.error('Enter All Fields');
     }
   }
-  updateParentVariable(value: any) {
-    this.newPost.emit(value);
-  }
+
   addVideo() {
     const videoLink = prompt('Please enter the YouTube video URL:');
     if (videoLink) {
@@ -197,7 +209,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
       }
     }
   }
- 
+
   getYouTubeVideoId(url: string): string | null {
     const videoIdRegex =
       /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&]{11})/;

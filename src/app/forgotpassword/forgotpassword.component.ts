@@ -17,7 +17,9 @@ export class ForgotpasswordComponent {
   password: string = '';
   showOtp: boolean = false;
   showPassword: boolean = false;
+  role:string='';
   forgotPasswordForm = new FormGroup({
+
     email: new FormControl('', [Validators.required, Validators.email])
   });
 
@@ -33,14 +35,14 @@ export class ForgotpasswordComponent {
     translate.use(lang);
   }
 
-  validateEmail(email: string) {
+  validateEmail(email: string ) {
     const re = /^(([^<>()[\\]\\\\.,;:\s@"]+(\.[^<>()[\\]\\\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
 
   submitEmail() {
     if (this.forgotPasswordForm.valid) {
-      this.forgerPasswordService.sendOtp({email:this.forgotPasswordForm.value.email}).subscribe((res:any)=>{
+      this.forgerPasswordService.sendOtp({email:this.forgotPasswordForm.value.email,role:'user'} ).subscribe((res:any)=>{
         if(res.success){
           this.toastr.success(this.translate.instant('TOASTER_RESPONSE.OTP_SENT_SUCCESSFULLY'));
           this.showOtp = true;
@@ -73,6 +75,7 @@ export class ForgotpasswordComponent {
       console.log(this.otp,this.password)
       this.forgerPasswordService.verifyOtp({
         email:this.forgotPasswordForm.value.email,
+        role:'user',
         otp: Number(this.otp),
         newPassword:this.password
       })

@@ -23,9 +23,10 @@ import { Observable, Observer } from 'rxjs';
   styleUrls: ['./newspost.component.scss'],
 })
 export class NewspostComponent implements OnInit, OnDestroy {
+  // inputString: string = '';
   characterCount: number = 0;
-  textarea: string = '';
 
+  
   @Output() updateParentState1: EventEmitter<any> = new EventEmitter<any>();
   showTeamChat: boolean = false;
   @ViewChild('editor') editor: ElementRef | any;
@@ -140,14 +141,15 @@ export class NewspostComponent implements OnInit, OnDestroy {
   countCharacters() {
     const editorContent = this.newsContent.get('content')?.value;
     if (editorContent) {
-        // Remove non-character content using regular expression
-        const cleanContent = editorContent.replace(/[^a-zA-Z]/g, '');
+        // Remove spaces between characters using regular expression
+        const stringWithoutSpacesBetweenChars = editorContent.replace(/(\S)(\s+)(?=\S)/g, '$1');
         // Count characters
-        this.characterCount = cleanContent.length;
+        this.characterCount = stringWithoutSpacesBetweenChars.length;
     } else {
         this.characterCount = 0;
     }
 }
+
 
   submitContent() {
     if (this.newsContent.valid) {

@@ -154,7 +154,7 @@ export class TeamDetailsComponent implements OnInit {
 
         if (this.selectedFile) {
           formData.append('avatar', this.selectedFile);
-          debugger
+          // debugger
           this.team.updateTeamImage(formData).subscribe((res: any) => {
             if (res.statusCode == 200) {
               console.log('ressssssssssss', res);

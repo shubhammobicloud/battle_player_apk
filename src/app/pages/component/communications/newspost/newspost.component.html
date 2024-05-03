@@ -7,7 +7,7 @@
       <input type="text" matInput formControlName="title" >
     
     </mat-form-field>
-    <angular-editor formControlName="content" id="angular-editor" class="angular-editor" [config]="config" #editor (keyup)="countCharacters()">
+    <angular-editor formControlName="content" id="angular-editor" class="angular-editor" [config]="config" #editor (keyup)="countCharacters()" >
       <ng-template #customButtons let-executeCommandFn="executeCommandFn">
         <ae-toolbar-set>
           <ae-button iconClass="fa fa-video-camera" title="Insert Video" (buttonClick)="addVideo()"></ae-button>

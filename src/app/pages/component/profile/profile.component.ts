@@ -84,11 +84,13 @@ export class ProfileComponent implements OnInit {
         }['avatar'],
       });
     }
+    
     this.displayedImage = this.userProfileForm.get('displayedImage')?.value;
   }
 
 
   toggleEditMode(): void {
+   
     this.isEditMode = !this.isEditMode;
 
     if (this.isEditMode) {
@@ -100,8 +102,9 @@ export class ProfileComponent implements OnInit {
         if (this.selectedFile) {
           formData.append('avatar', this.selectedFile);
           this.userService.updatePlayer(formData).subscribe((res: any) => {
+            // debugger
             localStorage.setItem('avatar', res.data.avatar);
-            console.log('Image updated successfully');
+            // console.log('Image updated successfully');
           });
         }
       }

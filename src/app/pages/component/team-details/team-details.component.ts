@@ -12,6 +12,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { TeamService } from 'src/app/services/team/team.service';
 import { UserService } from 'src/app/services/users/users.service';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
+import { TranslateService } from '@ngx-translate/core';
 interface TeamProfile {
   email: string;
   userName: string;
@@ -42,7 +43,8 @@ export class TeamDetailsComponent implements OnInit {
     private team: TeamService,
     private fb: FormBuilder,
     private tostr: ToastrService,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    public translate: TranslateService,
   ) {
     const gameleaderString = localStorage.getItem('gameleader');
     // Convert the string value back to boolean

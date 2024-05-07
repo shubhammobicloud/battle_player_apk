@@ -8,11 +8,12 @@ import { CompanyTeamsComponent } from './company-teams/company-teams.component';
 import { RankingComponent } from './ranking.component';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
+import { NoDataFoundComponent } from '../no-data-found/no-data-found.component';
 
 @NgModule({
   declarations: [
     TeamScoreComponent,RankingComponent,
-    CompanyUnitComponent,
+    CompanyUnitComponent,NoDataFoundComponent,
     GlobalCountriesComponent,
     BattlePatnerTeamComponent,
     CompanyTeamsComponent,

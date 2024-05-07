@@ -39,7 +39,8 @@ redirectedForm:any;
   }
   setPassword(): void {
     if (this.password !== this.confirmPassword) {
-      this.toastr.error('Passwords do not match. Please try again.');
+      this.toastr.error(this.translate.instant('TOASTER_RESPONSE.PASSWORDS_NOT_MATCH_ERROR'));
+
       return;
     }
 
@@ -61,7 +62,8 @@ redirectedForm:any;
        this.userService.setPassword(data).subscribe(
           (res: any) => {
             if ((res.success)) {
-                this.toastr.success(res.message)
+              this.toastr.success(this.translate.instant('TOASTER_RESPONSE.PASSWORD_UPDATED_SUCCESS'));
+
                 this.route.navigate(['/playername',token]);
               }
           },
@@ -69,15 +71,16 @@ redirectedForm:any;
             this.toastr.error(error.error.message);
           });
       } else {
-        this.toastr.error('Passwords do not match. Please try again');
-        
-        
+        this.toastr.error(this.translate.instant('TOASTER_RESPONSE.PASSWORDS_NOT_MATCH_ERROR'));
+
+
+
         this.passwordMismatchError = '';
       }
-      
+
   } else {
     this.toastr.warning(
-      'Password Should Be At Least Of Minimun 8 Character, Must Contain Number And Alphabets'
+      this.translate.instant('TOASTER_RESPONSE.PASSWORD_VALIDATION_MESSAGE')
     );
   }
   }

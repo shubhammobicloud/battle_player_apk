@@ -1,14 +1,11 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environment/enviroment';
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHeaders,
 } from '@angular/common/http';
-import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { MatMenuTrigger } from '@angular/material/menu';
 import { TeamService } from 'src/app/services/team/team.service';
 import { UserService } from 'src/app/services/users/users.service';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
@@ -66,23 +63,14 @@ export class TeamDetailsComponent implements OnInit {
         this.sortTeamProfiles();
       },
       (error: any) => {
+        if(error.error.statusCode==404){
+          this.userIsNotInAnyTeam=true
+        }
         console.error('An error occurred:', error);
         // Handle error here
       }
     );
   }
-
-  //  sortTeamProfilesByGameLeader(teamProfiles: TeamProfile[]): TeamProfile[] {
-  //   return teamProfiles.sort((a, b) => {
-  //     if (a.gameLeader && !b.gameLeader) {
-  //       return -1; // a comes first
-  //     } else if (!a.gameLeader && b.gameLeader) {
-  //       return 1; // b comes first
-  //     } else {
-  //     }
-  //   });
-  // }
-
   initForm(): void {
     this.teamProfileForm = this.fb.group({
       email: [{ value: '', disabled: true }, Validators.email],
@@ -108,9 +96,10 @@ export class TeamDetailsComponent implements OnInit {
 
       this.populateForm();
       this.sortTeamProfiles();
-    });
+    }
+  );
   }
-
+  userIsNotInAnyTeam:boolean=false
   sortTeamProfiles() {
     this.tableData = this.sortTeamProfilesByGameLeader(this.tableData);
   }
@@ -159,12 +148,13 @@ export class TeamDetailsComponent implements OnInit {
           // debugger
           this.team.updateTeamImage(formData).subscribe((res: any) => {
             if (res.statusCode == 200) {
-              console.log('ressssssssssss', res);
+              // console.log('ressssssssssss', res);s
               // localStorage.setItem('avatar', res.data?.avatar);
               console.log('Image updated successfully');
-              this.tostr.success(' Updated successfully');
+              this.tostr.success(this.translate.instant('TOASTER_RESPONSE.IMAGE_ADDED_SUCCESS'));
+
             } else {
-    
+
               this.tostr.error('failed');
             }
           });
@@ -172,7 +162,7 @@ export class TeamDetailsComponent implements OnInit {
       }
     }
   }
-  
+
   selectedFile: File | null = null;
   displayedImage: string | ArrayBuffer | null =
     'https://www.w3schools.com/howto/img_avatar.png';

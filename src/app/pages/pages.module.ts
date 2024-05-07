@@ -17,8 +17,7 @@ import { CommunicationsModule } from './component/communications/communications.
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule,TranslateLoader,TranslateService } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule,TranslateService } from '@ngx-translate/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
@@ -30,8 +29,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ProfileComponent,
     HeaderComponent,
     MenuComponent,
-    TeamDetailsComponent,
-
+    TeamDetailsComponent
   ],
   imports: [
     CommonModule,DragDropModule,

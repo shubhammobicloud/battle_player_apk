@@ -10,7 +10,7 @@
           <mat-card-content class="card-content">
             <p [innerHTML]="sanitizerHTML(news.content)" class="responsive-text"></p>
             <div class="like-container">
-              
+
             </div>
           </mat-card-content>
           <mat-card-actions class="card-action">
@@ -20,18 +20,18 @@
               </button>
               <span *ngIf="news.reaction > 0">{{ news.reaction }} Likes</span>
             </div>
-            <div class="swap-conatiner" *ngIf="showTeamChats && !hidesuper">
+            <!-- <div class="swap-conatiner" *ngIf="showTeamChats && !hidesuper">
               <button class="button-gap" [class.activeTab]="showTeamChat" (click)="updateNews(news)">
                 <mat-icon class="edemo" style="color: rgb(255, 0, 0);;">create</mat-icon>
               </button>
               <button class="button-gap">
                 <mat-icon class="edemo" style="color: rgb(255, 0, 0);" (click)="deleteNews(news._id)">delete</mat-icon>
               </button>
-            </div>
+            </div> -->
           </mat-card-actions>
           <mat-card-footer align="right" class="card-footer">{{ getFormattedDate(news.createdAt) }}</mat-card-footer>
         </mat-card>
       </ng-container>
     </div>
-  </div> 
+  </div>
 </div>

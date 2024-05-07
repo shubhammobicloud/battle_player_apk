@@ -24,10 +24,8 @@ export class ForgotpasswordComponent {
   });
 
   constructor(
-    private http: HttpClient,
     private route: Router,
     private forgerPasswordService: ForgetPasswordService,
-    private rouetrs: ActivatedRoute,
     private toastr:ToastrService,
     public translate:TranslateService
   ) {

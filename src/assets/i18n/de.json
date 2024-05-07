@@ -83,6 +83,8 @@
       "TEAM_CHAT_TAB": "Team-Chat",
       "NEWS_POST_TAB": "Nachrichtenbeitrag",
       "COMPANY_NEWS_TAB": "Unternehmensnachrichten",
+      "REACTIONS_REMOVED_SUCCESS": "Abgelehnt",
+      "REACTIONS_ADDED_SUCCESS": "Gemocht",
       "TEAM_CHAT_PAGE":{
         "READ_MORE": "Mehr lesen",
         "ENTER_MESSAGE_PLACEHOLDER": "Nachricht eingeben"
@@ -111,7 +113,8 @@
     },
     "SAVE": "Speichern",
   "EDIT_PROFILE": "Profil bearbeiten",
-
+  "OOPS_TITLE": "HOPPLA!!!",
+  "NOT_ASSIGNED_TO_TEAM": "Du bist keinem Team zugewiesen",
       "NO_DATA_FOUND": "Keine Daten gefunden",
       "LOGOUT_POPUP":{
         "CONFIRM_LOGOUT": "Abmeldung bestätigen",
@@ -124,6 +127,8 @@
         "LOGIN_SUCCESS_MESSAGE": "Anmeldung erfolgreich",
         "INVALID_CREDENTIALS": "Ungültige Anmeldeinformationen.",
         "FILL_DETAILS_ERROR": "Bitte füllen Sie die Details aus",
+        "PROMPT_VIDEO_URL": "Bitte geben Sie die URL des YouTube-Videos ein:",
+        "INVALID_YOUTUBE_URL": "Ungültige YouTube-URL",
         "NO_MATCHING_DATA_ERROR": "Keine übereinstimmenden Daten gefunden. Bitte überprüfen Sie Ihre Anmeldeinformationen und versuchen Sie es erneut.",
         "EMAIL_REQUIRED_WARNING": "E-Mail erforderlich!!",
         "INVALID_EMAIL_WARNING": "Ungültige E-Mail!!",
@@ -133,7 +138,14 @@
         "PASSWORD_VALIDATION_MESSAGE": "Das Passwort muss mindestens 8 Zeichen lang sein und sowohl Buchstaben als auch Zahlen enthalten.",
         "PASSWORD_UPDATED_SUCCESSFULLY": "Passwort erfolgreich aktualisiert",
         "USERNAME_SET_SUCCESSFUL": "Benutzername erfolgreich festgelegt!!",
-        "PROFILE_IMAGE_UPDATED_SUCCESS": "Profilbild erfolgreich aktualisiert!"
+        "PROFILE_IMAGE_UPDATED_SUCCESS": "Profilbild erfolgreich aktualisiert!",
+        "USERNAME_SET_SUCCESS": "Benutzername erfolgreich festgelegt!!",
+        "PASSWORD_UPDATED_SUCCESS": "Passwort erfolgreich aktualisiert.",
+        "NEWS_ADDED_SUCCESS": "Nachricht erfolgreich hinzugefügt.",
+        "IMAGE_ADDED_SUCCESS": "Bild erfolgreich hinzugefügt.",
+        "ENTER_ALL_FIELDS_ERROR": "Alle Felder ausfüllen",
+        "PASSWORDS_NOT_MATCH_ERROR": "Passwörter stimmen nicht überein. Bitte versuchen Sie es erneut."
+
       }
 
 

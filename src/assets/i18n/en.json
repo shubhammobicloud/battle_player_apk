@@ -85,6 +85,8 @@
       "TEAM_CHAT_TAB": "Team Chat",
       "NEWS_POST_TAB": "News Post",
       "COMPANY_NEWS_TAB": "Company News",
+      "REACTIONS_REMOVED_SUCCESS": "Disliked",
+      "REACTIONS_ADDED_SUCCESS": "Liked",
       "TEAM_CHAT_PAGE":{
         "READ_MORE": "Read more",
         "ENTER_MESSAGE_PLACEHOLDER": "Enter Message"
@@ -113,7 +115,8 @@
     },
     "SAVE": "Save",
     "EDIT_PROFILE": "Edit Profile",
-
+    "OOPS_TITLE": "OOPS!!!",
+    "NOT_ASSIGNED_TO_TEAM": "You are not assigned to any team",
       "NO_DATA_FOUND": "No data found",
       "LOGOUT_POPUP":{
         "CONFIRM_LOGOUT": "Confirm Logout",
@@ -126,6 +129,8 @@
       "LOGIN_SUCCESS_MESSAGE": "Login successfully",
       "INVALID_CREDENTIALS": "Invalid credentials.",
       "FILL_DETAILS_ERROR": "Please fill the details",
+      "PROMPT_VIDEO_URL": "Please enter the YouTube video URL:",
+      "INVALID_YOUTUBE_URL": "Invalid YouTube URL",
       "NO_MATCHING_DATA_ERROR": "No matching data found. Please check your credentials and try again.",
         "INVALID_EMAIL_ERROR": "Invalid Email Id or Email Not Found",
         "EMAIL_REQUIRED_WARNING": "Email Required!!",
@@ -135,7 +140,13 @@
         "PASSWORD_VALIDATION_MESSAGE": "Password should be at least 8 characters long and contain both letters and numbers.",
         "PASSWORD_UPDATED_SUCCESSFULLY": "Password updated successfully",
         "USERNAME_SET_SUCCESSFUL": "Username Set Successful!!",
-        "PROFILE_IMAGE_UPDATED_SUCCESS": "Profile Image Updated Successfully!"
+        "PROFILE_IMAGE_UPDATED_SUCCESS": "Profile Image Updated Successfully!",
+        "USERNAME_SET_SUCCESS": "Username Set Successfully!!",
+        "PASSWORD_UPDATED_SUCCESS": "Password Updated successfully.",
+        "NEWS_ADDED_SUCCESS": "News added successfully.",
+        "IMAGE_ADDED_SUCCESS": "Image added successfully.",
+        "ENTER_ALL_FIELDS_ERROR": "Enter All Fields",
+        "PASSWORDS_NOT_MATCH_ERROR": "Passwords do not match. Please try again."
     }
 
 

@@ -27,7 +27,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
   // inputString: string = '';
   characterCount: number = 0;
 
-  
+
   @Output() updateParentState1: EventEmitter<any> = new EventEmitter<any>();
   showTeamChat: boolean = false;
   @ViewChild('editor') editor: ElementRef | any;
@@ -147,12 +147,12 @@ export class NewspostComponent implements OnInit, OnDestroy {
       const cleanContent = editorContent.replace(/[^a-zA-Z]/g, '');
       // Count characters
       this.characterCount = cleanContent.length;
-  
+
       // Allow backspace to work
       if (event.keyCode === 8) { // 8 is the key code for backspace
         return;
       }
-  
+
       // Disable typing when character count exceeds 800
       if (this.characterCount >= 800) {
         event.preventDefault(); // Prevent further key presses
@@ -160,7 +160,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
     } else {
       this.characterCount = 0; // If content is null, set character count to 0
     }
-  
+
     // Check if the target is the video input
     if (event.target.id === 'video-input') {
       // Allow only up to 3 characters in the video input
@@ -225,7 +225,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const videoLink = prompt('Please enter the YouTube video URL:');
+    const videoLink = prompt(this.translate.instant('TOASTER_RESPONSE.PROMPT_VIDEO_URL'));
     if (videoLink) {
       const videoId = this.getYouTubeVideoId(videoLink);
       if (videoId) {

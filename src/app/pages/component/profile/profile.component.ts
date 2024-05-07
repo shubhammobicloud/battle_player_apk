@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  
+
   getUserDetails() {
     this.userService.getProfileDetails().subscribe((response: any) => {
       // console.log('demo',data)
@@ -65,10 +65,10 @@ export class ProfileComponent implements OnInit {
       console.log("res",response.data?.teamId?.name)
       this.isSuperuser = response.data.superUser
       this.userProfileForm.patchValue({companyUnit:response.data?.teamId?.companyUnit})
-      
+
       // this.userProfile?.teamId as unknown as{[key:string]:string}['name']
 
-      
+
       this.userProfileForm.patchValue({email:response.data.email})
       this.userProfileForm.patchValue({companyName:response.data.companyId.name})
       // this.userProfileForm.patchValue({displayedImage:response.data.avatar})
@@ -80,7 +80,7 @@ export class ProfileComponent implements OnInit {
   populateForm(): void {
     if (this.userProfile) {
       this.userProfileForm.patchValue({
-        
+
         displayedImage: this.userProfile.avatar as unknown as {
           [key: string]: string;
         }['avatar'],
@@ -89,13 +89,13 @@ export class ProfileComponent implements OnInit {
         // ],
       });
     }
-    
+
     this.displayedImage = this.userProfileForm.get('displayedImage')?.value;
   }
 
 
   toggleEditMode(): void {
-   
+
     this.isEditMode = !this.isEditMode;
 
     if (this.isEditMode) {
@@ -113,7 +113,7 @@ export class ProfileComponent implements OnInit {
               console.log('Profile updated successfully');
               // this.tostr.success('Profile updated successfully');
             } else {
-    
+
               this.tostr.error('failed');
             }
             // console.log('Image updated successfully');

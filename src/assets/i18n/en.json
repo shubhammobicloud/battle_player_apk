@@ -91,7 +91,8 @@
       },
       "NEWS_POST_PAGE":{
         "TITLE_LABEL": "Title",
-        "POST_BUTTON_TEXT": "Post"
+        "POST_BUTTON_TEXT": "Post",
+        "EDITOR_PLACEHOLDER": "Enter text here..."
       }
 
     },
@@ -110,6 +111,8 @@
       "COMPANY_UNIT": "Company Unit",
       "GLOBAL_COMPANY": "Global Company"
     },
+    "SAVE": "Save",
+    "EDIT_PROFILE": "Edit Profile",
 
       "NO_DATA_FOUND": "No data found",
       "LOGOUT_POPUP":{
@@ -121,6 +124,7 @@
       },
     "TOASTER_RESPONSE":{
       "LOGIN_SUCCESS_MESSAGE": "Login successfully",
+      "INVALID_CREDENTIALS": "Invalid credentials.",
       "FILL_DETAILS_ERROR": "Please fill the details",
       "NO_MATCHING_DATA_ERROR": "No matching data found. Please check your credentials and try again.",
         "INVALID_EMAIL_ERROR": "Invalid Email Id or Email Not Found",
@@ -130,7 +134,8 @@
         "OTP_SENT_SUCCESSFULLY": "OTP sent successfully",
         "PASSWORD_VALIDATION_MESSAGE": "Password should be at least 8 characters long and contain both letters and numbers.",
         "PASSWORD_UPDATED_SUCCESSFULLY": "Password updated successfully",
-        "USERNAME_SET_SUCCESSFUL": "Username Set Successful!!"
+        "USERNAME_SET_SUCCESSFUL": "Username Set Successful!!",
+        "PROFILE_IMAGE_UPDATED_SUCCESS": "Profile Image Updated Successfully!"
     }
 
 

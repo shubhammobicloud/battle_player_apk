@@ -54,6 +54,7 @@
       .login-content {
         text-align: center;
         display: flex;
+        align-items: center;
         margin: 5px 10px;
         flex-direction: column;
 
@@ -65,6 +66,7 @@
 
         .form-container {
           display: flex;
+          align-items: center;
           flex-direction: column;
           // margin-bottom: 20px;
 
@@ -83,15 +85,16 @@
 
         .button-login {
           background-color: #cc0000;
-          border-radius: 10px;
-          width: 100%;
+          border-radius: 6px;
+          width: 50%;
           text-align: center;
           // margin-top: 50px;
 
           button {
             width: 100%;
-            font-size: 1.4rem;
-            font-weight: 300;
+            font-size: 1.2rem;
+            font-weight: 3
+            00;
             color:  white;
           }
         }

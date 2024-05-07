@@ -16,6 +16,7 @@ import { NewsUpdateService } from 'src/app/services/news/newsUpdate.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Observer } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-newspost',
@@ -45,7 +46,8 @@ export class NewspostComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private updateService: NewsUpdateService,
     private route: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private translate:TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -131,7 +133,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
         }
       );
     },
-    placeholder: 'Enter text here...',
+    placeholder: this.translate.instant('COMMUNICATION_PAGE.NEWS_POST_PAGE.EDITOR_PLACEHOLDER'),
     translate: 'no',
     sanitize: false,
     toolbarPosition: 'top',

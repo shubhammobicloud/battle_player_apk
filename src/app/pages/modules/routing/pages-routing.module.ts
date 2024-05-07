@@ -8,26 +8,20 @@ import { RankingComponent } from '../../component/ranking/ranking.component';
 import { CommunicationsComponent } from '../../component/communications/communications.component';
 import { TeamDetailsComponent } from '../../component/team-details/team-details.component';
 import { NewspostComponent } from '../../component/communications/newspost/newspost.component';
-
+import { AuthGuardService as authGuard } from 'src/app/services/auth guard/auth-guard.service';
 const routes: Routes = [
   {
     path: 'home',
     component: PagesComponent,
+    canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'mybattle', pathMatch: 'full' },
-      { path: 'mybattle', component: ScoreBoardComponent },
-      { path: 'ranking', component: RankingComponent },
-      {
-        path: 'newspost',
-        component: NewspostComponent,
-      },
-
-      {
-        path: 'communications',
-        component: CommunicationsComponent,
-      },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'Team-profile', component: TeamDetailsComponent },
+      { path: 'mybattle',canActivate: [authGuard], component: ScoreBoardComponent },
+      { path: 'ranking', canActivate: [authGuard],component: RankingComponent },
+      { path: 'newspost',canActivate: [authGuard], component: NewspostComponent },
+      { path: 'communications',canActivate: [authGuard], component: CommunicationsComponent },
+      { path: 'profile',canActivate: [authGuard], component: ProfileComponent },
+      { path: 'Team-profile', canActivate: [authGuard],component: TeamDetailsComponent },
     ],
   },
 ];

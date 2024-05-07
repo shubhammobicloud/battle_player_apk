@@ -50,7 +50,7 @@ export class PlayerImageComponent {
           (res: any) => {
             console.log('File upload response:', res);
             if (res.success) {
-              this.toastr.success('Profile Image Updated Successfully!');
+              this.toastr.success(this.translate.instant('TOASTER_RESPONSE.PROFILE_IMAGE_UPDATED_SUCCESS'));
               localStorage.setItem("avatar",res.data.avatar)
               if (res.data.gameLeader) {
                 this.route.navigate(['/', 'teamImage', token]);

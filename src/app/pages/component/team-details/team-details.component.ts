@@ -131,9 +131,9 @@ export class TeamDetailsComponent implements OnInit {
         name: (this.TeamProfile.teamId as unknown as { [key: string]: string })[
           'name'
         ],
-        // displayedImage: this.TeamProfile.avatar as unknown as {
-        //   [key: string]: string;
-        // }['avatar'],
+        displayedImage: this.TeamProfile.avatar as unknown as {
+          [key: string]: string;
+        }['avatar'],
       });
     }
     // this.displayedImage = this.teamProfileForm.get('displayedImage')?.value;

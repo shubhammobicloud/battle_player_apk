@@ -71,7 +71,8 @@
   "MENU_OPTIONS": {
     "MYBATTLE": "My Battle",
     "RANKING": "Ranking",
-    "COMMUNICATION": "Chat",
+    "COMMUNICATION": "Chat" ,
+    
     "PROFILE": "Profile"
   },
   "HEADER_PAGE": {

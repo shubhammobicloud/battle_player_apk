@@ -27,6 +27,11 @@ export class ProfileComponent implements OnInit {
   userProfileForm!: FormGroup;
   isEditMode = false;
   link = environment.baseUrl;
+  defaultImage = 'assets/images.png';
+   // Set this to true if you want to enable edit mode by default
+  // other component code
+
+
   isSuperuser:boolean = false
   constructor(
     private http: HttpClient,
@@ -66,22 +71,22 @@ export class ProfileComponent implements OnInit {
       
       this.userProfileForm.patchValue({email:response.data.email})
       this.userProfileForm.patchValue({companyName:response.data.companyId.name})
-      this.userProfileForm.patchValue({displayedImage:response.data.avatar})
+      // this.userProfileForm.patchValue({displayedImage:response.data.avatar})
       this.userProfileForm.patchValue({name:response.data.userName})
       // console.log('demo')
-      this.populateForm();
+     this.populateForm()
     });
   }
   populateForm(): void {
     if (this.userProfile) {
       this.userProfileForm.patchValue({
         
-        name: (this.userProfile.teamId as unknown as { [key: string]: string })[
-          'name'
-        ],
         displayedImage: this.userProfile.avatar as unknown as {
           [key: string]: string;
         }['avatar'],
+        // name: (this.userProfile.teamId as unknown as { [key: string]: string })[
+        //   'name'
+        // ],
       });
     }
     
@@ -102,8 +107,15 @@ export class ProfileComponent implements OnInit {
         if (this.selectedFile) {
           formData.append('avatar', this.selectedFile);
           this.userService.updatePlayer(formData).subscribe((res: any) => {
-            // debugger
-            localStorage.setItem('avatar', res.data.avatar);
+            if (res.statusCode == 200) {
+              console.log('ressssssssssss', res);
+              localStorage.setItem('avatar', res.data?.avatar);
+              console.log('Profile updated successfully');
+              // this.tostr.success('Profile updated successfully');
+            } else {
+    
+              this.tostr.error('failed');
+            }
             // console.log('Image updated successfully');
           });
         }
@@ -121,6 +133,7 @@ export class ProfileComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.displayedImage = reader.result as string;
+        this.tostr.success('Profile Image updated successfully');
       };
       this.selectedFile = fileInput.files[0];
       console.log(this.selectedFile);

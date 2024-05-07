@@ -8,12 +8,17 @@ import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 
 import {  Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import { NewsUpdateService } from '../services/news/newsUpdate.service';
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss'],
 })
 export class PagesComponent implements OnInit {
+  communicationTranslation: string='';
+  showTeamChat: boolean = true;
+  hidesuper: boolean = false;
   backgroundImageUrl!: any;
   isActiveButton: string | null = null;
   constructor(
@@ -21,8 +26,11 @@ export class PagesComponent implements OnInit {
     private dashboardService: DashboardService,
     private http: HttpClient,
     private router:Router,
-    private toast:ToastrService
-  ) {
+    private toast:ToastrService,
+    private updateNews:NewsUpdateService) {
+      this.showTeamChat = updateNews.showTeamChat
+    
+  
     let lang: any = localStorage.getItem('lang');
     translate.use(lang);
   }
@@ -32,6 +40,34 @@ export class PagesComponent implements OnInit {
     }else{
       this.isActiveButton='mybattle'
     }
+    // this.setCommunicationTranslation()
+     // Call the method to set communication translation
+     const token: any = localStorage.getItem('token');
+     let data: {
+      _id: any;
+      teamId: any;
+      avatar: any;
+      userName: any;
+      superUser: boolean;
+    } = jwtDecode(token);
+    console.log('check', data.superUser);
+
+    this.hidesuper = data.superUser;
+    // this.hidesuper=true
+    
+    if (data.superUser) {
+      this.showTeamChat = !this.showTeamChat;
+      
+  
+    }
+  }
+  
+  
+  setCommunicationTranslation(): void {
+    const communicationKey = this.showTeamChat && this.hidesuper ? 'COMMUNICATION' : 'COMMUNICATIONS';
+    this.communicationTranslation = this.translate.instant('MENU_OPTIONS.' + communicationKey);
+  
+    // Now you can use the communicationTranslation variable as needed
   }
 
   getEventImage() {
@@ -55,6 +91,8 @@ export class PagesComponent implements OnInit {
   }
 
   onButtonClick(path: string): void {
+    
+    
     this.isActiveButton = path;
     localStorage.setItem("activePage",this.isActiveButton)
     this.router.navigate(['home', path]);

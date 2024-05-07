@@ -17,9 +17,9 @@
           [src]="
             selectedFile
               ? displayedImage
-              : displayedImage
+              : displayedImage 
               ? link + 'images/' + displayedImage
-              : '../../assets/images.png'
+              : defaultImage
           "
           alt="User Avatar"
           style="cursor: pointer"

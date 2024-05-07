@@ -162,7 +162,7 @@ export class TeamDetailsComponent implements OnInit {
               console.log('ressssssssssss', res);
               // localStorage.setItem('avatar', res.data?.avatar);
               console.log('Image updated successfully');
-              this.tostr.success('Image added successfully');
+              this.tostr.success(' Updated successfully');
             } else {
     
               this.tostr.error('failed');
@@ -183,6 +183,7 @@ export class TeamDetailsComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.displayedImage = reader.result as string;
+        this.tostr.success('Image added successfully');
       };
       this.selectedFile = fileInput.files[0];
       console.log(this.selectedFile);

@@ -8,6 +8,7 @@ import {
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/users/users.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface UserProfile {
   email: string;
@@ -38,6 +39,7 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder,
     private tostr: ToastrService,
     private userService: UserService,
+    public translate:TranslateService
 
   ) {}
   ngOnInit() {
@@ -75,7 +77,18 @@ export class ProfileComponent implements OnInit {
       this.userProfileForm.patchValue({name:response.data.userName})
       // console.log('demo')
      this.populateForm()
-    });
+    },
+    (error)=>{
+      if(error.error.message=='Resource not found. Please check the ID and try again.'){
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
+      }else if(error.error.message=='No user found.'){
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_NO_USER_FOUND'))
+      }
+      else{
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+      }
+    }
+    );
   }
   populateForm(): void {
     if (this.userProfile) {

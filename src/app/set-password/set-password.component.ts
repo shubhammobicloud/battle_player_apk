@@ -68,6 +68,17 @@ redirectedForm:any;
               }
           },
           (error:any)=>{
+            if(error.error.message=='Token is required.'){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_TOKEN_REQUIRED'))
+            }else if(error.error.message=='Password must be at least 8 characters long.'){
+                this.toastr.error(this.translate.instant('SET_PASSWORD_PAGE.PASSWORD_LENGTH_ERROR'))
+            }else if(error.error.message == 'Please enter valid password.'){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_INVALID_PASSWORD'))
+            }else if(error.error.message=='Your session has expired. Please log in again.'){
+              this.toastr.error(this.translate.instant("TOASTER_ERROR.ERROR_SESSION_EXPIRED"))
+            }else{
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+            }
             this.toastr.error(error.error.message);
           });
       } else {

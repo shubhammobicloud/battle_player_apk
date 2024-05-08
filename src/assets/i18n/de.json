@@ -146,7 +146,37 @@
         "ENTER_ALL_FIELDS_ERROR": "Alle Felder ausfüllen",
         "PASSWORDS_NOT_MATCH_ERROR": "Passwörter stimmen nicht überein. Bitte versuchen Sie es erneut."
 
+      },
+      "TOASTER_ERROR":{
+        "SERVER_ERROR": "Serverfehler",
+        "ERROR_TOKEN_REQUIRED": "Token wird benötigt.",
+        "ERROR_INVALID_PASSWORD": "Bitte geben Sie ein gültiges Passwort ein.",
+        "ERROR_SESSION_EXPIRED": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+        "ERROR_IMAGE_SIZE_EXCEEDS_LIMIT": "Image size exceeds the limit. Please upload a smaller file that is less than 5MB.",
+        "ERROR_INVALID_FILE_TYPE": "Ungültiger Dateityp. Nur Bilder erlaubt.",
+        "ERROR_NO_USER_FOUND": "Kein Benutzer gefunden.",
+        "ERROR_NO_TEAM_DATA_FOUND": "Keine Teamdaten gefunden.",
+        "ERROR_RESOURCE_NOT_FOUND": "Ressource nicht gefunden. Bitte überprüfen Sie die ID und versuchen Sie es erneut.",
+        "ERROR_UNAUTHORIZED": "Nicht autorisiert",
+        "ERROR_SERVER": "Auf dem Server ist ein Fehler aufgetreten.",
+        "ERROR_INVALID_INPUT_PARAMETERS": "Ungültige Eingabeparameter",
+        "ERROR_EMAIL_NOT_ASSOCIATED_WITH_WUERTH": "Diese E-Mail ist nicht mit Wuerth verbunden.",
+        "ERROR_EMPTY_EMAIL": "E-Mail darf nicht leer sein",
+        "ERROR_INVALID_EMAIL": "Ungültige E-Mail-Adresse",
+        "ERROR_EMPTY_OTP": "OTP darf nicht leer sein",
+        "ERROR_NUMERIC_OTP": "OTP enthält nur numerische Werte.",
+        "ERROR_INVALID_OTP_LENGTH": "Der OTP muss aus sechs Ziffern bestehen.",
+        "ERROR_EMPTY_TITLE": "Titel darf nicht leer sein.",
+        "ERROR_TITLE_LENGTH_MINIMUM": "Der Titel muss mindestens 10 Zeichen enthalten.",
+        "ERROR_TITLE_LENGTH_MAXIMUM": "Der Titel darf maximal 200 Zeichen enthalten.",
+        "ERROR_EMPTY_CONTENT": "Inhalt darf nicht leer sein.",
+        "ERROR_CONTENT_LENGTH": "Der Inhalt muss zwischen 10 und 1000 Zeichen lang sein.",
+        "ERROR_INVALID_NEWS_OR_USER_ID": "Ungültige Nachrichten-ID oder Benutzer-ID",
+        "ERROR_EMPTY_FILE_ATTACHMENT": "Bitte fügen Sie eine Datei zum Hochladen an",
+        "ERROR_NO_BATTLE_PARTNER_FOR_TEAM": "Dieses Team hat keinen Kampfpartner.",
+        "ERROR_INVALID_TEAM_OR_BATTLE_PARTNER_ID": "Ungültige Team-ID oder Kampfpartner-Team-ID"
       }
+
 
 
 

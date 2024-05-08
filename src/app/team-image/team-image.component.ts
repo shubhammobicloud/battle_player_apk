@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TeamService } from '../services/team/team.service';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../services/users/users.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-team-image',
   templateUrl: './team-image.component.html',
@@ -13,7 +14,8 @@ export class TeamImageComponent {
     private userService: UserService,
     private route: Router,
     private teamService: TeamService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private toastr:ToastrService
   ) {
 
 
@@ -55,8 +57,17 @@ export class TeamImageComponent {
             this.route.navigate(['/', 'home']);
           }
         },
-        (error) => {
-          console.error('Error uploading file:', error);
+        (error)=>{
+          if(error.error.message=='Invalid file type. Only Image allowed.'){
+            this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_INVALID_FILE_TYPE'));
+          }else if(error.error.message=='Image size exceeds the limit. Please upload a smaller file that is less than 5MB.'){
+            this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_IMAGE_SIZE_EXCEEDS_LIMIT'))
+          }else if(error.error.message=='Unauthorized'){
+            this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_UNAUTHORIZED'))
+
+          }else{
+            this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+          }
         }
       );
     } else {

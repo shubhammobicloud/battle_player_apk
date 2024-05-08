@@ -59,8 +59,17 @@ export class PlayerImageComponent {
               }
             }
           },
-          (error) => {
-            console.error('Error uploading file:', error);
+          (error)=>{
+            if(error.error.message=='Invalid file type. Only Image allowed.'){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_INVALID_FILE_TYPE'));
+            }else if(error.error.message=='Image size exceeds the limit. Please upload a smaller file that is less than 5MB.'){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_IMAGE_SIZE_EXCEEDS_LIMIT'))
+            }else if(error.error.message=='Unauthorized'){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_UNAUTHORIZED'))
+
+            }else{
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+            }
           }
         );
     } else {

@@ -87,6 +87,8 @@ languageCodes = ['en', 'de'];
               this.translate.get('TOASTER_RESPONSE.INVALID_CREDENTIALS').subscribe((translation: string) => {
                 this.toastr.error(translation);
               });
+            }else{
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
             }
             // this.toastr.error(error.error.message)
           }

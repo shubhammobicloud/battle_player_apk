@@ -72,7 +72,7 @@
     "MYBATTLE": "My Battle",
     "RANKING": "Ranking",
     "COMMUNICATION": "Chat" ,
-    
+
     "PROFILE": "Profile"
   },
   "HEADER_PAGE": {
@@ -147,7 +147,38 @@
         "IMAGE_ADDED_SUCCESS": "Image added successfully.",
         "ENTER_ALL_FIELDS_ERROR": "Enter All Fields",
         "PASSWORDS_NOT_MATCH_ERROR": "Passwords do not match. Please try again."
+    },
+    "TOASTER_ERROR":{
+      "SERVER_ERROR": "Server error",
+      "ERROR_TOKEN_REQUIRED": "Token is required.",
+      "ERROR_INVALID_PASSWORD": "Please enter valid password.",
+      "ERROR_SESSION_EXPIRED": "Your session has expired. Please log in again.",
+      "ERROR_IMAGE_SIZE_EXCEEDS_LIMIT": "Image size exceeds the limit. Please upload a smaller file that is less than 5MB.",
+      "ERROR_INVALID_FILE_TYPE": "Invalid file type. Only Image allowed.",
+      "ERROR_NO_USER_FOUND": "No user found.",
+
+      "ERROR_NO_TEAM_DATA_FOUND": "No Team data found.",
+      "ERROR_RESOURCE_NOT_FOUND": "Resource not found. Please check the ID and try again.",
+      "ERROR_UNAUTHORIZED": "Unauthorized",
+      "ERROR_SERVER": "Something went wrong on the server.",
+      "ERROR_INVALID_INPUT_PARAMETERS": "Invalid input parameters",
+      "ERROR_EMAIL_NOT_ASSOCIATED_WITH_WUERTH": "This email is not associated with wuerth",
+      "ERROR_EMPTY_EMAIL": "Email should not be empty",
+      "ERROR_INVALID_EMAIL": "Invalid email address",
+      "ERROR_EMPTY_OTP": "Otp should not be empty",
+      "ERROR_NUMERIC_OTP": "Otp contains only numeric value.",
+      "ERROR_INVALID_OTP_LENGTH": "The OTP must consist of six digits.",
+      "ERROR_EMPTY_TITLE": "Title should not be empty.",
+      "ERROR_TITLE_LENGTH_MINIMUM": "The title must contain a minimum of 10 characters.",
+      "ERROR_TITLE_LENGTH_MAXIMUM": "The title must not exceed 200 characters.",
+      "ERROR_EMPTY_CONTENT": "Content should not be empty.",
+      "ERROR_CONTENT_LENGTH": "Content should be between 10 and 1000 characters.",
+      "ERROR_INVALID_NEWS_OR_USER_ID": "Invalid news id or user id",
+      "ERROR_EMPTY_FILE_ATTACHMENT": "Please attach a file to upload",
+      "ERROR_NO_BATTLE_PARTNER_FOR_TEAM": "This team does not have a battle partner.",
+      "ERROR_INVALID_TEAM_OR_BATTLE_PARTNER_ID": "Invalid team id or battle partner team id"
     }
+
 
 
 

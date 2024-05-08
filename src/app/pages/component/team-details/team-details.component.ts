@@ -63,10 +63,14 @@ export class TeamDetailsComponent implements OnInit {
         this.sortTeamProfiles();
       },
       (error: any) => {
-        if(error.error.statusCode==404){
-          this.userIsNotInAnyTeam=true
+        if(error.error.message=='Something went wrong on the server.'){
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_SERVER'))
+        }else if(error.error.message=='Resource not found. Please check the ID and try again.'){
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
+        }else{
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
         }
-        console.error('An error occurred:', error);
+        // console.error('An error occurred:', error);
         // Handle error here
       }
     );
@@ -96,6 +100,15 @@ export class TeamDetailsComponent implements OnInit {
 
       this.populateForm();
       this.sortTeamProfiles();
+    }, (error)=>{
+      if(error.error.message=='Resource not found. Please check the ID and try again.'){
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
+      }else if(error.error.message=='No user found.'){
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_NO_USER_FOUND'))
+      }
+      else{
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+      }
     }
   );
   }
@@ -190,7 +203,13 @@ export class TeamDetailsComponent implements OnInit {
 
       },
       error: (err: HttpErrorResponse) => {
-        console.log('api error ', err);
+        if(err.error.message=='Resource not found. Please check the ID and try again.'){
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
+        }else if(err.error.message=='No Team data found.'){
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_NO_TEAM_DATA_FOUND'))
+        }else{
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+        }
       },
     });
   }

@@ -50,8 +50,19 @@ export class ForgotpasswordComponent {
             this.toastr.error(translation);
           });
         }
-      },(error:any)=>{
-        this.toastr.error(error.error.message)
+      },(error)=>{
+        if(error.error.message=='Invalid input parameters'){
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_INVALID_INPUT_PARAMETERS'))
+        }else if(error.error.message=='Unauthorized'){
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_UNAUTHORIZED'))
+        }else if(error.error.message=='This email is not associated with wuerth'){
+            this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_EMAIL_NOT_ASSOCIATED_WITH_WUERTH'))
+        }else if(error.error.message=='Email should not be empty'){
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_EMPTY_EMAIL'))
+
+        }else{
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+        }
       }
       )
 
@@ -84,7 +95,20 @@ export class ForgotpasswordComponent {
           this.route.navigate(['/'])
         }
       },(error)=>{
-        this.toastr.error(error.error.message)
+        if(error.error.message=='Otp should not be empty'){
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_EMPTY_OTP'))
+        }else if(error.error.message=='Otp contains only numeric value.'){
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_NUMERIC_OTP'))
+        }else if(error.error.message=='The OTP must consist of six digits.'){
+            this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_INVALID_OTP_LENGTH'))
+        }else if(error.error.message=='Unauthorized'){
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_UNAUTHORIZED'))
+        }else if(error.error.message=='Email should not be empty'){
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_EMPTY_EMAIL'))
+
+        }else{
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+        }
       });
     }else{
       this.toastr.warning(

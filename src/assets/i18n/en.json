@@ -3,8 +3,8 @@
     "LOGIN_PAGE": {
       "LOGO_ALT_TEXT": "Sports Logo",
       "WUERTH_LOGO_ALT_TEXT": "Wuerth Logo",
-      "HELLO_PLAYERS": "Hello Players",
-      "READY_FOR_BATTLE_DAY": "Are You Ready For Battle Day",
+      "HELLO_PLAYERS": "Hello players..!!",
+      "READY_FOR_BATTLE_DAY": "Are you ready for battle day?",
       "LOGIN_TITLE": "LOGIN",
       "LOGIN_SUBTITLE": "For Battle",
       "EMAIL_LABEL": "Email",
@@ -16,6 +16,18 @@
       "PASSWORD_REQUIRED_ERROR": "Password is required",
       "FORGOT_PASSWORD_LINK": "Forgot Password?",
       "LOGIN_BUTTON_TEXT": "Login"
+    },
+    "FORGOT_PASSWORD":{
+      "FORGOT_PASSWORD_TITLE": "Forgot Password",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_REQUIRED_ERROR": "Email is required",
+      "EMAIL_INVALID_ERROR": "Invalid email format",
+      "OTP_LABEL": "OTP",
+      "OTP_REQUIRED_ERROR": "OTP is required",
+      "PASSWORD_LABEL": "Password",
+      "PASSWORD_REQUIRED_ERROR": "Password is required",
+      "REQUEST_OTP_BUTTON": "Request OTP",
+      "SUBMIT_BUTTON": "Submit"
     },
     "SET_PASSWORD_PAGE": {
       "SPORTS_LOGO_ALT_TEXT": "Sports Logo",
@@ -59,7 +71,8 @@
   "MENU_OPTIONS": {
     "MYBATTLE": "My Battle",
     "RANKING": "Ranking",
-    "COMMUNICATION": "Chat",
+    "COMMUNICATION": "Chat" ,
+
     "PROFILE": "Profile"
   },
   "HEADER_PAGE": {
@@ -72,13 +85,16 @@
       "TEAM_CHAT_TAB": "Team Chat",
       "NEWS_POST_TAB": "News Post",
       "COMPANY_NEWS_TAB": "Company News",
+      "REACTIONS_REMOVED_SUCCESS": "Disliked",
+      "REACTIONS_ADDED_SUCCESS": "Liked",
       "TEAM_CHAT_PAGE":{
         "READ_MORE": "Read more",
         "ENTER_MESSAGE_PLACEHOLDER": "Enter Message"
       },
       "NEWS_POST_PAGE":{
         "TITLE_LABEL": "Title",
-        "POST_BUTTON_TEXT": "Post"
+        "POST_BUTTON_TEXT": "Post",
+        "EDITOR_PLACEHOLDER": "Enter text here..."
       }
 
     },
@@ -97,7 +113,10 @@
       "COMPANY_UNIT": "Company Unit",
       "GLOBAL_COMPANY": "Global Company"
     },
-
+    "SAVE": "Save",
+    "EDIT_PROFILE": "Edit Profile",
+    "OOPS_TITLE": "OOPS!!!",
+    "NOT_ASSIGNED_TO_TEAM": "You are not assigned to any team",
       "NO_DATA_FOUND": "No data found",
       "LOGOUT_POPUP":{
         "CONFIRM_LOGOUT": "Confirm Logout",
@@ -105,7 +124,61 @@
         "YES": "Yes",
         "NO": "No",
         "LOGOUT_SUCCESS": "Logout successfully."
-      }
+      },
+    "TOASTER_RESPONSE":{
+      "LOGIN_SUCCESS_MESSAGE": "Login successfully",
+      "INVALID_CREDENTIALS": "Invalid credentials.",
+      "FILL_DETAILS_ERROR": "Please fill the details",
+      "PROMPT_VIDEO_URL": "Please enter the YouTube video URL:",
+      "INVALID_YOUTUBE_URL": "Invalid YouTube URL",
+      "NO_MATCHING_DATA_ERROR": "No matching data found. Please check your credentials and try again.",
+        "INVALID_EMAIL_ERROR": "Invalid Email Id or Email Not Found",
+        "EMAIL_REQUIRED_WARNING": "Email Required!!",
+        "INVALID_EMAIL_WARNING": "Invalid Email!!",
+        "SENDING_OTP": "Sending OTP...",
+        "OTP_SENT_SUCCESSFULLY": "OTP sent successfully",
+        "PASSWORD_VALIDATION_MESSAGE": "Password should be at least 8 characters long and contain both letters and numbers.",
+        "PASSWORD_UPDATED_SUCCESSFULLY": "Password updated successfully",
+        "USERNAME_SET_SUCCESSFUL": "Username Set Successful!!",
+        "PROFILE_IMAGE_UPDATED_SUCCESS": "Profile Image Updated Successfully!",
+        "USERNAME_SET_SUCCESS": "Username Set Successfully!!",
+        "PASSWORD_UPDATED_SUCCESS": "Password Updated successfully.",
+        "NEWS_ADDED_SUCCESS": "News added successfully.",
+        "IMAGE_ADDED_SUCCESS": "Image added successfully.",
+        "ENTER_ALL_FIELDS_ERROR": "Enter All Fields",
+        "PASSWORDS_NOT_MATCH_ERROR": "Passwords do not match. Please try again."
+    },
+    "TOASTER_ERROR":{
+      "SERVER_ERROR": "Server error",
+      "ERROR_TOKEN_REQUIRED": "Token is required.",
+      "ERROR_INVALID_PASSWORD": "Please enter valid password.",
+      "ERROR_SESSION_EXPIRED": "Your session has expired. Please log in again.",
+      "ERROR_IMAGE_SIZE_EXCEEDS_LIMIT": "Image size exceeds the limit. Please upload a smaller file that is less than 5MB.",
+      "ERROR_INVALID_FILE_TYPE": "Invalid file type. Only Image allowed.",
+      "ERROR_NO_USER_FOUND": "No user found.",
+
+      "ERROR_NO_TEAM_DATA_FOUND": "No Team data found.",
+      "ERROR_RESOURCE_NOT_FOUND": "Resource not found. Please check the ID and try again.",
+      "ERROR_UNAUTHORIZED": "Unauthorized",
+      "ERROR_SERVER": "Something went wrong on the server.",
+      "ERROR_INVALID_INPUT_PARAMETERS": "Invalid input parameters",
+      "ERROR_EMAIL_NOT_ASSOCIATED_WITH_WUERTH": "This email is not associated with wuerth",
+      "ERROR_EMPTY_EMAIL": "Email should not be empty",
+      "ERROR_INVALID_EMAIL": "Invalid email address",
+      "ERROR_EMPTY_OTP": "Otp should not be empty",
+      "ERROR_NUMERIC_OTP": "Otp contains only numeric value.",
+      "ERROR_INVALID_OTP_LENGTH": "The OTP must consist of six digits.",
+      "ERROR_EMPTY_TITLE": "Title should not be empty.",
+      "ERROR_TITLE_LENGTH_MINIMUM": "The title must contain a minimum of 10 characters.",
+      "ERROR_TITLE_LENGTH_MAXIMUM": "The title must not exceed 200 characters.",
+      "ERROR_EMPTY_CONTENT": "Content should not be empty.",
+      "ERROR_CONTENT_LENGTH": "Content should be between 10 and 1000 characters.",
+      "ERROR_INVALID_NEWS_OR_USER_ID": "Invalid news id or user id",
+      "ERROR_EMPTY_FILE_ATTACHMENT": "Please attach a file to upload",
+      "ERROR_NO_BATTLE_PARTNER_FOR_TEAM": "This team does not have a battle partner.",
+      "ERROR_INVALID_TEAM_OR_BATTLE_PARTNER_ID": "Invalid team id or battle partner team id"
+    }
+
 
 
 

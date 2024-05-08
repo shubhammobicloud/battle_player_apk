@@ -2,8 +2,22 @@
 .container {
   display: flex;
   align-items: center;
-  background-color: rgb(255, 0, 0);
   width: 100%;
+  .header-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #cc0000;
+    .header-logo{
+     img{
+      width: 80px;
+     }
+    }
+    .header-title{
+      text-align: center;
+      color: white;
+    }
+}
 }
 
 h2 {

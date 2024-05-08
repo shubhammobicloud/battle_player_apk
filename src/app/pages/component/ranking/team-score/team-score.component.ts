@@ -28,15 +28,5 @@ export class TeamScoreComponent {
       );
   }
 
-  // countDefaultIdOccurrences(data: any[], defaultId: string): number {
-  //   let count = 1;
 
-  //   for (const item of data) {
-  //     if (item.id === defaultId) {
-  //       count++;
-  //     }
-  //   }
-
-  //   return count;
-  // }
 }

@@ -22,7 +22,9 @@
     </ng-container>
     <ng-template #noData>
       <tr>
-        <td colspan="3">{{ 'NO_DATA_FOUND' | translate }}</td>
+        <td colspan="3">
+          <app-no-data-found></app-no-data-found>
+        </td>
       </tr>
     </ng-template>
   </table>

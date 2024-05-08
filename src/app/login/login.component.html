@@ -1,53 +1,67 @@
 <div class="container-login" #sleectImage id="myDiv">
-  <div class="lang-drop-down">
-    <select name="lang" #langSelect [(ngModel)]="selectedLanguage" (ngModelChange)="translate.use($event)">
-      <option *ngFor="let code of languageCodes" [value]="code"> {{ languages[code] }}</option>
-    </select>
+  <div class="header-div">
+    <div class="header-logo">
+      <img src="../../assets/sports logo.png" alt="">
+    </div>
+    <div class="header-title">
+      <h2>THE REINHOLD WURTH OPEN 2024
+      </h2>
+    </div>
   </div>
-  <div class="logo-container">
-    <img src="../../assets/sports logo.png" alt="{{ 'APP_MAIN.LOGIN_PAGE.LOGO_ALT_TEXT' | translate }}" />
-    <img src="../../assets/logo wurth.png" alt="{{ 'APP_MAIN.LOGIN_PAGE.WUERTH_LOGO_ALT_TEXT' | translate }}" />
-  </div>
-
-  <div class="login-content">
+  <div class="content-text">
     <p>{{ 'APP_MAIN.LOGIN_PAGE.HELLO_PLAYERS' | translate }}</p>
     <p>{{ 'APP_MAIN.LOGIN_PAGE.READY_FOR_BATTLE_DAY' | translate }}</p>
-    <h1>{{ 'APP_MAIN.LOGIN_PAGE.LOGIN_TITLE' | translate }}</h1>
-    <p>{{ 'APP_MAIN.LOGIN_PAGE.LOGIN_SUBTITLE' | translate }}</p>
-    <div class="lang-drop-down">
-      <!-- <mat-form-field appearance="outline"> -->
-        <!-- <mat-label>Language</mat-label> -->
+
+    <!-- <p>{{ 'APP_MAIN.LOGIN_PAGE.LOGIN_SUBTITLE' | translate }}</p> -->
+  </div>
+  <div class="card-container">
+    <mat-card>
+      <div class="lang-drop-down">
+        <select name="lang" #langSelect [(ngModel)]="selectedLanguage" (ngModelChange)="translate.use($event)">
+          <option *ngFor="let code of languageCodes" [value]="code"> {{ languages[code] }}</option>
+        </select>
+      </div>
+
+      <div class="login-content">
+        <h1>{{ 'APP_MAIN.LOGIN_PAGE.LOGIN_TITLE' | translate }}</h1>
+        <div class="lang-drop-down">
+          <!-- <mat-form-field appearance="outline"> -->
+            <!-- <mat-label>Language</mat-label> -->
 
 
-       <!-- </mat-form-field> -->
-    </div>
-    <div class="form-container" [formGroup]="loginForm">
-      <mat-form-field appearance="fill">
-        <mat-label>{{ 'APP_MAIN.LOGIN_PAGE.EMAIL_LABEL' | translate }}</mat-label>
-        <input matInput type="text" placeholder="{{ 'APP_MAIN.LOGIN_PAGE.EMAIL_PLACEHOLDER' | translate }}" formControlName="email" />
-        <mat-error *ngIf="loginForm.get('email')?.hasError('required')" class="error">
-          {{ 'APP_MAIN.LOGIN_PAGE.EMAIL_REQUIRED_ERROR' | translate }}
-        </mat-error>
-        <mat-error *ngIf="loginForm.get('email')?.hasError('email')" class="error">
-          {{ 'APP_MAIN.LOGIN_PAGE.EMAIL_INVALID_ERROR' | translate }}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>{{ 'APP_MAIN.LOGIN_PAGE.PASSWORD_LABEL' | translate }}</mat-label>
-        <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="{{ 'APP_MAIN.LOGIN_PAGE.PASSWORD_PLACEHOLDER' | translate }}">
-        <mat-icon matSuffix (click)="togglePasswordVisibility()">
-          {{showPassword?'visibility':'visibility_off'}}
-        </mat-icon>
-        <mat-error *ngIf="loginForm.get('password')?.hasError('required')" class="error">
-          {{ 'APP_MAIN.LOGIN_PAGE.PASSWORD_REQUIRED_ERROR' | translate }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="button-login" (click)="login()">
-      <button mat-button color="primary">{{ 'APP_MAIN.LOGIN_PAGE.LOGIN_BUTTON_TEXT' | translate }}</button>
-    </div>
-    <a href="#" class="forgot-password-link" routerLink="forgotpassword">
-      {{ 'APP_MAIN.LOGIN_PAGE.FORGOT_PASSWORD_LINK' | translate }}
-    </a>
+           <!-- </mat-form-field> -->
+        </div>
+        <form class="form-container" [formGroup]="loginForm" (submit)="login()">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ 'APP_MAIN.LOGIN_PAGE.EMAIL_LABEL' | translate }}</mat-label>
+            <input matInput type="text" placeholder="{{ 'APP_MAIN.LOGIN_PAGE.EMAIL_PLACEHOLDER' | translate }}" formControlName="email" />
+            <mat-error *ngIf="loginForm.get('email')?.hasError('required')" class="error">
+              {{ 'APP_MAIN.LOGIN_PAGE.EMAIL_REQUIRED_ERROR' | translate }}
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('email')?.hasError('email')" class="error">
+              {{ 'APP_MAIN.LOGIN_PAGE.EMAIL_INVALID_ERROR' | translate }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{ 'APP_MAIN.LOGIN_PAGE.PASSWORD_LABEL' | translate }}</mat-label>
+            <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="{{ 'APP_MAIN.LOGIN_PAGE.PASSWORD_PLACEHOLDER' | translate }}">
+            <mat-icon matSuffix (click)="togglePasswordVisibility()">
+              {{showPassword?'visibility':'visibility_off'}}
+            </mat-icon>
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')" class="error">
+              {{ 'APP_MAIN.LOGIN_PAGE.PASSWORD_REQUIRED_ERROR' | translate }}
+            </mat-error>
+          </mat-form-field>
+          <span class="forgot-password-link" routerLink="forgotpassword">
+            {{ 'APP_MAIN.LOGIN_PAGE.FORGOT_PASSWORD_LINK' | translate }}
+          </span>
+          <div class="button-login" >
+            <button mat-button>{{ 'APP_MAIN.LOGIN_PAGE.LOGIN_BUTTON_TEXT' | translate }}</button>
+          </div>
+        </form>
+
+
+      </div>
+    </mat-card>
   </div>
 </div>

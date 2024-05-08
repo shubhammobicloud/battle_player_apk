@@ -1,4 +1,4 @@
-
+<div class="team-chat-container">
   <div #chatwrapper class="chatwrapper">
     <div #chatContainer class="chatContainer" *ngFor="let chat of chats">
       <div
@@ -7,33 +7,54 @@
       >
         <div class="messageContainer">
           <!-- <mat-icon class="profile">person</mat-icon> -->
+          <div [class.message]="!currentUser(chat.senderId)" [class.senderMessage]="currentUser(chat.senderId)" >
           <img [src]="url + '/images/' + chat.senderId?.avatar" class="profile" />
-          <div class="messageContainer-div-remove">
-            <span style="font-size: 10px; text-align: left">{{
-              chat.senderId?.userName
-            }}</span>
-           <div [class.message]="!currentUser(chat.senderId)" [class.senderMessage]="currentUser(chat.senderId)">
-            <ng-container *ngIf="chat.message.length <= 50 || chat.expanded; else truncatedMessage">
-              {{ chat.message }}
-            </ng-container>
-            <ng-template #truncatedMessage>
-              <span>{{ chat.message.slice(0, 50) }}...</span>
-              <a (click)="toggleExpand(chat)" style="color: blue;">{{ 'COMMUNICATION_PAGE.TEAM_CHAT_PAGE.READ_MORE' | translate }}</a>
-            </ng-template>
-          </div>
-            <span style="font-size: 10px; text-align: right">{{
-              chat.time | date:'short'
-            }}</span>
+
+             <mat-card>
+                <mat-card-header>
+                  <mat-card-title>
+                    {{chat.senderId?.userName}}
+                  </mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <ng-container
+                *ngIf="
+                  chat.message.length <= 50 || chat.expanded;
+                  else truncatedMessage
+                "
+              >
+                {{ chat.message }}
+              </ng-container>
+              <ng-template #truncatedMessage>
+                <span>{{ chat.message.slice(0, 50) }}...</span>
+                <a (click)="toggleExpand(chat)" style="color: blue">{{
+                  "COMMUNICATION_PAGE.TEAM_CHAT_PAGE.READ_MORE" | translate
+                }}</a>
+              </ng-template>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <span style="font-size: 10px; text-align: right">{{
+                      chat.time | date : "short"
+                    }}</span>
+                  </mat-card-actions>
+              </mat-card>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
     <!-- <h1 style="height: 40px"></h1> -->
+
+    <!-- <div class="inputContainer">
+      <input #teamChatTextarea (input)="onInput()" [(ngModel)]="message" rows="1" >
+          <button mat-icon-button class="sendIcon"(click)="sendMessage()"><mat-icon  >send</mat-icon></button>
+    </div> -->
+
   </div>
-
-  <div class="inputContainer">
-    <textarea #teamChatTextarea (input)="onInput()" [(ngModel)]="message" rows="1" placeholder="{{ 'COMMUNICATION_PAGE.TEAM_CHAT_PAGE.ENTER_MESSAGE_PLACEHOLDER' | translate }}"></textarea>
-        <button mat-icon-button class="sendIcon"(click)="sendMessage()"><mat-icon  >send</mat-icon></button>
+  <div class="inputBoxContainer">
+    <input type="text" [(ngModel)]="message" (input)="onInput()"placeholder="{{ 'COMMUNICATION_PAGE.TEAM_CHAT_PAGE.ENTER_MESSAGE_PLACEHOLDER' | translate }}" />
+    <button mat-icon-button class="sendIcon" (click)="sendMessage()">
+      <mat-icon>send</mat-icon>
+    </button>
   </div>
-
-
+</div>

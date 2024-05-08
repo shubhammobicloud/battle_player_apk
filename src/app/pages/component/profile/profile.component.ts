@@ -8,6 +8,7 @@ import {
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/users/users.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface UserProfile {
   email: string;
@@ -27,12 +28,18 @@ export class ProfileComponent implements OnInit {
   userProfileForm!: FormGroup;
   isEditMode = false;
   link = environment.baseUrl;
+  defaultImage = 'assets/images.png';
+   // Set this to true if you want to enable edit mode by default
+  // other component code
+
+
   isSuperuser:boolean = false
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     private tostr: ToastrService,
     private userService: UserService,
+    public translate:TranslateService
 
   ) {}
   ngOnInit() {
@@ -50,7 +57,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  
+
   getUserDetails() {
     this.userService.getProfileDetails().subscribe((response: any) => {
       // console.log('demo',data)
@@ -60,35 +67,48 @@ export class ProfileComponent implements OnInit {
       console.log("res",response.data?.teamId?.name)
       this.isSuperuser = response.data.superUser
       this.userProfileForm.patchValue({companyUnit:response.data?.teamId?.companyUnit})
-      
+
       // this.userProfile?.teamId as unknown as{[key:string]:string}['name']
 
-      
+
       this.userProfileForm.patchValue({email:response.data.email})
       this.userProfileForm.patchValue({companyName:response.data.companyId.name})
-      this.userProfileForm.patchValue({displayedImage:response.data.avatar})
+      // this.userProfileForm.patchValue({displayedImage:response.data.avatar})
       this.userProfileForm.patchValue({name:response.data.userName})
       // console.log('demo')
-      this.populateForm();
-    });
+     this.populateForm()
+    },
+    (error)=>{
+      if(error.error.message=='Resource not found. Please check the ID and try again.'){
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
+      }else if(error.error.message=='No user found.'){
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_NO_USER_FOUND'))
+      }
+      else{
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+      }
+    }
+    );
   }
   populateForm(): void {
     if (this.userProfile) {
       this.userProfileForm.patchValue({
-        
-        name: (this.userProfile.teamId as unknown as { [key: string]: string })[
-          'name'
-        ],
+
         displayedImage: this.userProfile.avatar as unknown as {
           [key: string]: string;
         }['avatar'],
+        // name: (this.userProfile.teamId as unknown as { [key: string]: string })[
+        //   'name'
+        // ],
       });
     }
+
     this.displayedImage = this.userProfileForm.get('displayedImage')?.value;
   }
 
 
   toggleEditMode(): void {
+
     this.isEditMode = !this.isEditMode;
 
     if (this.isEditMode) {
@@ -100,8 +120,16 @@ export class ProfileComponent implements OnInit {
         if (this.selectedFile) {
           formData.append('avatar', this.selectedFile);
           this.userService.updatePlayer(formData).subscribe((res: any) => {
-            localStorage.setItem('avatar', res.data.avatar);
-            console.log('Image saved successfully');
+            if (res.statusCode == 200) {
+              console.log('ressssssssssss', res);
+              localStorage.setItem('avatar', res.data?.avatar);
+              console.log('Profile updated successfully');
+              // this.tostr.success('Profile updated successfully');
+            } else {
+
+              this.tostr.error('failed');
+            }
+            // console.log('Image updated successfully');
           });
         }
       }
@@ -118,6 +146,7 @@ export class ProfileComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.displayedImage = reader.result as string;
+        this.tostr.success('Profile Image updated successfully');
       };
       this.selectedFile = fileInput.files[0];
       console.log(this.selectedFile);

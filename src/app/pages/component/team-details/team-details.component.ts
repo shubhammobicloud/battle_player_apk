@@ -1,17 +1,15 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environment/enviroment';
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHeaders,
 } from '@angular/common/http';
-import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { MatMenuTrigger } from '@angular/material/menu';
 import { TeamService } from 'src/app/services/team/team.service';
 import { UserService } from 'src/app/services/users/users.service';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
+import { TranslateService } from '@ngx-translate/core';
 interface TeamProfile {
   email: string;
   userName: string;
@@ -42,7 +40,8 @@ export class TeamDetailsComponent implements OnInit {
     private team: TeamService,
     private fb: FormBuilder,
     private tostr: ToastrService,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    public translate: TranslateService,
   ) {
     const gameleaderString = localStorage.getItem('gameleader');
     // Convert the string value back to boolean
@@ -64,23 +63,18 @@ export class TeamDetailsComponent implements OnInit {
         this.sortTeamProfiles();
       },
       (error: any) => {
-        console.error('An error occurred:', error);
+        if(error.error.message=='Something went wrong on the server.'){
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_SERVER'))
+        }else if(error.error.message=='Resource not found. Please check the ID and try again.'){
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
+        }else{
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+        }
+        // console.error('An error occurred:', error);
         // Handle error here
       }
     );
   }
-
-  //  sortTeamProfilesByGameLeader(teamProfiles: TeamProfile[]): TeamProfile[] {
-  //   return teamProfiles.sort((a, b) => {
-  //     if (a.gameLeader && !b.gameLeader) {
-  //       return -1; // a comes first
-  //     } else if (!a.gameLeader && b.gameLeader) {
-  //       return 1; // b comes first
-  //     } else {
-  //     }
-  //   });
-  // }
-
   initForm(): void {
     this.teamProfileForm = this.fb.group({
       email: [{ value: '', disabled: true }, Validators.email],
@@ -106,9 +100,19 @@ export class TeamDetailsComponent implements OnInit {
 
       this.populateForm();
       this.sortTeamProfiles();
-    });
+    }, (error)=>{
+      if(error.error.message=='Resource not found. Please check the ID and try again.'){
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
+      }else if(error.error.message=='No user found.'){
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_NO_USER_FOUND'))
+      }
+      else{
+        this.tostr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+      }
+    }
+  );
   }
-
+  userIsNotInAnyTeam:boolean=false
   sortTeamProfiles() {
     this.tableData = this.sortTeamProfilesByGameLeader(this.tableData);
   }
@@ -131,9 +135,9 @@ export class TeamDetailsComponent implements OnInit {
         name: (this.TeamProfile.teamId as unknown as { [key: string]: string })[
           'name'
         ],
-        // displayedImage: this.TeamProfile.avatar as unknown as {
-        //   [key: string]: string;
-        // }['avatar'],
+        displayedImage: this.TeamProfile.avatar as unknown as {
+          [key: string]: string;
+        }['avatar'],
       });
     }
     // this.displayedImage = this.teamProfileForm.get('displayedImage')?.value;
@@ -144,20 +148,26 @@ export class TeamDetailsComponent implements OnInit {
 
     if (this.isEditMode) {
       // this.userProfileForm.enable();
+
     } else {
       console.log('elselllllllllllllllllll');
       this.teamProfileForm.disable();
       if (this.selectedFile) {
         const formData = new FormData();
+
+
         if (this.selectedFile) {
           formData.append('avatar', this.selectedFile);
+          // debugger
           this.team.updateTeamImage(formData).subscribe((res: any) => {
             if (res.statusCode == 200) {
-              console.log('ressssssssssss', res);
+              // console.log('ressssssssssss', res);s
               // localStorage.setItem('avatar', res.data?.avatar);
               console.log('Image updated successfully');
-              this.tostr.success('Image updated successfully');
+              this.tostr.success(this.translate.instant('TOASTER_RESPONSE.IMAGE_ADDED_SUCCESS'));
+
             } else {
+
               this.tostr.error('failed');
             }
           });
@@ -165,6 +175,7 @@ export class TeamDetailsComponent implements OnInit {
       }
     }
   }
+
   selectedFile: File | null = null;
   displayedImage: string | ArrayBuffer | null =
     'https://www.w3schools.com/howto/img_avatar.png';
@@ -175,6 +186,7 @@ export class TeamDetailsComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.displayedImage = reader.result as string;
+        this.tostr.success('Image added successfully');
       };
       this.selectedFile = fileInput.files[0];
       console.log(this.selectedFile);
@@ -188,9 +200,16 @@ export class TeamDetailsComponent implements OnInit {
         console.log('api res', res);
         // this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage;
         this.displayedImage = res.data?.avatar;
+
       },
       error: (err: HttpErrorResponse) => {
-        console.log('api error ', err);
+        if(err.error.message=='Resource not found. Please check the ID and try again.'){
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
+        }else if(err.error.message=='No Team data found.'){
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_NO_TEAM_DATA_FOUND'))
+        }else{
+          this.tostr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+        }
       },
     });
   }

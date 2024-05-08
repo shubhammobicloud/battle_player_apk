@@ -7,7 +7,7 @@ import { SetPasswordComponent } from './set-password/set-password.component';
 import { TeamNameComponent } from './team-name/team-name.component';
 import { TeamImageComponent } from './team-image/team-image.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { NewspostComponent } from './pages/component/communications/newspost/newspost.component';
+import { AuthGuardService  as authGuard} from './services/auth guard/auth-guard.service';
 const routes: Routes = [
   {
     path: '',
@@ -39,9 +39,11 @@ const routes: Routes = [
   },
 {
     path: 'home',
+    canActivate:[authGuard],
     loadChildren: () => {
       return import('./pages/pages.module').then((m) => m.PagesModule);
     },
+
   },
 ];
 

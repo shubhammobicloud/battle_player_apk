@@ -66,24 +66,38 @@ languageCodes = ['en', 'de'];
               localStorage.setItem('gameleader',data.gameLeader)
               // console.log("data", data)
               if (!res.data.firstLogin) {
-                this.toastr.success(
-                  'Login successfully'
-                );
+                this.translate.get('TOASTER_RESPONSE.LOGIN_SUCCESS_MESSAGE').subscribe((translation: string) => {
+                  this.toastr.success(translation);
+                });
                 sessionStorage.setItem('redirectFrom', 'login'); // Or 'forgot-password'
-
                 this.route.navigate(['/', 'set-password', res.data.token]);
               } else {
                 this.route.navigate(['/home']);
-                this.toastr.success('Login successfully.');
+                this.translate.get('TOASTER_RESPONSE.LOGIN_SUCCESS_MESSAGE').subscribe((translation: string) => {
+                  this.toastr.success(translation);
+                });
               }
             }
           },(error)=>{
-            this.toastr.error(error.error.message)
+            if(error.error.message=='No matching data found. Please check your credentials and try again.'){
+              this.translate.get('TOASTER_RESPONSE.NO_MATCHING_DATA_ERROR').subscribe((translation: string) => {
+                this.toastr.error(translation);
+              });
+            }else if(error.error.message=='Invalid credentials .'){
+              this.translate.get('TOASTER_RESPONSE.INVALID_CREDENTIALS').subscribe((translation: string) => {
+                this.toastr.error(translation);
+              });
+            }else{
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+            }
+            // this.toastr.error(error.error.message)
           }
 
         );
     }else{
-      this.toastr.error('Please fill the details.')
+      this.translate.get('TOASTER_RESPONSE.FILL_DETAILS_ERROR').subscribe((translation: string) => {
+        this.toastr.error(translation);
+      });
     }
   }
 }

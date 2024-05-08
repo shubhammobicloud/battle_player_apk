@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { NewsUpdateService } from 'src/app/services/news/newsUpdate.service';
 import { environment } from 'src/environment/enviroment';
 import { jwtDecode } from 'jwt-decode';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-company-news',
@@ -19,7 +20,7 @@ export class CompanyNewsComponent implements OnInit {
 
   showTeamChats: boolean = true;
   hidesuper: boolean = false;
-  
+
   showTeamChat: boolean = false;
   constructor(
     private http: HttpClient,
@@ -28,7 +29,8 @@ export class CompanyNewsComponent implements OnInit {
     private route: Router,
     private userService: UserService,
     private updateService: NewsUpdateService,
-    private sanitize:DomSanitizer
+    private sanitize:DomSanitizer,
+    public translate:TranslateService
   ) {}
 
   userId: any;
@@ -50,11 +52,11 @@ export class CompanyNewsComponent implements OnInit {
     console.log('check', data.superUser);
     this.hidesuper = data.superUser;
     // this.hidesuper=true
-    
+
     if (data.superUser) {
       this.showTeamChat = !this.showTeamChat;
-      
-  
+
+
     }
   }
 
@@ -108,11 +110,12 @@ export class CompanyNewsComponent implements OnInit {
   likeNews(news_id: any) {
     this.newsService.reactOnNews(news_id).subscribe(
       (res: any) => {
-        if (res.message=='Reactions removed successfully') {
-          this.toastr.warning('Disliked');
-        } else if (res.message=='Reactions added successfully') {
-          this.toastr.success('Liked');
+        if (res.message === 'Reactions removed successfully') {
+          this.toastr.warning(this.translate.instant('COMMUNICATION_PAGE.REACTIONS_REMOVED_SUCCESS'));
+        } else if (res.message === 'Reactions added successfully') {
+          this.toastr.success(this.translate.instant('COMMUNICATION_PAGE.REACTIONS_ADDED_SUCCESS'));
         }
+
         this.getCompanyNews();
       },
       (error) => {
@@ -132,7 +135,7 @@ export class CompanyNewsComponent implements OnInit {
     if (news) {
       // this.showTeamChat = !this.showTeamChat;
       // @Output()
-      
+
     }
   }
   updateParentVariable(value: any) {
@@ -145,20 +148,20 @@ export class CompanyNewsComponent implements OnInit {
   }
 
 
-  deleteNews(id: any) {
-    this.http.delete(environment.baseUrl + 'news/' + id).subscribe(
-      (res: any) => {
-        // console.log(res)
-        if (res.success) {
-          // location.reload()
-          this.toastr.success('News deleted successfully');
-          this.getListofNews();
-        }
-      },
-      (error: HttpErrorResponse) => {
-        console.log('error', error);
-        this.toastr.error(error.error.message);
-      }
-    );
-  }
+  // deleteNews(id: any) {
+  //   this.http.delete(environment.baseUrl + 'news/' + id).subscribe(
+  //     (res: any) => {
+  //       // console.log(res)
+  //       if (res.success) {
+  //         // location.reload()
+  //         this.toastr.success('News deleted successfully');
+  //         this.getListofNews();
+  //       }
+  //     },
+  //     (error: HttpErrorResponse) => {
+  //       console.log('error', error);
+  //       this.toastr.error(error.error.message);
+  //     }
+  //   );
+  // }
 }

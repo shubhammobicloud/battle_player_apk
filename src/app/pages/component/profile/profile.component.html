@@ -1,11 +1,14 @@
+<div class="container">
 <form [formGroup]="userProfileForm">
-  <div class="container">
+
     <div class="user-profile">
-      <h3 *ngIf="userProfile?.gameLeader">Hello Leader!!</h3>
+      <h3 *ngIf="userProfile?.gameLeader">{{'PROFILE_PAGE.HELLO_LEADER'|translate}}</h3>
+      <mat-card>
+
       <span class="userNameEdit">
         <h2>{{ userProfile?.userName }}</h2>
         <button mat-icon-button type="button" (click)="toggleEditMode()">
-          <mat-icon> {{ isEditMode ? "check" : "edit" }}</mat-icon>
+          <mat-icon> {{ isEditMode ?  "edit" :"edit"}}</mat-icon>
         </button></span
       >
       <label for="avatarInput">
@@ -14,9 +17,9 @@
           [src]="
             selectedFile
               ? displayedImage
-              : displayedImage
+              : displayedImage 
               ? link + 'images/' + displayedImage
-              : '../../assets/images.png'
+              : defaultImage
           "
           alt="User Avatar"
           style="cursor: pointer"
@@ -48,6 +51,8 @@
         <mat-label>{{ 'PROFILE_PAGE.TEAM_NAME_LABEL' | translate }}</mat-label>
         <input matInput formControlName="name" [disabled]="true" />
       </mat-form-field>
+    </mat-card>
     </div>
-  </div>
+
 </form>
+</div>

@@ -8,6 +8,8 @@ import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { environment } from 'src/environment/enviroment';
 import { map, take } from 'rxjs';
 import { RankingService } from 'src/app/services/ranking/ranking.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
@@ -29,36 +31,14 @@ export class ScoreBoardComponent implements OnInit {
     private http: HttpClient,
     private dashboardService: DashboardService,
     private rankingService:RankingService,
+    public translate:TranslateService,
+    private toastr:ToastrService
   ) {}
   ngOnInit(): void {
     this.getEventImage();
     this.getTeamImages();
   }
-  // getTeamScore(teamName1: string, teamName2: string): void {
-  //   console.log(teamName1,teamName2,"2 team data found")
-  //   this.rankingService.getcompanyTeamRanking()
-  //     .pipe(
-  //       map((data:any) => {
-  //         const teams = data.data; // Assuming the data structure has a 'teams' property
-  //         if (teams && Array.isArray(teams)) {
-  //           const team1 = teams.find(team => team.name == teamName1);
-  //           const team2 = teams.find(team => team.name == teamName2);
-  //           if (team1 && team2) {
-  //             // Both teams found, now you can do whatever you want with their scores
-  //             console.log(`${teamName1} score: ${team1.rankingScore}`);
-  //             console.log(`${teamName2} score: ${team2.rankingScore}`);
-  //             this.teamAScore=team1.rankingScore
-  //             this.teamBScore=team2.rankingScore
-  //           } else {
-  //             console.log('One or both teams not found.');
-  //           }
-  //         } else {
-  //           console.log('Teams data not found or not in the expected format.');
-  //         }
-  //       })
-  //     )
-  //     .subscribe();
-  // }
+
 
   async share() {
     const divElement = document.getElementById('myDiv');
@@ -205,7 +185,7 @@ export class ScoreBoardComponent implements OnInit {
             : this.eventImageURL
         ).subscribe((res) => {
           console.log(URL.createObjectURL(res));
-          this.eventImageURL = URL.createObjectURL(res);
+          this.centerLogo = URL.createObjectURL(res);
         });
       },
       error: (err: HttpErrorResponse) => {
@@ -253,10 +233,24 @@ export class ScoreBoardComponent implements OnInit {
             }
           })
 
-        })
+        },
+        (error)=>{
+          if(error.error.message=='Invalid team id or battle partner team id'){
+            this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_INVALID_TEAM_OR_BATTLE_PARTNER_ID'))
+          }else{
+            this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+          }
+        }
+        )
       },
       error: (err: HttpErrorResponse) => {
-        console.log('api error ', err);
+        if(err.error.message=='Resource not found. Please check the ID and try again.'){
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
+        }else if(err.error.message=='No Team data found.'){
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_NO_TEAM_DATA_FOUND'))
+        }else{
+          this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+        }
       },
     });
   }

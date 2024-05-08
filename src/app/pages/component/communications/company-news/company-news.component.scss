@@ -20,15 +20,16 @@
       .card{
         // margin-block: 1rem;
         width: 95%;
-        border: 3px solid gray;
+        border: 1px solid #959595;
        .card-header{
-        box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
+        // box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
         padding: 0px 10px;
+        border-bottom: 1px solid #959595;
         .card-title{
           overflow-wrap: anywhere;
          }
        }
-       
+
        .card-content{
         padding: 10px ;
         overflow: scroll;
@@ -86,15 +87,15 @@
   transform: scale(1.3); // You can customize the scale value for the desired effect
 }
 .responsive-text {
-  max-width: 100%; 
-  width: 100%; 
-  word-wrap: break-word; 
+  max-width: 100%;
+  width: 100%;
+  word-wrap: break-word;
 }
 
 .swap-container {
   display: flex;
   align-items: center; /* Align icons vertically centered */
-  
+
 }
 .button-gap {
   border:none ;

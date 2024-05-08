@@ -39,7 +39,8 @@ redirectedForm:any;
   }
   setPassword(): void {
     if (this.password !== this.confirmPassword) {
-      this.toastr.error('Passwords do not match. Please try again.');
+      this.toastr.error(this.translate.instant('TOASTER_RESPONSE.PASSWORDS_NOT_MATCH_ERROR'));
+
       return;
     }
 
@@ -47,35 +48,50 @@ redirectedForm:any;
     let token = this.router.snapshot.params['token'];
 
     if (validatePass) {
-      if (this.password !== this.confirmPassword) {
-        this.passwordMismatchError ='Passwords do not match. Please try again.';
-        this.toastr.error(this.passwordMismatchError);
-        return;
+      if (this.password == this.confirmPassword) {
+        // this.passwordMismatchError ='Passwords do not match. Please try again.';
+        let data = {
+          password: this.confirmPassword,
+          token: token,
+          firstLogin: true,
+        };
+        // if (!this.validatePassword(this.password)) {
+        //   this.toastr.warning('Password should be at least 8 characters long, must contain numbers, and alphabets.');
+        //   return;
+        // }
+       this.userService.setPassword(data).subscribe(
+          (res: any) => {
+            if ((res.success)) {
+              this.toastr.success(this.translate.instant('TOASTER_RESPONSE.PASSWORD_UPDATED_SUCCESS'));
+
+                this.route.navigate(['/playername',token]);
+              }
+          },
+          (error:any)=>{
+            if(error.error.message=='Token is required.'){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_TOKEN_REQUIRED'))
+            }else if(error.error.message=='Password must be at least 8 characters long.'){
+                this.toastr.error(this.translate.instant('SET_PASSWORD_PAGE.PASSWORD_LENGTH_ERROR'))
+            }else if(error.error.message == 'Please enter valid password.'){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_INVALID_PASSWORD'))
+            }else if(error.error.message=='Your session has expired. Please log in again.'){
+              this.toastr.error(this.translate.instant("TOASTER_ERROR.ERROR_SESSION_EXPIRED"))
+            }else{
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
+            }
+            this.toastr.error(error.error.message);
+          });
       } else {
+        this.toastr.error(this.translate.instant('TOASTER_RESPONSE.PASSWORDS_NOT_MATCH_ERROR'));
+
+
+
         this.passwordMismatchError = '';
       }
-      let data = {
-        password: this.confirmPassword,
-        token: token,
-        firstLogin: true,
-      };
-      if (!this.validatePassword(this.password)) {
-        this.toastr.warning('Password should be at least 8 characters long, must contain numbers, and alphabets.');
-        return;
-      }
-     this.userService.setPassword(data).subscribe(
-        (res: any) => {
-          if ((res.success)) {
-              this.toastr.success(res.message)
-              this.route.navigate(['/playername',token]);
-            }
-        },
-        (error:any)=>{
-          this.toastr.error(error.error.message);
-        });
+
   } else {
     this.toastr.warning(
-      'Password Should Be At Least Of Minimun 8 Character, Must Contain Number And Alphabets'
+      this.translate.instant('TOASTER_RESPONSE.PASSWORD_VALIDATION_MESSAGE')
     );
   }
   }

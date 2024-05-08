@@ -1,47 +1,74 @@
+
 .container {
   display: flex;
   flex-direction: column;
-  height: 100%; // This makes sure your container takes up the full height of the viewport
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.507);
 }
 
-.header,
-.footer {
+.header {
   background-color: #f0f0f0;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .header {
-  width: 100%;
   app-header {
     width: 100%;
   }
 }
 
-.footer {
-  width: 100%;
-  app-menu {
-    width: 100%;
+
+.footer-center{
+  position: fixed;
+  right: 0;
+  top: 5.5%;
+  button{
+    color: white;
   }
 }
-
-.content {
-  flex-grow: 1; // This makes sure your content takes up all the remaining space
-  overflow-y: auto;
-  position: relative;
-  z-index: 1;
-  // &::before {
-  //   z-index: -1;
-  //   content: '';
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   right: 0;
-  //   bottom: 0;
-  //   // background-image: url('../../assets/Tennisplatz_Paris.jpg');
-  //   background-position: center;
-  //   background-size: cover;
-  //   opacity: 0.35; // Adjust the opacity value as needed
-  // }
+@media only screen and (max-width:320px){
+  .footer-center{
+    position: fixed;
+    right: 0;
+    top: 6.5%;
+  }
 }
+.footer {
+  position: fixed;
+    right: 45% ;
+
+    top: 50%;
+    // width: 100%;
+
+}
+.menuButton{
+  width: fit-content;
+  overflow: visible;
+  height: fit-content;
+  border-radius: 50%;
+}
+.menuSpan{
+ width: 5rem;
+ height: 5rem;
+ background-color: #cc0000;
+ color: white;
+ border-radius: 50%;
+ box-shadow: 0px 6px 9px 0px #1e1e1e;
+ .change-my-color{
+  fill: white;
+  stroke: red !important;
+ }
+}
+
+
+.active{
+  background-color: #ffffff;
+  color: #cc0000;
+  .change-my-color{
+    fill: #cc0000;
+   }
+}
+

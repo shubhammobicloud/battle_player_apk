@@ -3,8 +3,9 @@
   display: flex;
   flex-direction: column;
   align-items: center; /* Centers content horizontally */
-  justify-content: center; /* Centers content vertically */
-  overflow-x: auto; max-width: 100%;
+  justify-content: flex-start; /* Centers content vertically */
+  overflow-y: auto;
+  height: 64vh;
 }
 
 .player-table {

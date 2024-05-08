@@ -16,6 +16,7 @@ import { NewsUpdateService } from 'src/app/services/news/newsUpdate.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Observer } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-newspost',
@@ -23,8 +24,9 @@ import { Observable, Observer } from 'rxjs';
   styleUrls: ['./newspost.component.scss'],
 })
 export class NewspostComponent implements OnInit, OnDestroy {
+  // inputString: string = '';
   characterCount: number = 0;
-  textarea: string = '';
+
 
   @Output() updateParentState1: EventEmitter<any> = new EventEmitter<any>();
   showTeamChat: boolean = false;
@@ -44,7 +46,8 @@ export class NewspostComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private updateService: NewsUpdateService,
     private route: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private translate:TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +61,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
         title: data.title,
       });
     }
-    this.countCharacters();
+
   }
 
   config: AngularEditorConfig = {
@@ -130,24 +133,43 @@ export class NewspostComponent implements OnInit, OnDestroy {
         }
       );
     },
-    placeholder: 'Enter text here...',
+    placeholder: this.translate.instant('COMMUNICATION_PAGE.NEWS_POST_PAGE.EDITOR_PLACEHOLDER'),
     translate: 'no',
     sanitize: false,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [['insertVideo', 'toggleEditorMode']],
   };
 
-  countCharacters() {
+  countCharacters(event: any) {
     const editorContent = this.newsContent.get('content')?.value;
     if (editorContent) {
-        // Remove non-character content using regular expression
-        const cleanContent = editorContent.replace(/[^a-zA-Z]/g, '');
-        // Count characters
-        this.characterCount = cleanContent.length;
+      // Remove non-character content using regular expression
+      const cleanContent = editorContent.replace(/[^a-zA-Z]/g, '');
+      // Count characters
+      this.characterCount = cleanContent.length;
+
+      // Allow backspace to work
+      if (event.keyCode === 8) { // 8 is the key code for backspace
+        return;
+      }
+
+      // Disable typing when character count exceeds 800
+      if (this.characterCount >= 800) {
+        event.preventDefault(); // Prevent further key presses
+      }
     } else {
-        this.characterCount = 0;
+      this.characterCount = 0; // If content is null, set character count to 0
     }
-}
+
+    // Check if the target is the video input
+    if (event.target.id === 'video-input') {
+      // Allow only up to 3 characters in the video input
+      if (event.target.value.length >= 3) {
+        event.preventDefault();
+      }
+    }
+  }
+
 
   submitContent() {
     if (this.newsContent.valid) {
@@ -195,15 +217,23 @@ export class NewspostComponent implements OnInit, OnDestroy {
     }
   }
 
+  private videoCount: number = 0;
+
   addVideo() {
-    const videoLink = prompt('Please enter the YouTube video URL:');
+    if (this.videoCount >= 3) {
+      alert('You can only add up to 3 videos.');
+      return;
+    }
+
+    const videoLink = prompt(this.translate.instant('TOASTER_RESPONSE.PROMPT_VIDEO_URL'));
     if (videoLink) {
       const videoId = this.getYouTubeVideoId(videoLink);
       if (videoId) {
         const videoEmbedCode = `<div>
-                          <iframe src="https://www.youtube.com/embed/${videoId}" style="position: relative; width: 100%; max-width: 500px; min-height: 250px;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>`;
+                                  <iframe src="https://www.youtube.com/embed/${videoId}" style="position: relative; width: 100%; max-width: 500px; min-height: 250px;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>`;
         this.editor.executeCommand('insertHtml', videoEmbedCode);
+        this.videoCount++; // Increment the count after adding a video
       } else {
         alert('Invalid YouTube video URL.');
       }

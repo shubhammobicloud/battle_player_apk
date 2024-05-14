@@ -165,8 +165,8 @@ export class TeamDetailsComponent implements OnInit {
             if (res.statusCode == 200) {
               // console.log('ressssssssssss', res);s
               // localStorage.setItem('avatar', res.data?.avatar);
-              console.log('Image updated successfully');
-              this.tostr.success(this.translate.instant('TOASTER_RESPONSE.IMAGE_ADDED_SUCCESS'));
+              // console.log('Image updated successfully');
+              // this.tostr.success(this.translate.instant('TOASTER_RESPONSE.IMAGE_ADDED_SUCCESS'));
 
             } else {
 
@@ -191,7 +191,10 @@ export class TeamDetailsComponent implements OnInit {
       reader.onload = () => {
 
         this.displayedImage = reader.result as string;
-        this.tostr.success(this.translate.instant('TOASTER_RESPONSE.IMAGE_ADDED_SUCCESS'));
+
+        this.tostr.success('Profile Image updated successfully');
+        this.toggleEditMode();
+
       };
       this.selectedFile = fileInput.files[0];
       console.log(this.selectedFile);

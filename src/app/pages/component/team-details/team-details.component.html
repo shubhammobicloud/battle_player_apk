@@ -309,7 +309,12 @@
         <h3 style="margin: 10px">{{ "NOT_ASSIGNED_TO_TEAM" | translate }}</h3>
       </mat-card>
       <mat-card *ngIf="userIsNotInAnyTeam">
-      <h2>{{ teamName }}</h2>
+        <span class="userNameEdit">
+          <h2>{{ teamName }}</h2>
+            <button mat-icon-button type="button" (click)="toggleEditMode()">
+              <mat-icon> {{ isEditMode ? "edit" : "edit" }}</mat-icon>
+            </button></span
+          >
       <label for="avatarInput" class="team-profile">
         <img
           formControlName="displayedImage"
@@ -333,38 +338,37 @@
         (change)="onFileSelected($event)"
         accept="image/*"
       />
+      <div class="container-table">
+        <ul class="player-list">
+          <ng-container
+            *ngIf="tableData && tableData.length > 0"
+          ></ng-container>
+          <li *ngFor="let player of tableData">
+            <span>
+              <div class="circle">
+                <img
+                  [src]="
+                    player.avatar
+                      ? detailsimage + player.avatar
+                      : defalutimage
+                  "
+                  alt="Player Image"
+                />
+              </div>
+            </span>
+            <span style="text-align: center">
+              {{ player.userName ? player.userName : player.email
+              }}{{ player.gameLeader ? "  GL" : "" }}
+            </span>
+          </li>
+        </ul>
+      </div>
 
-        <div class="container-table">
-          <ul class="player-list">
-            <ng-container
-              *ngIf="tableData && tableData.length > 0"
-            ></ng-container>
-            <li *ngFor="let player of tableData">
-              <span>
-                <div class="circle">
-                  <img
-                    [src]="
-                      player.avatar
-                        ? detailsimage + player.avatar
-                        : defalutimage
-                    "
-                    alt="Player Image"
-                  />
-                </div>
-              </span>
-              <span style="text-align: center">
-                {{ player.userName ? player.userName : player.email
-                }}{{ player.gameLeader ? "  GL" : "" }}
-              </span>
-            </li>
-          </ul>
-        </div>
-
-        <br />
-        <!-- <button mat-raised-button type="button" (click)="toggleEditMode()" *ngIf="gameleader">
-        {{  isEditMode ? translate.instant('SAVE') : translate.instant('EDIT_PROFILE') }}
-      </button> -->
-      </mat-card>
-    </div>
-  </form>
+      <br />
+      <!-- <button mat-raised-button type="button" (click)="toggleEditMode()" *ngIf="gameleader">
+      {{  isEditMode ? translate.instant('SAVE') : translate.instant('EDIT_PROFILE') }}
+    </button> -->
+    </mat-card>
+  </div>
+</form>
 </div>

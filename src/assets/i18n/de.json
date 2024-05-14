@@ -70,6 +70,7 @@
   "MENU_OPTIONS": {
     "MYBATTLE": "Mein Kampf",
     "RANKING": "Rangliste",
+    "NEWS":"Nachricht",
     "COMMUNICATION": "Chat",
     "PROFILE": "Profil"
   },
@@ -124,6 +125,7 @@
         "LOGOUT_SUCCESS": "Erfolgreich abgemeldet."
       },
       "TOASTER_RESPONSE":{
+        "INVALID_PASSWORD": "Das Passwort ist ungültig",
         "LOGIN_SUCCESS_MESSAGE": "Anmeldung erfolgreich",
         "INVALID_CREDENTIALS": "Ungültige Anmeldeinformationen.",
         "FILL_DETAILS_ERROR": "Bitte füllen Sie die Details aus",
@@ -144,7 +146,8 @@
         "NEWS_ADDED_SUCCESS": "Nachricht erfolgreich hinzugefügt.",
         "IMAGE_ADDED_SUCCESS": "Bild erfolgreich hinzugefügt.",
         "ENTER_ALL_FIELDS_ERROR": "Alle Felder ausfüllen",
-        "PASSWORDS_NOT_MATCH_ERROR": "Passwörter stimmen nicht überein. Bitte versuchen Sie es erneut."
+        "PASSWORDS_NOT_MATCH_ERROR": "Passwörter stimmen nicht überein. Bitte versuchen Sie es erneut.",
+        "VIDEO_CAPACITY_ERROR": "Du kannst nur bis zu 3 Videos hinzufügen."
 
       },
       "TOASTER_ERROR":{

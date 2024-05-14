@@ -52,4 +52,8 @@ export class PlayerNameComponent {
       );
     }
   }
+  back(){
+    let token = this.active.snapshot.params['token'];
+    this.route.navigate(['/', 'set-password', token]);
+  }
 }

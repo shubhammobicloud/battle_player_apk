@@ -76,4 +76,8 @@ export class PlayerImageComponent {
       console.error('No file selected.');
     }
   }
+  back(){
+    let token = this.active.snapshot.params['token'];
+    this.route.navigate(['/', 'playername', token]);
+  }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { TeamService } from '../services/team/team.service';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../services/users/users.service';
@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class TeamImageComponent {
   constructor(
     private userService: UserService,
+    private active:ActivatedRoute,
     private route: Router,
     private teamService: TeamService,
     public translate: TranslateService,
@@ -73,5 +74,9 @@ export class TeamImageComponent {
     } else {
       console.error('No file selected.');
     }
+  }
+  back(){
+    let token = this.active.snapshot.params['token'];
+    this.route.navigate(['/', 'playerimage', token]);
   }
 }

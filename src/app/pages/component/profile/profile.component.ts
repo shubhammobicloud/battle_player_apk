@@ -123,7 +123,7 @@ export class ProfileComponent implements OnInit {
             if (res.statusCode == 200) {
               console.log('ressssssssssss', res);
               localStorage.setItem('avatar', res.data?.avatar);
-              console.log('Profile updated successfully');
+              // console.log('Profile updated successfully');
               // this.tostr.success('Profile updated successfully');
             } else {
 
@@ -140,17 +140,16 @@ export class ProfileComponent implements OnInit {
   displayedImage: string | ArrayBuffer | null = 'https://www.w3schools.com/howto/img_avatar.png';
   // Your default image URL
   showImage = false;
-  
+
   onFileSelected(event: any): void {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
       this.selectedFile = fileInput.files[0];
       const reader = new FileReader();
       reader.onload = () => {
-        
+
         this.displayedImage = reader.result as string;
-        this.tostr.success('Profile Image updated successfully');
-        this.toggleEditMode();
+        this.tostr.success(this.translate.instant('TOASTER_RESPONSE.PROFILE_IMAGE_UPDATED_SUCCESS'));
       };
       this.selectedFile = fileInput.files[0];
       console.log(this.selectedFile);

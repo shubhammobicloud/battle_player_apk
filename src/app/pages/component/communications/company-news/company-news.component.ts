@@ -66,7 +66,7 @@ export class CompanyNewsComponent implements OnInit {
   getCompanyNews() {
     this.newsService.getNews().subscribe(
       (res: any) => {
-        this.listOfNews = res.data;
+        this.listOfNews = res.data.reverse();
         this.updateLikedNewsIds();
       },
       (error) => {

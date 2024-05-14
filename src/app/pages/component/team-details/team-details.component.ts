@@ -56,6 +56,7 @@ export class TeamDetailsComponent implements OnInit {
 
     this.userService.getUserPlayer().subscribe(
       (data: any) => {
+        this.userIsNotInAnyTeam=true
         console.log('data0', data);
 
         this.tableData = data.data;
@@ -66,6 +67,7 @@ export class TeamDetailsComponent implements OnInit {
         if(error.error.message=='Something went wrong on the server.'){
           this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_SERVER'))
         }else if(error.error.message=='Resource not found. Please check the ID and try again.'){
+          this.userIsNotInAnyTeam=false
           this.tostr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
         }else{
           this.tostr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'))
@@ -163,8 +165,8 @@ export class TeamDetailsComponent implements OnInit {
             if (res.statusCode == 200) {
               // console.log('ressssssssssss', res);s
               // localStorage.setItem('avatar', res.data?.avatar);
-              console.log('Image updated successfully');
-              this.tostr.success(this.translate.instant('TOASTER_RESPONSE.IMAGE_ADDED_SUCCESS'));
+              // console.log('Image updated successfully');
+              // this.tostr.success(this.translate.instant('TOASTER_RESPONSE.IMAGE_ADDED_SUCCESS'));
 
             } else {
 
@@ -180,17 +182,19 @@ export class TeamDetailsComponent implements OnInit {
   displayedImage: string | ArrayBuffer | null = 'https://www.w3schools.com/howto/img_avatar.png';
   // Your default image URL
   showImage = false;
-  
+
   onFileSelected(event: any): void {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
       this.selectedFile = fileInput.files[0];
       const reader = new FileReader();
       reader.onload = () => {
-        
+
         this.displayedImage = reader.result as string;
+
         this.tostr.success('Profile Image updated successfully');
         this.toggleEditMode();
+
       };
       this.selectedFile = fileInput.files[0];
       console.log(this.selectedFile);

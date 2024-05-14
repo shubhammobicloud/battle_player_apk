@@ -72,7 +72,7 @@
     "MYBATTLE": "My Battle",
     "RANKING": "Ranking",
     "COMMUNICATION": "Chat" ,
-
+    "NEWS":"NEWS",
     "PROFILE": "Profile"
   },
   "HEADER_PAGE": {
@@ -126,6 +126,7 @@
         "LOGOUT_SUCCESS": "Logout successfully."
       },
     "TOASTER_RESPONSE":{
+      "INVALID_PASSWORD": "Password is invalid",
       "LOGIN_SUCCESS_MESSAGE": "Login successfully",
       "INVALID_CREDENTIALS": "Invalid credentials.",
       "FILL_DETAILS_ERROR": "Please fill the details",
@@ -146,7 +147,8 @@
         "NEWS_ADDED_SUCCESS": "News added successfully.",
         "IMAGE_ADDED_SUCCESS": "Image added successfully.",
         "ENTER_ALL_FIELDS_ERROR": "Enter All Fields",
-        "PASSWORDS_NOT_MATCH_ERROR": "Passwords do not match. Please try again."
+        "PASSWORDS_NOT_MATCH_ERROR": "Passwords do not match. Please try again.",
+        "VIDEO_CAPACITY_ERROR": "You can only add up to 3 videos."
     },
     "TOASTER_ERROR":{
       "SERVER_ERROR": "Server error",

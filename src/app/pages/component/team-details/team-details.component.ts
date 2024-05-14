@@ -190,7 +190,7 @@ export class TeamDetailsComponent implements OnInit {
         
         this.displayedImage = reader.result as string;
         this.tostr.success('Profile Image updated successfully');
-        // this.toggleEditMode();
+        this.toggleEditMode();
       };
       this.selectedFile = fileInput.files[0];
       console.log(this.selectedFile);

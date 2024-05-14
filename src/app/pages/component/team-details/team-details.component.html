@@ -319,18 +319,18 @@
       <mat-card *ngIf="!userIsNotInAnyTeam">
         <span class="userNameEdit">
         <h2>{{ teamName }}</h2>
-          <button mat-icon-button type="button" (click)="toggleEditMode()">
+          <button mat-icon-button type="button" (click)="toggleEditMode()" *ngIf="gameleader">
             <mat-icon> {{ isEditMode ? "edit" : "edit" }}</mat-icon>
           </button></span
         >
         <label for="avatarInput" class="team-profile">
           <img
-            formControlName="displayedImage"
-            [src]="
-              selectedFile
-                ? displayedImage
-                : displayedImage
-                ? link + 'images/' + displayedImage
+          formControlName="displayedImage"
+          [src]="
+            selectedFile
+              ? displayedImage
+              : displayedImage 
+              ? link + 'images/' + displayedImage
                 : '../../assets/images.png'
             "
             alt="User Avatar"
@@ -341,15 +341,17 @@
               isEditMode ? translate.instant("PROFILE_PAGE.CHOOSE_IMAGE") : ""
             }}
           </p>
+          
         </label>
-        <input
-          type="file"
-          id="avatarInput"
-          [disabled]="!isEditMode"
-          style="display: none"
-          (change)="onFileSelected($event)"
-          accept="image/*"
-        />
+     
+      <input
+        type="file"
+        id="avatarInput"
+        [disabled]="!isEditMode"
+        style="display: none"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+      />
 
         <div class="container-table">
           <ul class="player-list">

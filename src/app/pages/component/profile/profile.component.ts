@@ -137,16 +137,20 @@ export class ProfileComponent implements OnInit {
   }
   // /user/player-update
   selectedFile: File | null = null;
-  displayedImage: string | ArrayBuffer | null =
-    'https://www.w3schools.com/howto/img_avatar.png';
+  displayedImage: string | ArrayBuffer | null = 'https://www.w3schools.com/howto/img_avatar.png';
+  // Your default image URL
   showImage = false;
+  
   onFileSelected(event: any): void {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
+      this.selectedFile = fileInput.files[0];
       const reader = new FileReader();
       reader.onload = () => {
+        
         this.displayedImage = reader.result as string;
         this.tostr.success('Profile Image updated successfully');
+        this.toggleEditMode();
       };
       this.selectedFile = fileInput.files[0];
       console.log(this.selectedFile);

@@ -24,7 +24,7 @@
           alt="User Avatar"
           style="cursor: pointer"
         />
-        <p>{{ isEditMode ? "Choose Image" : "" }}</p>
+        <p *ngIf="isEditMode && !selectedFile">Choose Image</p>
       </label>
       <input
         type="file"

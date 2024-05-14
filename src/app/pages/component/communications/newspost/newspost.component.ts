@@ -165,11 +165,11 @@ export class NewspostComponent implements OnInit, OnDestroy {
     if (event.target.id === 'video-input') {
       // Allow only up to 3 characters in the video input
       if (event.target.value.length >= 3) {
+
         event.preventDefault();
       }
     }
   }
-
 
   submitContent() {
     if (this.newsContent.valid) {

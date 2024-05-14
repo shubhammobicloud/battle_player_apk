@@ -7,7 +7,7 @@ import { App as CapacitorApp } from "@capacitor/app";
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'translationCheckApp';
+  title = 'battlePlayerApp';
   ngOnInit() {
     if (Capacitor.isNativePlatform()) {
       CapacitorApp.addListener('backButton', async () => {

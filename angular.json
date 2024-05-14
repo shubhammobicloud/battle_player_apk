@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "translationCheckApp": {
+    "battlePlayerApp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/translation-check-app",
+            "outputPath": "dist/battlePlayerApp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -27,14 +27,17 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/styles.scss"
 
             ],
-            "scripts": []
+            "scripts": [],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -67,10 +70,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "translationCheckApp:build:production"
+              "browserTarget": "battlePlayerApp:build:production"
             },
             "development": {
-              "browserTarget": "translationCheckApp:build:development"
+              "browserTarget": "battlePlayerApp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +81,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "translationCheckApp:build"
+            "browserTarget": "battlePlayerApp:build"
           }
         },
         "test": {
@@ -92,7 +95,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,7 +24,8 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TeamImageComponent } from './team-image/team-image.component';
 import { MatCardModule } from '@angular/material/card';
-import {MatTooltipModule} from '@angular/material/tooltip'
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { ServiceWorkerModule } from '@angular/service-worker'
 @NgModule({
   declarations: [
     AppComponent,TeamImageComponent,
@@ -58,6 +59,12 @@ import {MatTooltipModule} from '@angular/material/tooltip'
         useFactory: (http: HttpClient) => new TranslateHttpLoader(http),
         deps: [HttpClient],
       }
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
     })
   ],
   providers: [

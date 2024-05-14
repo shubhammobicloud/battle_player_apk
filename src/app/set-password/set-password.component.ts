@@ -64,7 +64,7 @@ redirectedForm:any;
             if ((res.success)) {
               this.toastr.success(this.translate.instant('TOASTER_RESPONSE.PASSWORD_UPDATED_SUCCESS'));
 
-                this.route.navigate(['/playername',token]);
+                this.route.navigate(['/','playername',token]);
               }
           },
           (error:any)=>{

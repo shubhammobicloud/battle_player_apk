@@ -95,9 +95,20 @@ languageCodes = ['en', 'de'];
 
         );
     }else{
-      this.translate.get('TOASTER_RESPONSE.FILL_DETAILS_ERROR').subscribe((translation: string) => {
-        this.toastr.error(translation);
-      });
+      if(this.loginForm.value.email=='' && this.loginForm.value.password=='' ){
+        this.translate.get('TOASTER_RESPONSE.FILL_DETAILS_ERROR').subscribe((translation: string) => {
+          this.toastr.error(translation);
+        });
+      }else if(this.loginForm.value.password=='' && this.loginForm.value.email){
+
+      }else if(this.loginForm.value.password && this.loginForm.value.email==''){
+
+    }else if(this.loginForm.value.password && this.loginForm.value.email && this.loginForm.controls.password.status=="INVALID"){
+      this.toastr.error(this.translate.instant('TOASTER_RESPONSE.INVALID_PASSWORD'));
+
+    }
+      console.log(this.loginForm)
+
     }
   }
 }

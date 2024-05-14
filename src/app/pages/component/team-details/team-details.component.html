@@ -2,17 +2,9 @@
   <form [formGroup]="teamProfileForm">
     <div class="user-profile">
       <!-- <h3 *ngIf="TeamProfile?.gameLeader">Hello Leader!!</h3> -->
-      <mat-card *ngIf="userIsNotInAnyTeam">
-        <h2>{{ "OOPS_TITLE" | translate }}</h2>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          version="1.1"
-          width="200"
-          height="200"
-          viewBox="55 60 90 90"
-          xml:space="preserve"
-        >
+      <mat-card *ngIf="!userIsNotInAnyTeam">
+        <h2>{{ 'OOPS_TITLE' | translate }}</h2>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="200" height="200"viewBox="55 60 90 90" xml:space="preserve">
           <desc>Created with Fabric.js 5.2.4</desc>
           <defs></defs>
           <rect
@@ -316,40 +308,31 @@
         </svg>
         <h3 style="margin: 10px">{{ "NOT_ASSIGNED_TO_TEAM" | translate }}</h3>
       </mat-card>
-      <mat-card *ngIf="!userIsNotInAnyTeam">
-        <span class="userNameEdit">
-        <h2>{{ teamName }}</h2>
-          <button mat-icon-button type="button" (click)="toggleEditMode()">
-            <mat-icon> {{ isEditMode ? "edit" : "edit" }}</mat-icon>
-          </button></span
-        >
-        <label for="avatarInput" class="team-profile">
-          <img
-            formControlName="displayedImage"
-            [src]="
-              selectedFile
-                ? displayedImage
-                : displayedImage
-                ? link + 'images/' + displayedImage
-                : '../../assets/images.png'
-            "
-            alt="User Avatar"
-            style="cursor: pointer"
-          />
-          <p *ngIf="isEditMode && !selectedFile">
-            {{
-              isEditMode ? translate.instant("PROFILE_PAGE.CHOOSE_IMAGE") : ""
-            }}
-          </p>
-        </label>
-        <input
-          type="file"
-          id="avatarInput"
-          [disabled]="!isEditMode"
-          style="display: none"
-          (change)="onFileSelected($event)"
-          accept="image/*"
+      <mat-card *ngIf="userIsNotInAnyTeam">
+      <h2>{{ teamName }}</h2>
+      <label for="avatarInput" class="team-profile">
+        <img
+          formControlName="displayedImage"
+          [src]="
+            selectedFile
+              ? displayedImage
+              : displayedImage
+              ? link + 'images/' + displayedImage
+              : '../../assets/images.png'
+          "
+          alt="User Avatar"
+          style="cursor: pointer"
         />
+        <p>{{ isEditMode ? translate.instant('PROFILE_PAGE.CHOOSE_IMAGE') : "" }}</p>
+      </label>
+      <input
+        type="file"
+        id="avatarInput"
+        [disabled]="!isEditMode"
+        style="display: none"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+      />
 
         <div class="container-table">
           <ul class="player-list">

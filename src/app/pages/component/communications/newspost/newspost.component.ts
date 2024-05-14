@@ -191,17 +191,17 @@ export class NewspostComponent implements OnInit, OnDestroy {
               }
             },
             (error: HttpErrorResponse) => {
-              console.log('error in api ', error);
+              // console.log('error in api ', error);
               this.toastr.error(error.error.message);
             }
           );
       } else {
-        console.log('news adding', this.images);
+        // console.log('news adding', this.images);
         this.updateService.postNews(this.newsContent.value).subscribe(
           (res: any) => {
             console.log(res);
             if (res.statusCode == 200) {
-              this.toastr.success('News added successfully');
+              this.toastr.success(this.translate.instant('TOASTER_RESPONSE.NEWS_ADDED_SUCCESS'));
 
               this.updateParentState1.emit(false);
             }
@@ -213,7 +213,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
         );
       }
     } else {
-      this.toastr.error('Enter All Fields');
+      this.toastr.success(this.translate.instant('TOASTER_RESPONSE.ENTER_ALL_FIELDS_ERROR'));
     }
   }
 
@@ -221,7 +221,8 @@ export class NewspostComponent implements OnInit, OnDestroy {
 
   addVideo() {
     if (this.videoCount >= 3) {
-      alert('You can only add up to 3 videos.');
+      // alert('You can only add up to 3 videos.');
+      this.toastr.warning(this.translate.instant('TOASTER_RESPONSE.VIDEO_CAPACITY_ERROR'))
       return;
     }
 

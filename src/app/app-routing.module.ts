@@ -1,42 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { PlayerNameComponent } from './player-name/player-name.component';
-import { PlayerImageComponent } from './player-image/player-image.component';
-import { SetPasswordComponent } from './set-password/set-password.component';
-import { TeamNameComponent } from './team-name/team-name.component';
-import { TeamImageComponent } from './team-image/team-image.component';
-import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { ForgotpasswordComponent } from './auth/components/forgotpassword/forgotpassword.component';
 import { AuthGuardService  as authGuard} from './services/auth guard/auth-guard.service';
+import { AppComponent } from './app.component';
 const routes: Routes = [
-  {
-    path: '',
-    component: LoginComponent,
-  },
-  {
-    path: 'forgotpassword',
-    component: ForgotpasswordComponent,
-  },
-  {
-    path: 'set-password/:token',
-    component: SetPasswordComponent,
-  },
-  {
-    path: 'playername/:token',
-    component: PlayerNameComponent,
-  },
-  {
-    path: 'playerimage/:token',
-    component: PlayerImageComponent,
-  },
-  {
-    path: 'teamName/:token',
-    component: TeamNameComponent,
-  },
-  {
-    path: 'teamImage/:token',
-    component: TeamImageComponent,
-  },
+{
+  path: '',
+  loadChildren:()=>{
+    return import('./auth/auth.module').then(m=>m.AuthModule)
+  }
+},
 {
     path: 'home',
     canActivate:[authGuard],

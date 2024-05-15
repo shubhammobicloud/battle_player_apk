@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
-import { TeamService } from '../services/team/team.service';
+import { TeamService } from '../../../services/team/team.service';
 import { TranslateService } from '@ngx-translate/core';
-import { UserService } from '../services/users/users.service';
+import { UserService } from '../../../services/users/users.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-team-image',

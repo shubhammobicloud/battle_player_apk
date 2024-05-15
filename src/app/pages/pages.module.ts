@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GetStartedComponent } from '../get-started/get-started.component';
 import { ScoreBoardComponent } from './component/score-board/score-board.component';
 import { CommunicationsComponent } from './component/communications/communications.component';
 import { ProfileComponent } from './component/profile/profile.component';
-import { HttpClient } from '@angular/common/http';
 import { TeamDetailsComponent } from './component/team-details/team-details.component';
 import { PageRoutingModule } from './modules/routing/pages-routing.module';
-import { Router, RouterModule } from '@angular/router';
+import {  RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { PagesComponent } from './pages.component';
 import { MenuComponent } from './menu/menu.component';
@@ -22,7 +20,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
-    GetStartedComponent,
     PagesComponent,
     ScoreBoardComponent,
     CommunicationsComponent,

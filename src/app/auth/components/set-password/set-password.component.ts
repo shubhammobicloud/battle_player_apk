@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component,OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../services/users/users.service';
-import { ForgetPasswordService } from '../services/forgot-password/forgot-password.service';
+import { UserService } from '../../../services/users/users.service';
+import { ForgetPasswordService } from '../../../services/forgot-password/forgot-password.service';
 import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-set-password',

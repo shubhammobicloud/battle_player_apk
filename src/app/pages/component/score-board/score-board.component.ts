@@ -245,7 +245,8 @@ export class ScoreBoardComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => {
         if(err.error.message=='Resource not found. Please check the ID and try again.'){
-          this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
+          // this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_RESOURCE_NOT_FOUND'))
+
         }else if(err.error.message=='No Team data found.'){
           this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_NO_TEAM_DATA_FOUND'))
         }else{

@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../services/users/users.service';
+import { UserService } from '../../../services/users/users.service';
 import {jwtDecode} from 'jwt-decode';
 import { TranslateService } from '@ngx-translate/core';
 

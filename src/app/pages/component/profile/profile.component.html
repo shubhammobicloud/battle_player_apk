@@ -17,14 +17,14 @@
           [src]="
             selectedFile
               ? displayedImage
-              : displayedImage 
+              : displayedImage
               ? link + 'images/' + displayedImage
               : defaultImage
           "
           alt="User Avatar"
           style="cursor: pointer"
         />
-        <p *ngIf="isEditMode && !selectedFile">Choose Image</p>
+        <p *ngIf="isEditMode && !selectedFile">{{translate.instant("PROFILE_PAGE.CHOOSE_IMAGE")}}</p>
       </label>
       <input
         type="file"

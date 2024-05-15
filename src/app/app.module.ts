@@ -25,7 +25,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TeamImageComponent } from './team-image/team-image.component';
 import { MatCardModule } from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { ServiceWorkerModule } from '@angular/service-worker'
+import { ServiceWorkerModule, SwRegistrationOptions } from '@angular/service-worker'
 @NgModule({
   declarations: [
     AppComponent,TeamImageComponent,
@@ -60,15 +60,14 @@ import { ServiceWorkerModule } from '@angular/service-worker'
         deps: [HttpClient],
       }
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+    ServiceWorkerModule.register('service-worker.js')
   ],
   providers: [
     TranslateService,
+    {
+      provide: SwRegistrationOptions,
+      useFactory: () => ({enabled: location.search.includes('sw=true')}),
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

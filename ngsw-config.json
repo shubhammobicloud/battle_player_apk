@@ -22,19 +22,8 @@
       "resources": {
         "files": [
           "/assets/**",
-          "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+          "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
-      }
-    }
-  ],
-  "dataGroups": [
-    {
-      "name": "chat-news-cache",
-      "urls": [
-        "http://192.168.29.28:3000/"
-      ],
-      "cacheConfig": {
-        "strategy": "performance"
       }
     }
   ]

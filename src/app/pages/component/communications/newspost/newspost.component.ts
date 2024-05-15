@@ -236,7 +236,8 @@ export class NewspostComponent implements OnInit, OnDestroy {
         this.editor.executeCommand('insertHtml', videoEmbedCode);
         this.videoCount++; // Increment the count after adding a video
       } else {
-        alert('Invalid YouTube video URL.');
+        this.toastr.error(this.translate.instant('TOASTER_RESPONSE.INVALID_YOUTUBE_URL'));
+
       }
     }
   }

@@ -3,8 +3,16 @@
     <div class="user-profile">
       <!-- <h3 *ngIf="TeamProfile?.gameLeader">Hello Leader!!</h3> -->
       <mat-card *ngIf="!userIsNotInAnyTeam">
-        <h2>{{ 'OOPS_TITLE' | translate }}</h2>
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="200" height="200"viewBox="55 60 90 90" xml:space="preserve">
+        <h2>{{ "OOPS_TITLE" | translate }}</h2>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+          width="200"
+          height="200"
+          viewBox="55 60 90 90"
+          xml:space="preserve"
+        >
           <desc>Created with Fabric.js 5.2.4</desc>
           <defs></defs>
           <rect
@@ -311,64 +319,68 @@
       <mat-card *ngIf="userIsNotInAnyTeam">
         <span class="userNameEdit">
           <h2>{{ teamName }}</h2>
-            <button mat-icon-button type="button" (click)="toggleEditMode()">
-              <mat-icon> {{ isEditMode ? "edit" : "edit" }}</mat-icon>
-            </button></span
-          >
-      <label for="avatarInput" class="team-profile">
-        <img
-          formControlName="displayedImage"
-          [src]="
-            selectedFile
-              ? displayedImage
-              : displayedImage
-              ? link + 'images/' + displayedImage
-              : '../../assets/images.png'
-          "
-          alt="User Avatar"
-          style="cursor: pointer"
+          <button mat-icon-button type="button" (click)="toggleEditMode()">
+            <mat-icon> {{ isEditMode ? "edit" : "edit" }}</mat-icon>
+          </button></span
+        >
+        <label for="avatarInput" class="team-profile">
+          <img
+            formControlName="displayedImage"
+            [src]="
+              selectedFile
+                ? displayedImage
+                : displayedImage
+                ? link + 'images/' + displayedImage
+                : '../../assets/images.png'
+            "
+            alt="User Avatar"
+            style="cursor: pointer"
+          />
+          <p>
+            {{
+              isEditMode ? translate.instant("PROFILE_PAGE.CHOOSE_IMAGE") : ""
+            }}
+          </p>
+        </label>
+        <input
+          type="file"
+          id="avatarInput"
+          [disabled]="!isEditMode"
+          style="display: none"
+          (change)="onFileSelected($event)"
+          accept="image/*"
         />
-        <p>{{ isEditMode ? translate.instant('PROFILE_PAGE.CHOOSE_IMAGE') : "" }}</p>
-      </label>
-      <input
-        type="file"
-        id="avatarInput"
-        [disabled]="!isEditMode"
-        style="display: none"
-        (change)="onFileSelected($event)"
-        accept="image/*"
-      />
-      <div class="container-table">
-        <ul class="player-list">
-          <ng-container
-            *ngIf="tableData && tableData.length > 0"
-          ></ng-container>
-          <li *ngFor="let player of tableData">
-            <span>
-              <div class="circle">
-                <img
-                  [src]="
-                    player.avatar
-                      ? detailsimage + player.avatar
-                      : defalutimage
-                  "
-                  alt="Player Image"
-                />
-              </div>
-            </span>
-            <span style="text-align: center">
-              {{ player.userName ? player.userName : player.email
-              }}{{ player.gameLeader ? "  GL" : "" }}
-            </span>
-          </li>
-        </ul>
-      </div>
+        <div class="container-table">
+          <ul class="player-list">
+            <ng-container
+              *ngIf="tableData && tableData.length > 0"
+            ></ng-container>
+            <li *ngFor="let player of tableData">
+              <span>
+                <div class="circle">
+                  <img
+                    [src]="
+                      player.avatar
+                        ? detailsimage + player.avatar
+                        : defalutimage
+                    "
+                    alt="Player Image"
+                  />
+                </div>
+              </span>
+              <span style="text-align: center">
+                {{ player.userName ? player.userName : player.email
+                }}{{ player.gameLeader ? "  GL" : "" }}
+              </span>
+            </li>
+          </ul>
+        </div>
 
-      <br />
-      <!-- <button mat-raised-button type="button" (click)="toggleEditMode()" *ngIf="gameleader">
+        <br />
+        <!-- <button mat-raised-button type="button" (click)="toggleEditMode()" *ngIf="gameleader">
       {{  isEditMode ? translate.instant('SAVE') : translate.instant('EDIT_PROFILE') }}
     </button> -->
-    </mat-card>
-  </div>
-</form>
+      </mat-card>
+    </div>
+  </form>
 </div>

@@ -26,7 +26,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class NewspostComponent implements OnInit, OnDestroy {
   // inputString: string = '';
   characterCount: number = 0;
-
+  maxCharacters: number = 800;
 
   @Output() updateParentState1: EventEmitter<any> = new EventEmitter<any>();
   showTeamChat: boolean = false;
@@ -147,34 +147,101 @@ export class NewspostComponent implements OnInit, OnDestroy {
       const cleanContent = editorContent.replace(/[^a-zA-Z]/g, '');
       // Count characters
       this.characterCount = cleanContent.length;
-
+  
       // Allow backspace to work
-      if (event.keyCode === 8) { // 8 is the key code for backspace
+      if (event.keyCode === 8 || event.keyCode === 46) { // 8 is the key code for backspace, 46 for delete
         return;
       }
-
+  
       // Disable typing when character count exceeds 800
-      if (this.characterCount >= 800) {
+      if (this.characterCount >= 800 && (event.key.length === 1 && /[a-zA-Z]/.test(event.key))) {
         event.preventDefault(); // Prevent further key presses
       }
     } else {
       this.characterCount = 0; // If content is null, set character count to 0
     }
-
+  
     // Check if the target is the video input
     if (event.target.id === 'video-input') {
       // Allow only up to 3 characters in the video input
       if (event.target.value.length >= 3) {
-
         event.preventDefault();
       }
     }
+  
+    // Prevent accepting pasted characters
+    if (event.type === 'paste') {
+      event.preventDefault();
+    }
+  }
+  
+  preventPaste(event: ClipboardEvent): void {
+    event.preventDefault();
   }
 
+  // submitContent() {
+  //   if (this.newsContent.valid) {
+  //     console.log(this.newsContent.value);
+  //     if (this.updateNews) {
+  //       this.http
+  //         .patch(
+  //           environment.baseUrl + 'news/' + this.newsId,
+  //           this.newsContent.value
+  //         )
+  //         .subscribe(
+  //           (res: any) => {
+  //             console.log('vffrr', res);
+  //             if (res.statusCode == 200) {
+  //               this.updateParentState1.emit(false);
+  //               this.toastr.success(res.message);
+
+  //               // this.route.navigate(['/', 'dashboard', 'news-list']);
+  //             }
+  //           },
+  //           (error: HttpErrorResponse) => {
+  //             // console.log('error in api ', error);
+  //             this.toastr.error(error.error.message);
+              
+  //           }
+  //         );
+  //     } else {
+  //       // console.log('news adding', this.images);
+  //       this.updateService.postNews(this.newsContent.value).subscribe(
+  //         (res: any) => {
+  //           console.log(res);
+  //           if (res.statusCode == 200) {
+  //             this.toastr.success(this.translate.instant('TOASTER_RESPONSE.NEWS_ADDED_SUCCESS'));
+
+  //             this.updateParentState1.emit(false);
+  //           }
+  //         },
+  //         (error: HttpErrorResponse) => {
+  //           console.log('error in api', error);
+  //           this.toastr.error(error.error.message);
+  //         }
+  //       );
+  //     }
+  //   } else {
+  //     this.toastr.error(this.translate.instant('TOASTER_RESPONSE.ENTER_ALL_FIELDS_ERROR'));
+  //   }
+  // }
   submitContent() {
+    // Check if the form is valid
     if (this.newsContent.valid) {
-      console.log(this.newsContent.value);
+      // Get the character count
+      const editorContent = this.newsContent.get('content')?.value;
+      const cleanContent = editorContent ? editorContent.replace(/[^a-zA-Z]/g, '') : '';
+      const characterCount = cleanContent.length;
+  
+      // Check if character count exceeds 800
+      if (characterCount > 800) {
+        this.toastr.error("Character count should not exceed 800");
+        return; // Stop further execution
+      }
+  
+      // Proceed with HTTP request if character count is within limit
       if (this.updateNews) {
+        // Update news logic
         this.http
           .patch(
             environment.baseUrl + 'news/' + this.newsId,
@@ -186,23 +253,19 @@ export class NewspostComponent implements OnInit, OnDestroy {
               if (res.statusCode == 200) {
                 this.updateParentState1.emit(false);
                 this.toastr.success(res.message);
-
-                // this.route.navigate(['/', 'dashboard', 'news-list']);
               }
             },
             (error: HttpErrorResponse) => {
-              // console.log('error in api ', error);
               this.toastr.error(error.error.message);
             }
           );
       } else {
-        // console.log('news adding', this.images);
+        // Add news logic
         this.updateService.postNews(this.newsContent.value).subscribe(
           (res: any) => {
             console.log(res);
             if (res.statusCode == 200) {
               this.toastr.success(this.translate.instant('TOASTER_RESPONSE.NEWS_ADDED_SUCCESS'));
-
               this.updateParentState1.emit(false);
             }
           },
@@ -213,10 +276,9 @@ export class NewspostComponent implements OnInit, OnDestroy {
         );
       }
     } else {
-      this.toastr.success(this.translate.instant('TOASTER_RESPONSE.ENTER_ALL_FIELDS_ERROR'));
+      this.toastr.error(this.translate.instant('TOASTER_RESPONSE.ENTER_ALL_FIELDS_ERROR'));
     }
   }
-
   private videoCount: number = 0;
 
   addVideo() {
@@ -240,6 +302,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
       }
     }
   }
+  
 
   getYouTubeVideoId(url: string): string | null {
     const videoIdRegex =

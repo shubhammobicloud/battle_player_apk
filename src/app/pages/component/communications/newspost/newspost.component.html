@@ -7,27 +7,28 @@
       <input type="text" matInput formControlName="title" />
     </mat-form-field>
     <angular-editor
-        formControlName="content"
-        id="angular-editor"
-        class="angular-editor custom-input"
-        [config]="config"
-        #editor
-        (keydown)="countCharacters($event)"
-      >
-      <ng-template #customButtons let-executeCommandFn="executeCommandFn">
-        <ae-toolbar-set>
-          <ae-button
-            iconClass="fa fa-video-camera"
-            title="Insert Video"
-            (buttonClick)="addVideo()"
-          ></ae-button>
-        </ae-toolbar-set>
-
-        <span class="character-count"
-          >Characters No: {{ characterCount }} / 800</span
-        >
-      </ng-template>
-    </angular-editor>
+    formControlName="content"
+    id="angular-editor"
+    class="angular-editor custom-input"
+    [config]="config"
+    #editor
+    (keydown)="countCharacters($event)"
+    (paste)="preventPaste($event)"
+  >
+    <ng-template #customButtons let-executeCommandFn="executeCommandFn">
+      <ae-toolbar-set>
+        <ae-button
+          iconClass="fa fa-video-camera"
+          title="Insert Video"
+          (buttonClick)="addVideo()"
+        ></ae-button>
+      </ae-toolbar-set>
+  
+      <span class="character-count" [style.color]="characterCount > maxCharacters ? 'red' : 'black'">
+        Characters No: {{ characterCount }} / {{ maxCharacters }}
+      </span>
+    </ng-template>
+  </angular-editor>
   </form>
   <button mat-raised-button class="postNewsButton" (click)="submitContent()">
     {{ "COMMUNICATION_PAGE.NEWS_POST_PAGE.POST_BUTTON_TEXT" | translate }}

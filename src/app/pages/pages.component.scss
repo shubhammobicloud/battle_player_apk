@@ -49,6 +49,9 @@
   overflow: visible;
   height: fit-content;
   border-radius: 50%;
+  &:hover{
+    background-color: transparent;
+  }
 }
 .menuSpan{
  width: 5rem;

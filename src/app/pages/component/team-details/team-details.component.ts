@@ -192,7 +192,7 @@ export class TeamDetailsComponent implements OnInit {
 
         this.displayedImage = reader.result as string;
 
-        this.tostr.success('Profile Image updated successfully');
+        this.tostr.success(this.translate.instant('TOASTER_RESPONSE.PROFILE_IMAGE_UPDATED_SUCCESS'));;
         this.toggleEditMode();
 
       };

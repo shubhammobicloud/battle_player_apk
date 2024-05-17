@@ -1,4 +1,5 @@
 {
+  "EXIT_APP":"App beenden?",
   "APP_MAIN": {
     "LOGIN_PAGE": {
       "LOGO_ALT_TEXT": "Sportlogo",
@@ -93,7 +94,8 @@
       "NEWS_POST_PAGE":{
         "TITLE_LABEL": "Titel",
         "POST_BUTTON_TEXT": "Veröffentlichen",
-        "EDITOR_PLACEHOLDER": "Hier Text eingeben..."
+        "EDITOR_PLACEHOLDER": "Hier Text eingeben...",
+        "CHARACHTER_NO":"Zeichen Nr.:"
       }
 
     },

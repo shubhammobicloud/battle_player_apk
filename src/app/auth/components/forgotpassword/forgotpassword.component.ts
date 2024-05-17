@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ForgetPasswordService } from '../services/forgot-password/forgot-password.service';
+import { ForgetPasswordService } from '../../../services/forgot-password/forgot-password.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environment/enviroment';

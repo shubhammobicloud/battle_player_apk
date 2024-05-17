@@ -88,7 +88,7 @@ body {
   justify-content: center !important;
 
   /* Animation properties */
-  animation: appear 0.50s ease-in-out forwards; /* Adjust timing and easing as needed */
+  animation: appear 0.40s ease-in-out forwards; /* Adjust timing and easing as needed */
 }
 
 .mat-mdc-menu-item:nth-child(1) {
@@ -120,7 +120,7 @@ body {
   border-radius: 50%;
   transform: translateX(115px) translateY(-50px);
   -webkit-transform: translateX(108px) translateY(-46px);
-  animation-delay: 0.30s;
+  animation-delay: 0.25s;
 }
 
 .mat-mdc-menu-item:nth-child(5) {
@@ -128,7 +128,7 @@ body {
   border-radius: 50%;
   transform: translateX(0px) translateY(-235px);
   -webkit-transform: translateX(0px) translateY(-230px);
-  animation-delay: 0.40s;
+  animation-delay: 0.30s;
 }
 
 .mat-mdc-menu-item:nth-child(6) {
@@ -136,7 +136,7 @@ body {
   border-radius: 50%;
   transform: translateX(-5px) translateY(-468px);
   -webkit-transform: translateX(-5px) translateY(-468px);
-  animation-delay: 0.50s;
+  animation-delay: 0.40s;
 }
 
 /* Style for child span */
@@ -278,7 +278,7 @@ body {
 }
 
 .mat-mdc-menu-item:not([disabled]):hover{
-  // border-radius: 50% !important;
+  border-radius: 50% !important;
   background-color: rgba(255, 255, 255, 0) !important;
 }
 .mat-mdc-menu-item:focus{

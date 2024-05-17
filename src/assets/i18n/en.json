@@ -1,4 +1,5 @@
 {
+  "EXIT_APP":"Exit App?",
   "APP_MAIN": {
     "LOGIN_PAGE": {
       "LOGO_ALT_TEXT": "Sports Logo",
@@ -72,7 +73,7 @@
     "MYBATTLE": "My Battle",
     "RANKING": "Ranking",
     "COMMUNICATION": "Chat" ,
-    "NEWS":"NEWS",
+    "NEWS":"News",
     "PROFILE": "Profile"
   },
   "HEADER_PAGE": {
@@ -94,7 +95,8 @@
       "NEWS_POST_PAGE":{
         "TITLE_LABEL": "Title",
         "POST_BUTTON_TEXT": "Post",
-        "EDITOR_PLACEHOLDER": "Enter text here..."
+        "EDITOR_PLACEHOLDER": "Enter text here...",
+        "CHARACHTER_NO":"Characters No:"
       }
 
     },

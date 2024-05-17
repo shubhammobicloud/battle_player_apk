@@ -47,7 +47,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
     private updateService: NewsUpdateService,
     private route: Router,
     private toastr: ToastrService,
-    private translate:TranslateService
+    public translate:TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -271,7 +271,35 @@ export class NewspostComponent implements OnInit, OnDestroy {
           },
           (error: HttpErrorResponse) => {
             console.log('error in api', error);
-            this.toastr.error(error.error.message);
+            if(error.error.message=="Title should not be empty."){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_EMPTY_TITLE'));
+            }
+            else if(error.error.message=="Unauthorized"){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_UNAUTHORIZED'));
+            }
+            else if(error.error.message=="Something went wrong on the server."){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'));
+            }
+            else if(error.error.message=="The title must contain a minimum of 10 characters."){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_TITLE_LENGTH_MINIMUM'));
+            }
+            else if(error.error.message=="The title must not exceed 200 characters."){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_TITLE_LENGTH_MAXIMUM'));
+            }
+            else if(error.error.message=="Content should not be empty."){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_EMPTY_CONTENT'));
+            }
+            else if(error.error.message=="Forbidden"){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_UNAUTHORIZED'));
+            }
+            else if(error.error.message=="Content should be between 10 and 1000 characters."){
+              this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_CONTENT_LENGTH'));
+            }
+            else{
+              console.log('error in api ', error);
+              this.toastr.error(this.translate.instant('TOASTER_RESPONSE.SERVER_ERROR'));
+            }
+
           }
         );
       }
@@ -298,7 +326,8 @@ export class NewspostComponent implements OnInit, OnDestroy {
         this.editor.executeCommand('insertHtml', videoEmbedCode);
         this.videoCount++; // Increment the count after adding a video
       } else {
-        alert('Invalid YouTube video URL.');
+        this.toastr.error(this.translate.instant('TOASTER_RESPONSE.INVALID_YOUTUBE_URL'));
+
       }
     }
   }

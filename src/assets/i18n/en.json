@@ -65,7 +65,8 @@
       "SELECTED_IMAGE_ALT_TEXT": "Selected Image",
       "CHOOSE_FILE_TEXT": "Choose File",
       "TAP_HERE_TEXT": "Tap here to select team picture",
-      "CONTINUE_BUTTON_TEXT": "Continue"
+      "CONTINUE_BUTTON_TEXT": "Continue",
+      "TEAM_PROFILE_IMAGE_UPLOADED_SUCCESSFULLY": "Team profile image uploaded successfully"
     }
 
   },

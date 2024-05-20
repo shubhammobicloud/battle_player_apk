@@ -65,7 +65,8 @@
       "SELECTED_IMAGE_ALT_TEXT": "Ausgewähltes Bild",
       "CHOOSE_FILE_TEXT": "Datei auswählen",
       "TAP_HERE_TEXT": "Tippen Sie hier, um das Mannschaftsbild auszuwählen",
-      "CONTINUE_BUTTON_TEXT": "Fortfahren"
+      "CONTINUE_BUTTON_TEXT": "Fortfahren",
+      "TEAM_PROFILE_IMAGE_UPLOADED_SUCCESSFULLY": "Teamprofilbild erfolgreich hochgeladen"
     }
   },
   "MENU_OPTIONS": {

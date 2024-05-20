@@ -23,9 +23,9 @@
           (buttonClick)="addVideo()"
         ></ae-button>
       </ae-toolbar-set>
-  
+
       <span class="character-count" [style.color]="characterCount > maxCharacters ? 'red' : 'black'">
-        Characters No: {{ characterCount }} / {{ maxCharacters }}
+        {{translate.instant('COMMUNICATION_PAGE.NEWS_POST_PAGE.CHARACHTER_NO')}}  {{ characterCount }} / {{ maxCharacters }}
       </span>
     </ng-template>
   </angular-editor>

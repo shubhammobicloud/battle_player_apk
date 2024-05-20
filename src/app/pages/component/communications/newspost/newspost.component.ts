@@ -45,10 +45,15 @@ export class NewspostComponent implements OnInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private updateService: NewsUpdateService,
-    private route: Router,
     private toastr: ToastrService,
     public translate:TranslateService
-  ) {}
+  ) {
+    let lang = localStorage.getItem('lang');
+    if (lang) {
+      translate.use(lang)
+    }
+
+  }
 
   ngOnInit(): void {
     let data: any = this.updateService.news;
@@ -147,12 +152,12 @@ export class NewspostComponent implements OnInit, OnDestroy {
       const cleanContent = editorContent.replace(/[^a-zA-Z]/g, '');
       // Count characters
       this.characterCount = cleanContent.length;
-  
+
       // Allow backspace to work
       if (event.keyCode === 8 || event.keyCode === 46) { // 8 is the key code for backspace, 46 for delete
         return;
       }
-  
+
       // Disable typing when character count exceeds 800
       if (this.characterCount >= 800 && (event.key.length === 1 && /[a-zA-Z]/.test(event.key))) {
         event.preventDefault(); // Prevent further key presses
@@ -160,7 +165,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
     } else {
       this.characterCount = 0; // If content is null, set character count to 0
     }
-  
+
     // Check if the target is the video input
     if (event.target.id === 'video-input') {
       // Allow only up to 3 characters in the video input
@@ -168,13 +173,13 @@ export class NewspostComponent implements OnInit, OnDestroy {
         event.preventDefault();
       }
     }
-  
+
     // Prevent accepting pasted characters
     if (event.type === 'paste') {
       event.preventDefault();
     }
   }
-  
+
   preventPaste(event: ClipboardEvent): void {
     event.preventDefault();
   }
@@ -201,7 +206,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
   //           (error: HttpErrorResponse) => {
   //             // console.log('error in api ', error);
   //             this.toastr.error(error.error.message);
-              
+
   //           }
   //         );
   //     } else {
@@ -232,13 +237,13 @@ export class NewspostComponent implements OnInit, OnDestroy {
       const editorContent = this.newsContent.get('content')?.value;
       const cleanContent = editorContent ? editorContent.replace(/[^a-zA-Z]/g, '') : '';
       const characterCount = cleanContent.length;
-  
+
       // Check if character count exceeds 800
       if (characterCount > 800) {
         this.toastr.error("Character count should not exceed 800");
         return; // Stop further execution
       }
-  
+
       // Proceed with HTTP request if character count is within limit
       if (this.updateNews) {
         // Update news logic
@@ -331,7 +336,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
       }
     }
   }
-  
+
 
   getYouTubeVideoId(url: string): string | null {
     const videoIdRegex =

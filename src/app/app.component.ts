@@ -10,7 +10,9 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent implements OnInit {
   title = 'battlePlayerApp';
   constructor(public translate:TranslateService){
-
+    let lang=localStorage.getItem('lang')
+    if(lang)
+translate.use(lang)
   }
   ngOnInit() {
     if (Capacitor.isNativePlatform()) {

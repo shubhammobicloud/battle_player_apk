@@ -25,6 +25,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { ServiceWorkerModule, SwRegistrationOptions } from '@angular/service-worker'
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
+import { environment } from 'src/environment/enviroment';
 @NgModule({
   declarations: [
     AppComponent
@@ -49,14 +50,10 @@ import { AuthModule } from './auth/auth.module';
         deps: [HttpClient],
       }
     }),
-    ServiceWorkerModule.register('service-worker.js')
+    ServiceWorkerModule.register('/ngsw-worker.js')
   ],
   providers: [
     TranslateService,
-    {
-      provide: SwRegistrationOptions,
-      useFactory: () => ({enabled: location.search.includes('sw=true')}),
-    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

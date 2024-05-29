@@ -1,10 +1,12 @@
 {
   "EXIT_APP":"Exit App?",
+  "VERIFYING_OTP": "Verifying OTP...",
+  "LOADING_DATA": "Loading Data...",
   "APP_MAIN": {
     "LOGIN_PAGE": {
       "LOGO_ALT_TEXT": "Sports Logo",
       "WUERTH_LOGO_ALT_TEXT": "Wuerth Logo",
-      "HELLO_PLAYERS": "Hello players..!!",
+      "HELLO_PLAYERS": "Hello players!",
       "READY_FOR_BATTLE_DAY": "Are you ready for battle day?",
       "LOGIN_TITLE": "LOGIN",
       "LOGIN_SUBTITLE": "For Battle",
@@ -73,7 +75,7 @@
   "MENU_OPTIONS": {
     "MYBATTLE": "My Battle",
     "RANKING": "Ranking",
-    "COMMUNICATION": "Chat" ,
+    "COMMUNICATION": "Chat & News" ,
     "NEWS":"News",
     "PROFILE": "Profile"
   },
@@ -132,6 +134,7 @@
       "INVALID_PASSWORD": "Password is invalid",
       "LOGIN_SUCCESS_MESSAGE": "Login successfully",
       "INVALID_CREDENTIALS": "Invalid credentials.",
+      "PASSWORD_ERROR":"Please enter valid password.",
       "FILL_DETAILS_ERROR": "Please fill the details",
       "PROMPT_VIDEO_URL": "Please enter the YouTube video URL:",
       "INVALID_YOUTUBE_URL": "Invalid YouTube URL",

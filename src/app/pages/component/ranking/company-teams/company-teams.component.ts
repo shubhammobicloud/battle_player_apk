@@ -11,7 +11,8 @@ import { environment } from 'src/environment/enviroment';
 })
 export class CompanyTeamsComponent {
   tableData!: any[];
-
+  link = environment.baseUrl;
+  noData:boolean=false;
   constructor(private http: HttpClient,private rankingService:RankingService) {}
 
   ngOnInit(): void {
@@ -19,7 +20,9 @@ export class CompanyTeamsComponent {
       .subscribe(
         (data: any) => {
           this.tableData = data['data'].sort((a:any,b:any)=>b.rankingScore-a.rankingScore);
-
+          if(this.tableData.length==0){
+            this.noData=true
+          }
 
         },
         (error:any) => {
@@ -33,7 +36,7 @@ export class CompanyTeamsComponent {
     if (score !== null && score !== undefined) {
       // Convert score to string
       let scoreString = score.toString();
-      
+
       // Remove decimal point and trailing zeros
       scoreString = scoreString.replace(/(\.0+|\.)/g, "");
 

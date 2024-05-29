@@ -17,7 +17,7 @@ export class NewsSerives{
         return this.http.get(this.baseUrl)
     }
 
-    reactOnNews=(Id:any)=>{
-      return this.http.put(this.baseUrl+'react/'+Id,'');
+    reactOnNews=(Id:any,emoji:any)=>{
+      return this.http.put(this.baseUrl+'react/'+Id,{emoji:emoji});
     }
 }

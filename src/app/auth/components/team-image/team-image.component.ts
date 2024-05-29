@@ -26,12 +26,12 @@ export class TeamImageComponent {
   }
 
   displayedImage: string | ArrayBuffer | null =
-    'https://i.pinimg.com/originals/35/3d/7a/353d7a34da6baa266f4557b8181cb33c.jpg';
+    './assets/sports logo21.png';
   selectedFile: File | null = null;
 
   onFileSelected(event: any): void {
     // Reads the file that is being uploaded
-    console.log(event);
+    // console.log(event);
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files) {
       const reader = new FileReader();
@@ -50,10 +50,10 @@ export class TeamImageComponent {
       formData.append('avatar', this.selectedFile, this.selectedFile.name);
       this.teamService.updateTeamImage(formData).subscribe(
         (res: any) => {
-          console.log('File upload response:', res);
+          // console.log('File upload response:', res);
           if (res.success) {
             this.userService.sendMailToPlayers().subscribe(res=>{
-              console.log(res)
+              // console.log(res)
             });
             this.route.navigate(['/', 'home']);
             this.toastr.success(this.translate.instant('TEAM_IMAGE_PAGE.TEAM_PROFILE_IMAGE_UPLOADED_SUCCESSFULLY'))

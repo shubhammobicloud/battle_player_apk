@@ -58,7 +58,7 @@ languageCodes = ['en', 'de'];
             if (res.success) {
               localStorage.setItem('token', res.data.token);
               let data :{_id:any,teamId:any,avatar:any,userName:any,gameLeader:any}= jwtDecode(res.data.token);
-              console.log(data )
+              // console.log(data )
               localStorage.setItem('userId', data._id);
               localStorage.setItem('teamId', data.teamId);
               localStorage.setItem('avatar',data.avatar)
@@ -83,7 +83,12 @@ languageCodes = ['en', 'de'];
               this.translate.get('TOASTER_RESPONSE.NO_MATCHING_DATA_ERROR').subscribe((translation: string) => {
                 this.toastr.error(translation);
               });
-            }else if(error.error.message=='Invalid credentials .'){
+            }else if(error.error.message=='Please enter valid password.'){
+              this.translate.get('TOASTER_RESPONSE.PASSWORD_ERROR').subscribe((translation: string) => {
+                this.toastr.error(translation);
+                });
+            }
+            else if(error.error.message=='Invalid credentials .'){
               this.translate.get('TOASTER_RESPONSE.INVALID_CREDENTIALS').subscribe((translation: string) => {
                 this.toastr.error(translation);
               });
@@ -107,7 +112,7 @@ languageCodes = ['en', 'de'];
       this.toastr.error(this.translate.instant('TOASTER_RESPONSE.INVALID_PASSWORD'));
 
     }
-      console.log(this.loginForm)
+      // console.log(this.loginForm)
 
     }
   }

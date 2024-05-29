@@ -28,24 +28,24 @@ export class CommunicationsComponent implements OnInit {
       userName: any;
       superUser: boolean;
     } = jwtDecode(token);
-    console.log('check', data.superUser);
+    // console.log('check', data.superUser);
 
     this.hidesuper = data.superUser;
     // this.hidesuper=true
-    
+
     if (data.superUser) {
       this.showTeamChat = !this.showTeamChat;
-      
-  
+
+
     }
   }
 
   handleUpdateParentState(value: any) {
-    console.log("calling ", value)
+    // console.log("calling ", value)
     this.showTeamChat = value;
   }
 
- 
+
   shouldShowTabsForUser(): boolean {
     const token = localStorage.getItem('token');
 
@@ -56,5 +56,5 @@ export class CommunicationsComponent implements OnInit {
       return false;
     }
   }
-  
+
 }

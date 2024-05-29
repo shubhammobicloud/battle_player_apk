@@ -1,0 +1,10 @@
+.app-main-container{
+  background-image: url('./../assets/Tennisplatz_Paris.jpg');
+  background-position: center;
+  background-size: cover;
+  background-size: cover; /* Or another desired size */
+  background-repeat: no-repeat;
+  background-clip: border-box;
+  height: calc(100vh - env(safe-area-inset-top));
+  width: calc(100vw - env(safe-area-inset-left,safe-area-inset-right));
+}

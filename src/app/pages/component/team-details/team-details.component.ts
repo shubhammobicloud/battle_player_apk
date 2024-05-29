@@ -57,7 +57,7 @@ export class TeamDetailsComponent implements OnInit {
     this.userService.getUserPlayer().subscribe(
       (data: any) => {
         this.userIsNotInAnyTeam=true
-        console.log('data0', data);
+        // console.log('data0', data);
 
         this.tableData = data.data;
 
@@ -93,7 +93,7 @@ export class TeamDetailsComponent implements OnInit {
 
       this.TeamProfile = response.data;
       // TeamName: response.data?.teamId?.name
-      console.log('res', response.data?.teamId?.name);
+      // console.log('res', response.data?.teamId?.name);
 
       this.teamName = response.data?.teamId?.name;
 
@@ -152,7 +152,7 @@ export class TeamDetailsComponent implements OnInit {
       // this.userProfileForm.enable();
 
     } else {
-      console.log('elselllllllllllllllllll');
+      // console.log('elselllllllllllllllllll');
       this.teamProfileForm.disable();
       if (this.selectedFile) {
         const formData = new FormData();
@@ -197,7 +197,7 @@ export class TeamDetailsComponent implements OnInit {
 
       };
       this.selectedFile = fileInput.files[0];
-      console.log(this.selectedFile);
+      // console.log(this.selectedFile);
       reader.readAsDataURL(this.selectedFile);
     }
   }
@@ -206,7 +206,7 @@ export class TeamDetailsComponent implements OnInit {
   getTeamImages() {
     this.dashboardService.getTeamImages().subscribe({
       next: (res: any) => {
-        console.log('api res', res);
+        // console.log('api res', res);
         // this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage;
         this.displayedImage = res.data?.avatar;
 

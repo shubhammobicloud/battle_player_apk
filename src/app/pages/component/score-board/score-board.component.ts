@@ -24,7 +24,7 @@ export class ScoreBoardComponent implements OnInit {
   dynamicImageUrl: string = 'path_to_dynamic_image.png';
   teamAScore: number = 0;
   teamBScore: number = 0;
-  eventImageURL: string = '../../../../assets/ground.jpg';
+  eventImageURL: string = '../../../../assets/ground.png';
   baseUrl: string = environment.baseUrl;
 
   constructor(
@@ -95,7 +95,7 @@ export class ScoreBoardComponent implements OnInit {
       }
 
       if (success) {
-        console.log(directory, 'Chosen directory');
+        // console.log(directory, 'Chosen directory');
       }
 
       const fileUri = await Filesystem.getUri({
@@ -142,7 +142,7 @@ export class ScoreBoardComponent implements OnInit {
         directory,
         recursive: true, // Create parent directories if they don't exist
       });
-      console.log(directoryExists, directoryPath);
+      // console.log(directoryExists, directoryPath);
     }
   }
 
@@ -178,18 +178,18 @@ export class ScoreBoardComponent implements OnInit {
   getEventImage() {
     this.dashboardService.getEventImage().subscribe({
       next: (res) => {
-        console.log('api res', res);
+        // console.log('api res', res);
         this.storeImageLocally(
           res.data.avatar
             ? `${environment.baseUrl}images/${res.data.avatar}`
             : this.eventImageURL
         ).subscribe((res) => {
-          console.log(URL.createObjectURL(res));
+          // console.log(URL.createObjectURL(res));
           // this.centerLogo = URL.createObjectURL(res);
         });
       },
       error: (err: HttpErrorResponse) => {
-        console.log('api error ', err);
+        // console.log('api error ', err);
       },
     });
   }
@@ -197,7 +197,7 @@ export class ScoreBoardComponent implements OnInit {
   getTeamImages() {
     this.dashboardService.getTeamImages().subscribe({
       next: (res) => {
-        console.log('api res', res);
+        // console.log('api res', res);
         // this.teamAImage = res.data?.avatar?`${environment.baseUrl}images/${res.data.avatar}`:this.teamBImage;
         this.storeImageLocally(
           res.data?.avatar
@@ -222,9 +222,9 @@ export class ScoreBoardComponent implements OnInit {
         // this.teamBScore = (res.data?.battlePartnerTeamId?.currentSales /  res.data?.battlePartnerTeamId?.targetSales) *  100;
         // this.getTeamScore(this.teamAName,this.teamBName)
         this.rankingService.getTeamRankingOfTwoTeams(res.data._id,res.data.battlePartnerTeamId._id).subscribe((rankRes)=>{
-          console.log(rankRes.data._id,"Asddddddddddd")
+          // console.log(rankRes.data._id,"Asddddddddddd")
           rankRes.data.forEach((findId:any)=>{
-            console.log(findId,"Asddddddddddd",res.data.name)
+            // console.log(findId,"Asddddddddddd",res.data.name)
             if(res.data.name==findId.name){
               this.teamAScore=findId.rankingScore;
             }

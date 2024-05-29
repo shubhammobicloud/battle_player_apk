@@ -17,16 +17,15 @@ export class PlayerImageComponent {
     public translate:TranslateService
   ) {
     let lang:any=localStorage.getItem('lang')
-    console.log(lang,"asdwqerqwr")
+    // console.log(lang,"asdwqerqwr")
     translate.use(lang);
   }
 
-  displayedImage: string | ArrayBuffer | null =
-    'https://www.w3schools.com/howto/img_avatar.png';
+  displayedImage: string | ArrayBuffer | null ='./assets/player profile.png';
   selectedFile: File | null = null;
 
   onFileSelected(event: any): void {
-    console.log(event);
+    // console.log(event);
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files) {
       const reader = new FileReader();
@@ -48,7 +47,7 @@ export class PlayerImageComponent {
      this.userService.updatePlayer(formData)
         .subscribe(
           (res: any) => {
-            console.log('File upload response:', res);
+            // console.log('File upload response:', res);
             if (res.success) {
               this.toastr.success(this.translate.instant('TOASTER_RESPONSE.PROFILE_IMAGE_UPDATED_SUCCESS'));
               localStorage.setItem("avatar",res.data.avatar)

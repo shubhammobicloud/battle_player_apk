@@ -3,11 +3,19 @@
 <div class="container-table">
   <hr />
   <table class="player-table">
-    <ng-container *ngIf="tableData && tableData.length > 0; else noData">
+    <ng-container *ngIf="tableData && tableData.length > 0;">
       <tr *ngFor="let companyteam of tableData; let i = index" class="tab">
         <td class="teamid" style="text-align: justify">{{ i + 1 }}</td>
         <td>
-          <mat-icon>person</mat-icon>
+          <ng-container *ngIf="companyteam.teamAvatar; else noImage">
+            <img
+            width="40px" height="40px"
+            formControlName="displayedImage"
+            [src]="link+'images/' + companyteam.teamAvatar"
+            alt="Team Avatar"/></ng-container>
+          <ng-template #noImage>
+            <mat-icon >person</mat-icon>
+          </ng-template>
         </td>
 
         <td style="text-align: justify;overflow: auto;">
@@ -16,17 +24,15 @@
         </td>
 
         <td class="score">
-          {{ companyteam.rankingScore ? companyteam.rankingScore.toString().slice(0,5) + "" : "0" }}%
+          {{ companyteam.rankingScore ? companyteam.rankingScore.toFixed(1) + "" : "0" }}%
         </td>
       </tr>
     </ng-container>
-    <ng-template #noData>
-      <tr>
-        <td colspan="3">
-          <app-no-data-found></app-no-data-found>
-        </td>
-      </tr>
-    </ng-template>
   </table>
+  <ng-container *ngIf="noData">
+    <tr> <td colspan="3">
+      <app-no-data-found></app-no-data-found>
+    </tr>
+  </ng-container>
   <hr />
 </div>

@@ -14,15 +14,10 @@ export class GlobalCountriesComponent {
   tableData!: any[];
   defaultId = 'YOUR_DEFAULT_ID_HERE';
   defaultIdCount = 0;
+  noData:boolean=false
 // this code is relate to flag
   icon(name:string):string {
     let name1 = name.toLowerCase()
-    console.log("name", name)
-    // if(name){
-
-    // }else{
-    //   return 'fi fi-in';
-    // }
     return `fi fi-${name1}`;
   }
 
@@ -33,7 +28,10 @@ export class GlobalCountriesComponent {
 
     this.rankingService.getglobalRanking().subscribe((data: any) => {
           this.tableData = data['data'].sort((a:any,b:any)=>b.rankingScore-a.rankingScore);
-          console.log(data)
+          if(this.tableData.length==0){
+            this.noData=true
+          }
+          // console.log(data)
           // debugger
 // this.getFlagUrl.name
 

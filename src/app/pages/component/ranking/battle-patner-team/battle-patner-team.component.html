@@ -2,11 +2,19 @@
 <div class="container-table">
   <hr />
   <table class="player-table">
-    <ng-container *ngIf="tableData && tableData.length > 0; else noData">
+    <ng-container *ngIf="tableData && tableData.length > 0;">
       <tr *ngFor="let battle of tableData; let i = index" class="tab">
         <td class="teamid" style="text-align: justify">{{ i + 1 }}</td>
         <td>
-          <mat-icon>person</mat-icon>
+          <ng-container *ngIf="battle.playerProfile; else noImage">
+            <img
+            width="40px" height="40px"
+            formControlName="displayedImage"
+            [src]="link+'images/' + battle.playerProfile"
+            alt="User Avatar"/></ng-container>
+          <ng-template #noImage>
+            <mat-icon >person</mat-icon>
+          </ng-template>
         </td>
 
         <td style="text-align: justify;overflow: auto;">
@@ -17,19 +25,17 @@
         <td class="score">
           {{
             battle.rankingScore
-              ? battle.rankingScore.toString().slice(0, 5) + ""
+              ? battle.rankingScore.toFixed(1) + ""
               : "0"
           }}%
         </td>
       </tr>
     </ng-container>
-    <ng-template #noData>
-      <tr>
-        <td  colspan="3">
-          <app-no-data-found></app-no-data-found>
-        </td>
-      </tr>
-    </ng-template>
   </table>
+  <ng-container *ngIf="noData">
+    <tr> <td colspan="3">
+      <app-no-data-found></app-no-data-found>
+    </tr>
+  </ng-container>
   <hr />
 </div>

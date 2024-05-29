@@ -1,7 +1,7 @@
 <div class="container-table">
   <hr />
   <table class="player-table">
-    <ng-container *ngIf="tableData && tableData.length > 0; else noData">
+    <ng-container *ngIf="tableData && tableData.length > 0;">
       <tr *ngFor="let company of tableData; let i = index" class="tab">
         <td class="teamid" style="text-align: justify">{{ i + 1 }}</td>
         <td>
@@ -21,19 +21,17 @@
         <td class="score">
           {{
             company?.rankingScore
-              ? company?.rankingScore.toString().slice(0, 4) + ""
+              ? company?.rankingScore.toFixed(1) + ""
               : "0"
           }}%
         </td>
       </tr>
     </ng-container>
-    <ng-template #noData>
-      <tr>
-        <td colspan="3">
-         <app-no-data-found></app-no-data-found>
-        </td>
-      </tr>
-    </ng-template>
   </table>
+  <ng-container *ngIf="noData">
+    <tr> <td colspan="3">
+      <app-no-data-found></app-no-data-found>
+    </tr>
+  </ng-container>
   <hr />
 </div>

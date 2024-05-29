@@ -1,10 +1,12 @@
 {
   "EXIT_APP":"App beenden?",
+  "VERIFYING_OTP": "OTP wird überprüft...",
+  "LOADING_DATA": "Daten werden geladen...",
   "APP_MAIN": {
     "LOGIN_PAGE": {
       "LOGO_ALT_TEXT": "Sportlogo",
       "WUERTH_LOGO_ALT_TEXT": "Wuerth-Logo",
-      "HELLO_PLAYERS": "Hallo Spieler..!!",
+      "HELLO_PLAYERS": "Hallo Spieler!",
       "READY_FOR_BATTLE_DAY": "Bereit für den Kampftag?",
       "LOGIN_TITLE": "ANMELDUNG",
       "LOGIN_SUBTITLE": "Für den Kampf",
@@ -73,7 +75,7 @@
     "MYBATTLE": "Mein Kampf",
     "RANKING": "Rangliste",
     "NEWS":"Nachricht",
-    "COMMUNICATION": "Chat",
+    "COMMUNICATION": "Chat & Nachrichten",
     "PROFILE": "Profil"
   },
   "HEADER_PAGE": {
@@ -130,6 +132,7 @@
       "TOASTER_RESPONSE":{
         "INVALID_PASSWORD": "Das Passwort ist ungültig",
         "LOGIN_SUCCESS_MESSAGE": "Anmeldung erfolgreich",
+        "PASSWORD_ERROR":"Bitte geben Sie ein gültiges Passwort ein.",
         "INVALID_CREDENTIALS": "Ungültige Anmeldeinformationen.",
         "FILL_DETAILS_ERROR": "Bitte füllen Sie die Details aus",
         "PROMPT_VIDEO_URL": "Bitte geben Sie die URL des YouTube-Videos ein:",

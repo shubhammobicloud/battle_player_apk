@@ -20,13 +20,13 @@
 
     <div class="score-bar">
       <div class="progress-bar-container">
-        <mat-progress-bar mode="determinate" [value]="teamAScore" ></mat-progress-bar>
-        <p style="background-color: white;">{{ teamAScore ? teamAScore .toString().slice(0,4)+ "" : "0"}}%</p>
+        <mat-progress-bar [ngClass]="teamAScore<=100?'teamAProgressBar':'teamAProgressBarGreen'" mode="determinate" [value]="teamAScore" ></mat-progress-bar>
+        <p style="background-color: white;">{{ teamAScore ? teamAScore .toFixed(1)+ "" : "0"}}%</p>
       </div>
 
       <div class="progress-bar-container">
-        <mat-progress-bar mode="determinate" [value]="teamBScore" ></mat-progress-bar>
-        <p style="background-color: white;">{{ teamBScore ? teamBScore.toString().slice(0,4)+ "" : "0"}}%</p>
+        <mat-progress-bar [ngClass]="teamBScore<=100?'teamAProgressBar':'teamAProgressBarGreen'" mode="determinate" [value]="teamBScore" ></mat-progress-bar>
+        <p style="background-color: white;">{{ teamBScore ? teamBScore.toFixed(1)+ "" : "0"}}%</p>
       </div>
     </div>
   </div>

@@ -67,7 +67,7 @@
 
     .player-list {
       max-height: 300px;
-      overflow-y: auto;
+      overflow-y: scroll;
       // overflow: hidden;
       // margin: 0;
     }
@@ -135,4 +135,18 @@
       height: 41px;
     }
   }
+}
+.player-list::-webkit-scrollbar {
+  width: 6px; /* Adjust the width of the scrollbar */
+  border-radius: 4px
+}
+
+.player-list::-webkit-scrollbar-thumb {
+  background-color: #a7a5a5; /* Adjust the color of the scrollbar thumb */
+  border-radius: 4px; /* Add rounded corners to the scrollbar thumb */
+}
+
+.player-list::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Adjust the background of the scrollbar track */
+  border-radius: 4px
 }

@@ -29,8 +29,8 @@ export class PagesComponent implements OnInit {
     private toast:ToastrService,
     private updateNews:NewsUpdateService) {
       this.showTeamChat = updateNews.showTeamChat
-    
-  
+
+
     let lang: any = localStorage.getItem('lang');
     translate.use(lang);
   }
@@ -50,39 +50,39 @@ export class PagesComponent implements OnInit {
       userName: any;
       superUser: boolean;
     } = jwtDecode(token);
-    console.log('check', data.superUser);
+    // console.log('check', data.superUser);
 
     this.hidesuper = data.superUser;
     // this.hidesuper=true
-    
+
     if (data.superUser) {
       this.showTeamChat = !this.showTeamChat;
-      
-  
+
+
     }
   }
-  
-  
+
+
   setCommunicationTranslation(): void {
     const communicationKey = this.showTeamChat && this.hidesuper ? 'COMMUNICATION' : 'COMMUNICATIONS';
     this.communicationTranslation = this.translate.instant('MENU_OPTIONS.' + communicationKey);
-  
+
     // Now you can use the communicationTranslation variable as needed
   }
 
   getEventImage() {
     this.dashboardService.getEventImage().subscribe({
       next: (res) => {
-        console.log('api res', res);
+        // console.log('api res', res);
         this.storeImageLocally(
           `${environment.baseUrl}images/${res.data.bgAvatar}`
         ).subscribe((res: any) => {
-          console.log(URL.createObjectURL(res));
+          // console.log(URL.createObjectURL(res));
           this.backgroundImageUrl = URL.createObjectURL(res);
         });
       },
       error: (err: HttpErrorResponse) => {
-        console.log('api error ', err);
+        // console.log('api error ', err);
       },
     });
   }
@@ -91,11 +91,9 @@ export class PagesComponent implements OnInit {
   }
 
   onButtonClick(path: string): void {
-    
-    
     this.isActiveButton = path;
     localStorage.setItem("activePage",this.isActiveButton)
-    this.router.navigate(['home', path]);
+    // this.router.navigate(['home', path]);
   }
   logOut(): void {
     // this.isActiveButton = 'logOut';

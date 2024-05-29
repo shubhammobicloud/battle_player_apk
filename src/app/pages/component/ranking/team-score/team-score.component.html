@@ -1,12 +1,21 @@
 <div class="container-table">
   <hr />
   <table class="player-table">
-    <ng-container *ngIf="tableData && tableData.length > 0; else noData">
+    <ng-container *ngIf="tableData && tableData.length > 0;">
       <tr *ngFor="let player of tableData; let i = index" class="tab">
         <td class="teamid" style="text-align: center">{{ i + 1 }}</td>
         <td>
           <!-- <span class="fi fi-gr"></span> -->
-          <mat-icon >person</mat-icon>
+          <!-- <mat-icon >person</mat-icon> -->
+          <ng-container *ngIf="player.playerProfile; else noImage">
+            <img
+            width="40px" height="40px"
+            formControlName="displayedImage"
+            [src]="link+'images/' + player.playerProfile"
+            alt="User Avatar"/></ng-container>
+          <ng-template #noImage>
+            <mat-icon >person</mat-icon>
+          </ng-template>
         </td>
         <td style="text-align: justify; overflow: auto;">
           {{ player.username ? player.username : player.email}}
@@ -14,15 +23,15 @@
         <!-- <td class="sales">{{ player.targetOrSalesRepLC }}</td> -->
 
         <td class="score">
-          {{ player.rankingScore ? (player.rankingScore.toString().slice(0, 5) + "%") : "0%" }}
+          {{ player.rankingScore ? (player.rankingScore.toFixed(1) + "%") : "0%" }}
         </td>
       </tr>
     </ng-container>
-    <ng-template #noData>
-      <tr> <td colspan="3">
-        <app-no-data-found></app-no-data-found>
-      </tr>
-    </ng-template>
   </table>
+  <ng-container *ngIf="noData">
+    <tr> <td colspan="3">
+      <app-no-data-found></app-no-data-found>
+    </tr>
+  </ng-container>
   <hr />
 </div>

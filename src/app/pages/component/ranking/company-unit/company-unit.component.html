@@ -6,11 +6,11 @@
 <div class="container-table">
   <hr />
   <table class="player-table">
-    <ng-container *ngIf="tableData && tableData.length > 0; else noData">
+    <ng-container *ngIf="tableData && tableData.length > 0;">
       <tr *ngFor="let Unit of tableData; let i = index" class="tab">
         <td class="teamid" style="text-align: justify">{{ i + 1 }}</td>
         <td>
-          <mat-icon>person</mat-icon>
+          <mat-icon>local_library</mat-icon>
         </td>
 
         <td style="text-align: justify;overflow: auto;">
@@ -20,18 +20,16 @@
 
         <td class="score">
           {{
-            Unit.rankingScore ? Unit.rankingScore .toString().slice(0,4)+ "" : "0"
+            Unit.rankingScore ? Unit.rankingScore .toFixed(1)+ "" : "0"
           }}%
         </td>
       </tr>
     </ng-container>
-    <ng-template #noData>
-      <tr>
-        <td colspan="3">
-         <app-no-data-found></app-no-data-found>
-        </td>
-      </tr>
-    </ng-template>
   </table>
+  <ng-container *ngIf="noData">
+    <tr> <td colspan="3">
+      <app-no-data-found></app-no-data-found>
+    </tr>
+  </ng-container>
   <hr />
 </div>

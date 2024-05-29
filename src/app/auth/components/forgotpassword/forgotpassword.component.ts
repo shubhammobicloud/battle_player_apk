@@ -81,7 +81,7 @@ export class ForgotpasswordComponent {
   submitOtpAndPassword() {
     if (this.otp && this.password) {
       if(this.validatePassword(this.password)){
-      console.log(this.otp,this.password)
+      // console.log(this.otp,this.password)
       this.forgerPasswordService.verifyOtp({
         email:this.forgotPasswordForm.value.email,
         role:'user',
@@ -89,7 +89,7 @@ export class ForgotpasswordComponent {
         newPassword:this.password
       })
       .subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         if ((res.success)) {
         this.toastr.success(this.translate.instant('TOASTER_RESPONSE.PASSWORD_UPDATED_SUCCESSFULLY'))
           this.route.navigate(['/'])

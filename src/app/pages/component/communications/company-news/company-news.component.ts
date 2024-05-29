@@ -49,7 +49,7 @@ export class CompanyNewsComponent implements OnInit {
       superUser: boolean;
     } = jwtDecode(token);
 
-    console.log('check', data.superUser);
+    // console.log('check', data.superUser);
     this.hidesuper = data.superUser;
     // this.hidesuper=true
 
@@ -107,8 +107,8 @@ export class CompanyNewsComponent implements OnInit {
     return date.toLocaleDateString('en-US', options); // Adjust locale and options as needed
   }
 
-  likeNews(news_id: any) {
-    this.newsService.reactOnNews(news_id).subscribe(
+  likeNews(news_id: any,emoji:string) {
+    this.newsService.reactOnNews(news_id,emoji).subscribe(
       (res: any) => {
         if (res.message === 'Reactions removed successfully') {
           this.toastr.warning(this.translate.instant('COMMUNICATION_PAGE.REACTIONS_REMOVED_SUCCESS'));
@@ -127,7 +127,7 @@ export class CompanyNewsComponent implements OnInit {
     return this.sanitize.bypassSecurityTrustHtml(content)
   }
   updateNews(news: any) {
-    console.log(news);
+    // console.log(news);
     this.updateService.news = news;
     // this.updateService.showTeamChat = false
     this.updateParentVariable(true)
@@ -147,21 +147,4 @@ export class CompanyNewsComponent implements OnInit {
     });
   }
 
-
-  // deleteNews(id: any) {
-  //   this.http.delete(environment.baseUrl + 'news/' + id).subscribe(
-  //     (res: any) => {
-  //       // console.log(res)
-  //       if (res.success) {
-  //         // location.reload()
-  //         this.toastr.success('News deleted successfully');
-  //         this.getListofNews();
-  //       }
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //       console.log('error', error);
-  //       this.toastr.error(error.error.message);
-  //     }
-  //   );
-  // }
 }

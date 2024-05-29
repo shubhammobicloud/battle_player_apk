@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { HttpClient,HttpParams  } from "@angular/common/http";
 import { environment } from "src/environment/enviroment";
-import { Observable } from "rxjs";
+import { Observable, finalize } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 
 @Injectable({
     providedIn: 'root'
@@ -12,17 +13,44 @@ export class RankingService{
   private baseUrl = environment.baseUrl + 'ranking/'
   constructor(
     private toster: ToastrService,
-    private http: HttpClient
-) { }
+    private http: HttpClient,
+    public translate:TranslateService
+) {
+  // translate.use('de')\/\
+}
 
 
 // team Score
     getMyTeamRanking = () =>{
-  return this.http.get(this.baseUrl + 'my-team',)
+      const loadingToast = this.toster.info('',this.translate.instant('LOADING_DATA'), {
+        disableTimeOut: true,
+        closeButton: true,
+        positionClass: 'toast-top-right'
+      });
+
+      return this.http.get<any>(this.baseUrl +'my-team')
+        .pipe(
+          finalize(() => {
+            if (loadingToast) {
+              this.toster.clear(loadingToast.toastId);
+            }
+          })
+        );
 }
 // Company Team
 getcompanyTeamRanking = () =>{
-  return this.http.get(this.baseUrl + 'company-teams')
+  const loadingToast = this.toster.info('',this.translate.instant('LOADING_DATA'), {
+    disableTimeOut: true,
+    closeButton: true,
+    positionClass: 'toast-top-right'
+  });
+  return this.http.get(this.baseUrl + 'company-teams').pipe(
+    finalize(() => {
+      if (loadingToast) {
+        this.toster.clear(loadingToast.toastId);
+      }
+    })
+  );
 }
 getTeamRankingOfTwoTeams(teamId: string, battlePartnerTeamId: string): Observable<any> {
   // Set up the URL with parameters
@@ -38,17 +66,50 @@ getTeamRankingOfTwoTeams(teamId: string, battlePartnerTeamId: string): Observabl
 }
 // Global Ranking
 getglobalRanking = () =>{
-  return this.http.get(this.baseUrl + 'companies')
+  const loadingToast = this.toster.info('',this.translate.instant('LOADING_DATA'), {
+    disableTimeOut: true,
+    closeButton: true,
+    positionClass: 'toast-top-right'
+  });
+  return this.http.get(this.baseUrl + 'companies').pipe(
+    finalize(() => {
+      if (loadingToast) {
+        this.toster.clear(loadingToast.toastId);
+      }
+    })
+  );
 }
 
 // company Unit
 getcompanyuintRanking = () =>{
-  return this.http.get(this.baseUrl + 'units')
+  const loadingToast = this.toster.info('',this.translate.instant('LOADING_DATA'), {
+    disableTimeOut: true,
+    closeButton: true,
+    positionClass: 'toast-top-right'
+  });
+  return this.http.get(this.baseUrl + 'units').pipe(
+    finalize(() => {
+      if (loadingToast) {
+        this.toster.clear(loadingToast.toastId);
+      }
+    })
+  );
 }
 
 
 getbattleteamRanking = () =>{
-  return this.http.get(this.baseUrl + 'battle-team')
+  const loadingToast = this.toster.info('',this.translate.instant('LOADING_DATA'), {
+    disableTimeOut: true,
+    closeButton: true,
+    positionClass: 'toast-top-right'
+  });
+  return this.http.get(this.baseUrl + 'battle-team').pipe(
+    finalize(() => {
+      if (loadingToast) {
+        this.toster.clear(loadingToast.toastId);
+      }
+    })
+  );
 }
 
 

@@ -13,6 +13,7 @@ export class CompanyUnitComponent {
   tableData!: any[];
   defaultId = 'YOUR_DEFAULT_ID_HERE';
   defaultIdCount = 0;
+  noData:boolean=false
 
   constructor(private http: HttpClient,private rankingService:RankingService) {}
 
@@ -22,7 +23,9 @@ export class CompanyUnitComponent {
       .subscribe(
         (data: any) => {
           this.tableData = data['data'].sort((a:any,b:any)=>b.rankingScore-a.rankingScore);
-
+          if(this.tableData.length==0){
+            this.noData=true
+          }
 
         },
         (error:any) => {

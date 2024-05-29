@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
       this.userProfileForm.patchValue({email:response.data.email})
       this.userProfileForm.patchValue({companyName:response.data.companyId.name})
       // this.userProfileForm.patchValue({displayedImage:response.data.avatar})
-      this.userProfileForm.patchValue({name:response.data.userName})
+      this.userProfileForm.patchValue({name:response.data.teamId.name})
       // console.log('demo')
      this.populateForm()
     },
@@ -108,32 +108,7 @@ export class ProfileComponent implements OnInit {
 
 
   toggleEditMode(): void {
-
     this.isEditMode = !this.isEditMode;
-
-    if (this.isEditMode) {
-      // this.userProfileForm.enable();
-    } else {
-      this.userProfileForm.disable();
-      if (this.selectedFile) {
-        const formData = new FormData();
-        if (this.selectedFile) {
-          formData.append('avatar', this.selectedFile);
-          this.userService.updatePlayer(formData).subscribe((res: any) => {
-            if (res.statusCode == 200) {
-              console.log('ressssssssssss', res);
-              localStorage.setItem('avatar', res.data?.avatar);
-              // console.log('Profile updated successfully');
-              // this.tostr.success('Profile updated successfully');
-            } else {
-
-              this.tostr.error('failed');
-            }
-            // console.log('Image updated successfully');
-          });
-        }
-      }
-    }
   }
   // /user/player-update
   selectedFile: File | null = null;
@@ -152,6 +127,20 @@ export class ProfileComponent implements OnInit {
         this.tostr.success(this.translate.instant('TOASTER_RESPONSE.PROFILE_IMAGE_UPDATED_SUCCESS'));
       };
       this.selectedFile = fileInput.files[0];
+      const formData = new FormData();
+      formData.append('avatar', this.selectedFile);
+          this.userService.updatePlayer(formData).subscribe((res: any) => {
+            if (res.statusCode == 200) {
+              console.log('ressssssssssss', res);
+              localStorage.setItem('avatar', res.data?.avatar);
+              // console.log('Profile updated successfully');
+              // this.tostr.success('Profile updated successfully');
+            } else {
+
+              this.tostr.error('failed');
+            }
+            // console.log('Image updated successfully');
+          });
       console.log(this.selectedFile);
       reader.readAsDataURL(this.selectedFile);
     }

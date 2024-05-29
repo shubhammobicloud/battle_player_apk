@@ -13,7 +13,7 @@ export class HeaderComponent  implements OnInit{
   isMenuOpen = false;
   showTeamChat: boolean = true;
   hidesuper: boolean = false;
- 
+
 
   // showPope = false;
   showPopes(event: MouseEvent) {
@@ -35,13 +35,19 @@ export class HeaderComponent  implements OnInit{
   }
 
   menuItemClicked(action: string) {
-    console.log('Menu item clicked:', action);
+    // console.log('Menu item clicked:', action);
   }
   showProfileOption: boolean = false;
   userId!: string;
 
-  constructor(private router: Router,private toastr:ToastrService,private translateService:TranslateService ) {}
+  constructor(private router: Router,private toastr:ToastrService,private translateService:TranslateService ) {
 
+  }
+  routeToHome(){
+    this.router.navigate(['/','home']);
+    localStorage.setItem("activePage",'mybattle')
+    this.router.navigate(['home']);
+  }
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -60,7 +66,7 @@ export class HeaderComponent  implements OnInit{
       userName: any;
       superUser: boolean;
     } = jwtDecode(token);
-    console.log('check', data.superUser);
+    // console.log('check', data.superUser);
 
     this.hidesuper = data.superUser;
 
@@ -73,30 +79,30 @@ export class HeaderComponent  implements OnInit{
 
 
 
-  logOut(): void {
-    this.translateService.get(['LOGOUT_POPUP.CONFIRM_LOGOUT', 'LOGOUT_POPUP.LOGOUT_CONFIRMATION', 'LOGOUT_POPUP.YES', 'LOGOUT_POPUP.NO', 'LOGOUT_POPUP.LOGOUT_SUCCESS']).subscribe(translations => {
-      Swal.fire({
-        title: translations['LOGOUT_POPUP.CONFIRM_LOGOUT'],
-        text: translations['LOGOUT_POPUP.LOGOUT_CONFIRMATION'],
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: translations['LOGOUT_POPUP.YES'],
-        confirmButtonColor: 'rgb(255, 0, 0)',
-        cancelButtonText: translations['LOGOUT_POPUP.NO'],
-      }).then((result:any) => {
-        if (result.isConfirmed) {
-          localStorage.removeItem('token');
-          this.router.navigate(['/']);
-          this.toastr.success(translations['LOGOUT_POPUP.LOGOUT_SUCCESS']);
-        }
-      });
-    });
-  }
+  // logOut(): void {
+  //   this.translateService.get(['LOGOUT_POPUP.CONFIRM_LOGOUT', 'LOGOUT_POPUP.LOGOUT_CONFIRMATION', 'LOGOUT_POPUP.YES', 'LOGOUT_POPUP.NO', 'LOGOUT_POPUP.LOGOUT_SUCCESS']).subscribe(translations => {
+  //     Swal.fire({
+  //       title: translations['LOGOUT_POPUP.CONFIRM_LOGOUT'],
+  //       text: translations['LOGOUT_POPUP.LOGOUT_CONFIRMATION'],
+  //       icon: 'warning',
+  //       showCancelButton: true,
+  //       confirmButtonText: translations['LOGOUT_POPUP.YES'],
+  //       confirmButtonColor: 'rgb(255, 0, 0)',
+  //       cancelButtonText: translations['LOGOUT_POPUP.NO'],
+  //     }).then((result:any) => {
+  //       if (result.isConfirmed) {
+  //         localStorage.removeItem('token');
+  //         this.router.navigate(['/']);
+  //         this.toastr.success(translations['LOGOUT_POPUP.LOGOUT_SUCCESS']);
+  //       }
+  //     });
+  //   });
+  // }
 
 
-  isActive(path: string): boolean {
-    return this.router.isActive(path, true);
-  }
+  // isActive(path: string): boolean {
+  //   return this.router.isActive(path, true);
+  // }
 }
 
 

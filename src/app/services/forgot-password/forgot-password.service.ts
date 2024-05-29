@@ -42,7 +42,7 @@ export class ForgetPasswordService {
     }
 
     verifyOtp = (data:any):Observable<any>=>{
-      const loadingToast = this.toster.info('','Verifing OTP...', {
+      const loadingToast = this.toster.info('',this.translate.instant('VERIFYING_OTP'), {
         disableTimeOut: true,
         closeButton: true,
         positionClass: 'toast-top-right'

@@ -4,7 +4,6 @@ import {
   ElementRef,
   OnInit,
   OnDestroy,
-  Input,
   Output,
   EventEmitter,
 } from '@angular/core';
@@ -13,17 +12,17 @@ import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { environment } from 'src/environment/enviroment';
 import { NewsUpdateService } from 'src/app/services/news/newsUpdate.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Observer } from 'rxjs';
+import { Observable,Observer } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-newspost',
   templateUrl: './newspost.component.html',
   styleUrls: ['./newspost.component.scss'],
 })
-export class NewspostComponent implements OnInit, OnDestroy {
+export class NewspostComponent implements OnInit, OnDestroy{
   // inputString: string = '';
   characterCount: number = 0;
   maxCharacters: number = 800;
@@ -59,7 +58,6 @@ export class NewspostComponent implements OnInit, OnDestroy {
     let data: any = this.updateService.news;
     this.newsId = data._id;
     if (this.newsId) {
-      console.log(data, 'hii');
       this.updateNews = true;
       this.newsContent.patchValue({
         content: data.content,
@@ -77,7 +75,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
     minHeight: '20rem',
     maxHeight: '20rem',
     upload: (file: File): Observable<HttpEvent<UploadResponse>> => {
-      console.log('file is', file);
+      // console.log('file is', file);
       return Observable.create(
         (observer: Observer<HttpEvent<UploadResponse>>) => {
           const maxDimension = 250; // Maximum width or height for the resized image
@@ -124,7 +122,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
               formData.append('file', blob, file.name);
               this.updateService.uploadNews(formData).subscribe(
                 (response: any) => {
-                  console.log('Upload successful:', response.body.imageUrl);
+                  // console.log('Upload successful:', response.body.imageUrl);
                   this.images.push(response.body.imageUrl);
                   observer.next(response);
                   observer.complete();
@@ -184,52 +182,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
     event.preventDefault();
   }
 
-  // submitContent() {
-  //   if (this.newsContent.valid) {
-  //     console.log(this.newsContent.value);
-  //     if (this.updateNews) {
-  //       this.http
-  //         .patch(
-  //           environment.baseUrl + 'news/' + this.newsId,
-  //           this.newsContent.value
-  //         )
-  //         .subscribe(
-  //           (res: any) => {
-  //             console.log('vffrr', res);
-  //             if (res.statusCode == 200) {
-  //               this.updateParentState1.emit(false);
-  //               this.toastr.success(res.message);
 
-  //               // this.route.navigate(['/', 'dashboard', 'news-list']);
-  //             }
-  //           },
-  //           (error: HttpErrorResponse) => {
-  //             // console.log('error in api ', error);
-  //             this.toastr.error(error.error.message);
-
-  //           }
-  //         );
-  //     } else {
-  //       // console.log('news adding', this.images);
-  //       this.updateService.postNews(this.newsContent.value).subscribe(
-  //         (res: any) => {
-  //           console.log(res);
-  //           if (res.statusCode == 200) {
-  //             this.toastr.success(this.translate.instant('TOASTER_RESPONSE.NEWS_ADDED_SUCCESS'));
-
-  //             this.updateParentState1.emit(false);
-  //           }
-  //         },
-  //         (error: HttpErrorResponse) => {
-  //           console.log('error in api', error);
-  //           this.toastr.error(error.error.message);
-  //         }
-  //       );
-  //     }
-  //   } else {
-  //     this.toastr.error(this.translate.instant('TOASTER_RESPONSE.ENTER_ALL_FIELDS_ERROR'));
-  //   }
-  // }
   submitContent() {
     // Check if the form is valid
     if (this.newsContent.valid) {
@@ -254,7 +207,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
           )
           .subscribe(
             (res: any) => {
-              console.log('vffrr', res);
+              // console.log('vffrr', res);
               if (res.statusCode == 200) {
                 this.updateParentState1.emit(false);
                 this.toastr.success(res.message);
@@ -268,14 +221,14 @@ export class NewspostComponent implements OnInit, OnDestroy {
         // Add news logic
         this.updateService.postNews(this.newsContent.value).subscribe(
           (res: any) => {
-            console.log(res);
+            // console.log(res);
             if (res.statusCode == 200) {
               this.toastr.success(this.translate.instant('TOASTER_RESPONSE.NEWS_ADDED_SUCCESS'));
               this.updateParentState1.emit(false);
             }
           },
           (error: HttpErrorResponse) => {
-            console.log('error in api', error);
+            // console.log('error in api', error);
             if(error.error.message=="Title should not be empty."){
               this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_EMPTY_TITLE'));
             }
@@ -301,7 +254,7 @@ export class NewspostComponent implements OnInit, OnDestroy {
               this.toastr.error(this.translate.instant('TOASTER_ERROR.ERROR_CONTENT_LENGTH'));
             }
             else{
-              console.log('error in api ', error);
+              // console.log('error in api ', error);
               this.toastr.error(this.translate.instant('TOASTER_RESPONSE.SERVER_ERROR'));
             }
 

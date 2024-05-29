@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RankingService } from 'src/app/services/ranking/ranking.service';
 import { environment } from 'src/environment/enviroment';
@@ -10,24 +10,24 @@ import { environment } from 'src/environment/enviroment';
 })
 export class BattlePatnerTeamComponent  implements OnInit{
   tableData!: any[];
-  defaultId = 'YOUR_DEFAULT_ID_HERE';
-  defaultIdCount = 0;
-
-  constructor(private http: HttpClient,private rankingService:RankingService) {}
+  link = environment.baseUrl;
+  noData: boolean=false;
+  constructor(private rankingService:RankingService) {}
 
   ngOnInit(): void {
 
     this.rankingService.getbattleteamRanking()
-      .subscribe(
-        (data: any) => {
+      .subscribe({
+        next:(data: any) => {
           this.tableData = data['data'].sort((a:any,b:any)=>b.rankingScore-a.rankingScore);
-
-
+          if(this.tableData.length==0){
+            this.noData=true
+          }
         },
-        (error:any) => {
+        error:(error:any) => {
           console.error('An error occurred:', error);
           // Handle error here
         }
-      );
+  });
   }
 }

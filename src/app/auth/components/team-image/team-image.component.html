@@ -1,7 +1,7 @@
 <div class="container-playerImage">
   <div class="header-div">
     <div class="header-logo">
-      <img src="assets/sports logo.png" alt="">
+      <img src="assets/sports logo.png" alt="{{ 'APP_MAIN.SET_PASSWORD_PAGE.SPORTS_LOGO_ALT_TEXT' | translate }}">
     </div>
     <div class="header-title">
       <h2>THE REINHOLD WURTH OPEN 2024
@@ -15,8 +15,8 @@
     <mat-card>
       <div class="image-container">
         <label class="hoverable" for="fileInput">
-          <img [src]="displayedImage" alt="{{ 'APP_MAIN.TEAM_IMAGE_PAGE.SELECTED_IMAGE_ALT_TEXT' | translate }}" />
-          <div class="hover-text">{{ 'APP_MAIN.TEAM_IMAGE_PAGE.CHOOSE_FILE_TEXT' | translate }}</div>
+          <img [src]="displayedImage" alt="{{ 'APP_MAIN.PLAYER_IMAGE_PAGE.SELECTED_IMAGE_ALT_TEXT' | translate }}" />
+          <div class="hover-text">{{ 'APP_MAIN.PLAYER_IMAGE_PAGE.CHOOSE_FILE_TEXT' | translate }}</div>
         </label>
         <input
           id="fileInput"
@@ -26,9 +26,9 @@
           hidden
         />
       </div>
-      <span class="message">{{ 'APP_MAIN.TEAM_IMAGE_PAGE.TAP_HERE_TEXT' | translate }}</span>
+      <span class="message">{{ 'APP_MAIN.TEAM_IMAGE_PAGE.TAP_HERE_TEXT_TEAM' | translate }}</span>
 
-      <button mat-raised-button class="continueButton" (click)="submit()">{{ 'APP_MAIN.PLAYER_IMAGE_PAGE.CONTINUE_BUTTON_TEXT' | translate }}</button>
+      <button mat-raised-button class="continueButton" (click)="submit()">{{ 'APP_MAIN.PLAYER_NAME_PAGE.CONTINUE_BUTTON_TEXT' | translate }}</button>
     </mat-card>
   </div>
 

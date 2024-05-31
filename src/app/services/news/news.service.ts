@@ -18,6 +18,6 @@ export class NewsSerives{
     }
 
     reactOnNews=(Id:any,emoji:any)=>{
-      return this.http.put(this.baseUrl+'react/'+Id,{emoji:emoji});
+      return this.http.put(this.baseUrl+'react/'+Id,{reaction:emoji});
     }
 }

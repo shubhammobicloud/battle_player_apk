@@ -1,6 +1,6 @@
 <div class="team-chat-container">
-  <div #chatwrapper class="chatwrapper">
-    <div #chatContainer class="chatContainer" *ngFor="let chat of chats">
+  <div #chatwrapper class="chatwrapper" (scroll)="onScroll($event)">
+    <div #chatContainer class="chatContainer" *ngFor="let chat of chats" >
       <div
         [class.sender]="currentUser(chat.senderId)"
         [class.textContainer]="!currentUser(chat.senderId)"
@@ -11,6 +11,9 @@
           <img [src]="url + '/images/' + chat.senderId?.avatar" class="profile" />
 
              <mat-card>
+              <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl">
+              <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl"></video>
+              <div *ngIf="chat.documentName">{{chat.documentName}}</div>
                 <mat-card-header>
                   <mat-card-title>
                     {{chat.senderId?.userName}}
@@ -52,9 +55,35 @@
 
   </div>
   <div class="inputBoxContainer">
-    <input type="text" [(ngModel)]="message" (input)="onInput()"placeholder="{{ 'COMMUNICATION_PAGE.TEAM_CHAT_PAGE.ENTER_MESSAGE_PLACEHOLDER' | translate }}" />
+    <button mat-icon-button (click)="toggleMediaButtons()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+    <input type="text" [(ngModel)]="message" placeholder="{{ 'COMMUNICATION_PAGE.TEAM_CHAT_PAGE.ENTER_MESSAGE_PLACEHOLDER' | translate }}" />
     <button mat-icon-button class="sendIcon" (click)="sendMessage()">
       <mat-icon>send</mat-icon>
     </button>
+  </div>
+  <div class="mediaBtnContainer" *ngIf="showMediaBtns">
+    <button mat-icon-button class="sendIcon" (click)="selectFile('image')">
+      <mat-icon>perm_media</mat-icon>
+    </button>
+    <button mat-icon-button class="sendIcon" (click)="selectFile('video')">
+      <mat-icon>video_library</mat-icon>
+    </button>
+    <button mat-icon-button class="sendIcon" (click)="selectFile('document')">
+      <mat-icon>insert_drive_file</mat-icon>
+    </button>
+    <input type="file" #fileInput accept="image/*" style="display: none" (change)="onFileSelected($event, 'image')" />
+  <input type="file" #videoInput accept="video/*" style="display: none" (change)="onFileSelected($event, 'video')" />
+  <input type="file" #documentInput accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" style="display: none" (change)="onFileSelected($event, 'document')" />
+  </div>
+  <div *ngIf="selectedImage" class="selectedImage">
+    <img [src]="selectedImage" alt="Selected Image"/>
+  </div>
+  <div *ngIf="selectedVideo" class="selectedVideo">
+    <video [src]="selectedVideo" controls></video>
+  </div>
+  <div *ngIf="selectedDocument" class="selectedDocument">
+    <div>{{selectedDocument}}</div>
   </div>
 </div>

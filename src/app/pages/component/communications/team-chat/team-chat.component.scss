@@ -121,7 +121,7 @@
 }
 
 .inputBoxContainer{
-  width: 95%;
+  width: 90%;
   height: 10%;
   display: flex;
   gap :1rem;
@@ -151,5 +151,42 @@
     }
   }
 }
-
+.mediaBtnContainer{
+  background: aqua;
+    position: absolute;
+    border-radius: 10px;
+    bottom: 10%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    margin: 40px;
+}
+.selectedImage{
+  position: absolute;
+  bottom: 11%;
+  padding: 20px;
+  img{
+    width: 378px;
+    height: 420px;
+  }
+}
+.selectedVideo{
+  position: absolute;
+  bottom: 11%;
+  padding: 20px;
+  video{
+    width: 378px;
+    height: 420px;
+  }
+}
+.selectedDocument{
+  position: absolute;
+  bottom: 11%;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  div{
+    font-size: 2rem;
+  }
+}
 }

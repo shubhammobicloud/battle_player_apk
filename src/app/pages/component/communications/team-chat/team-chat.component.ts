@@ -4,7 +4,7 @@ import {
   OnInit,
   ElementRef,AfterViewChecked,
   ViewChild,
-  AfterViewInit,OnDestroy
+  AfterViewInit,OnDestroy,HostListener
 } from '@angular/core';
 import { Socket, io } from 'socket.io-client';
 import { environment } from 'src/environment/enviroment';
@@ -25,7 +25,16 @@ export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked
   message: string = '';
   counter = 0;
   showFullMessage: boolean = false;
+  showMediaBtns:boolean = false
+  selectedImage: string | ArrayBuffer | null = null;
+  selectedVideo: string | ArrayBuffer | null = null;
+  selectedDocument: string | ArrayBuffer | null = null;
+
   @ViewChild('teamChatTextarea') teamChatTextarea!: ElementRef;
+  @ViewChild('fileInput') fileInput!: ElementRef;
+  @ViewChild('videoInput') videoInput!: ElementRef;
+  @ViewChild('documentInput') documentInput!: ElementRef;
+  @ViewChild('chatwrapper') chatwrapper!: ElementRef;
 
   constructor(private http: HttpClient) {}
 
@@ -34,10 +43,10 @@ export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked
     | undefined;
 
   ngAfterViewInit(): void {
-
+    
   }
 ngAfterViewChecked(): void {
-  this.scrollToBottom();
+  // this.scrollToBottom()
 
 }
 async ngOnDestroy() {
@@ -48,83 +57,84 @@ async ngOnDestroy() {
 }
   async ngOnInit() {
 
-    // this.socket = io(`${this.url}team-namespaces`, {
+    this.socket = io(`${this.url}team-namespaces`, {
 
-    //   auth: {
-    //     serverOffset: this.id,
-    //     teamId:this.teamId
-    //   },
-    //   // enable retries
-    // ackTimeout: 10000,
-    // retries: 3,
-    // });
-    // this.socket.disconnect;
+      auth: {
+        serverOffset: this.id,
+        teamId:this.teamId
+      },
+      // enable retries
+    ackTimeout: 10000,
+    retries: 3,
+    });
+    this.socket.disconnect;
 
     // Listen for the 'connect' event
-    // this.socket.on('connect', async () => {
-    //   // console.log('Socket.IO connected successfully');
-    //   try {
-    //     const response=  await this.socket.timeout(5000).emitWithAck('joinRoom',{teamId:this.teamId});
-    //     // console.log(response,"response of joinRoom"); // 'ok'
-    //     if(response.status == 'error'){
-    //       alert(response.message);
-    //     }
-    //     if(response.status == 'ok'){
-    //       const response =  await this.socket.timeout(5000).emitWithAck('loadChat',{teamId:this.teamId});
-    //       // console.log(response,"response of loadChat");
-    //       if(response.status == 'error'){
-    //         // alert(response.message);
-    //       }
-    //       if(response.status == 'ok'){
-    //         // const chats = response.existingChat;
-    //         this.chats = response.existingChat;
-    //       }
-    //     }
-    //   } catch (error) {
-    //     // console.log(error,"error message of joinRoom")
-    //   }
-    // });
+    this.socket.on('connect', async () => {
+      // console.log('Socket.IO connected successfully');
+      try {
+        const response=  await this.socket.timeout(5000).emitWithAck('joinRoom',{teamId:this.teamId});
+        // console.log(response,"response of joinRoom"); // 'ok'
+        if(response.status == 'error'){
+          alert(response.message);
+        }
+        if(response.status == 'ok'){
+          const response =  await this.socket.timeout(5000).emitWithAck('loadChat',{teamId:this.teamId});
+          // console.log(response,"response of loadChat");
+          if(response.status == 'error'){
+            // alert(response.message);
+          }
+          if(response.status == 'ok'){
+            // const chats = response.existingChat;
+            this.chats = response.existingChat;
+          }
+        }
+      } catch (error) {
+        // console.log(error,"error message of joinRoom")
+      }
+    });
 
     // Listen for the 'connect_error' event
-    // this.socket.on('connect_error', (error: Error) => {
-    //   // alert('Socket.IO connection error:'+ error.message);
-    //   console.error('Socket.IO connection error:', error.message);
-    // });
+    this.socket.on('connect_error', (error: Error) => {
+      // alert('Socket.IO connection error:'+ error.message);
+      console.error('Socket.IO connection error:', error.message);
+    });
 
     // Listen for the 'connect_timeout' event
-    // this.socket.on('connect_timeout', (timeout: number) => {
-    //   // alert('Socket.IO connection timeout:'+ timeout)
-    //   console.error('Socket.IO connection timeout: ', timeout);
-    // });
+    this.socket.on('connect_timeout', (timeout: number) => {
+      // alert('Socket.IO connection timeout:'+ timeout)
+      console.error('Socket.IO connection timeout: ', timeout);
+    });
 
 
     // disconnect
-    // this.socket.on('disconnect',async()=>{
-    //   // alert('Internet is not on or connection is very slow.');
-    // })
+    this.socket.on('disconnect',async()=>{
+      // alert('Internet is not on or connection is very slow.');
+    })
 
-    // this.socket.on('loadNewTeamChat', (data: any, callback:any) => {
-    //   try {
-    //     // sending
-    //   const newChat = {
-    //     message: data.message,
-    //     time: data.time,
-    //     senderId: {
-    //       _id: data.id,
-    //       avatar: data.avatar,
-    //       userName: data.userName,
-    //     },
-    //   };
-    //   this.socket.auth.serverOffset = data.id;
-    //   this.chats.push(newChat);
-    //   // console.log(data, 'response of loadNewTeamChat')
-    //   callback({
-    //     status: 'ok',
-    //   });
-    //   } catch (error) {
-    //   //  alert("error occured while loading new data");
-    //   }
-    // });
+    this.socket.on('loadNewTeamChat', (data: any, callback:any) => {
+      try {
+        // sending
+      const newChat = {
+        message: data.message,
+        time: data.time,
+        senderId: {
+          _id: data.id,
+          avatar: data.avatar,
+          userName: data.userName,
+        },
+      };
+      this.socket.auth.serverOffset = data.id;
+      this.chats.push(newChat);
+      this.scrollToBottom()
+      // console.log(data, 'response of loadNewTeamChat')
+      callback({
+        status: 'ok',
+      });
+      } catch (error) {
+      //  alert("error occured while loading new data");
+      }
+    });
   }
 
   currentUser = (senderId: any): boolean => {
@@ -135,6 +145,7 @@ async ngOnDestroy() {
   };
 
   async sendMessage() {
+    this.scrollToBottom()
     if (this.message !== '') {
       const selfMessage = {
         time: new Date(),
@@ -145,6 +156,9 @@ async ngOnDestroy() {
           avatar: this.avatar,
           userName: this.username,
         },
+        imageUrl:this.selectedImage?this.selectedImage:null,
+        videoUrl:this.selectedVideo?this.selectedVideo:null,
+        documentName:this.selectedDocument?this.selectedDocument:null
       };
       const data = {
         time: new Date(),
@@ -156,6 +170,9 @@ async ngOnDestroy() {
        // compute a unique offset
        const clientOffset = `${this.socket.id}-${this.counter++}`;
        this.chats.push(selfMessage);
+       this.selectedImage = null
+       this.selectedVideo = null
+       this.selectedDocument = null
        this.message = '';
       try {
         const response=  await this.socket.timeout(5000).emitWithAck('newTeamChat',data,clientOffset);
@@ -173,7 +190,7 @@ async ngOnDestroy() {
         this.teamChatTextarea.nativeElement.style.border = '2px solid red';
       }
     }
-    this.scrollToBottom();
+    // this.scrollToBottom();
   }
   @ViewChild('chatwrapper', { static: true }) chatWrapper!: ElementRef;
 
@@ -191,5 +208,54 @@ async ngOnDestroy() {
   }
   onInput() {
     this.teamChatTextarea.nativeElement.style.border = '';
+  }
+  toggleMediaButtons() {
+    this.showMediaBtns = !this.showMediaBtns;
+  }
+  selectFile(type: string) {
+    if (type === 'image') {
+      this.fileInput.nativeElement.click();
+    } else if (type === 'video') {
+      this.videoInput.nativeElement.click();
+    } else if (type === 'document') {
+      this.documentInput.nativeElement.click();
+    }
+  }
+  onFileSelected(event: Event, type: string) {
+    this.showMediaBtns =false
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      console.log(`Selected ${type}:`, file);
+      if (type === 'image') {
+        this.readFile(file, 'image');
+      } else if (type === 'video') {
+        this.readFile(file, 'video');
+      } else if (type ==='document'){
+        this.readFile(file, 'document');
+      }
+    }
+  }
+  readFile(file: File, type: string) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (type === 'image') {
+        this.selectedImage = reader.result;
+      } else if (type === 'video') {
+        this.selectedVideo = reader.result;
+      } else if(type === 'document'){
+        this.selectedDocument = file.name
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  @HostListener('scroll', ['$event'])
+  onScroll(event: any) {
+    const scrollTop = this.chatwrapper.nativeElement.scrollTop;
+    console.log("scroll top", scrollTop)
+    // if (scrollTop === 0 && !this.loading) {
+    //   this.loadChats();
+    // }
   }
 }

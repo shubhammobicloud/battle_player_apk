@@ -42,7 +42,7 @@
         gap: 1rem;
         .like-container{
             display: inline-flex;
-            gap: 10px;
+            gap: 2rem;
             align-items: center;
             button{
               width: fit-content;
@@ -50,7 +50,7 @@
               mat-icon{
                 height: 1.7rem;
                 width: 1.7rem;
-              font-size: 1.7rem;
+                font-size: 1.7rem;
               }
             }
         }

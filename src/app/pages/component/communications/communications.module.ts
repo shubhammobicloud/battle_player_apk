@@ -13,10 +13,11 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NewspostComponent } from './newspost/newspost.component';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatBadgeModule } from '@angular/material/badge';
 @NgModule({
   declarations: [TeamChatComponent, CompanyNewsComponent, NewspostComponent],
   imports: [
-    CommonModule,MatInputModule,MatButtonModule,
+    CommonModule,MatInputModule,MatButtonModule,MatBadgeModule,
     MatIconModule,
     FormsModule,
     MatCardModule,

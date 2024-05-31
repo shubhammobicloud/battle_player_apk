@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-company-news',
   templateUrl: './company-news.component.html',
-  styleUrls: ['./company-news.component.scss']
+  styleUrls: ['./company-news.component.scss'],
 })
 export class CompanyNewsComponent implements OnInit {
   @Output() updateParentState: EventEmitter<any> = new EventEmitter<any>();
@@ -29,8 +29,8 @@ export class CompanyNewsComponent implements OnInit {
     private route: Router,
     private userService: UserService,
     private updateService: NewsUpdateService,
-    private sanitize:DomSanitizer,
-    public translate:TranslateService
+    private sanitize: DomSanitizer,
+    public translate: TranslateService
   ) {}
 
   userId: any;
@@ -55,8 +55,6 @@ export class CompanyNewsComponent implements OnInit {
 
     if (data.superUser) {
       this.showTeamChat = !this.showTeamChat;
-
-
     }
   }
 
@@ -82,7 +80,7 @@ export class CompanyNewsComponent implements OnInit {
         this.likedNewsIds = Object.keys(res.data.favoriteNewsFeed);
         this.updateNewsReactions();
       },
-      (error:any) => {
+      (error: any) => {
         console.error('An error occurred:', error);
       }
     );
@@ -107,35 +105,40 @@ export class CompanyNewsComponent implements OnInit {
     return date.toLocaleDateString('en-US', options); // Adjust locale and options as needed
   }
 
-  likeNews(news_id: any,emoji:string) {
-    this.newsService.reactOnNews(news_id,emoji).subscribe(
-      (res: any) => {
+  likeNews(news_id: any, emoji: string) {
+    this.newsService.reactOnNews(news_id, emoji).subscribe({
+      next: (res: any) => {
         if (res.message === 'Reactions removed successfully') {
-          this.toastr.warning(this.translate.instant('COMMUNICATION_PAGE.REACTIONS_REMOVED_SUCCESS'));
+          this.toastr.warning(
+            this.translate.instant(
+              'COMMUNICATION_PAGE.REACTIONS_REMOVED_SUCCESS'
+            )
+          );
         } else if (res.message === 'Reactions added successfully') {
-          this.toastr.success(this.translate.instant('COMMUNICATION_PAGE.REACTIONS_ADDED_SUCCESS'));
+          this.toastr.success(
+            this.translate.instant('COMMUNICATION_PAGE.REACTIONS_ADDED_SUCCESS')
+          );
         }
-
         this.getCompanyNews();
       },
-      (error) => {
+
+      error: (error) => {
         console.error('An error occurred:', error);
-      }
-    );
+      },
+    });
   }
-  sanitizerHTML(content:string){
-    return this.sanitize.bypassSecurityTrustHtml(content)
+  sanitizerHTML(content: string) {
+    return this.sanitize.bypassSecurityTrustHtml(content);
   }
   updateNews(news: any) {
     // console.log(news);
     this.updateService.news = news;
     // this.updateService.showTeamChat = false
-    this.updateParentVariable(true)
+    this.updateParentVariable(true);
 
     if (news) {
       // this.showTeamChat = !this.showTeamChat;
       // @Output()
-
     }
   }
   updateParentVariable(value: any) {
@@ -146,5 +149,4 @@ export class CompanyNewsComponent implements OnInit {
       this.listOfNews = res.data;
     });
   }
-
 }

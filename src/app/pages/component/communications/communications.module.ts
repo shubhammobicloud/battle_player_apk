@@ -14,10 +14,12 @@ import { NewspostComponent } from './newspost/newspost.component';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatBadgeModule } from '@angular/material/badge';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 @NgModule({
   declarations: [TeamChatComponent, CompanyNewsComponent, NewspostComponent],
   imports: [
-    CommonModule,MatInputModule,MatButtonModule,MatBadgeModule,
+    CommonModule,MatInputModule,MatButtonModule,MatBadgeModule,InfiniteScrollModule,
     MatIconModule,
     FormsModule,
     MatCardModule,

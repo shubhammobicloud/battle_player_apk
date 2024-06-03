@@ -31,7 +31,7 @@
     cursor: pointer;
   }
   .active {
-    background-color: #cc0000; /* Active button color */
+    background-color: var(--primary-color); /* Active button color */
     color: white;
     min-height: 4rem;
     // height: fit-content;

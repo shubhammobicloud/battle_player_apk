@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { Socket, io } from 'socket.io-client';
 import { environment } from 'src/environment/enviroment';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-team-chat',
@@ -29,13 +30,13 @@ export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked
   selectedImage: string | ArrayBuffer | null = null;
   selectedVideo: string | ArrayBuffer | null = null;
   selectedDocument: string | ArrayBuffer | null = null;
-
+  @ViewChild(InfiniteScrollDirective) infiniteScroll!: InfiniteScrollDirective;
   @ViewChild('teamChatTextarea') teamChatTextarea!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef;
   @ViewChild('videoInput') videoInput!: ElementRef;
   @ViewChild('documentInput') documentInput!: ElementRef;
   @ViewChild('chatwrapper') chatwrapper!: ElementRef;
-
+  messageArray:any[]=[]
   constructor(private http: HttpClient) {}
 
   @ViewChild('chatContainer', { static: true }) container:
@@ -43,7 +44,8 @@ export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked
     | undefined;
 
   ngAfterViewInit(): void {
-    
+    this.scrollToBottom()
+
   }
 ngAfterViewChecked(): void {
   // this.scrollToBottom()
@@ -55,7 +57,19 @@ async ngOnDestroy() {
       // console.log(response, 'response of disconnect');
     // this.socket.disconnect();
 }
+ isLoadingMore = false;
+ currentPage = 1;
+
+loadChats(page: number) {
+  this.isLoadingMore = true;
+  // Simulate fetching data from an API (replace with real implementation)
+  setTimeout(() => {
+    this.currentPage++;
+    this.isLoadingMore = false;
+  }, 1000); // Simulate latency
+}
   async ngOnInit() {
+    this.scrollToBottom()
 
     this.socket = io(`${this.url}team-namespaces`, {
 
@@ -76,17 +90,19 @@ async ngOnDestroy() {
         const response=  await this.socket.timeout(5000).emitWithAck('joinRoom',{teamId:this.teamId});
         // console.log(response,"response of joinRoom"); // 'ok'
         if(response.status == 'error'){
-          alert(response.message);
+          // alert(response.message);
         }
         if(response.status == 'ok'){
           const response =  await this.socket.timeout(5000).emitWithAck('loadChat',{teamId:this.teamId});
-          // console.log(response,"response of loadChat");
+          console.log(response,"response of loadChat");
           if(response.status == 'error'){
             // alert(response.message);
           }
           if(response.status == 'ok'){
             // const chats = response.existingChat;
             this.chats = response.existingChat;
+            this.messageArray=this.chats.splice(-10)
+
           }
         }
       } catch (error) {
@@ -136,6 +152,18 @@ async ngOnDestroy() {
       }
     });
   }
+sum=0
+throttle = 300;
+scrollDistance = 1;
+scrollUpDistance = 2;
+onScrollDown() {
+
+  this.sum += 20;
+  // add another 20 items
+  console.log("asdqwreqs")
+  this.messageArray=this.chats.slice(this.sum)
+}
+
 
   currentUser = (senderId: any): boolean => {
     const userId = localStorage.getItem('userId');

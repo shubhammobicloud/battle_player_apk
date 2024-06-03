@@ -1,1 +1,15 @@
-<router-outlet></router-outlet>
+<div>
+  <div class="header">
+      <div class="header-logo">
+        <img [src]="url + '/images/' + logoImage" alt="{{ 'APP_MAIN.SET_PASSWORD_PAGE.SPORTS_LOGO_ALT_TEXT' | translate }}">
+      </div>
+      <div class="header-title">
+        <h2>{{eventName}}
+        </h2>
+    </div>
+  </div>
+  <div class="contentss">
+    <router-outlet></router-outlet>
+
+  </div>
+</div>

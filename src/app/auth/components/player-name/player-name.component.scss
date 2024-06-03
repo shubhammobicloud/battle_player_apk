@@ -5,22 +5,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  .header-div{
-    display: flex;
-    flex-direction: row;
-    padding: 10px 0px 0px 10px;
-    align-items: center;
-    background-color: #cc0000;
-    .header-logo{
-     img{
-      width: 75px;
-     }
-    }
-    .header-title{
-      color: white;
-      text-align: center;
-    }
-}
+
 .card-container{
   // padding: 10px;
   margin-block-start: 1rem;
@@ -34,7 +19,7 @@
     border-radius: 16px;
     h2{
       font-size: 1.4rem;
-      color: #cc0000;
+      color: var(--primary-color);
     }
     mat-form-field{
       width: 100%;
@@ -42,7 +27,7 @@
     }
     .continueButton{
       // margin-top: 10px;
-      background-color: #cc0000;
+      background-color: var(--primary-color);
       color: white;
     }
   }

@@ -14,12 +14,12 @@ overflow: hidden;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 10px;
     &:hover {
-      background-color: #cc0000;
+      background-color: var(--primary-color);
     }
 
 
     &.activeTab {
-      background-color: #cc0000;
+      background-color: var(--primary-color);
       color: #fff;
     }
   }

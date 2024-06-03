@@ -13,7 +13,7 @@
     width: 80%;
     background-color: #dedede;
     display: flex;
-    color: #cc0000;
+    color: var(--primary-color);
     align-items: center;
     h3 {
       margin: 0;
@@ -42,7 +42,7 @@
         // background-color: red;
         // color: rgb(0, 0, 0);
         mat-icon{
-          color: #cc0000;
+          color: var(--primary-color);
           font-size: 2rem;
           width: 2rem;
           height: 2rem;

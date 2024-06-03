@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Share } from '@capacitor/share';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import html2canvas from 'html2canvas';
-import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { environment } from 'src/environment/enviroment';
-import { map, take } from 'rxjs';
+import { take } from 'rxjs';
 import { RankingService } from 'src/app/services/ranking/ranking.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -34,7 +33,14 @@ export class ScoreBoardComponent implements OnInit {
     public translate:TranslateService,
     private toastr:ToastrService
   ) {}
+
   ngOnInit(): void {
+    this.dashboardService.getEventImage().subscribe({
+      next:(res:any)=>{
+        this.centerLogo = this.baseUrl+'images/'+res.data.dashboardImage
+        this.eventImageURL= this.baseUrl+'images/'+res.data.groundImage
+      }
+    })
     this.getEventImage();
     this.getTeamImages();
   }

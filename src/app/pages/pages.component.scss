@@ -7,8 +7,9 @@
 }
 
 .header {
-  background-color: #cc0000;
+  background-color: var(--primary-color);
   display: flex;
+  min-height: 5rem;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -56,9 +57,9 @@
   &.setActive{
     .active{
       background-color: #ffffff;
-      color: #cc0000;
+      color: var(--primary-color);
       .change-my-color{
-        fill: #cc0000;
+        fill: var(--primary-color);
       }
     }
   }
@@ -69,7 +70,7 @@
 .menuSpan{
  width: 5rem;
  height: 5rem;
- background-color: #cc0000;
+ background-color: var(--primary-color);
  color: white;
  border-radius: 50%;
  box-shadow: 0px 6px 9px 0px #1e1e1e;
@@ -82,9 +83,9 @@
 
 // .active{
 //   background-color: #ffffff;
-//   color: #cc0000;
+//   color: var(--primary-color);
 //   .change-my-color{
-//     fill: #cc0000;
+//     fill: var(--primary-color);
 //    }
 // }
 

@@ -10,7 +10,7 @@ export class DashboardService {
   constructor(private http: HttpClient) {}
 
   getEventImage(): Observable<any> {
-    return this.http.get(`${environment.baseUrl}event/one`);
+    return this.http.get(`${environment.baseUrl}/one`);
   }
 
   getTeamImages(): Observable<any> {

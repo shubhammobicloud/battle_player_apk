@@ -1,31 +1,14 @@
 .container-login {
   height: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-  .header-div{
-      display: flex;
-      flex-direction: row;
-      padding: 10px 0px 0px 10px;
-      align-items: center;
-      background-color: #cc0000;
-      .header-logo{
-       img{
-        width: 75px;
-       }
-      }
-      .header-title{
-        text-align: center;
-        color: white;
-      }
-  }
   .content-text{
     text-align: center;
       p{
         margin: 0;
         font-size: 1.4rem;
-        color: #cc0000;
+        color: var(--primary-color);
         }
   }
   .card-container{
@@ -62,7 +45,7 @@
         h1 {
           margin-block: 5px 10px;
           font-size: 2rem;
-          color: #cc0000;
+          color: var(--primary-color);
         }
 
         .form-container {
@@ -85,7 +68,7 @@
         }
 
         .button-login {
-          background-color: #cc0000;
+          background-color: var(--primary-color);
           border-radius: 6px;
           width: 50%;
           text-align: center;
@@ -107,7 +90,7 @@
           margin-bottom: 15px;
           margin-top: -15px;
 
-          color: #c00;
+          color: var(--primary-color);
           cursor: pointer;
         }
       }

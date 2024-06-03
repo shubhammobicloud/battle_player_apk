@@ -32,6 +32,9 @@ $custom-theme: mat.define-light-theme((
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
 
 // Apply custom font to the entire application
+:root {
+  --primary-color: #cc0000; /* Default primary color */
+}
 html, body {
   height: 100%;
   // background-image: url('./assets/Tennisplatz_Paris.jpg');
@@ -466,7 +469,7 @@ body {
 
 .teamAProgressBar{
   .mdc-linear-progress__bar-inner{
-    border-color: #cc0000 var(--mdc-linear-progress-active-indicator-color) !important;
+    border-color: var(--primary-color) var(--mdc-linear-progress-active-indicator-color) !important;
   }
 }
 

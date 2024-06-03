@@ -4,24 +4,6 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  .header-div{
-    display: flex;
-    padding: 10px 0px 0px 10px;
-    flex-direction: row;
-    align-items: center;
-    background-color: #cc0000;
-    .header-logo{
-     img{
-      width: 75px;
-     }
-    }
-    .header-title{
-      color: white;
-      text-align: center;
-    }
-
-}
-
 .card-container{
   margin-block-start: 1rem;
   display: flex;
@@ -39,21 +21,21 @@
     img {
       width: 100px;
       height: 100px;
-      border: 1px solid #cc0000;
+      border: 1px solid var(--primary-color);
       border-radius: 50%;
     }
     .continueButton{
-      background-color: #cc0000;
+      background-color: var(--primary-color);
       color: white;
       font-size: 1.2rem;
     }
     .hover-text{
-      color: #cc0000;
+      color: var(--primary-color);
       font-size: 1.2rem;
       text-decoration: underline;
     }
     .message{
-      color: #cc0000;
+      color: var(--primary-color);
       font-size: 1.2rem;
       width:90%;
     }

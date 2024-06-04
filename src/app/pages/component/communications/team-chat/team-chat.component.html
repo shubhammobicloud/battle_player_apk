@@ -17,9 +17,10 @@
             <mat-card>
               <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl" (click)="showImagePopup(chat.imageUrl,'local')">
               <img src="../../../../../assets/play.png" alt="img" *ngIf="chat.fileType === 'video'" (click)="streamVideo(chat.contentOrFilePath)">
+              <img src="../../../../../assets/doc.png" alt="img" *ngIf="chat.fileType === 'application'">
               <img [src]="url+'chat/'+chat.contentOrFilePath" alt="img" *ngIf="chat.fileType === 'image'" (click)="showImagePopup(chat.contentOrFilePath,'uploaded')">
               <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl" (click)="showVideoPopup(chat.videoUrl)"></video>
-              <div *ngIf="chat.documentName">{{chat.documentName}}</div>
+              <!-- <div *ngIf="chat.documentName">{{chat.documentName}}</div> -->
               <mat-card-header>
                 <mat-card-title>
                   {{chat.senderId?.userName}}
@@ -33,9 +34,9 @@
                 "> -->
                   <!-- {{ chat.contentOrFilePath }}
                 </ng-container> -->
-                <!-- <ng-container> -->
+                <ng-container *ngIf="chat.fileType === 'text'">
                   {{ chat.contentOrFilePath }}
-                <!-- </ng-container> -->
+                </ng-container>
                 <ng-template #truncatedMessage>
                   <span>{{ chat.contentOrFilePath.slice(0, 50) }}...</span>
                   <a (click)="toggleExpand(chat)" style="color: blue">{{
@@ -77,7 +78,7 @@
     </button>
     <input type="file" #fileInput accept="image/*" style="display: none" (change)="onFileSelected($event, 'image')" />
     <input type="file" #videoInput accept="video/*" style="display: none" (change)="onFileSelected($event, 'video')" />
-    <input type="file" #documentInput accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" style="display: none"
+    <input type="file" #documentInput accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.json" style="display: none"
       (change)="onFileSelected($event, 'document')" />
   </div>
   <div *ngIf="selectedImage" class="selectedImage">

@@ -161,16 +161,24 @@
   }
   .selectedImage {
     position: absolute;
-    bottom: 11%;
-    padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    bottom: 5%;
+    width: 100%;
+    // padding: 20px;
     background-color: white;
-    span{
-      float: right;
-      background: red;
-      padding: 5px;
+    .imagePopUpSpan{
+     width: 100%;
+
+     display: flex;
+     justify-content: space-between;
+     button{
+      margin: 5px 10px;
+      background-color: #cc0000;
       border-radius: 50%;
-      width: 20px;
-      text-align: center;
+      color: white;
+     }
     }
     img {
       width: 378px;
@@ -211,6 +219,24 @@
     div {
       font-size: 2rem;
     }
+  }
+}
+.showVideoPopup{
+  width: 100vw;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  display: flex;
+  justify-content: center;
+  // margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+  z-index: 2;
+  video{
+    width: 90vw;
   }
 }
 .showImgPopup {

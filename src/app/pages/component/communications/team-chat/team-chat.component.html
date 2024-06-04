@@ -26,12 +26,12 @@
                 </mat-card-title>
               </mat-card-header>
               <mat-card-content>
-                <ng-container *ngIf="
+                <!-- <ng-container *ngIf="
                   chat.contentOrFilePath.length <= 50 || chat.expanded;
                   else truncatedMessage
-                ">
+                "> -->
                   {{ chat.contentOrFilePath }}
-                </ng-container>
+                <!-- </ng-container> -->
                 <ng-template #truncatedMessage>
                   <span>{{ chat.contentOrFilePath.slice(0, 50) }}...</span>
                   <a (click)="toggleExpand(chat)" style="color: blue">{{
@@ -77,7 +77,10 @@
       (change)="onFileSelected($event, 'document')" />
   </div>
   <div *ngIf="selectedImage" class="selectedImage">
-    <span (click)="removeSelectedMedia('img')">X</span>
+    <span class="imagePopUpSpan">
+      <button (click)="removeSelectedMedia('img')" mat-icon-button> <mat-icon>close</mat-icon></button>
+      <button (click)="sendMessage()" mat-icon-button> <mat-icon>send</mat-icon></button>
+    </span>
     <img [src]="selectedImage" alt="Selected Image" />
   </div>
   <div *ngIf="selectedVideo" class="selectedVideo">
@@ -98,7 +101,7 @@
 <div *ngIf="showVidPopup">
 <!-- <div> -->
   <div class="background-blur" (click)="showVideoPopup('')"></div>
-  <div class="showImgPopup">
+  <div class="showVideoPopup">
     <!-- <video
     #videoPlayer
     width="560"
@@ -106,7 +109,7 @@
     frameborder="0"
     allowfullscreen>
   </video> -->
-  <video #videoPlayer [src]="videoUrl" width="560" height="315" controls>
+  <video #videoPlayer [src]="videoUrl" class="videolayer" controls>
     Your browser does not support the video tag.
   </video>
   </div>

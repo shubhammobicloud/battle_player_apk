@@ -2,11 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import {
   Component,
   OnInit,
-  ElementRef,AfterViewChecked,
+  ElementRef,
+  AfterViewChecked,
   ViewChild,
-  AfterViewInit,OnDestroy,HostListener
+  AfterViewInit,
+  OnDestroy,
+  HostListener,
 } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 import { Socket, io } from 'socket.io-client';
+import { ChatService } from 'src/app/services/chat/chat.service';
 import { environment } from 'src/environment/enviroment';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
@@ -15,7 +21,9 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
   templateUrl: './team-chat.component.html',
   styleUrls: ['./team-chat.component.scss'],
 })
-export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked,OnDestroy {
+export class TeamChatComponent
+  implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy
+{
   url: string = `${environment.baseUrl}`;
   id = localStorage.getItem('userId');
   avatar = localStorage.getItem('avatar');
@@ -26,60 +34,62 @@ export class TeamChatComponent implements OnInit, AfterViewInit,AfterViewChecked
   message: string = '';
   counter = 0;
   showFullMessage: boolean = false;
-  showMediaBtns:boolean = false
+  showMediaBtns: boolean = false;
   selectedImage: string | ArrayBuffer | null = null;
   selectedVideo: string | ArrayBuffer | null = null;
   selectedDocument: string | ArrayBuffer | null = null;
-  @ViewChild(InfiniteScrollDirective) infiniteScroll!: InfiniteScrollDirective;
+
+  selectedMedia!: File;
+  mediaError:boolean = false
+  videoUrl: string = '';
+
+  showImgPopup: boolean = false;
+  showVidPopup: boolean = false;
+  popupImgUrl: string = '';
+  popupVidUrl: string = '';
+
   @ViewChild('teamChatTextarea') teamChatTextarea!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef;
   @ViewChild('videoInput') videoInput!: ElementRef;
   @ViewChild('documentInput') documentInput!: ElementRef;
   @ViewChild('chatwrapper') chatwrapper!: ElementRef;
-  messageArray:any[]=[]
-  constructor(private http: HttpClient) {}
+  @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
+
+  constructor(
+    private http: HttpClient,
+    private chatService: ChatService,
+    private sanitizer: DomSanitizer,
+    private toastr: ToastrService
+  ) {}
 
   @ViewChild('chatContainer', { static: true }) container:
     | ElementRef
     | undefined;
 
   ngAfterViewInit(): void {
-    this.scrollToBottom()
-
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 1000);
   }
-ngAfterViewChecked(): void {
-  // this.scrollToBottom()
-
-}
-async ngOnDestroy() {
-  // console.log('Internet is not on or connection is very slow.');
-      const response =  await this.socket.timeout(5000).emitWithAck('disconnected',{teamId:this.teamId});
-      // console.log(response, 'response of disconnect');
-    // this.socket.disconnect();
-}
- isLoadingMore = false;
- currentPage = 1;
-
-loadChats(page: number) {
-  this.isLoadingMore = true;
-  // Simulate fetching data from an API (replace with real implementation)
-  setTimeout(() => {
-    this.currentPage++;
-    this.isLoadingMore = false;
-  }, 1000); // Simulate latency
-}
+  ngAfterViewChecked(): void {
+    // this.scrollToBottom()
+  }
+  async ngOnDestroy() {
+    // console.log('Internet is not on or connection is very slow.');
+    const response = await this.socket
+      .timeout(5000)
+      .emitWithAck('disconnected', { teamId: this.teamId });
+  }
   async ngOnInit() {
-    this.scrollToBottom()
-
+    // this.loadInitialChunk();
     this.socket = io(`${this.url}team-namespaces`, {
-
       auth: {
         serverOffset: this.id,
-        teamId:this.teamId
+        teamId: this.teamId,
       },
       // enable retries
-    ackTimeout: 10000,
-    retries: 3,
+      ackTimeout: 10000,
+      retries: 3,
     });
     this.socket.disconnect;
 
@@ -87,22 +97,29 @@ loadChats(page: number) {
     this.socket.on('connect', async () => {
       // console.log('Socket.IO connected successfully');
       try {
-        const response=  await this.socket.timeout(5000).emitWithAck('joinRoom',{teamId:this.teamId});
+        const response = await this.socket
+          .timeout(5000)
+          .emitWithAck('joinRoom', { teamId: this.teamId });
         // console.log(response,"response of joinRoom"); // 'ok'
-        if(response.status == 'error'){
-          // alert(response.message);
+        if (response.status == 'error') {
+          alert(response.message);
         }
-        if(response.status == 'ok'){
-          const response =  await this.socket.timeout(5000).emitWithAck('loadChat',{teamId:this.teamId});
-          console.log(response,"response of loadChat");
-          if(response.status == 'error'){
+        if (response.status == 'ok') {
+          const response = await this.socket
+            .timeout(5000)
+            .emitWithAck('loadChat', {
+              teamId: this.teamId,
+              limit: 8,
+              page: this.page,
+            });
+          // console.log(response,"response of loadChat");
+          if (response.status == 'error') {
             // alert(response.message);
           }
-          if(response.status == 'ok'){
+          if (response.status == 'ok') {
             // const chats = response.existingChat;
-            this.chats = response.existingChat;
-            this.messageArray=this.chats.splice(-10)
-
+            this.chats = response.orderedChat;
+            console.log('chats', this.chats);
           }
         }
       } catch (error) {
@@ -122,33 +139,35 @@ loadChats(page: number) {
       console.error('Socket.IO connection timeout: ', timeout);
     });
 
-
     // disconnect
-    this.socket.on('disconnect',async()=>{
+    this.socket.on('disconnect', async () => {
       // alert('Internet is not on or connection is very slow.');
-    })
+    });
 
-    this.socket.on('loadNewTeamChat', (data: any, callback:any) => {
+    this.socket.on('loadNewTeamChat', (data: any, callback: any) => {
       try {
-        // sending
-      const newChat = {
-        message: data.message,
-        time: data.time,
-        senderId: {
-          _id: data.id,
-          avatar: data.avatar,
-          userName: data.userName,
-        },
-      };
-      this.socket.auth.serverOffset = data.id;
-      this.chats.push(newChat);
-      this.scrollToBottom()
-      // console.log(data, 'response of loadNewTeamChat')
-      callback({
-        status: 'ok',
-      });
+        console.log("data", data)
+
+        const newChat = {
+          contentOrFilePath: data.contentOrFilePath,
+          createdAt: data.createdAt,
+          fileType:data.fileType,
+          teamId:data.teamId,
+          senderId: {
+            _id: data._id,
+            avatar: data.avatar,
+            userName: data.userName,
+          },
+        };
+        this.socket.auth.serverOffset = data.id;
+        this.chats.push(newChat);
+        this.scrollToBottom();
+        // console.log(data, 'response of loadNewTeamChat')
+        callback({
+          status: 'ok',
+        });
       } catch (error) {
-      //  alert("error occured while loading new data");
+        //  alert("error occured while loading new data");
       }
     });
   }
@@ -173,59 +192,82 @@ onScrollDown() {
   };
 
   async sendMessage() {
-    this.scrollToBottom()
-    if (this.message !== '') {
-      const selfMessage = {
-        time: new Date(),
-        message: this.message,
-        teamId: this.teamId,
-        senderId: {
-          _id: this.id,
-          avatar: this.avatar,
-          userName: this.username,
-        },
-        imageUrl:this.selectedImage?this.selectedImage:null,
-        videoUrl:this.selectedVideo?this.selectedVideo:null,
-        documentName:this.selectedDocument?this.selectedDocument:null
-      };
-      const data = {
-        time: new Date(),
-        message: this.message,
-        senderId: this.id,
-        teamId: this.teamId,
-      };
-      // console.log(this.socket.id,"socket id");
-       // compute a unique offset
-       const clientOffset = `${this.socket.id}-${this.counter++}`;
-       this.chats.push(selfMessage);
-       this.selectedImage = null
-       this.selectedVideo = null
-       this.selectedDocument = null
-       this.message = '';
-      try {
-        const response=  await this.socket.timeout(5000).emitWithAck('newTeamChat',data,clientOffset);
-        // console.log(response,"response of newTeamChat"); // 'ok'
-        if(response.status == 'ok'){
-        }
-        if(response.status == 'error'){
-          alert(response.message);
-        }
-      }catch(error:any){
-        // console.log(error.message);
+    // if (this.message !== '') {
+    const selfMessage = {
+      contentOrFilePath: this.message,
+      teamId: this.teamId,
+      senderId: {
+        _id: this.id,
+        avatar: this.avatar,
+        userName: this.username,
+      },
+      imageUrl: this.selectedImage ? this.selectedImage : null,
+      videoUrl: this.selectedVideo ? this.selectedVideo : null,
+      documentName: this.selectedDocument ? this.selectedDocument : null,
+    };
+
+    console.log("self message",selfMessage)
+
+    if (this.message == '') {
+      if(!this.mediaError){
+      this.selectedImage = null
+          this.selectedVideo = null
+          this.selectedDocument = null
+      this.chatService
+        .uploadMedia(this.selectedMedia)
+        .subscribe((res: any) => {
+          console.log('media upload');
+          // this.chats.push(selfMessage);
+
+        });
       }
     } else {
-      if (this.teamChatTextarea) {
-        this.teamChatTextarea.nativeElement.style.border = '2px solid red';
+      const data = {
+        contentOrFilePath: this.message,
+        senderId: this.id,
+        teamId: this.teamId,
+        avatar: this.avatar,
+        username: this.username,
+      };
+      // console.log(this.socket.id,"socket id");
+      // compute a unique offset
+      // this.chats.push(selfMessage);
+      this.selectedImage = null;
+      this.selectedVideo = null;
+      this.selectedDocument = null;
+      this.message = '';
+      this.chats.push(selfMessage)
+        this.scrollToBottom();
+
+      try {
+        const response = await this.socket
+          .timeout(5000)
+          .emitWithAck('newTeamChat', data);
+        // console.log(response,"response of newTeamChat"); // 'ok'
+        if (response.status == 'ok') {
+
+
+        }
+        if (response.status == 'error') {
+          alert(response.message);
+        }
+      } catch (error: any) {
+        // console.log(error.message);
       }
     }
-    // this.scrollToBottom();
+
   }
   @ViewChild('chatwrapper', { static: true }) chatWrapper!: ElementRef;
 
+  scrollbarHeight!: number;
+
   scrollToBottom() {
     try {
-      // console.log(this.chatWrapper.nativeElement); // Check if this logs the correct element
-      this.chatWrapper.nativeElement.scrollTop = this.chatWrapper.nativeElement.scrollHeight;
+      setTimeout(() => {
+        this.scrollbarHeight = this.chatWrapper.nativeElement.scrollHeight;
+        this.chatWrapper.nativeElement.scrollTop = this.scrollbarHeight;
+      }, 0);
+
     } catch (err) {
       console.error(err);
     }
@@ -250,16 +292,24 @@ onScrollDown() {
     }
   }
   onFileSelected(event: Event, type: string) {
-    this.showMediaBtns =false
+    this.showMediaBtns = false;
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
+      this.selectedMedia = input.files[0];
       const file = input.files[0];
       console.log(`Selected ${type}:`, file);
       if (type === 'image') {
         this.readFile(file, 'image');
       } else if (type === 'video') {
-        this.readFile(file, 'video');
-      } else if (type ==='document'){
+        let maxFileSize = 20 * 1024 * 1024;
+        if(file.size>maxFileSize){
+          this.toastr.error(`Video maximum size should be 20 MB`)
+          this.mediaError=true
+        }
+        else{
+          this.readFile(file, 'video');
+        }
+      } else if (type === 'document') {
         this.readFile(file, 'document');
       }
     }
@@ -271,20 +321,107 @@ onScrollDown() {
         this.selectedImage = reader.result;
       } else if (type === 'video') {
         this.selectedVideo = reader.result;
-      } else if(type === 'document'){
-        this.selectedDocument = file.name
+      } else if (type === 'document') {
+        this.selectedDocument = file.name;
       }
     };
     reader.readAsDataURL(file);
   }
 
+  showImagePopup(popupImgUrl: string, type: string) {
+    if (type === 'local') {
+      this.popupImgUrl = popupImgUrl;
+      console.log('popup img url', popupImgUrl);
+      this.showImgPopup = !this.showImgPopup;
+    } else if (type === 'uploaded') {
+      this.popupImgUrl = `${this.url}chat/${popupImgUrl}`;
+      console.log('popup img url', popupImgUrl);
+      this.showImgPopup = !this.showImgPopup;
+    } else {
+      this.showImgPopup = !this.showImgPopup;
+    }
+  }
 
-  @HostListener('scroll', ['$event'])
-  onScroll(event: any) {
-    const scrollTop = this.chatwrapper.nativeElement.scrollTop;
-    console.log("scroll top", scrollTop)
-    // if (scrollTop === 0 && !this.loading) {
-    //   this.loadChats();
-    // }
+  showVideoPopup(popupVidUrl: string) {
+    this.popupVidUrl = popupVidUrl;
+    console.log('popup img url', popupVidUrl);
+    this.showVidPopup = !this.showVidPopup;
+  }
+
+  removeSelectedMedia(type: string) {
+    if (type == 'img') this.selectedImage = null;
+    else if (type == 'video') this.selectedVideo = null;
+    else if (type == 'doc') {
+      this.selectedDocument = null;
+    }
+  }
+
+  counter1 = 2;
+  previousScrollHeight!: number;
+
+  async onScrollUp() {
+    console.log('scrolled up!!');
+    this.previousScrollHeight = this.chatWrapper.nativeElement.scrollHeight;
+    console.log('up height', this.previousScrollHeight);
+
+    await this.addChats().then(() => {
+      this.adjustScrollPosition().then(() => {
+      });
+    });
+
+    this.counter1++;
+  }
+
+  page=1
+  addChats(): Promise<void> {
+    return new Promise( async (resolve) => {
+      this.page++
+      const response = await this.socket
+            .timeout(5000)
+            .emitWithAck('loadChat', {
+              teamId: this.teamId,
+              limit: 7,
+              page: this.page,
+            });
+          if (response.status == 'error') {
+           console.log(response.message);
+          }
+          if (response.status == 'ok') {
+            // const chats = response.existingChat;
+          this.chats = [...response.orderedChat,...this.chats];
+          console.log('chats', this.chats);
+          }
+
+      resolve();
+    });
+  }
+  multiplyer=1;
+  adjustScrollPosition(): Promise<void> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        try {
+          const newScrollHeight = this.chatWrapper.nativeElement.scrollHeight;
+          const addedContentHeight = newScrollHeight - this.previousScrollHeight;
+
+          console.log('Previous scroll height:', this.previousScrollHeight);
+          console.log('New scroll height:', newScrollHeight);
+          console.log('Added content height:', addedContentHeight);
+          console.log('Scroll position set to:', addedContentHeight);
+
+          this.chatWrapper.nativeElement.scrollTop = addedContentHeight +500 * this.multiplyer;
+          this.multiplyer++
+          resolve();
+        } catch (err) {
+          console.error(err);
+          resolve();
+        }
+      }, 0);
+    });
+  }
+
+  streamVideo(videoName: string) {
+    this.videoUrl = `${environment.baseUrl}chat/stream/${videoName}`;
+    console.log('video url', this.videoUrl);
+    this.showVidPopup = true;
   }
 }

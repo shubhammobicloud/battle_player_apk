@@ -14,12 +14,12 @@ import { NewspostComponent } from './newspost/newspost.component';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatBadgeModule } from '@angular/material/badge';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { MatMenuModule } from '@angular/material/menu';
 @NgModule({
   declarations: [TeamChatComponent, CompanyNewsComponent, NewspostComponent],
   imports: [
-    CommonModule,MatInputModule,MatButtonModule,MatBadgeModule,InfiniteScrollModule,
+    CommonModule,MatInputModule,MatButtonModule,MatBadgeModule,MatMenuModule,
     MatIconModule,
     FormsModule,
     MatCardModule,
@@ -27,7 +27,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ReactiveFormsModule,
     MatFormFieldModule,
     AngularEditorModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    InfiniteScrollModule
   ],
   exports: [TeamChatComponent, CompanyNewsComponent, NewspostComponent],
 })

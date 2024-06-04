@@ -15,4 +15,8 @@ export class ChatService {
     formData.append("file",selectedDoc)
     return this.http.post(`${environment.baseUrl}chat/upload`,formData)
   }
+
+  downloadMedia(name:string){
+    return this.http.get(`${environment.baseUrl}chat/download/${name}`,{ responseType: 'blob' })
+  }
 }

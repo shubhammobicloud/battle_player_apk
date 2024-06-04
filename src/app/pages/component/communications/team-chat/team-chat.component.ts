@@ -251,8 +251,6 @@ export class TeamChatComponent
 
   scrollToBottom() {
     try {
-      console.log('scroll to bottom called');
-
       setTimeout(() => {
         this.scrollbarHeight = this.chatWrapper.nativeElement.scrollHeight;
         this.chatWrapper.nativeElement.scrollTop = this.scrollbarHeight;

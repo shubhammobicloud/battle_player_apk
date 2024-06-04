@@ -26,10 +26,13 @@
                 </mat-card-title>
               </mat-card-header>
               <mat-card-content>
-                <ng-container *ngIf="
+                <!-- <ng-container *ngIf="
                   chat.contentOrFilePath.length <= 50 || chat.expanded;
                   else truncatedMessage
-                ">
+                "> -->
+                  <!-- {{ chat.contentOrFilePath }}
+                </ng-container> -->
+                <ng-container>
                   {{ chat.contentOrFilePath }}
                 </ng-container>
                 <ng-template #truncatedMessage>

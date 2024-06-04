@@ -25,4 +25,10 @@ export class ChatService {
     });
     return this.http.get(this.videoUrl, {headers, responseType: 'blob' });
   }
+
+  uploadMedia(selectedDoc:File){
+    let formData = new FormData()
+    formData.append("file",selectedDoc)
+    return this.http.post(`${environment.baseUrl}chat/upload`,formData)
+  }
 }

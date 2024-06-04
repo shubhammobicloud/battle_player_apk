@@ -9,7 +9,7 @@ import {
   OnDestroy,
   HostListener,
 } from '@angular/core';
-import { DomSanitizer,SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Socket, io } from 'socket.io-client';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { environment } from 'src/environment/enviroment';
@@ -36,10 +36,12 @@ export class TeamChatComponent
   selectedImage: string | ArrayBuffer | null = null;
   selectedVideo: string | ArrayBuffer | null = null;
   selectedDocument: string | ArrayBuffer | null = null;
-//  videoUrl: SafeUrl | null = null;
- videoUrl:string =''
- private videoChunks: Blob[] = [];
- private currentChunk: number = 0;
+
+  selectedMedia!: File;
+  //  videoUrl: SafeUrl | null = null;
+  videoUrl: string = '';
+  private videoChunks: Blob[] = [];
+  private currentChunk: number = 0;
 
   showImgPopup: boolean = false;
   showVidPopup: boolean = false;
@@ -54,8 +56,11 @@ export class TeamChatComponent
   // @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef;
   @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
 
-
-  constructor(private http: HttpClient, private chatService: ChatService, private sanitizer:DomSanitizer) {}
+  constructor(
+    private http: HttpClient,
+    private chatService: ChatService,
+    private sanitizer: DomSanitizer
+  ) {}
 
   @ViewChild('chatContainer', { static: true }) container:
     | ElementRef
@@ -143,12 +148,15 @@ export class TeamChatComponent
 
     this.socket.on('loadNewTeamChat', (data: any, callback: any) => {
       try {
-        // sending
+        console.log("data", data)
+        
         const newChat = {
-          contentOrFilePath: data.message,
-          time: data.time,
+          contentOrFilePath: data.contentOrFilePath,
+          createdAt: data.createdAt,
+          fileType:data.fileType,
+          teamId:data.teamId,
           senderId: {
-            _id: data.id,
+            _id: data._id,
             avatar: data.avatar,
             userName: data.userName,
           },
@@ -174,22 +182,35 @@ export class TeamChatComponent
   };
 
   async sendMessage() {
-    if (this.message !== '') {
-      const selfMessage = {
-        time: new Date(),
-        contentOrFilePath: this.message,
-        teamId: this.teamId,
-        senderId: {
-          _id: this.id,
-          avatar: this.avatar,
-          userName: this.username,
-        },
-        imageUrl: this.selectedImage ? this.selectedImage : null,
-        videoUrl: this.selectedVideo ? this.selectedVideo : null,
-        documentName: this.selectedDocument ? this.selectedDocument : null,
-      };
+    console.log("callinggggggggggggggggggggggggggggggggggggggggg")
+    // if (this.message !== '') {
+    const selfMessage = {
+      contentOrFilePath: this.message,
+      teamId: this.teamId,
+      senderId: {
+        _id: this.id,
+        avatar: this.avatar,
+        userName: this.username,
+      },
+      imageUrl: this.selectedImage ? this.selectedImage : null,
+      videoUrl: this.selectedVideo ? this.selectedVideo : null,
+      documentName: this.selectedDocument ? this.selectedDocument : null,
+    };
+
+    console.log("self message",selfMessage)
+
+    if (this.message == '') {
+      this.selectedImage = null
+          this.selectedVideo = null
+      this.chatService
+        .uploadMedia(this.selectedMedia)
+        .subscribe((res: any) => {
+          console.log('img upload');
+          // this.chats.push(selfMessage);
+          
+        });
+    } else {
       const data = {
-        time: new Date(),
         contentOrFilePath: this.message,
         senderId: this.id,
         teamId: this.teamId,
@@ -198,7 +219,6 @@ export class TeamChatComponent
       };
       // console.log(this.socket.id,"socket id");
       // compute a unique offset
-      const clientOffset = `${this.socket.id}-${this.counter++}`;
       this.chats.push(selfMessage);
       this.selectedImage = null;
       this.selectedVideo = null;
@@ -208,7 +228,7 @@ export class TeamChatComponent
       try {
         const response = await this.socket
           .timeout(5000)
-          .emitWithAck('newTeamChat', data, clientOffset);
+          .emitWithAck('newTeamChat', data);
         // console.log(response,"response of newTeamChat"); // 'ok'
         if (response.status == 'ok') {
         }
@@ -218,21 +238,67 @@ export class TeamChatComponent
       } catch (error: any) {
         // console.log(error.message);
       }
-    } else {
-      // if (this.teamChatTextarea) {
-      //   this.teamChatTextarea.nativeElement.style.border = '2px solid red';
-      // }
     }
+    // } else {
+    //   // if (this.teamChatTextarea) {
+    //   //   this.teamChatTextarea.nativeElement.style.border = '2px solid red';
+    //   // }
+    //   // const selfMessage = {
+    //   //   time: new Date(),
+    //   //   contentOrFilePath: this.message,
+    //   //   teamId: this.teamId,
+    //   //   senderId: {
+    //   //     _id: this.id,
+    //   //     avatar: this.avatar,
+    //   //     userName: this.username,
+    //   //   },
+    //   //   imageUrl: this.selectedImage ? this.selectedImage : null,
+    //   //   videoUrl: this.selectedVideo ? this.selectedVideo : null,
+    //   //   documentName: this.selectedDocument ? this.selectedDocument : null,
+    //   // };
+    //   this.chatService
+    //     .uploadMedia('image', this.selectedMediaImage)
+    //     .subscribe((res:any) => {
+    //     //   {
+    //     //     "_id": "665ed4a03d002139ae31a865",
+    //     //     "senderId": {
+    //     //         "userName": "test",
+    //     //         "avatar": "1716533612034-football.jpg",
+    //     //         "_id": "665039330ca713f4d3e69d54"
+    //     //     },
+    //     //     "teamId": "665039330ca713f4d3e69d51",
+    //     //     "contentOrFilePath": "wq",
+    //     //     "fileType": "text",
+    //     //     "createdAt": "2024-06-04T08:47:28.811Z"
+    //     // }
+    //       const selfMessage = {
+    //         createdAt: new Date(),
+    //         teamId: this.teamId,
+    //         senderId: {
+    //           _id: this.id,
+    //           avatar: this.avatar,
+    //           userName: this.username,
+    //         },
+    //         contentOrFilePath: res.data,
+    //         fileType: "image",
+    //       };
+    //       this.chats.push(selfMessage);
+    //       this.selectedImage = null;
+
+    //       console.log('res', res);
+    //     });
+    // }
     // this.scrollToBottom();
   }
   @ViewChild('chatwrapper', { static: true }) chatWrapper!: ElementRef;
 
   scrollbarHeight!: number;
-  multiplyer=1;
+  multiplyer = 1;
   scrollToBottom() {
     try {
       console.log('scroll to bottom called');
-      this.scrollbarHeight = this.chatWrapper.nativeElement.scrollHeight+1000*this.multiplyer;
+      this.scrollbarHeight =
+        this.chatWrapper.nativeElement.scrollHeight + 1000 * this.multiplyer;
       // console.log(this.chatWrapper.nativeElement); // Check if this logs the correct element
       this.chatWrapper.nativeElement.scrollTop =
         this.chatWrapper.nativeElement.scrollHeight;
@@ -289,6 +355,7 @@ export class TeamChatComponent
     this.showMediaBtns = false;
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
+      this.selectedMedia = input.files[0];
       const file = input.files[0];
       console.log(`Selected ${type}:`, file);
       if (type === 'image') {
@@ -314,20 +381,18 @@ export class TeamChatComponent
     reader.readAsDataURL(file);
   }
 
-  showImagePopup(popupImgUrl: string, type:string) {
-    if(type==='local'){
-    this.popupImgUrl = popupImgUrl;
-    console.log('popup img url', popupImgUrl);
-    this.showImgPopup = !this.showImgPopup;
-  }
-  else if(type==='uploaded'){
-    this.popupImgUrl = `${this.url}chat/${popupImgUrl}`;
-    console.log('popup img url', popupImgUrl);
-    this.showImgPopup = !this.showImgPopup;
-  }
-  else{
-    this.showImgPopup = !this.showImgPopup;
-  }
+  showImagePopup(popupImgUrl: string, type: string) {
+    if (type === 'local') {
+      this.popupImgUrl = popupImgUrl;
+      console.log('popup img url', popupImgUrl);
+      this.showImgPopup = !this.showImgPopup;
+    } else if (type === 'uploaded') {
+      this.popupImgUrl = `${this.url}chat/${popupImgUrl}`;
+      console.log('popup img url', popupImgUrl);
+      this.showImgPopup = !this.showImgPopup;
+    } else {
+      this.showImgPopup = !this.showImgPopup;
+    }
   }
 
   showVideoPopup(popupVidUrl: string) {
@@ -498,7 +563,9 @@ export class TeamChatComponent
           videoElement.play();
         } else {
           // Append new chunk to the existing video
-          const combinedBlob = new Blob(this.videoChunks, { type: 'video/mp4' });
+          const combinedBlob = new Blob(this.videoChunks, {
+            type: 'video/mp4',
+          });
           const combinedBlobUrl = URL.createObjectURL(combinedBlob);
           videoElement.src = combinedBlobUrl;
           videoElement.currentTime = videoElement.currentTime; // maintain the current playback position
@@ -507,12 +574,13 @@ export class TeamChatComponent
       },
       (error) => {
         console.error('Error fetching video chunk:', error);
-      
-      // this.chatService.getVideoChunk('0').subscribe(blob => {
-      // const videoElement = this.videoPlayer.nativeElement;
-      // const url = URL.createObjectURL(blob);
-      // videoElement.src = url;
-    });
+
+        // this.chatService.getVideoChunk('0').subscribe(blob => {
+        // const videoElement = this.videoPlayer.nativeElement;
+        // const url = URL.createObjectURL(blob);
+        // videoElement.src = url;
+      }
+    );
   }
 
   // onSeeking(event: Event) {
@@ -528,9 +596,9 @@ export class TeamChatComponent
   //   });
   // }
 
-  streamVideo(videoName:string){
-this.videoUrl = `${environment.baseUrl}chat/stream/${videoName}`
-console.log("video url",this.videoUrl)
-this.showVidPopup = true
+  streamVideo(videoName: string) {
+    this.videoUrl = `${environment.baseUrl}chat/stream/${videoName}`;
+    console.log('video url', this.videoUrl);
+    this.showVidPopup = true;
   }
 }

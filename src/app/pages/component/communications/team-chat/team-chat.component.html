@@ -37,7 +37,6 @@
                 <ng-container *ngIf="chat.fileType === 'text'">
                   {{ chat.contentOrFilePath }}
                 </ng-container>
-                </ng-container>
                 <ng-template #truncatedMessage>
                   <span>{{ chat.contentOrFilePath.slice(0, 50) }}...</span>
                   <a (click)="toggleExpand(chat)" style="color: blue">{{

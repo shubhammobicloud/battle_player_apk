@@ -148,6 +148,7 @@
         color: white;
       }
     }
+
   }
   .mediaBtnContainer {
     background: aqua;
@@ -187,19 +188,28 @@
   }
   .selectedVideo {
     position: absolute;
-    bottom: 11%;
-    padding: 20px;
-    span{
-      float: right;
-      background: red;
-      padding: 5px;
-      border-radius: 50%;
-      width: 20px;
-      text-align: center;
-    }
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    bottom: 5%;
+    width: 100%;
+    // padding: 20px;
+    background-color: white;
+    .imagePopUpSpan{
+      width: 100%;
+
+      display: flex;
+      justify-content: space-between;
+      button{
+       margin: 5px 10px;
+       background-color: #cc0000;
+       border-radius: 50%;
+       color: white;
+      }
+     }
     video {
       width: 378px;
-      height: 420px;
+      height: fit-content;
     }
   }
   .selectedDocument {

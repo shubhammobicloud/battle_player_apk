@@ -33,9 +33,9 @@
                 "> -->
                   <!-- {{ chat.contentOrFilePath }}
                 </ng-container> -->
-                <!-- <ng-container> -->
+                <ng-container *ngIf="chat.fileType !== 'image' && chat.fileType !== 'video'">
                   {{ chat.contentOrFilePath }}
-                <!-- </ng-container> -->
+                </ng-container>
                 <ng-template #truncatedMessage>
                   <span>{{ chat.contentOrFilePath.slice(0, 50) }}...</span>
                   <a (click)="toggleExpand(chat)" style="color: blue">{{
@@ -56,30 +56,37 @@
 
   </div>
   <div class="inputBoxContainer">
-    <button mat-icon-button (click)="toggleMediaButtons()">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>attach_file</mat-icon>
     </button>
+    <mat-menu #menu class="teamChatMenu">
+      <button  class="menuButton"
+          mat-menu-item  (click)="selectFile('image')">
+        <mat-icon>perm_media</mat-icon>
+      </button>
+      <button  class="menuButton"
+          mat-menu-item  (click)="selectFile('video')">
+        <mat-icon>video_library</mat-icon>
+      </button>
+      <button  class="menuButton"
+          mat-menu-item (click)="selectFile('document')">
+        <mat-icon>insert_drive_file</mat-icon>
+      </button>
+    </mat-menu>
+    <!-- <div class="mediaBtnContainer" *ngIf="showMediaBtns"> -->
+
+      <input type="file" #fileInput accept="image/*" style="display: none" (change)="onFileSelected($event, 'image')" />
+      <input type="file" #videoInput accept="video/*" style="display: none" (change)="onFileSelected($event, 'video')" />
+      <input type="file" #documentInput accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" style="display: none"
+        (change)="onFileSelected($event, 'document')" />
+    <!-- </div> -->
     <input #inputBox type="text" [(ngModel)]="message"
       placeholder="{{ 'COMMUNICATION_PAGE.TEAM_CHAT_PAGE.ENTER_MESSAGE_PLACEHOLDER' | translate }}" />
     <button mat-icon-button class="sendIcon" (click)="sendMessage()">
       <mat-icon>send</mat-icon>
     </button>
   </div>
-  <div class="mediaBtnContainer" *ngIf="showMediaBtns">
-    <button mat-icon-button class="sendIcon" (click)="selectFile('image')">
-      <mat-icon>perm_media</mat-icon>
-    </button>
-    <button mat-icon-button class="sendIcon" (click)="selectFile('video')">
-      <mat-icon>video_library</mat-icon>
-    </button>
-    <button mat-icon-button class="sendIcon" (click)="selectFile('document')">
-      <mat-icon>insert_drive_file</mat-icon>
-    </button>
-    <input type="file" #fileInput accept="image/*" style="display: none" (change)="onFileSelected($event, 'image')" />
-    <input type="file" #videoInput accept="video/*" style="display: none" (change)="onFileSelected($event, 'video')" />
-    <input type="file" #documentInput accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" style="display: none"
-      (change)="onFileSelected($event, 'document')" />
-  </div>
+
   <div *ngIf="selectedImage" class="selectedImage">
     <span class="imagePopUpSpan">
       <button (click)="removeSelectedMedia('img')" mat-icon-button> <mat-icon>close</mat-icon></button>
@@ -88,7 +95,10 @@
     <img [src]="selectedImage" alt="Selected Image" />
   </div>
   <div *ngIf="selectedVideo" class="selectedVideo">
-    <span (click)="removeSelectedMedia('video')">X</span>
+    <span class="imagePopUpSpan">
+      <button (click)="removeSelectedMedia('video')" mat-icon-button> <mat-icon>close</mat-icon></button>
+      <button (click)="sendMessage()" mat-icon-button> <mat-icon>send</mat-icon></button>
+    </span>
     <video [src]="selectedVideo" controls></video>
   </div>
   <div *ngIf="selectedDocument" class="selectedDocument">

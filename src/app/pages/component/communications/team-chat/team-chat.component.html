@@ -15,8 +15,8 @@
             <img [src]="url + '/images/' + chat.senderId?.avatar" class="profile" />
 
             <mat-card>
-              <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl" (click)="showImagePopup(chat.imageUrl)">
-              <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl" (click)="showVideoPopup(chat.videoUrl)"></video>
+              <!-- <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl" (click)="showImagePopup(chat.imageUrl)">
+              <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl" (click)="showVideoPopup(chat.videoUrl)"></video> -->
               <div *ngIf="chat.documentName">{{chat.documentName}}</div>
               <mat-card-header>
                 <mat-card-title>
@@ -24,18 +24,19 @@
                 </mat-card-title>
               </mat-card-header>
               <mat-card-content>
-                <ng-container *ngIf="
+                {{chat.contentOrFilePath}}
+                <!-- <ng-container *ngIf="
                   chat.contentOrFilePath.length <= 50 || chat.expanded;
                   else truncatedMessage
                 ">
                   {{ chat.contentOrFilePath }}
-                </ng-container>
-                <ng-template #truncatedMessage>
+                </ng-container> -->
+                <!-- <ng-template #truncatedMessage>
                   <span>{{ chat.contentOrFilePath.slice(0, 50) }}...</span>
                   <a (click)="toggleExpand(chat)" style="color: blue">{{
                     "COMMUNICATION_PAGE.TEAM_CHAT_PAGE.READ_MORE" | translate
                     }}</a>
-                </ng-template>
+                </ng-template> -->
               </mat-card-content>
               <mat-card-actions>
                 <span style="font-size: 10px; text-align: right">{{
@@ -74,7 +75,7 @@
     <input type="file" #documentInput accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" style="display: none"
       (change)="onFileSelected($event, 'document')" />
   </div>
-  <div *ngIf="selectedImage" class="selectedImage">
+  <!-- <div *ngIf="selectedImage" class="selectedImage">
     <span (click)="removeSelectedMedia('img')">X</span>
     <img [src]="selectedImage" alt="Selected Image" />
   </div>
@@ -85,18 +86,18 @@
   <div *ngIf="selectedDocument" class="selectedDocument">
     <span (click)="removeSelectedMedia('doc')">X</span>
     <div>{{selectedDocument}}</div>
-  </div>
+  </div> -->
 </div>
-<div *ngIf="showImgPopup">
+<!-- <div *ngIf="showImgPopup">
   <div class="background-blur" (click)="showImagePopup('')"></div>
   <div class="showImgPopup">
     <img [src]="popupImgUrl" />
   </div>
-</div>
+</div> -->
 <!-- <div *ngIf="showVidPopup"> -->
-<div>
-  <div class="background-blur" (click)="showVideoPopup('')"></div>
-  <div class="showImgPopup">
+<!-- <div> -->
+  <!-- <div class="background-blur" (click)="showVideoPopup('')"></div> -->
+  <!-- <div class="showImgPopup"> -->
     <!-- <video
     #videoPlayer
     width="560"
@@ -104,8 +105,8 @@
     frameborder="0"
     allowfullscreen>
   </video> -->
-  <video #videoPlayer width="560" height="315" controls (seeking)="onSeeking($event)">
+  <!-- <video #videoPlayer width="560" height="315" controls (seeking)="onSeeking($event)">
     Your browser does not support the video tag.
-  </video>
-  </div>
-</div>
+  </video> -->
+  <!-- </div> -->
+<!-- </div> -->

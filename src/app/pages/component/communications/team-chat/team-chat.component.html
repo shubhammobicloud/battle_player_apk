@@ -41,8 +41,8 @@
                 </ng-template>
               </mat-card-content>
               <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl" (click)="showImagePopup(chat.imageUrl,'local')">
-              <img src="../../../../../assets/play.png" alt="img" *ngIf="chat.fileType === 'video'" (click)="streamVideo(chat.contentOrFilePath)">
-              <img src="../../../../../assets/doc.png" alt="img" *ngIf="chat.fileType === 'application'">
+              <img src="../../../../../assets/play.png" width="120px" alt="img" *ngIf="chat.fileType === 'video'" (click)="streamVideo(chat.contentOrFilePath)">
+              <img src="../../../../../assets/doc.png" width="120px" alt="img" *ngIf="chat.fileType === 'application'">
               <img [src]="url+'chat/'+chat.contentOrFilePath" alt="img" *ngIf="chat.fileType === 'image'" (click)="showImagePopup(chat.contentOrFilePath,'uploaded')">
               <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl" (click)="showVideoPopup(chat.videoUrl)"></video>
               <mat-card-actions>

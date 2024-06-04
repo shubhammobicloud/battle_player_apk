@@ -525,7 +525,7 @@ body {
   .menuButton{
     display: flex;
     justify-content: center;
-    background-color: #cc0000;
+    background-color: var(--primary-color);
     border-radius: 50%;
     width: 4rem;
     margin-block:10px;

@@ -180,7 +180,6 @@ onScrollDown() {
   this.sum += 20;
   // add another 20 items
   console.log("asdqwreqs")
-  this.messageArray=this.chats.slice(this.sum)
 }
 
 

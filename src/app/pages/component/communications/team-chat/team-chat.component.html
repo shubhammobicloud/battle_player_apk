@@ -15,7 +15,9 @@
             <img [src]="url + '/images/' + chat.senderId?.avatar" class="profile" />
 
             <mat-card>
-              <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl" (click)="showImagePopup(chat.imageUrl)">
+              <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl" (click)="showImagePopup(chat.imageUrl,'local')">
+              <img src="../../../../../assets/play.png" alt="img" *ngIf="chat.fileType === 'video'" (click)="streamVideo(chat.contentOrFilePath)">
+              <img [src]="url+'chat/'+chat.contentOrFilePath" alt="img" *ngIf="chat.fileType === 'image'" (click)="showImagePopup(chat.contentOrFilePath,'uploaded')">
               <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl" (click)="showVideoPopup(chat.videoUrl)"></video>
               <div *ngIf="chat.documentName">{{chat.documentName}}</div>
               <mat-card-header>
@@ -39,7 +41,7 @@
               </mat-card-content>
               <mat-card-actions>
                 <span style="font-size: 10px; text-align: right">{{
-                  chat.time | date : "short"
+                  chat.createdAt | date : "short"
                   }}</span>
               </mat-card-actions>
             </mat-card>
@@ -53,7 +55,7 @@
     <button mat-icon-button (click)="toggleMediaButtons()">
       <mat-icon>attach_file</mat-icon>
     </button>
-    <input type="text" [(ngModel)]="message"
+    <input #inputBox type="text" [(ngModel)]="message"
       placeholder="{{ 'COMMUNICATION_PAGE.TEAM_CHAT_PAGE.ENTER_MESSAGE_PLACEHOLDER' | translate }}" />
     <button mat-icon-button class="sendIcon" (click)="sendMessage()">
       <mat-icon>send</mat-icon>
@@ -88,13 +90,13 @@
   </div>
 </div>
 <div *ngIf="showImgPopup">
-  <div class="background-blur" (click)="showImagePopup('')"></div>
+  <div class="background-blur" (click)="showImagePopup('','')"></div>
   <div class="showImgPopup">
     <img [src]="popupImgUrl" />
   </div>
 </div>
-<!-- <div *ngIf="showVidPopup"> -->
-<div>
+<div *ngIf="showVidPopup">
+<!-- <div> -->
   <div class="background-blur" (click)="showVideoPopup('')"></div>
   <div class="showImgPopup">
     <!-- <video
@@ -104,7 +106,7 @@
     frameborder="0"
     allowfullscreen>
   </video> -->
-  <video #videoPlayer width="560" height="315" controls (seeking)="onSeeking($event)">
+  <video #videoPlayer [src]="videoUrl" width="560" height="315" controls>
     Your browser does not support the video tag.
   </video>
   </div>

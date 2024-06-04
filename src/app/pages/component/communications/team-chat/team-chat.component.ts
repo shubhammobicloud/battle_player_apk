@@ -9,6 +9,7 @@ import {
   OnDestroy,
   HostListener,
 } from '@angular/core';
+import { DomSanitizer,SafeUrl } from '@angular/platform-browser';
 import { Socket, io } from 'socket.io-client';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { environment } from 'src/environment/enviroment';
@@ -35,6 +36,10 @@ export class TeamChatComponent
   selectedImage: string | ArrayBuffer | null = null;
   selectedVideo: string | ArrayBuffer | null = null;
   selectedDocument: string | ArrayBuffer | null = null;
+//  videoUrl: SafeUrl | null = null;
+ videoUrl:string =''
+ private videoChunks: Blob[] = [];
+ private currentChunk: number = 0;
 
   showImgPopup: boolean = false;
   showVidPopup: boolean = false;
@@ -46,9 +51,11 @@ export class TeamChatComponent
   @ViewChild('videoInput') videoInput!: ElementRef;
   @ViewChild('documentInput') documentInput!: ElementRef;
   @ViewChild('chatwrapper') chatwrapper!: ElementRef;
-  @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef;
+  // @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef;
+  @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
 
-  constructor(private http: HttpClient, private chatService: ChatService) {}
+
+  constructor(private http: HttpClient, private chatService: ChatService, private sanitizer:DomSanitizer) {}
 
   @ViewChild('chatContainer', { static: true }) container:
     | ElementRef
@@ -71,7 +78,7 @@ export class TeamChatComponent
     // this.socket.disconnect();
   }
   async ngOnInit() {
-    this.loadInitialChunk();
+    // this.loadInitialChunk();
     this.socket = io(`${this.url}team-namespaces`, {
       auth: {
         serverOffset: this.id,
@@ -99,7 +106,7 @@ export class TeamChatComponent
             .timeout(5000)
             .emitWithAck('loadChat', {
               teamId: this.teamId,
-              limit: 5,
+              limit: 25,
               page: 1,
             });
           // console.log(response,"response of loadChat");
@@ -212,19 +219,20 @@ export class TeamChatComponent
         // console.log(error.message);
       }
     } else {
-      if (this.teamChatTextarea) {
-        this.teamChatTextarea.nativeElement.style.border = '2px solid red';
-      }
+      // if (this.teamChatTextarea) {
+      //   this.teamChatTextarea.nativeElement.style.border = '2px solid red';
+      // }
     }
     // this.scrollToBottom();
   }
   @ViewChild('chatwrapper', { static: true }) chatWrapper!: ElementRef;
 
   scrollbarHeight!: number;
+  multiplyer=1;
   scrollToBottom() {
     try {
       console.log('scroll to bottom called');
-      this.scrollbarHeight = this.chatWrapper.nativeElement.scrollHeight;
+      this.scrollbarHeight = this.chatWrapper.nativeElement.scrollHeight+1000*this.multiplyer;
       // console.log(this.chatWrapper.nativeElement); // Check if this logs the correct element
       this.chatWrapper.nativeElement.scrollTop =
         this.chatWrapper.nativeElement.scrollHeight;
@@ -306,10 +314,20 @@ export class TeamChatComponent
     reader.readAsDataURL(file);
   }
 
-  showImagePopup(popupImgUrl: string) {
+  showImagePopup(popupImgUrl: string, type:string) {
+    if(type==='local'){
     this.popupImgUrl = popupImgUrl;
     console.log('popup img url', popupImgUrl);
     this.showImgPopup = !this.showImgPopup;
+  }
+  else if(type==='uploaded'){
+    this.popupImgUrl = `${this.url}chat/${popupImgUrl}`;
+    console.log('popup img url', popupImgUrl);
+    this.showImgPopup = !this.showImgPopup;
+  }
+  else{
+    this.showImgPopup = !this.showImgPopup;
+  }
   }
 
   showVideoPopup(popupVidUrl: string) {
@@ -469,24 +487,50 @@ export class TeamChatComponent
   // }
 
   loadInitialChunk() {
-    this.chatService.getVideoChunk('bytes=0-999999').subscribe((blob) => {
+    this.chatService.getVideoChunk().subscribe(
+      (blob) => {
+        this.videoChunks.push(blob);
+        const videoBlobUrl = URL.createObjectURL(blob);
+        // this.videoUrl = this.sanitizer.bypassSecurityTrustUrl(videoBlobUrl);
+        const videoElement = this.videoPlayer.nativeElement;
+        if (this.currentChunk === 0) {
+          videoElement.src = videoBlobUrl;
+          videoElement.play();
+        } else {
+          // Append new chunk to the existing video
+          const combinedBlob = new Blob(this.videoChunks, { type: 'video/mp4' });
+          const combinedBlobUrl = URL.createObjectURL(combinedBlob);
+          videoElement.src = combinedBlobUrl;
+          videoElement.currentTime = videoElement.currentTime; // maintain the current playback position
+        }
+        this.currentChunk++;
+      },
+      (error) => {
+        console.error('Error fetching video chunk:', error);
+      
       // this.chatService.getVideoChunk('0').subscribe(blob => {
-      const videoElement = this.videoPlayer.nativeElement;
-      const url = URL.createObjectURL(blob);
-      videoElement.src = url;
+      // const videoElement = this.videoPlayer.nativeElement;
+      // const url = URL.createObjectURL(blob);
+      // videoElement.src = url;
     });
   }
 
-  onSeeking(event: Event) {
-    const videoElement = this.videoPlayer.nativeElement;
-    const currentTime = videoElement.currentTime;
-    const range = `bytes=${Math.floor(currentTime * 1000000)}-9999999`;
+  // onSeeking(event: Event) {
+  //   const videoElement = this.videoPlayer.nativeElement;
+  //   const currentTime = videoElement.currentTime;
+  //   const range = `bytes=${Math.floor(currentTime * 1000000)}-9999999`;
 
-    this.chatService.getVideoChunk(range).subscribe((blob) => {
-      const url = URL.createObjectURL(blob);
-      videoElement.src = url;
-      videoElement.currentTime = currentTime;
-      videoElement.play();
-    });
+  //   this.chatService.getVideoChunk(range).subscribe((blob) => {
+  //     const url = URL.createObjectURL(blob);
+  //     videoElement.src = url;
+  //     videoElement.currentTime = currentTime;
+  //     videoElement.play();
+  //   });
+  // }
+
+  streamVideo(videoName:string){
+this.videoUrl = `${environment.baseUrl}chat/stream/${videoName}`
+console.log("video url",this.videoUrl)
+this.showVidPopup = true
   }
 }

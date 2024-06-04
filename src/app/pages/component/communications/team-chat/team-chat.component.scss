@@ -214,18 +214,25 @@
   }
   .selectedDocument {
     position: absolute;
-    bottom: 11%;
-    // padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    bottom: 5%;
     width: 100%;
-    text-align: center;
-    span{
-      float: right;
-      background: red;
-      padding: 5px;
-      border-radius: 50%;
-      width: 20px;
-      text-align: center;
-    }
+    // padding: 20px;
+    background-color: white;
+    .imagePopUpSpan{
+      width: 100%;
+
+      display: flex;
+      justify-content: space-between;
+      button{
+       margin: 5px 10px;
+       background-color: #cc0000;
+       border-radius: 50%;
+       color: white;
+      }
+     }
     div {
       font-size: 2rem;
     }

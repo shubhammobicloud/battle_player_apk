@@ -146,7 +146,7 @@ export class TeamChatComponent
     this.socket.on('loadNewTeamChat', (data: any, callback: any) => {
       try {
         console.log("data", data)
-        
+
         const newChat = {
           contentOrFilePath: data.contentOrFilePath,
           createdAt: data.createdAt,
@@ -205,7 +205,7 @@ export class TeamChatComponent
         .subscribe((res: any) => {
           console.log('media upload');
           // this.chats.push(selfMessage);
-          
+
         });
       }
     } else {
@@ -242,7 +242,7 @@ export class TeamChatComponent
         // console.log(error.message);
       }
     }
-    
+
   }
   @ViewChild('chatwrapper', { static: true }) chatWrapper!: ElementRef;
 
@@ -250,8 +250,6 @@ export class TeamChatComponent
 
   scrollToBottom() {
     try {
-      console.log('scroll to bottom called');
-
       setTimeout(() => {
         this.scrollbarHeight = this.chatWrapper.nativeElement.scrollHeight;
         this.chatWrapper.nativeElement.scrollTop = this.scrollbarHeight;

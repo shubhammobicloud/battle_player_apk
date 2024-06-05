@@ -43,7 +43,7 @@ export class TeamChatComponent
   selectedMedia!: File;
   mediaError: boolean = false;
   videoUrl: string = '';
-
+  fileType: string = 'text';
   showImgPopup: boolean = false;
   showVidPopup: boolean = false;
   popupImgUrl: string = '';
@@ -157,7 +157,7 @@ export class TeamChatComponent
           senderId: {
             _id: data._id,
             avatar: data.avatar,
-            userName: data.userName,
+            userName: data.username,
           },
         };
         this.socket.auth.serverOffset = data.id;
@@ -196,50 +196,74 @@ onScrollDown() {
     const selfMessage = {
       contentOrFilePath: this.message,
       teamId: this.teamId,
+      fileType: this.fileType,
+      createdAt: Date.now(),
       senderId: {
         _id: this.id,
         avatar: this.avatar,
         userName: this.username,
       },
-      imageUrl: this.selectedImage ? this.selectedImage : null,
-      videoUrl: this.selectedVideo ? this.selectedVideo : null,
-      documentName: this.selectedDocument ? this.selectedDocument : null,
+      // imageUrl: this.selectedImage ? this.selectedImage : null,
+      // videoUrl: this.selectedVideo ? this.selectedVideo : null,
+      // documentName: this.selectedDocument ? this.selectedDocument : null,
     };
 
-    console.log('self message', selfMessage);
+    let data = {
+      contentOrFilePath: this.message,
+      senderId: this.id,
+      teamId: this.teamId,
+      avatar: this.avatar,
+      username: this.username,
+      fileType: this.fileType,
+    };
 
+    // console.log('self message', selfMessage);
+    console.log('message fff', this.message, this.message == '');
     if (this.message == '') {
       if (!this.mediaError) {
         this.selectedImage = null;
         this.selectedVideo = null;
         this.selectedDocument = null;
         this.chatService.uploadMedia(this.selectedMedia).subscribe(
-          (res: any) => {
+          async (res: any) => {
             console.log('media upload');
             // this.chats.push(selfMessage);
+            data.contentOrFilePath = res.data;
+            selfMessage.contentOrFilePath = res.data;
+            try {
+              const response = await this.socket
+                .timeout(5000)
+                .emitWithAck('newTeamChat', data);
+              // console.log(response,"response of newTeamChat"); // 'ok'
+              if (response.status == 'ok') {
+                // this.message = '';
+                this.chats.push(selfMessage);
+                console.log(
+                  'self messageedgrfrdf1111111111111111111111111111',
+                  selfMessage
+                );
+              }
+              if (response.status == 'error') {
+                alert(response.message);
+              }
+            } catch (error: any) {
+              // console.log(error.message);
+            }
           },
           (error: HttpErrorResponse) => {
             console.log('error', error);
-            this.toastr.error("Failed")
+            this.toastr.error('Failed');
           }
         );
       }
     } else {
-      const data = {
-        contentOrFilePath: this.message,
-        senderId: this.id,
-        teamId: this.teamId,
-        avatar: this.avatar,
-        username: this.username,
-      };
       // console.log(this.socket.id,"socket id");
       // compute a unique offset
       // this.chats.push(selfMessage);
       this.selectedImage = null;
       this.selectedVideo = null;
       this.selectedDocument = null;
-      this.message = '';
-      this.chats.push(selfMessage);
+
       this.scrollToBottom();
 
       try {
@@ -248,6 +272,9 @@ onScrollDown() {
           .emitWithAck('newTeamChat', data);
         // console.log(response,"response of newTeamChat"); // 'ok'
         if (response.status == 'ok') {
+          this.message = '';
+          this.chats.push(selfMessage);
+          console.log('self message', selfMessage);
         }
         if (response.status == 'error') {
           alert(response.message);
@@ -286,17 +313,19 @@ onScrollDown() {
       this.fileInput.nativeElement.click();
     } else if (type === 'video') {
       this.videoInput.nativeElement.click();
-    } else if (type === 'document') {
+    } else if (type === 'application') {
       this.documentInput.nativeElement.click();
     }
   }
   onFileSelected(event: Event, type: string) {
     this.showMediaBtns = false;
+    this.mediaError = false;
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedMedia = input.files[0];
       const file = input.files[0];
       console.log(`Selected ${type}:`, file);
+      this.fileType = type;
       if (type === 'image') {
         this.readFile(file, 'image');
       } else if (type === 'video') {
@@ -307,8 +336,8 @@ onScrollDown() {
         } else {
           this.readFile(file, 'video');
         }
-      } else if (type === 'document') {
-        this.readFile(file, 'document');
+      } else if (type === 'application') {
+        this.readFile(file, 'application');
       }
     }
   }
@@ -319,7 +348,7 @@ onScrollDown() {
         this.selectedImage = reader.result;
       } else if (type === 'video') {
         this.selectedVideo = reader.result;
-      } else if (type === 'document') {
+      } else if (type === 'application') {
         this.selectedDocument = file.name;
       }
     };
@@ -429,7 +458,7 @@ onScrollDown() {
       },
       (error) => {
         console.error('Download failed', error);
-        this.toastr.error("Download failed")
+        this.toastr.error('Download failed');
       }
     );
   }

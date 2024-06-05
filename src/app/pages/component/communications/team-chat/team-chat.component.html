@@ -28,7 +28,7 @@
                 "> -->
                 <!-- {{ chat.contentOrFilePath }}
                 </ng-container> -->
-                <ng-container *ngIf="chat.fileType === 'text'">
+                <ng-container *ngIf="chat.type === 'text'">
                   {{ chat.contentOrFilePath }}
                 </ng-container>
                 <ng-template #truncatedMessage>
@@ -40,11 +40,11 @@
               </mat-card-content>
               <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl"
                 (click)="showImagePopup(chat.imageUrl,'local')">
-              <img src="../../../../../assets/play.png" width="120px" alt="img" *ngIf="chat.fileType === 'video'"
+              <img src="../../../../../assets/play.png" width="100px" height="60px" alt="img" *ngIf="chat.type === 'video'"
                 (click)="streamVideo(chat.contentOrFilePath)">
-              <img src="../../../../../assets/doc.png"  width="120px" alt="img" *ngIf="chat.fileType === 'application'"
+              <img src="../../../../../assets/doc.png"  width="100px" height="60px" alt="img" *ngIf="chat.type === 'document'"
                 (click)="downloadMedia(chat.contentOrFilePath)">
-              <img [src]="url+'chat/'+chat.contentOrFilePath" alt="img" *ngIf="chat.fileType === 'image'"
+              <img [src]="url+'chat/'+chat.contentOrFilePath" alt="img" width="100px" height="60px" *ngIf="chat.type === 'image'"
                 (click)="showImagePopup(chat.contentOrFilePath,'uploaded')">
               <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl"
                 (click)="showVideoPopup(chat.videoUrl)"></video>
@@ -54,7 +54,7 @@
                   }}</span>
               </mat-card-actions>
             </mat-card>
-              <div *ngIf="chat.fileType !== 'text'&& !currentUser(chat.senderId)" (click)="downloadMedia(chat.contentOrFilePath)" class="downloadBtn">
+              <div *ngIf="chat.type !== 'text'&& !currentUser(chat.senderId)" (click)="downloadMedia(chat.contentOrFilePath)" class="downloadBtn">
                 <mat-icon>download</mat-icon>
               </div>
           </div>
@@ -74,7 +74,7 @@
       <button class="menuButton" mat-menu-item (click)="selectFile('video')">
         <mat-icon>video_library</mat-icon>
       </button>
-      <button class="menuButton" mat-menu-item (click)="selectFile('application')">
+      <button class="menuButton" mat-menu-item (click)="selectFile('document')">
         <mat-icon>insert_drive_file</mat-icon>
       </button>
     </mat-menu>
@@ -83,7 +83,7 @@
     <input type="file" #fileInput accept="image/*" style="display: none" (change)="onFileSelected($event, 'image')" />
     <input type="file" #videoInput accept="video/*" style="display: none" (change)="onFileSelected($event, 'video')" />
     <input type="file" #documentInput accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" style="display: none"
-      (change)="onFileSelected($event, 'application')" />
+      (change)="onFileSelected($event, 'document')" />
     <!-- </div> -->
     <input #inputBox type="text" [(ngModel)]="message"
       placeholder="{{ 'COMMUNICATION_PAGE.TEAM_CHAT_PAGE.ENTER_MESSAGE_PLACEHOLDER' | translate }}" />

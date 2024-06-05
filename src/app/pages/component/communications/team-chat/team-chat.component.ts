@@ -43,7 +43,7 @@ export class TeamChatComponent
   selectedMedia!: File;
   mediaError: boolean = false;
   videoUrl: string = '';
-  fileType: string = 'text';
+  type: string = 'text';
   showImgPopup: boolean = false;
   showVidPopup: boolean = false;
   popupImgUrl: string = '';
@@ -152,7 +152,7 @@ export class TeamChatComponent
         const newChat = {
           contentOrFilePath: data.contentOrFilePath,
           createdAt: data.createdAt,
-          fileType: data.fileType,
+          type: data.type,
           teamId: data.teamId,
           senderId: {
             _id: data._id,
@@ -196,7 +196,7 @@ onScrollDown() {
     const selfMessage = {
       contentOrFilePath: this.message,
       teamId: this.teamId,
-      fileType: this.fileType,
+      type: this.type,
       createdAt: Date.now(),
       senderId: {
         _id: this.id,
@@ -214,7 +214,7 @@ onScrollDown() {
       teamId: this.teamId,
       avatar: this.avatar,
       username: this.username,
-      fileType: this.fileType,
+      type: this.type,
     };
 
     // console.log('self message', selfMessage);
@@ -313,7 +313,7 @@ onScrollDown() {
       this.fileInput.nativeElement.click();
     } else if (type === 'video') {
       this.videoInput.nativeElement.click();
-    } else if (type === 'application') {
+    } else if (type === 'document') {
       this.documentInput.nativeElement.click();
     }
   }
@@ -325,7 +325,7 @@ onScrollDown() {
       this.selectedMedia = input.files[0];
       const file = input.files[0];
       console.log(`Selected ${type}:`, file);
-      this.fileType = type;
+      this.type = type;
       if (type === 'image') {
         this.readFile(file, 'image');
       } else if (type === 'video') {
@@ -336,8 +336,8 @@ onScrollDown() {
         } else {
           this.readFile(file, 'video');
         }
-      } else if (type === 'application') {
-        this.readFile(file, 'application');
+      } else if (type === 'document') {
+        this.readFile(file, 'document');
       }
     }
   }
@@ -348,7 +348,7 @@ onScrollDown() {
         this.selectedImage = reader.result;
       } else if (type === 'video') {
         this.selectedVideo = reader.result;
-      } else if (type === 'application') {
+      } else if (type === 'document') {
         this.selectedDocument = file.name;
       }
     };

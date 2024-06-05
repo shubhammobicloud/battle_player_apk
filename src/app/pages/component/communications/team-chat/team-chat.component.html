@@ -54,7 +54,7 @@
                   }}</span>
               </mat-card-actions>
             </mat-card>
-              <div [hidden]="currentUser(chat.senderId)" *ngIf="chat.fileType !== 'text'" (click)="downloadMedia(chat.contentOrFilePath)" class="downloadBtn">
+              <div *ngIf="chat.fileType !== 'text'&& !currentUser(chat.senderId)" (click)="downloadMedia(chat.contentOrFilePath)" class="downloadBtn">
                 <mat-icon>download</mat-icon>
               </div>
           </div>

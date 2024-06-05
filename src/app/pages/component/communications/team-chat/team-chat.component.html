@@ -55,7 +55,7 @@
               </mat-card-actions>
             </mat-card>
             <div>
-              <div>
+              <div [hidden]="currentUser(chat.senderId)" >
                 <mat-icon>download</mat-icon>
               </div>
             </div>

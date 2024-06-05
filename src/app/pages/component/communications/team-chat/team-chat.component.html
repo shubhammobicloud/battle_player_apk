@@ -1,12 +1,7 @@
 <div class="team-chat-container">
   <!-- <div #chatwrapper class="chatwrapper" (scroll)="onScroll($event)"> -->
-  <div #chatwrapper class="chatwrapper"
-  infiniteScroll
-        [infiniteScrollDistance]="2"
-        [infiniteScrollThrottle]="50"
-        [infiniteScrollContainer]="chatwrapper"
-        [fromRoot]="true"
-        (scrolledUp)="onScrollUp()">
+  <div #chatwrapper class="chatwrapper" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+    [infiniteScrollContainer]="chatwrapper" [fromRoot]="true" (scrolledUp)="onScrollUp()">
     <div #chatContainer class="chatContainer" *ngFor="let chat of chats">
       <div [class.sender]="currentUser(chat.senderId)" [class.textContainer]="!currentUser(chat.senderId)">
         <div class="messageContainer">
@@ -15,8 +10,10 @@
             <img [src]="url + '/images/' + chat.senderId?.avatar" class="profile" />
 
             <mat-card>
-              <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl" (click)="showImagePopup(chat.imageUrl,'local')">
-              <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl" (click)="showVideoPopup(chat.videoUrl)"></video>
+              <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl"
+                (click)="showImagePopup(chat.imageUrl,'local')">
+              <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl"
+                (click)="showVideoPopup(chat.videoUrl)"></video>
               <!-- <div *ngIf="chat.documentName">{{chat.documentName}}</div> -->
               <mat-card-header>
                 <mat-card-title>
@@ -29,7 +26,7 @@
                   chat.contentOrFilePath.length <= 50 || chat.expanded;
                   else truncatedMessage
                 "> -->
-                  <!-- {{ chat.contentOrFilePath }}
+                <!-- {{ chat.contentOrFilePath }}
                 </ng-container> -->
                 <ng-container *ngIf="chat.fileType === 'text'">
                   {{ chat.contentOrFilePath }}
@@ -41,17 +38,27 @@
                     }}</a>
                 </ng-template>
               </mat-card-content>
-              <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl" (click)="showImagePopup(chat.imageUrl,'local')">
-              <img src="../../../../../assets/play.png" alt="img" *ngIf="chat.fileType === 'video'" (click)="streamVideo(chat.contentOrFilePath)">
-              <img src="../../../../../assets/doc.png" alt="img" *ngIf="chat.fileType === 'application'" (click)="downloadMedia(chat.contentOrFilePath)">
-              <img [src]="url+'chat/'+chat.contentOrFilePath" alt="img" *ngIf="chat.fileType === 'image'" (click)="showImagePopup(chat.contentOrFilePath,'uploaded')">
-              <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl" (click)="showVideoPopup(chat.videoUrl)"></video>
+              <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl"
+                (click)="showImagePopup(chat.imageUrl,'local')">
+              <img src="../../../../../assets/play.png" alt="img" *ngIf="chat.fileType === 'video'"
+                (click)="streamVideo(chat.contentOrFilePath)">
+              <img src="../../../../../assets/doc.png" alt="img" *ngIf="chat.fileType === 'application'"
+                (click)="downloadMedia(chat.contentOrFilePath)">
+              <img [src]="url+'chat/'+chat.contentOrFilePath" alt="img" *ngIf="chat.fileType === 'image'"
+                (click)="showImagePopup(chat.contentOrFilePath,'uploaded')">
+              <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl"
+                (click)="showVideoPopup(chat.videoUrl)"></video>
               <mat-card-actions>
                 <span style="font-size: 10px; text-align: right">{{
                   chat.createdAt | date : "short"
                   }}</span>
               </mat-card-actions>
             </mat-card>
+            <div>
+              <div>
+                <mat-icon>download</mat-icon>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -63,25 +70,22 @@
       <mat-icon>attach_file</mat-icon>
     </button>
     <mat-menu #menu class="teamChatMenu">
-      <button  class="menuButton"
-          mat-menu-item  (click)="selectFile('image')">
+      <button class="menuButton" mat-menu-item (click)="selectFile('image')">
         <mat-icon>perm_media</mat-icon>
       </button>
-      <button  class="menuButton"
-          mat-menu-item  (click)="selectFile('video')">
+      <button class="menuButton" mat-menu-item (click)="selectFile('video')">
         <mat-icon>video_library</mat-icon>
       </button>
-      <button  class="menuButton"
-          mat-menu-item (click)="selectFile('document')">
+      <button class="menuButton" mat-menu-item (click)="selectFile('application')">
         <mat-icon>insert_drive_file</mat-icon>
       </button>
     </mat-menu>
     <!-- <div class="mediaBtnContainer" *ngIf="showMediaBtns"> -->
 
-      <input type="file" #fileInput accept="image/*" style="display: none" (change)="onFileSelected($event, 'image')" />
-      <input type="file" #videoInput accept="video/*" style="display: none" (change)="onFileSelected($event, 'video')" />
-      <input type="file" #documentInput accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" style="display: none"
-        (change)="onFileSelected($event, 'document')" />
+    <input type="file" #fileInput accept="image/*" style="display: none" (change)="onFileSelected($event, 'image')" />
+    <input type="file" #videoInput accept="video/*" style="display: none" (change)="onFileSelected($event, 'video')" />
+    <input type="file" #documentInput accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" style="display: none"
+      (change)="onFileSelected($event, 'application')" />
     <!-- </div> -->
     <input #inputBox type="text" [(ngModel)]="message"
       placeholder="{{ 'COMMUNICATION_PAGE.TEAM_CHAT_PAGE.ENTER_MESSAGE_PLACEHOLDER' | translate }}" />
@@ -119,7 +123,7 @@
   </div>
 </div>
 <div *ngIf="showVidPopup">
-<!-- <div> -->
+  <!-- <div> -->
   <div class="background-blur" (click)="showVideoPopup('')"></div>
   <div class="showVideoPopup">
     <!-- <video
@@ -129,8 +133,8 @@
     frameborder="0"
     allowfullscreen>
   </video> -->
-  <video #videoPlayer [src]="videoUrl" class="videolayer" controls>
-    Your browser does not support the video tag.
-  </video>
+    <video #videoPlayer [src]="videoUrl" class="videolayer" controls>
+      Your browser does not support the video tag.
+    </video>
   </div>
 </div>

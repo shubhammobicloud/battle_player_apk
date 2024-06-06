@@ -16,6 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { MatMenuModule } from '@angular/material/menu';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 @NgModule({
   declarations: [TeamChatComponent, CompanyNewsComponent, NewspostComponent],
   imports: [
@@ -28,7 +30,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatFormFieldModule,
     AngularEditorModule,
     TranslateModule.forChild(),
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    MatProgressSpinnerModule
   ],
   exports: [TeamChatComponent, CompanyNewsComponent, NewspostComponent],
 })

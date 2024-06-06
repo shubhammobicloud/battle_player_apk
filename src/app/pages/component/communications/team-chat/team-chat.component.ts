@@ -19,8 +19,7 @@ import { environment } from 'src/environment/enviroment';
   styleUrls: ['./team-chat.component.scss'],
 })
 export class TeamChatComponent
-  implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy
-{
+  implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
   url: string = `${environment.baseUrl}`;
   id = localStorage.getItem('userId');
   avatar = localStorage.getItem('avatar');
@@ -47,7 +46,7 @@ export class TeamChatComponent
 
   videoUploadInProgress = false;
   mediaDownloadInProgress = false;
-  contentOrFilePath!:string
+  contentOrFilePath!: string
 
   @ViewChild('teamChatTextarea') teamChatTextarea!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -61,7 +60,7 @@ export class TeamChatComponent
     private chatService: ChatService,
     private sanitizer: DomSanitizer,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   @ViewChild('chatContainer', { static: true }) container:
     | ElementRef
@@ -173,15 +172,15 @@ export class TeamChatComponent
       }
     });
   }
-sum=0
-throttle = 300;
-scrollDistance = 1;
-scrollUpDistance = 2;
-onScrollDown() {
+  sum = 0
+  throttle = 300;
+  scrollDistance = 1;
+  scrollUpDistance = 2;
+  onScrollDown() {
 
-  this.sum += 20;
-  // add another 20 items
-}
+    this.sum += 20;
+    // add another 20 items
+  }
 
 
   currentUser = (senderId: any): boolean => {
@@ -220,14 +219,14 @@ onScrollDown() {
     // console.log('self message', selfMessage);
     if (this.message == '') {
       if (!this.mediaError) {
-        this.videoUploadInProgress=true
+        this.videoUploadInProgress = true
         this.selectedImage = null;
         this.selectedVideo = null;
         this.selectedDocument = null;
         this.chatService.uploadMedia(this.selectedMedia).subscribe(
           async (res: any) => {
             // this.chats.push(selfMessage);
-            this.videoUploadInProgress=false
+            this.videoUploadInProgress = false
             data.contentOrFilePath = res.data;
             selfMessage.contentOrFilePath = res.data;
             try {
@@ -403,7 +402,7 @@ onScrollDown() {
     // console.log('up height', this.previousScrollHeight);
 
     await this.addChats().then(() => {
-      this.adjustScrollPosition().then(() => {});
+      this.adjustScrollPosition().then(() => { });
     });
 
     this.counter1++;
@@ -463,12 +462,14 @@ onScrollDown() {
   }
 
   async downloadMedia(name: string) {
+    this.mediaDownloadInProgress = true
+    this.contentOrFilePath = name
     this.chatService.downloadMedia(name).subscribe(
       async (blob) => {
         try {
           await this.chatService.saveFileToFilesystem(name, blob);
           this.mediaDownloadInProgress = false
-        this.contentOrFilePath = ""
+          this.contentOrFilePath = ""
           this.showToast('File downloaded successfully');
         } catch (error) {
           console.error('Download failed', error);
@@ -482,7 +483,7 @@ onScrollDown() {
     );
   }
   private async showToast(message: string) {
-   this.toastr.info(message);
+    this.toastr.info(message);
   }
 
 }

@@ -7,16 +7,12 @@ import {
   ViewChild,
   AfterViewInit,
   OnDestroy,
-  HostListener,
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
-import { Socket, io } from 'socket.io-client';
+import { io } from 'socket.io-client';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { environment } from 'src/environment/enviroment';
-import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
-import { saveAs } from 'file-saver';
-
 @Component({
   selector: 'app-team-chat',
   templateUrl: './team-chat.component.html',
@@ -451,15 +447,25 @@ onScrollDown() {
     this.showVidPopup = true;
   }
 
-  downloadMedia(name: string) {
+  async downloadMedia(name: string) {
     this.chatService.downloadMedia(name).subscribe(
-      (blob) => {
-        saveAs(blob, name);
+      async (blob) => {
+        try {
+          await this.chatService.saveFileToFilesystem(name, blob);
+          this.showToast('File downloaded successfully');
+        } catch (error) {
+          console.error('Download failed', error);
+          this.showToast('Download failed');
+        }
       },
       (error) => {
         console.error('Download failed', error);
-        this.toastr.error('Download failed');
+        this.showToast('Download failed');
       }
     );
   }
+  private async showToast(message: string) {
+   this.toastr.info(message);
+  }
+
 }

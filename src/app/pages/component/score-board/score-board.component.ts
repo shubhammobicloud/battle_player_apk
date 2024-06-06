@@ -23,7 +23,9 @@ export class ScoreBoardComponent implements OnInit {
   dynamicImageUrl: string = 'path_to_dynamic_image.png';
   teamAScore: number = 0;
   teamBScore: number = 0;
+  winner = ''
   eventImageURL: string = '../../../../assets/ground.png';
+  tennisBall = '../../../../assets/tenisBall.svg'
   baseUrl: string = environment.baseUrl;
 
   constructor(
@@ -236,6 +238,11 @@ export class ScoreBoardComponent implements OnInit {
             }
             if(res.data.battlePartnerTeamId.name==findId.name){
               this.teamBScore=findId.rankingScore;
+            }
+            if(this.teamAScore>this.teamBScore){
+              this.winner='teamA'
+            }else if(this.teamAScore<this.teamBScore){
+              this.winner='teamB'
             }
           })
 

@@ -461,14 +461,19 @@ onScrollDown() {
     // console.log('video url', this.videoUrl);
     this.showVidPopup = true;
   }
-  downloadMedia(name: string) {
-    this.mediaDownloadInProgress = true
-    this.contentOrFilePath = name
+
+  async downloadMedia(name: string) {
     this.chatService.downloadMedia(name).subscribe(
-      (blob) => {
-        saveAs(blob, name);
-        this.mediaDownloadInProgress = false
+      async (blob) => {
+        try {
+          await this.chatService.saveFileToFilesystem(name, blob);
+          this.mediaDownloadInProgress = false
         this.contentOrFilePath = ""
+          this.showToast('File downloaded successfully');
+        } catch (error) {
+          console.error('Download failed', error);
+          this.showToast('Download failed');
+        }
       },
       (error) => {
         console.error('Download failed', error);

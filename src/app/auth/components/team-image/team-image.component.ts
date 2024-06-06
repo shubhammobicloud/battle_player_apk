@@ -56,7 +56,7 @@ export class TeamImageComponent {
               // console.log(res)
             });
             this.route.navigate(['/', 'home']);
-            this.toastr.success(this.translate.instant('TEAM_IMAGE_PAGE.TEAM_PROFILE_IMAGE_UPLOADED_SUCCESSFULLY'))
+            this.toastr.success(this.translate.instant('APP_MAIN.TEAM_IMAGE_PAGE.TEAM_PROFILE_IMAGE_UPLOADED_SUCCESSFULLY'))
           }
         },
         (error)=>{

@@ -120,7 +120,7 @@ export class TeamChatComponent
           if (response.status == 'ok') {
             // const chats = response.existingChat;
             this.chats = response.orderedChat;
-            console.log('chats', this.chats);
+            // console.log('chats', this.chats);
           }
         }
       } catch (error) {
@@ -147,7 +147,7 @@ export class TeamChatComponent
 
     this.socket.on('loadNewTeamChat', (data: any, callback: any) => {
       try {
-        console.log('data', data);
+        // console.log('data', data);
 
         const newChat = {
           contentOrFilePath: data.contentOrFilePath,
@@ -180,7 +180,6 @@ onScrollDown() {
 
   this.sum += 20;
   // add another 20 items
-  console.log("asdqwreqs")
 }
 
 
@@ -218,7 +217,6 @@ onScrollDown() {
     };
 
     // console.log('self message', selfMessage);
-    console.log('message fff', this.message, this.message == '');
     if (this.message == '') {
       if (!this.mediaError) {
         this.selectedImage = null;
@@ -226,7 +224,6 @@ onScrollDown() {
         this.selectedDocument = null;
         this.chatService.uploadMedia(this.selectedMedia).subscribe(
           async (res: any) => {
-            console.log('media upload');
             // this.chats.push(selfMessage);
             data.contentOrFilePath = res.data;
             selfMessage.contentOrFilePath = res.data;
@@ -238,10 +235,7 @@ onScrollDown() {
               if (response.status == 'ok') {
                 // this.message = '';
                 this.chats.push(selfMessage);
-                console.log(
-                  'self messageedgrfrdf1111111111111111111111111111',
-                  selfMessage
-                );
+
               }
               if (response.status == 'error') {
                 alert(response.message);
@@ -274,7 +268,7 @@ onScrollDown() {
         if (response.status == 'ok') {
           this.message = '';
           this.chats.push(selfMessage);
-          console.log('self message', selfMessage);
+          // console.log('self message', selfMessage);
         }
         if (response.status == 'error') {
           alert(response.message);
@@ -324,7 +318,7 @@ onScrollDown() {
     if (input.files && input.files.length > 0) {
       this.selectedMedia = input.files[0];
       const file = input.files[0];
-      console.log(`Selected ${type}:`, file);
+      // console.log(`Selected ${type}:`, file);
       this.type = type;
       if (type === 'image') {
         this.readFile(file, 'image');
@@ -358,11 +352,11 @@ onScrollDown() {
   showImagePopup(popupImgUrl: string, type: string) {
     if (type === 'local') {
       this.popupImgUrl = popupImgUrl;
-      console.log('popup img url', popupImgUrl);
+      // console.log('popup img url', popupImgUrl);
       this.showImgPopup = !this.showImgPopup;
     } else if (type === 'uploaded') {
       this.popupImgUrl = `${this.url}chat/${popupImgUrl}`;
-      console.log('popup img url', popupImgUrl);
+      // console.log('popup img url', popupImgUrl);
       this.showImgPopup = !this.showImgPopup;
     } else {
       this.showImgPopup = !this.showImgPopup;
@@ -371,7 +365,7 @@ onScrollDown() {
 
   showVideoPopup(popupVidUrl: string) {
     this.popupVidUrl = popupVidUrl;
-    console.log('popup img url', popupVidUrl);
+    // console.log('popup img url', popupVidUrl);
     this.showVidPopup = !this.showVidPopup;
   }
 
@@ -387,9 +381,9 @@ onScrollDown() {
   previousScrollHeight!: number;
 
   async onScrollUp() {
-    console.log('scrolled up!!');
+    // console.log('scrolled up!!');
     this.previousScrollHeight = this.chatWrapper.nativeElement.scrollHeight;
-    console.log('up height', this.previousScrollHeight);
+    // console.log('up height', this.previousScrollHeight);
 
     await this.addChats().then(() => {
       this.adjustScrollPosition().then(() => {});
@@ -413,7 +407,7 @@ onScrollDown() {
       if (response.status == 'ok') {
         // const chats = response.existingChat;
         this.chats = [...response.orderedChat, ...this.chats];
-        console.log('chats', this.chats);
+        // console.log('chats', this.chats);
       }
 
       resolve();
@@ -428,10 +422,10 @@ onScrollDown() {
           const addedContentHeight =
             newScrollHeight - this.previousScrollHeight;
 
-          console.log('Previous scroll height:', this.previousScrollHeight);
-          console.log('New scroll height:', newScrollHeight);
-          console.log('Added content height:', addedContentHeight);
-          console.log('Scroll position set to:', addedContentHeight);
+          // console.log('Previous scroll height:', this.previousScrollHeight);
+          // console.log('New scroll height:', newScrollHeight);
+          // console.log('Added content height:', addedContentHeight);
+          // console.log('Scroll position set to:', addedContentHeight);
 
           this.chatWrapper.nativeElement.scrollTop =
             addedContentHeight + 500 * this.multiplyer;
@@ -447,7 +441,7 @@ onScrollDown() {
 
   streamVideo(videoName: string) {
     this.videoUrl = `${environment.baseUrl}chat/stream/${videoName}`;
-    console.log('video url', this.videoUrl);
+    // console.log('video url', this.videoUrl);
     this.showVidPopup = true;
   }
 

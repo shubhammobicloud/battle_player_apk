@@ -40,12 +40,25 @@
               </mat-card-content>
               <img [src]="chat.imageUrl" alt="img" *ngIf="chat.imageUrl"
                 (click)="showImagePopup(chat.imageUrl,'local')">
-              <img src="../../../../../assets/play.png" width="100px" height="60px" alt="img" *ngIf="chat.type === 'video'"
-                (click)="streamVideo(chat.contentOrFilePath)">
-              <img src="../../../../../assets/doc.png"  width="100px" height="60px" alt="img" *ngIf="chat.type === 'document'"
-                (click)="downloadMedia(chat.contentOrFilePath)">
-              <img [src]="url+'chat/'+chat.contentOrFilePath" alt="img" width="100px" height="60px" *ngIf="chat.type === 'image'"
+
+
+
+              <!-- <img [src]="url+'chat/'+chat.contentOrFilePath" alt="img" width="100px" height="60px" *ngIf="chat.type === 'image'"
                 (click)="showImagePopup(chat.contentOrFilePath,'uploaded')">
+                <mat-spinner *ngIf="mediaDownloadInProgress&&contentOrFilePath==chat.contentOrFilePath"></mat-spinner> -->
+
+                <ng-container *ngIf="mediaDownloadInProgress&&contentOrFilePath==chat.contentOrFilePath; else image">
+                  <mat-spinner width="100px" height="60px"></mat-spinner>
+                </ng-container>
+                <ng-template #image>
+                  <img [src]="url+'chat/'+chat.contentOrFilePath" alt="img" width="100px" height="60px" *ngIf="chat.type === 'image'"
+                (click)="showImagePopup(chat.contentOrFilePath,'uploaded')">
+                <img src="../../../../../assets/doc.png"  width="100px" height="60px" alt="img" *ngIf="chat.type === 'document'"
+                (click)="downloadMedia(chat.contentOrFilePath)">
+                <img src="../../../../../assets/play.png" width="100px" height="60px" alt="img" *ngIf="chat.type === 'video'"
+                (click)="streamVideo(chat.contentOrFilePath)">
+                </ng-template>
+
               <video [src]="chat.videoUrl" alt="video" *ngIf="chat.videoUrl"
                 (click)="showVideoPopup(chat.videoUrl)"></video>
               <mat-card-actions>
@@ -54,8 +67,10 @@
                   }}</span>
               </mat-card-actions>
             </mat-card>
-              <div *ngIf="chat.type !== 'text'&& !currentUser(chat.senderId)" (click)="downloadMedia(chat.contentOrFilePath)" class="downloadBtn">
-                <mat-icon>download</mat-icon>
+              <div *ngIf="chat.type !== 'text'&& !currentUser(chat.senderId)" class="downloadBtn">
+                <!-- <mat-icon *ngIf="!mediaDownloadInProgress" (click)="downloadMedia(chat.contentOrFilePath)">download</mat-icon> -->
+                <mat-icon (click)="downloadMedia(chat.contentOrFilePath)">download</mat-icon>
+                <!-- <mat-spinner *ngIf="mediaDownloadInProgress&&contentOrFilePath==chat.contentOrFilePath"></mat-spinner> -->
               </div>
           </div>
         </div>
@@ -99,12 +114,13 @@
     </span>
     <img [src]="selectedImage" alt="Selected Image" />
   </div>
-  <div *ngIf="selectedVideo" class="selectedVideo">
+  <div *ngIf="selectedVideo || videoUploadInProgress" class="selectedVideo">
     <span class="imagePopUpSpan">
       <button (click)="removeSelectedMedia('video')" mat-icon-button> <mat-icon>close</mat-icon></button>
       <button (click)="sendMessage()" mat-icon-button> <mat-icon>send</mat-icon></button>
     </span>
-    <video [src]="selectedVideo" controls></video>
+    <mat-spinner *ngIf="videoUploadInProgress"></mat-spinner>
+    <video *ngIf="!videoUploadInProgress" [src]="selectedVideo" controls></video>
   </div>
   <div *ngIf="selectedDocument" class="selectedDocument">
     <span class="imagePopUpSpan">

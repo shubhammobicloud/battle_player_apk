@@ -49,6 +49,10 @@ export class TeamChatComponent
   popupImgUrl: string = '';
   popupVidUrl: string = '';
 
+  videoUploadInProgress = false;
+  mediaDownloadInProgress = false;
+  contentOrFilePath!:string
+
   @ViewChild('teamChatTextarea') teamChatTextarea!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef;
   @ViewChild('videoInput') videoInput!: ElementRef;
@@ -103,7 +107,8 @@ export class TeamChatComponent
           .emitWithAck('joinRoom', { teamId: this.teamId });
         // console.log(response,"response of joinRoom"); // 'ok'
         if (response.status == 'error') {
-          alert(response.message);
+          // alert(response.message);
+          this.toastr.error(response.message)
         }
         if (response.status == 'ok') {
           const response = await this.socket
@@ -219,12 +224,14 @@ onScrollDown() {
     // console.log('self message', selfMessage);
     if (this.message == '') {
       if (!this.mediaError) {
+        this.videoUploadInProgress=true
         this.selectedImage = null;
         this.selectedVideo = null;
         this.selectedDocument = null;
         this.chatService.uploadMedia(this.selectedMedia).subscribe(
           async (res: any) => {
             // this.chats.push(selfMessage);
+            this.videoUploadInProgress=false
             data.contentOrFilePath = res.data;
             selfMessage.contentOrFilePath = res.data;
             try {
@@ -238,7 +245,8 @@ onScrollDown() {
 
               }
               if (response.status == 'error') {
-                alert(response.message);
+                // alert(response.message);
+                this.toastr.error(response.message);
               }
             } catch (error: any) {
               // console.log(error.message);
@@ -271,7 +279,8 @@ onScrollDown() {
           // console.log('self message', selfMessage);
         }
         if (response.status == 'error') {
-          alert(response.message);
+          // alert(response.message);
+          this.toastr.error(response.message)
         }
       } catch (error: any) {
         // console.log(error.message);
@@ -321,7 +330,13 @@ onScrollDown() {
       // console.log(`Selected ${type}:`, file);
       this.type = type;
       if (type === 'image') {
-        this.readFile(file, 'image');
+        let maxFileSize = 20 * 1024 * 1024;
+        if (file.size > maxFileSize) {
+          this.toastr.error(`Image maximum size should be 20 MB`);
+          this.mediaError = true;
+        } else {
+          this.readFile(file, 'image');
+        }
       } else if (type === 'video') {
         let maxFileSize = 20 * 1024 * 1024;
         if (file.size > maxFileSize) {
@@ -331,7 +346,13 @@ onScrollDown() {
           this.readFile(file, 'video');
         }
       } else if (type === 'document') {
-        this.readFile(file, 'document');
+        let maxFileSize = 20 * 1024 * 1024;
+        if (file.size > maxFileSize) {
+          this.toastr.error(`document maximum size should be 20 MB`);
+          this.mediaError = true;
+        } else {
+          this.readFile(file, 'document');
+        }
       }
     }
   }
@@ -444,11 +465,14 @@ onScrollDown() {
     // console.log('video url', this.videoUrl);
     this.showVidPopup = true;
   }
-
   downloadMedia(name: string) {
+    this.mediaDownloadInProgress = true
+    this.contentOrFilePath = name
     this.chatService.downloadMedia(name).subscribe(
       (blob) => {
         saveAs(blob, name);
+        this.mediaDownloadInProgress = false
+        this.contentOrFilePath = ""
       },
       (error) => {
         console.error('Download failed', error);

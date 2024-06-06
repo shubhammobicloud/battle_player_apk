@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Share } from '@capacitor/share';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import html2canvas from 'html2canvas';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { environment } from 'src/environment/enviroment';
-import { take } from 'rxjs';
+import { take, tap } from 'rxjs';
 import { RankingService } from 'src/app/services/ranking/ranking.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
+import { NgxCaptureService } from 'ngx-capture';
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
@@ -29,6 +30,7 @@ export class ScoreBoardComponent implements OnInit {
   baseUrl: string = environment.baseUrl;
 
   constructor(
+    private captureService: NgxCaptureService,
     private http: HttpClient,
     private dashboardService: DashboardService,
     private rankingService:RankingService,
@@ -47,76 +49,63 @@ export class ScoreBoardComponent implements OnInit {
     this.getTeamImages();
   }
 
+ @ViewChild('selectImage', { static: true }) screen!: ElementRef;
 
   async share() {
-    const divElement = document.getElementById('myDiv');
 
-    if (!divElement) {
-      console.error('Element with ID "myDiv" not found.');
-      return; // Handle the case where the element is not found
-    }
 
     try {
-      // Capture the div content as a canvas element
-      const canvas = await html2canvas(divElement);
-
-      const dataURL = canvas.toDataURL('image/png');
-
-      // Check if the data URL is valid (optional)
-      if (!this.isValidDataURL(dataURL)) {
-        console.error(
-          'Invalid data URL. Ensure the div content is valid for canvas capture.'
-        );
-        return;
-      }
-
-      // Choose a suitable directory for saving the image (optional)
-      let directory = Directory.Cache; // Or choose a different directory based on your needs
-      // console.log(dataURL);
-
-      // Generate a unique filename (optional)
-      const filename = this.generateUniqueFilename('image_', '.png');
-
       let success = false;
-
-      // Attempt to write to different directories, stopping on the first success
-      try {
-        await this.writeToFilesystem(
-          Directory.Documents,
-          `${filename}`,
-          dataURL
-        );
-        directory = Directory.Documents;
-        success = true;
-      } catch (error) {
-        console.error('Error writing to Documents directory:', error);
-      }
-
-      if (!success) {
+      let directory = Directory.Cache; // Or choose a different directory based on your needs
+      this.captureService.getImage(this.screen.nativeElement, true).pipe(tap(async(img) => {
         try {
-          await this.writeToFilesystem(Directory.Cache, filename, dataURL);
-          directory = Directory.Cache;
+          // this.captureService.downloadImage(img)
+          const filename = this.generateUniqueFilename('image_', '.png');
+          await this.writeToFilesystem(
+            Directory.Documents,
+            `${filename}`,
+            img
+          );
+          directory = Directory.Documents;
           success = true;
+
+          if (success) {
+            // console.log(directory, 'Chosen directory');
+          }
+
+          const fileUri = await Filesystem.getUri({
+            directory,
+            path: filename,
+          });
+
+          // Share the image file path
+          await Share.share({
+            title: 'Share this image',
+            text: 'Check out this image!',
+            url: fileUri.uri,
+          });
+          if (!success) {
+            try {
+              await this.writeToFilesystem(Directory.Cache, filename, img);
+              directory = Directory.Cache;
+              success = true;
+
+            } catch (error) {
+              console.error('Error writing to Cache directory:', error);
+            }
+          }
         } catch (error) {
-          console.error('Error writing to Cache directory:', error);
+          console.error('Error writing to Documents directory:', error);
         }
       }
 
-      if (success) {
-        // console.log(directory, 'Chosen directory');
-      }
 
-      const fileUri = await Filesystem.getUri({
-        directory,
-        path: filename,
-      });
+    )
+  )
+  .subscribe()
 
-      // Share the image file path
-      await Share.share({
-        title: 'Share this image',
-        text: 'Check out this image!',
-        url: fileUri.uri,
-      });
+      // Generate a unique filename (optional)
+
     } catch (error) {
       console.error('Error capturing or sharing image:', error);
     }
@@ -171,11 +160,7 @@ export class ScoreBoardComponent implements OnInit {
     }
   }
 
-  // (Optional) Function to check data URL validity (replace with your validation logic)
-  isValidDataURL(dataURL: string): boolean {
-    // Implement your validation logic here, checking for the expected format and content of the data URL
-    return true; // Replace with your actual validation logic
-  }
+
 
   // (Optional) Function to generate a unique filename (example based on a prefix and extension)
   generateUniqueFilename(prefix: string, extension: string): string {

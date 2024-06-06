@@ -17,7 +17,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule,TranslateService } from '@ngx-translate/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import { NgxCaptureModule } from 'ngx-capture';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -29,7 +29,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     TeamDetailsComponent
   ],
   imports: [
-    CommonModule,DragDropModule,
+    CommonModule,DragDropModule,NgxCaptureModule,
     RouterModule,
     PageMaterialModule,
     RankingModule,

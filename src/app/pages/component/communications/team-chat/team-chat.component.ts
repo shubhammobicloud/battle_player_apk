@@ -229,6 +229,7 @@ export class TeamChatComponent
             this.videoUploadInProgress = false
             data.contentOrFilePath = res.data;
             selfMessage.contentOrFilePath = res.data;
+            this.mediaError = true
             try {
               const response = await this.socket
                 .timeout(5000)
@@ -252,6 +253,9 @@ export class TeamChatComponent
             this.toastr.error('Failed');
           }
         );
+      }
+      else {
+        console.log("media error")
       }
     } else {
       // console.log(this.socket.id,"socket id");
@@ -315,7 +319,7 @@ export class TeamChatComponent
       this.documentInput.nativeElement.click();
     }
   }
-  onFileSelected(event: Event, type: string) {
+  onFileSelected(event: any, type: string) {
     this.showMediaBtns = false;
     this.mediaError = false;
     const input = event.target as HTMLInputElement;
@@ -350,6 +354,7 @@ export class TeamChatComponent
         }
       }
     }
+    event.target.value = ''
   }
   readFile(file: File, type: string) {
     const reader = new FileReader();

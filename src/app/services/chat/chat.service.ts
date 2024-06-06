@@ -10,7 +10,7 @@ import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 export class ChatService {
   constructor(private http: HttpClient) {}
 
-  uploadMedia(selectedDoc: File) {
+  uploadMedia(selectedDoc: any) {
     let formData = new FormData();
     formData.append('file', selectedDoc);
     return this.http.post(`${environment.baseUrl}chat/upload`, formData);

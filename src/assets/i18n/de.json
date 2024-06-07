@@ -73,7 +73,12 @@
       "REACTIONS_ADDED_SUCCESS": "Gemocht",
       "TEAM_CHAT_PAGE":{
         "READ_MORE": "Mehr lesen",
-        "ENTER_MESSAGE_PLACEHOLDER": "Nachricht eingeben"
+        "ENTER_MESSAGE_PLACEHOLDER": "Nachricht eingeben",
+        "IMAGE_MAX_SIZE":"Die maximale Bildgröße sollte 20 MB betragen",
+        "VIDEO_MAX_SIZE":"Die maximale Videogröße sollte 20 MB betragen",
+        "DOCUMENT_MAX_SIZE":"Die maximale Dokumentgröße sollte 20 MB betragen",
+        "FILE_DOWNLOAD_SUCCESS":"Datei erfolgreich heruntergeladen",
+        "DOWNLOAD_FAILED":"Herunterladen fehlgeschlagen"
       },
       "NEWS_POST_PAGE":{
         "TITLE_LABEL": "Titel",

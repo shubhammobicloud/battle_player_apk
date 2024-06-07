@@ -74,7 +74,12 @@
       "REACTIONS_ADDED_SUCCESS": "Liked",
       "TEAM_CHAT_PAGE":{
         "READ_MORE": "Read more",
-        "ENTER_MESSAGE_PLACEHOLDER": "Enter Message"
+        "ENTER_MESSAGE_PLACEHOLDER": "Enter Message",
+        "IMAGE_MAX_SIZE":"Image maximum size should be 20 MB",
+        "VIDEO_MAX_SIZE":"Video maximum size should be 20 MB",
+        "DOCUMENT_MAX_SIZE":"Document maximum size should be 20 MB",
+        "FILE_DOWNLOAD_SUCCESS":"File downloaded successfully",
+        "DOWNLOAD_FAILED":"Download failed"
       },
       "NEWS_POST_PAGE":{
         "TITLE_LABEL": "Title",

@@ -11,6 +11,7 @@ import {
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { io } from 'socket.io-client';
+import { TranslateService } from '@ngx-translate/core';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { environment } from 'src/environment/enviroment';
 @Component({
@@ -59,7 +60,8 @@ export class TeamChatComponent
     private http: HttpClient,
     private chatService: ChatService,
     private sanitizer: DomSanitizer,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private translate:TranslateService
   ) { }
 
   @ViewChild('chatContainer', { static: true }) container:
@@ -82,6 +84,7 @@ export class TeamChatComponent
   }
   async ngOnInit() {
     // this.loadInitialChunk();
+    console.log(this.id,this.teamId,"asdadadads")
     this.socket = io(`${this.url}team-namespaces`, {
       auth: {
         serverOffset: this.id,
@@ -103,7 +106,7 @@ export class TeamChatComponent
         // console.log(response,"response of joinRoom"); // 'ok'
         if (response.status == 'error') {
           // alert(response.message);
-          this.toastr.error(response.message)
+          // this.toastr.error(response.message)
         }
         if (response.status == 'ok') {
           const response = await this.socket
@@ -242,7 +245,7 @@ export class TeamChatComponent
               }
               if (response.status == 'error') {
                 // alert(response.message);
-                this.toastr.error(response.message);
+                // this.toastr.error(response.message);
               }
             } catch (error: any) {
               // console.log(error.message);
@@ -250,7 +253,7 @@ export class TeamChatComponent
           },
           (error: HttpErrorResponse) => {
             console.log('error', error);
-            this.toastr.error('Failed');
+            this.toastr.error(this.translate.instant('TOASTER_ERROR.SERVER_ERROR'));
           }
         );
       }
@@ -279,7 +282,7 @@ export class TeamChatComponent
         }
         if (response.status == 'error') {
           // alert(response.message);
-          this.toastr.error(response.message)
+          // this.toastr.error(response.message)
         }
       } catch (error: any) {
         // console.log(error.message);
@@ -331,7 +334,7 @@ export class TeamChatComponent
       if (type === 'image') {
         let maxFileSize = 20 * 1024 * 1024;
         if (file.size > maxFileSize) {
-          this.toastr.error(`Image maximum size should be 20 MB`);
+          this.toastr.error(this.translate.instant('COMMUNICATION_PAGE.TEAM_CHAT_PAGE.IMAGE_MAX_SIZE'));
           this.mediaError = true;
         } else {
           this.readFile(file, 'image');
@@ -339,7 +342,7 @@ export class TeamChatComponent
       } else if (type === 'video') {
         let maxFileSize = 20 * 1024 * 1024;
         if (file.size > maxFileSize) {
-          this.toastr.error(`Video maximum size should be 20 MB`);
+          this.toastr.error(this.translate.instant('COMMUNICATION_PAGE.TEAM_CHAT_PAGE.VIDEO_MAX_SIZE'));
           this.mediaError = true;
         } else {
           this.readFile(file, 'video');
@@ -347,7 +350,7 @@ export class TeamChatComponent
       } else if (type === 'document') {
         let maxFileSize = 20 * 1024 * 1024;
         if (file.size > maxFileSize) {
-          this.toastr.error(`document maximum size should be 20 MB`);
+          this.toastr.error(this.translate.instant('COMMUNICATION_PAGE.TEAM_CHAT_PAGE.DOCUMENT_MAX_SIZE'));
           this.mediaError = true;
         } else {
           this.readFile(file, 'document');
@@ -475,20 +478,18 @@ export class TeamChatComponent
           await this.chatService.saveFileToFilesystem(name, blob);
           this.mediaDownloadInProgress = false
           this.contentOrFilePath = ""
-          this.showToast('File downloaded successfully');
+          this.toastr.success(this.translate.instant('COMMUNICATION_PAGE.TEAM_CHAT_PAGE.FILE_DOWNLOAD_SUCCESS'));
         } catch (error) {
           console.error('Download failed', error);
-          this.showToast('Download failed');
+          this.toastr.error(this.translate.instant('COMMUNICATION_PAGE.TEAM_CHAT_PAGE.DOWNLOAD_FAILED'));
         }
       },
       (error) => {
         console.error('Download failed', error);
-        this.showToast('Download failed');
+        this.toastr.error(this.translate.instant('COMMUNICATION_PAGE.TEAM_CHAT_PAGE.DOWNLOAD_FAILED'));
       }
     );
   }
-  private async showToast(message: string) {
-    this.toastr.info(message);
-  }
+
 
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environment/enviroment';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { PermissionState } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,9 @@ export class ChatService {
 
   async saveFileToFilesystem(name: string, blob: Blob): Promise<void> {
     try {
+      let permision= Filesystem.requestPermissions()
+      let gotPermision= Filesystem.checkPermissions()
+      console.log(permision,"asdasdas",gotPermision)
       const base64Data = await this.convertBlobToBase64(blob);
       const directory = Directory.Documents; // Use External directory for better visibility
       const path = `${name}`;
@@ -34,29 +38,10 @@ export class ChatService {
         data: base64Data,
         directory,
       });
-
-      // Verify file creation
-      // console.log(`File saved successfully at ${path}`);
     } catch (error) {
-      // console.error('Error saving file:', error);
       throw error;
     }
   }
-
-  // private async ensureDirectoryExists(directory: string, baseDirectory: Directory) {
-  //   try {
-  //     await Filesystem.mkdir({
-  //       path: directory,
-  //       directory: baseDirectory,
-  //       recursive: true, // Create intermediate directories
-  //     });
-  //   } catch (error:any) {
-  //     if (error.message !== 'Current directory does already exist.') {
-  //       console.error('Error creating directory:', error);
-  //       throw error;
-  //     }
-  //   }
-  // }
 
   private convertBlobToBase64(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {

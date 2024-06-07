@@ -81,7 +81,7 @@ export class ScoreBoardComponent implements OnInit {
           // Share the image file path
           await Share.share({
             title: 'Share this image',
-            text: 'Check out this image!',
+            text: 'Check out this battle!',
             url: fileUri.uri,
           });
           if (!success) {

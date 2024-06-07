@@ -9,7 +9,7 @@
           <!-- <mat-icon >person</mat-icon> -->
           <ng-container *ngIf="player.playerProfile; else noImage">
             <img
-            width="40px" height="40px"
+            width="40px" height="40px" style="border-radius: 50%;"
             formControlName="displayedImage"
             [src]="link+'images/' + player.playerProfile"
             alt="User Avatar"/></ng-container>

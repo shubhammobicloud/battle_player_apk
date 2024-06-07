@@ -8,7 +8,7 @@
         <td>
           <ng-container *ngIf="battle.playerProfile; else noImage">
             <img
-            width="40px" height="40px"
+            width="40px" height="40px" style="border-radius: 50%;"
             formControlName="displayedImage"
             [src]="link+'images/' + battle.playerProfile"
             alt="User Avatar"/></ng-container>

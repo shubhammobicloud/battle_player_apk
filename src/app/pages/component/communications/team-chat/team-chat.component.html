@@ -69,7 +69,7 @@
             </mat-card>
               <div *ngIf="chat.type !== 'text'&& !currentUser(chat.senderId)" class="downloadBtn">
                 <!-- <mat-icon *ngIf="!mediaDownloadInProgress" (click)="downloadMedia(chat.contentOrFilePath)">download</mat-icon> -->
-                <mat-icon (click)="downloadMedia(chat.contentOrFilePath)">download</mat-icon>
+              <mat-icon (click)="downloadMedia(chat.contentOrFilePath)">download</mat-icon>
                 <!-- <mat-spinner *ngIf="mediaDownloadInProgress&&contentOrFilePath==chat.contentOrFilePath"></mat-spinner> -->
               </div>
           </div>

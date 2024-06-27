@@ -28,16 +28,25 @@ export class ChatService {
       let permision= Filesystem.requestPermissions()
       let gotPermision= Filesystem.checkPermissions()
       console.log(permision,"asdasdas",gotPermision)
-      const base64Data = await this.convertBlobToBase64(blob);
+      // const base64Data = await this.convertBlobToBase64(blob);
+      // const url = URL.createObjectURL(blob)
+
       const directory = Directory.Documents; // Use External directory for better visibility
       const path = `${name}`;
 
       // Write the file
-      await Filesystem.writeFile({
+      // await Filesystem.writeFile({
+      //   path,
+      //   data: base64Data,
+      //   directory,
+      // });
+      await Filesystem.downloadFile({
+        url:'https://www.sliderrevolution.com/wp-content/uploads/2021/06/boot1.jpg',
         path,
-        data: base64Data,
+        // data:base64Data,
         directory,
-      });
+        recursive:true
+      })
     } catch (error) {
       throw error;
     }

@@ -163,6 +163,78 @@ body {
     min-height: 7rem !important;
   }
 }
+@media only screen and (max-width: 834px) {
+  .menuMat {
+    .mat-mdc-menu-item {
+      border-radius: 50%;
+      min-height: 70px !important;
+      text-align: center !important;
+      display: flex !important;
+      justify-content: center !important;
+
+      /* Animation properties */
+      animation: appear 0.4s ease-in-out forwards; /* Adjust timing and easing as needed */
+    }
+
+    .mat-mdc-menu-item:nth-child(1) {
+      opacity: 0;
+      border-radius: 50%;
+      transform: translateX(40vw) translateY(21vh);
+      -webkit-transform: translateX(40vw) translateY(21vh);
+      animation-delay: 0s;
+    }
+
+    .mat-mdc-menu-item:nth-child(2) {
+      opacity: 0;
+      border-radius: 50%;
+      transform: translateX(65vw) translateY(21vh);
+      -webkit-transform: translateX(65vw) translateY(21vh);
+      animation-delay: 0.1s;
+    }
+
+    .mat-mdc-menu-item:nth-child(3) {
+      opacity: 0;
+      border-radius: 50%;
+      transform: translateX(65vw) translateY(30vh);
+      -webkit-transform: translateX(65vw) translateY(30vh);
+      animation-delay: 0.2s;
+    }
+
+    .mat-mdc-menu-item:nth-child(4) {
+      opacity: 0;
+      border-radius: 50%;
+      transform: translateX(40vw) translateY(31vh);
+      -webkit-transform: translateX(40vw) translateY(31vh);
+      animation-delay: 0.25s;
+    }
+
+    .mat-mdc-menu-item:nth-child(5) {
+      opacity: 0;
+      border-radius: 50%;
+      transform: translateX(10vw) translateY(11vh);
+      -webkit-transform: translateX(10vw) translateY(11vh);
+      animation-delay: 0.3s;
+    }
+
+    .mat-mdc-menu-item:nth-child(6) {
+      opacity: 0;
+      border-radius: 50%;
+      transform: translateX(10vw) translateY(-18vh);
+      -webkit-transform: translateX(10vw) translateY(-18vh);
+      animation-delay: 0.4s;
+    }
+
+    /* Style for child span */
+    .mat-mdc-menu-item span {
+      min-width: 7rem !important;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center !important;
+      align-items: center;
+      min-height: 7rem !important;
+    }
+  }
+}
 @media only screen and (max-width: 429px) {
   .menuMat {
     .mat-mdc-menu-item {

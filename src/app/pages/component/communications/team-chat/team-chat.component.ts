@@ -8,12 +8,13 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { io } from 'socket.io-client';
 import { TranslateService } from '@ngx-translate/core';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { environment } from 'src/environment/enviroment';
+import { saveAs } from 'file-saver';
 @Component({
   selector: 'app-team-chat',
   templateUrl: './team-chat.component.html',
@@ -374,12 +375,14 @@ export class TeamChatComponent
   }
 
   showImagePopup(popupImgUrl: string, type: string) {
+    console.log(popupImgUrl)
     if (type === 'local') {
       this.popupImgUrl = popupImgUrl;
       // console.log('popup img url', popupImgUrl);
       this.showImgPopup = !this.showImgPopup;
     } else if (type === 'uploaded') {
       this.popupImgUrl = `${this.url}chat/${popupImgUrl}`;
+      console.log(this.popupImgUrl)
       // console.log('popup img url', popupImgUrl);
       this.showImgPopup = !this.showImgPopup;
     } else {
@@ -476,6 +479,7 @@ export class TeamChatComponent
       async (blob) => {
         try {
           await this.chatService.saveFileToFilesystem(name, blob);
+          // let file = saveAs(blob, name);
           this.mediaDownloadInProgress = false
           this.contentOrFilePath = ""
           this.toastr.success(this.translate.instant('COMMUNICATION_PAGE.TEAM_CHAT_PAGE.FILE_DOWNLOAD_SUCCESS'));
